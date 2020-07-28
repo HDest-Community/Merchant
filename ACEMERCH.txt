@@ -1,0 +1,93 @@
+Namespace = "GZDoom";
+
+Conversation
+{
+	Actor = "AceMerchant";
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Introduction";
+		Dialog = "Hey, you. Yeah, you.
+
+Running low on rare ammo? Heh, you've found the right guy. I have something that might be of interest to you. That is, you give me something in return. I need brass. Lots of brass. Don't ask what it's for. I just need it for my house.";
+		Goodbye = "I've gotta go.";
+		Choice
+		{
+			Text = "Let's see what you've got.";
+			NextPage = "Trading - Brass - I";
+		}
+	}
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - Brass - I";
+		Dialog = "Ah, excellent! Here's what I can trade:";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "\c[White]72\c- .355 Rounds \c[Gold](60 Brass)\c-";
+			YesMessage = "It's high noon.";
+			NoMessage = "Don't know if it's high noon, but you're certainly low on cash.";
+			GiveItem = "Item355";
+			NextPage = "Trading - Brass - I";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 60;
+			}
+		}
+		Choice
+		{
+			Text = "\c[White]5\c- Rocket Grenades \c[Gold](100 Brass)\c-";
+			YesMessage = "Just keep a safe distance, okay?";
+			NoMessage = "No cash, no boom.";
+			GiveItem = "ItemRockets";
+			NextPage = "Trading - Brass - I";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 100;
+			}
+		}
+		Choice
+		{
+			Text = "\c[White]1\c- H.E.A.T. Rocket \c[Gold](75 Brass)\c-";
+			YesMessage = "One shot, one kill.";
+			NoMessage = "Packing heat? Well you sure didn't pack any money.";
+			GiveItem = "HEATAmmo";
+			NextPage = "Trading - Brass - I";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 75;
+			}
+		}
+		Choice
+		{
+			Text = "\c[White]1\c- Brontornis Bolt \c[Gold](50 Brass)\c-";
+			YesMessage = "Try not to break your arm firing one.";
+			NoMessage = "Bro bro bro bro bro, get some cash first.";
+			GiveItem = "BrontornisRound";
+			NextPage = "Trading - Brass - I";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 50;
+			}
+		}
+		Choice
+		{
+			Text = "\c[White]1\c- Frag Grenade \c[Gold](40 Brass)\c-";
+			YesMessage = "Remember: pull pin, THEN throw.";
+			NoMessage = "You don't have enough cash, but you probably just avoided blowing yourself up.";
+			GiveItem = "HDFragGrenadeAmmo";
+			NextPage = "Trading - Brass - I";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 50;
+			}
+		}
+	}
+}
+

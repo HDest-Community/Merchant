@@ -1,0 +1,79 @@
+﻿<Dialog>
+	<Conversation>
+		<ActorClass>AceMerchant</ActorClass>
+		<IgnoreDeadEnds>True</IgnoreDeadEnds>
+		<Page>
+			<PageName>Introduction</PageName>
+			<Name>The Brass Collector</Name>
+			<Dialog>Hey, you. Yeah, you.
+
+Running low on rare ammo? Heh, you've found the right guy. I have something that might be of interest to you. That is, you give me something in return. I need brass. Lots of brass. Don't ask what it's for. I just need it for my house.</Dialog>
+			<Goodbye>I've gotta go.</Goodbye>
+			<Choice>
+				<Text>Let's see what you've got.</Text>
+				<NextPage>Trading - Brass - I</NextPage>
+			</Choice>
+		</Page>
+		<Page>
+			<PageName>Trading - Brass - I</PageName>
+			<Name>The Brass Collector</Name>
+			<Dialog>Ah, excellent! Here's what I can trade:</Dialog>
+			<Goodbye>\c[White]Actually, I changed my mind.\c-</Goodbye>
+			<Choice>
+				<Text>\c[White]72\c- .355 Rounds \c[Gold](60 Brass)\c-</Text>
+				<YesMessage>It's high noon.</YesMessage>
+				<NoMessage>Don't know if it's high noon, but you're certainly low on cash.</NoMessage>
+				<NextPage>Trading - Brass - I</NextPage>
+				<GiveItem>Item355</GiveItem>
+				<CostBlock type="0">
+					<Item>sevenmilbrass</Item>
+					<Amount>60</Amount>
+				</CostBlock>
+			</Choice>
+			<Choice>
+				<Text>\c[White]5\c- Rocket Grenades \c[Gold](100 Brass)\c-</Text>
+				<YesMessage>Just keep a safe distance, okay?</YesMessage>
+				<NoMessage>No cash, no boom.</NoMessage>
+				<NextPage>Trading - Brass - I</NextPage>
+				<GiveItem>ItemRockets</GiveItem>
+				<CostBlock type="0">
+					<Item>sevenmilbrass</Item>
+					<Amount>100</Amount>
+				</CostBlock>
+			</Choice>
+			<Choice>
+				<Text>\c[White]1\c- H.E.A.T. Rocket \c[Gold](75 Brass)\c-</Text>
+				<YesMessage>One shot, one kill.</YesMessage>
+				<NoMessage>Packing heat? Well you sure didn't pack any money.</NoMessage>
+				<NextPage>Trading - Brass - I</NextPage>
+				<GiveItem>HEATAmmo</GiveItem>
+				<CostBlock type="0">
+					<Item>sevenmilbrass</Item>
+					<Amount>75</Amount>
+				</CostBlock>
+			</Choice>
+			<Choice>
+				<Text>\c[White]1\c- Brontornis Bolt \c[Gold](50 Brass)\c-</Text>
+				<YesMessage>Try not to break your arm firing one.</YesMessage>
+				<NoMessage>Bro bro bro bro bro, get some cash first.</NoMessage>
+				<NextPage>Trading - Brass - I</NextPage>
+				<GiveItem>BrontornisRound</GiveItem>
+				<CostBlock type="0">
+					<Item>sevenmilbrass</Item>
+					<Amount>50</Amount>
+				</CostBlock>
+			</Choice>
+			<Choice>
+				<Text>\c[White]1\c- Frag Grenade \c[Gold](40 Brass)\c-</Text>
+				<YesMessage>Remember: pull pin, THEN throw.</YesMessage>
+				<NoMessage>You don't have enough cash, but you probably just avoided blowing yourself up.</NoMessage>
+				<NextPage>Trading - Brass - I</NextPage>
+				<GiveItem>HDFragGrenadeAmmo</GiveItem>
+				<CostBlock type="0">
+					<Item>sevenmilbrass</Item>
+					<Amount>50</Amount>
+				</CostBlock>
+			</Choice>
+		</Page>
+	</Conversation>
+</Dialog>

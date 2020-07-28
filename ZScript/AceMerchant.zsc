@@ -1,0 +1,65 @@
+class AceMerchant : Actor
+{
+	override void PostBeginPlay()
+	{
+		ThinkerIterator it = ThinkerIterator.Create("AceMerchant", STAT_DEFAULT);
+		Actor mo;
+		while ((mo = Actor(it.Next())) && mo != self)
+		{
+			Destroy();
+			return;
+		}
+
+		Super.PostBeginPlay();
+	}
+	
+	override void Tick()
+	{
+		if (CheckProximity("PlayerPawn", 96, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
+		{
+			Angle = AngleTo(target);
+		}
+		else if (target && Distance3D(target) > 96)
+		{
+			// [Ace] Allow other people to talk to the NPC as well, but you'll need to keep a distance so the pointer gets nullified.
+			let plr = PlayerPawn(target);
+			if (plr && plr.player)
+			{
+				plr.player.ConversationNPC = null;
+			}
+		}
+
+		Super.Tick();
+	}
+
+	override bool CanCollideWith(Actor other, bool passive)
+	{
+		if (other is "PlayerPawn")
+		{
+			return Super.CanCollideWith(other, passive);
+		}
+
+		return false;
+	}
+
+	Default
+	{
+		Mass 100;
+		Height 64;
+		Radius 8;
+		+SOLID
+		+PUSHABLE
+	}
+
+	States
+	{
+		Spawn:
+			AMRC H -1;
+			Stop;
+	}
+}
+
+class Item9mm : CustomInventory { Default { +INVENTORY.ALWAYSPICKUP } States { Pickup: TNT1 A 0 A_GiveInventory("HDPistolAmmo", 100); Stop; } }
+class Item355 : CustomInventory { Default { +INVENTORY.ALWAYSPICKUP } States { Pickup: TNT1 A 0 A_GiveInventory("HDRevolverAmmo", 72); Stop; } }
+class ItemShells : CustomInventory { Default { +INVENTORY.ALWAYSPICKUP } States { Pickup: TNT1 A 0 A_GiveInventory("HDShellAmmo", 20); Stop; } }
+class ItemRockets : CustomInventory { Default { +INVENTORY.ALWAYSPICKUP } States { Pickup: TNT1 A 0 A_GiveInventory("HDRocketAmmo", 5); Stop; } }
