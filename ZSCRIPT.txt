@@ -19,4 +19,53 @@ class MerchantHandler : StaticEventHandler
 			}
 		}
 	}
+
+	override void PlayerEntered(PlayerEvent e)
+	{
+		let plr = players[e.PlayerNumber].mo;
+		for (int i = 0; i < AllActorClasses.Size(); ++i)
+		{
+			Name cls = AllActorClasses[i].GetClassName();
+			switch (cls)
+			{
+				case 'HDOtisLightAmmo': TryGiveCheck(plr, "HDOtisLightAmmoCheck"); break;
+				case 'HDOtisHeavyAmmo': TryGiveCheck(plr, "HDOtisHeavyAmmoCheck"); break;
+			}
+		}
+	}
+
+	private void TryGiveCheck(Actor plr, class<CompatItemChecker> item)
+	{
+		if (plr && !plr.CheckInventory(item, 1))
+		{
+			plr.A_GiveInventory(item);
+		}
+	}
 }
+
+class CompatItemChecker : Inventory
+{
+	override bool HandlePickup(Inventory item)
+	{
+		if (item.GetClass() == GetClass() && owner)
+		{
+			owner.A_GiveInventory(ItemToGive, AmountToGive);
+		}
+
+		return false;
+	}
+
+	string ItemToGive;
+	int AmountToGive;
+	Property ItemToGive: ItemToGive, AmountToGive;
+	Default
+	{
+		Inventory.MaxAmount 2;
+		+INVENTORY.UNDROPPABLE
+	}
+}
+
+// [Ace] Commence compatibility!
+
+class HDOtisLightAmmoCheck : CompatItemChecker { Default { CompatItemChecker.ItemToGive "HDOtisLightAmmo", 40; } }
+class HDOtisHeavyAmmoCheck : CompatItemChecker { Default { CompatItemChecker.ItemToGive "HDOtisHeavyAmmo", 20; } }

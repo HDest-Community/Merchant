@@ -3,24 +3,44 @@ Namespace = "GZDoom";
 Conversation
 {
 	Actor = "AceMerchant";
+	Class = "MerchantConversationMenu";
+
+	// --------------------------------------------------
+	// MAIN PAGE
+	// --------------------------------------------------
+
 	Page
 	{
 		Name = "The Brass Collector";
 		PageName = "Introduction";
 		Dialog = "Hey, you. Yeah, you.
 
-Running low on rare ammo or items? Heh, you've found the right guy. I have something that might be of interest to you. That is, you give me something in return. I need brass. Lots of brass. Don't ask what it's for. I just need it for my house.";
+		Running low on rare ammo or items? Heh, you've found the right guy. I have something that might be of interest to you. That is, you give me something in return. I need brass. Lots of brass. Don't ask what it's for. I just need it for my house.";
 		Goodbye = "I've gotta go.";
 		Choice
 		{
-			Text = "Let's see what you've got.";
-			NextPage = "Trading - I";
+			Text = "Let's see the usual stuff.";
+			NextPage = "Trading - Vanilla";
+		}
+		Choice
+		{
+			Text = "I heard you have Otis-5 ammo.";
+			NextPage = "Trading - Otis";
+
+			Require
+			{
+				Item = "HDOtisLightAmmoCheck";
+			}
 		}
 	}
+
+	// --------------------------------------------------
+	// VANILLA
+	// --------------------------------------------------
 	Page
 	{
 		Name = "The Brass Collector";
-		PageName = "Trading - I";
+		PageName = "Trading - Vanilla";
 		Dialog = "Ah, excellent! Here's what I can trade:";
 		Goodbye = "\c[White]Actually, I changed my mind.\c-";
 		Choice
@@ -29,7 +49,7 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 			YesMessage = "It's high noon.";
 			NoMessage = "Don't know if it's high noon, but you're certainly low on cash.";
 			GiveItem = "Item355";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -42,7 +62,7 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 			YesMessage = "Just keep a safe distance, okay?";
 			NoMessage = "No cash, no boom.";
 			GiveItem = "ItemRockets";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -51,15 +71,15 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 		}
 		Choice
 		{
-			Text = "\c[White]1\c- H.E.A.T. Rocket \c[Gold](75 Brass)\c-";
+			Text = "\c[White]1\c- H.E.A.T. Rocket \c[Gold](65 Brass)\c-";
 			YesMessage = "One shot, one kill.";
 			NoMessage = "Packing heat? Well you sure didn't pack any money.";
 			GiveItem = "HEATAmmo";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
-				Amount = 75;
+				Amount = 65;
 			}
 		}
 		Choice
@@ -68,7 +88,7 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 			YesMessage = "Try not to break your arm firing one.";
 			NoMessage = "Bro bro bro bro bro, get some cash first.";
 			GiveItem = "BrontornisRound";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -77,15 +97,15 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 		}
 		Choice
 		{
-			Text = "\c[White]1\c- Frag Grenade \c[Gold](50 Brass)\c-";
+			Text = "\c[White]1\c- Frag Grenade \c[Gold](40 Brass)\c-";
 			YesMessage = "Remember: pull pin, THEN throw.";
 			NoMessage = "You don't have enough cash, but you probably just avoided blowing yourself up.";
 			GiveItem = "HDFragGrenadeAmmo";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
-				Amount = 50;
+				Amount = 40;
 			}
 		}
 		Choice
@@ -94,7 +114,7 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 			YesMessage = "For what ails you.";
 			NoMessage = "You can't afford this, but look at the bright side. At least you won't get an addiction.";
 			GiveItem = "BluePotion";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -107,13 +127,68 @@ Running low on rare ammo or items? Heh, you've found the right guy. I have somet
 			YesMessage = "Be careful not to overdose. Oh who am I kidding, of course you will.";
 			NoMessage = "Don't get angry at me that you're broke.";
 			GiveItem = "PortableBerserkPack";
-			NextPage = "Trading - I";
+			NextPage = "Trading - Vanilla";
 			Cost
 			{
 				Item = "sevenmilbrass";
 				Amount = 100;
 			}
 		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	// --------------------------------------------------
+	// OTIS-5
+	// --------------------------------------------------
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - Otis";
+		Dialog = "Sure I do! But it's not going to be cheap.";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "\c[White]20\c- .500 S&W Handloads \c[Gold](70 Brass)\c-";
+			YesMessage = "These ought to punch a hole.";
+			NoMessage = "Looks like there's a hole in your pocket.";
+			GiveItem = "HDOtisHeavyAmmoCheck";
+			NextPage = "Trading - Otis";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 70;
+			}
+			Require
+			{
+				Item = "HDOtisHeavyAmmoCheck";
+			}
+		}
+		Choice
+		{
+			Text = "\c[White]40\c- .500 S&W \c[Gold](80 Brass)\c-";
+			YesMessage = "Much better than the peashooter .355, isn't it?";
+			NoMessage = "Come back when you feel like actually buying any of these.";
+			GiveItem = "HDOtisLightAmmoCheck";
+			NextPage = "Trading - Otis";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 70;
+			}
+			Require
+			{
+				Item = "HDOtisLightAmmoCheck";
+			}
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
 	}
 }
-
