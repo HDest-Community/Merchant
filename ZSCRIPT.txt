@@ -1,7 +1,5 @@
 version "4.2"
 
-#include "ZScript/AceMerchant.zsc"
-
 class MerchantHandler : StaticEventHandler
 {
 	override void WorldLoaded(WorldEvent e)
@@ -28,44 +26,112 @@ class MerchantHandler : StaticEventHandler
 			Name cls = AllActorClasses[i].GetClassName();
 			switch (cls)
 			{
-				case 'HDOtisLightAmmo': TryGiveCheck(plr, "HDOtisLightAmmoCheck"); break;
-				case 'HDOtisHeavyAmmo': TryGiveCheck(plr, "HDOtisHeavyAmmoCheck"); break;
+				case 'HDOtisGun': plr.A_GiveInventory("HDOtisCheck"); break;
 			}
-		}
-	}
-
-	private void TryGiveCheck(Actor plr, class<CompatItemChecker> item)
-	{
-		if (plr && !plr.CheckInventory(item, 1))
-		{
-			plr.A_GiveInventory(item);
 		}
 	}
 }
 
-class CompatItemChecker : Inventory
+// ----------------------------------------
+// COMPATIBILITY
+// ----------------------------------------
+
+class CompatibilityCheck : Inventory
 {
-	override bool HandlePickup(Inventory item)
+	Default
 	{
-		if (item.GetClass() == GetClass() && owner)
+		+INVENTORY.UNDROPPABLE
+	}
+}
+
+class StoreItem : Inventory
+{
+	override void AttachToOwner(Actor other)
+	{
+		if (other)
 		{
-			owner.A_GiveInventory(ItemToGive, AmountToGive);
+			other.A_GiveInventory(GiveItem, GiveAmount);
+		}
+	}
+
+	string GiveItem;
+	int GiveAmount;
+	Property GiveItem: GiveItem, GiveAmount;
+}
+
+// ---------- VANILLA ----------
+
+// [Ace] These exist because the Dialog's GiveItem only supports an amount of 1.
+class HD355Store : StoreItem { Default { StoreItem.GiveItem "HDRevolverAmmo", 72; } }
+class HDRocketsStore : StoreItem { Default { StoreItem.GiveItem "HDRocketAmmo", 5; } }
+
+// ---------- OTIS-5 ----------
+
+class HDOtisCheck : CompatibilityCheck { }
+class HDOtisLightAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisLightAmmo", 40; } }
+class HDOtisHeavyAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisHeavyAmmo", 20; } }
+
+// ----------------------------------------
+// MERCHANT
+// ----------------------------------------
+
+class AceMerchant : Actor
+{
+	override void PostBeginPlay()
+	{
+		ThinkerIterator it = ThinkerIterator.Create("AceMerchant", STAT_DEFAULT);
+		Actor mo;
+		while ((mo = Actor(it.Next())) && mo != self)
+		{
+			Destroy();
+			return;
+		}
+
+		Super.PostBeginPlay();
+	}
+	
+	override void Tick()
+	{
+		if (CheckProximity("PlayerPawn", 96, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
+		{
+			Angle = AngleTo(target);
+		}
+		else if (target && Distance3D(target) > 96)
+		{
+			// [Ace] Allow other people to talk to the NPC as well, but you'll need to keep a distance so the pointer gets nullified.
+			let plr = PlayerPawn(target);
+			if (plr && plr.player)
+			{
+				plr.player.ConversationNPC = null;
+			}
+		}
+
+		Super.Tick();
+	}
+
+	override bool CanCollideWith(Actor other, bool passive)
+	{
+		if (other is "PlayerPawn")
+		{
+			return Super.CanCollideWith(other, passive);
 		}
 
 		return false;
 	}
 
-	string ItemToGive;
-	int AmountToGive;
-	Property ItemToGive: ItemToGive, AmountToGive;
 	Default
 	{
-		Inventory.MaxAmount 2;
-		+INVENTORY.UNDROPPABLE
+		Mass 100;
+		Height 64;
+		Radius 8;
+		+SOLID
+		+PUSHABLE
+	}
+
+	States
+	{
+		Spawn:
+			AMRC H -1;
+			Stop;
 	}
 }
-
-// [Ace] Commence compatibility!
-
-class HDOtisLightAmmoCheck : CompatItemChecker { Default { CompatItemChecker.ItemToGive "HDOtisLightAmmo", 40; } }
-class HDOtisHeavyAmmoCheck : CompatItemChecker { Default { CompatItemChecker.ItemToGive "HDOtisHeavyAmmo", 20; } }

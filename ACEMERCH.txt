@@ -29,7 +29,7 @@ Conversation
 
 			Require
 			{
-				Item = "HDOtisLightAmmoCheck";
+				Item = "HDOtisCheck";
 			}
 		}
 	}
@@ -48,7 +48,7 @@ Conversation
 			Text = "\c[White]72\c- .355 Rounds \c[Gold](60 Brass)\c-";
 			YesMessage = "It's high noon.";
 			NoMessage = "Don't know if it's high noon, but you're certainly low on cash.";
-			GiveItem = "Item355";
+			GiveItem = "HD355Store";
 			NextPage = "Trading - Vanilla";
 			Cost
 			{
@@ -61,7 +61,7 @@ Conversation
 			Text = "\c[White]5\c- Rocket Grenades \c[Gold](100 Brass)\c-";
 			YesMessage = "Just keep a safe distance, okay?";
 			NoMessage = "No cash, no boom.";
-			GiveItem = "ItemRockets";
+			GiveItem = "HDRocketsStore";
 			NextPage = "Trading - Vanilla";
 			Cost
 			{
@@ -156,16 +156,12 @@ Conversation
 			Text = "\c[White]20\c- .500 S&W Handloads \c[Gold](70 Brass)\c-";
 			YesMessage = "These ought to punch a hole.";
 			NoMessage = "Looks like there's a hole in your pocket.";
-			GiveItem = "HDOtisHeavyAmmoCheck";
+			GiveItem = "HDOtisHeavyAmmoStore";
 			NextPage = "Trading - Otis";
 			Cost
 			{
 				Item = "sevenmilbrass";
 				Amount = 70;
-			}
-			Require
-			{
-				Item = "HDOtisHeavyAmmoCheck";
 			}
 		}
 		Choice
@@ -173,16 +169,12 @@ Conversation
 			Text = "\c[White]40\c- .500 S&W \c[Gold](80 Brass)\c-";
 			YesMessage = "Much better than the peashooter .355, isn't it?";
 			NoMessage = "Come back when you feel like actually buying any of these.";
-			GiveItem = "HDOtisLightAmmoCheck";
+			GiveItem = "HDOtisLightAmmoStore";
 			NextPage = "Trading - Otis";
 			Cost
 			{
 				Item = "sevenmilbrass";
 				Amount = 70;
-			}
-			Require
-			{
-				Item = "HDOtisLightAmmoCheck";
 			}
 		}
 		Choice
