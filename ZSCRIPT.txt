@@ -11,9 +11,10 @@ class MerchantHandler : StaticEventHandler
 			Sector CurrSec = level.Sectors[i];
 			vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
 
-			if (CurrSec.IsSecret() && random(1, 100) <= max(10, 25 - 2 * level.total_secrets))
+			if (CurrSec.IsSecret() && random(1, 100) <= max(8, 20 - 2 * level.total_secrets))
 			{
 				Actor.Spawn("AceMerchant", SpawnPos);
+				break;
 			}
 		}
 	}
@@ -79,15 +80,7 @@ class AceMerchant : Actor
 {
 	override void PostBeginPlay()
 	{
-		ThinkerIterator it = ThinkerIterator.Create("AceMerchant", STAT_DEFAULT);
-		Actor mo;
-		while ((mo = Actor(it.Next())) && mo != self)
-		{
-			Destroy();
-			return;
-		}
-
-		if (random(1, 100) <= 75)
+		if (random(1, 100) <= 60)
 		{
 			A_SpawnItemEx("BrassChest", random(16, 32), angle: random(0, 359), flags: SXF_NOCHECKPOSITION | SXF_SETMASTER);
 		}
