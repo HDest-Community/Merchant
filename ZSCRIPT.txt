@@ -87,6 +87,11 @@ class AceMerchant : Actor
 			return;
 		}
 
+		if (random(1, 100) <= 75)
+		{
+			A_SpawnItemEx("BrassChest", random(16, 32), angle: random(0, 359), flags: SXF_NOCHECKPOSITION);
+		}
+
 		Super.PostBeginPlay();
 	}
 	
@@ -132,6 +137,106 @@ class AceMerchant : Actor
 	{
 		Spawn:
 			AMRC H -1;
+			Stop;
+	}
+}
+
+class BrassChest : Actor
+{
+	private string GetRandomMessage() const
+	{
+		static const string Messages[] =
+		{
+			"Noooo! My stash! Why would you do that!?",
+			"My precious brass!",
+			"Sure, take it all! See if I care!",
+			"What are you doing!? Leave my precious brass alone!",
+			"Do you know what you have done!?",
+			"Do you have ANY idea how long it took me to collect those!?",
+			"Fine. It's not like you won't give them back to me soon."
+		};
+
+		return Messages[random(0, Messages.Size() - 1)];
+	}
+
+	override bool Used(Actor user)
+	{
+		if (!Opened)
+		{
+			user.A_Log("\c[White]Brass Collector: \c[Green]"..GetRandomMessage().."\c-");
+			user.A_StartSound("misc/chat", 20, CHANF_LOCAL);
+			SetStateLabel("BrassTime");
+			Angle = AngleTo(user);
+			Opened = true;
+		}
+
+		return Super.Used(user);
+	}
+
+	private void SpillBrass()
+	{
+		A_SpawnItemEx("HDSpent7mm", random(0, 4), 0, height - 6, frandom(0.3, 0.8), 0, frandom(8, 15), random(0, 359));
+		DroppedBrass++;
+	}
+
+	Default
+	{
+		Radius 8;
+		Height 20;
+		+SOLID
+	}
+
+	private int MaxBrass;
+	private int DroppedBrass;
+	private bool Opened;
+
+	States
+	{
+		Spawn:
+			MCST A -1 NoDelay
+			{
+				MaxBrass = random(50, 300);
+			}
+			Stop;
+		BrassTime:
+			MCST BCD 2;
+			MCST E 2
+			{
+				A_StartSound("misc/secret");
+			}
+		GimmeGimme:
+			MCST F 2
+			{
+				for (int i = 0; i < 3; ++i)
+				{
+					SpillBrass();
+				}
+
+				if (DroppedBrass > MaxBrass)
+				{
+					SetStateLabel("StopYouHaveTakenAllOfMySavings");
+				}
+			}
+			Loop;
+		StopYouHaveTakenAllOfMySavings:
+			MCST F -1
+			{
+				if (!random(0, 1))
+				{
+					switch(random(0, 2))
+					{
+						case 0:
+							A_SpawnItemEx("HDFragGrenade", 0, 0, height - 6, frandom(3, 5), 0, frandom(5, 10));
+							break;
+						default:
+							for (int i = 0; i < 3; ++i)
+							{
+								A_SpawnItemEx("BFGNecroShard");
+							}
+							break;
+					}
+				}
+			}
 			Stop;
 	}
 }
