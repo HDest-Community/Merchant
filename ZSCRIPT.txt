@@ -89,7 +89,7 @@ class AceMerchant : Actor
 
 		if (random(1, 100) <= 75)
 		{
-			A_SpawnItemEx("BrassChest", random(16, 32), angle: random(0, 359), flags: SXF_NOCHECKPOSITION);
+			A_SpawnItemEx("BrassChest", random(16, 32), angle: random(0, 359), flags: SXF_NOCHECKPOSITION | SXF_SETMASTER);
 		}
 
 		Super.PostBeginPlay();
@@ -147,13 +147,13 @@ class BrassChest : Actor
 	{
 		static const string Messages[] =
 		{
-			"Noooo! My stash! Why would you do that!?",
-			"My precious brass!",
-			"Sure, take it all! See if I care!",
-			"What are you doing!? Leave my precious brass alone!",
-			"Do you know what you have done!?",
-			"Do you have ANY idea how long it took me to collect those!?",
-			"Fine. It's not like you won't give them back to me soon."
+			"Noooo! My stash! Why would you do that!? I'm not selling to you anymore.",
+			"My precious brass! That's it, no more goods from me!",
+			"Sure, take it all! See if I care... WELL I DO! THERE YOU HAVE IT, NO MORE SHOP!",
+			"What are you doing!? Leave my precious brass alone! I've had it, I'm not going to sell to you.",
+			"Do you know what you have done!? I'm closing shop thanks to that.",
+			"Do you have ANY idea how long it took me to collect those!? Get out of here!",
+			"Fine. It's not like you won't give them back to me soon. But now GIT!"
 		};
 
 		return Messages[random(0, Messages.Size() - 1)];
@@ -168,6 +168,7 @@ class BrassChest : Actor
 			SetStateLabel("BrassTime");
 			Angle = AngleTo(user);
 			Opened = true;
+			master.bINCOMBAT = true;
 		}
 
 		return Super.Used(user);
@@ -195,7 +196,7 @@ class BrassChest : Actor
 		Spawn:
 			MCST A -1 NoDelay
 			{
-				MaxBrass = random(50, 300);
+				MaxBrass = random(50, 250);
 			}
 			Stop;
 		BrassTime:
