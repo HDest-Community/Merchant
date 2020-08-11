@@ -200,7 +200,6 @@ class BrassChest : Actor
 			MCST A -1 NoDelay
 			{
 				MaxBrass = int(ceil(random(50, 200) * hdm_lootmult));
-				Console.Printf("%i", MaxBrass);
 			}
 			Stop;
 		BrassTime:
