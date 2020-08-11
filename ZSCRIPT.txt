@@ -197,15 +197,13 @@ class BrassChest : Actor
 	States
 	{
 		Spawn:
-			MCST A -1 NoDelay
-			{
-				MaxBrass = int(ceil(random(50, 200) * hdm_lootmult));
-			}
+			MCST A -1;
 			Stop;
 		BrassTime:
 			MCST BCD 2;
 			MCST E 2
 			{
+				MaxBrass = int(ceil(random(50, 200) * hdm_lootmult));
 				A_StartSound("misc/secret");
 			}
 		GimmeGimme:
