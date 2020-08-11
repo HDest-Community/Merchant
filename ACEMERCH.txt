@@ -34,7 +34,7 @@ Conversation
 		}
 		Choice
 		{
-			Text = "Hey, got any teleportation devices?";
+			Text = "Got any teleportation devices?";
 			NextPage = "Trading - Teleporter";
 
 			Require
