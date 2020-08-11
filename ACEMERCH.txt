@@ -32,6 +32,16 @@ Conversation
 				Item = "HDOtisCheck";
 			}
 		}
+		Choice
+		{
+			Text = "Hey, got any teleportation devices?";
+			NextPage = "Trading - Teleporter";
+
+			Require
+			{
+				Item = "HDTeleporterCheck";
+			}
+		}
 	}
 
 	// --------------------------------------------------
@@ -175,6 +185,36 @@ Conversation
 			{
 				Item = "sevenmilbrass";
 				Amount = 70;
+			}
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	// --------------------------------------------------
+	// TELEPORTER
+	// --------------------------------------------------
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - Teleporter";
+		Dialog = "I came across these an abandoned facility. I'll sell them to you, for a price.";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "\c[White]1\c- Teleporter \c[Gold](120 Brass)\c-";
+			YesMessage = "Batteries not included.";
+			NoMessage = "Teleport back here when you have more brass. Oh, wait.";
+			GiveItem = "HDTeleporterStore";
+			NextPage = "Trading - Teleporter";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 120;
 			}
 		}
 		Choice

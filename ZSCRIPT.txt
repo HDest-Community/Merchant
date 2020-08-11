@@ -28,6 +28,7 @@ class MerchantHandler : StaticEventHandler
 			switch (cls)
 			{
 				case 'HDOtisGun': plr.A_GiveInventory("HDOtisCheck"); break;
+				case 'HDTeleporter': plr.A_GiveInventory("HDTeleporterCheck"); break;
 			}
 		}
 	}
@@ -71,6 +72,11 @@ class HDRocketsStore : StoreItem { Default { StoreItem.GiveItem "HDRocketAmmo", 
 class HDOtisCheck : CompatibilityCheck { }
 class HDOtisLightAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisLightAmmo", 40; } }
 class HDOtisHeavyAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisHeavyAmmo", 20; } }
+
+// ---------- TELEPORTER ----------
+
+class HDTeleporterCheck : CompatibilityCheck { }
+class HDTeleporterStore: StoreItem { Default { StoreItem.GiveItem "HDTeleporter", 1; } }
 
 // ----------------------------------------
 // MERCHANT
