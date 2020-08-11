@@ -1,0 +1,2 @@
+server int hdm_chestchance = 60;
+server float hdm_lootmult = 1;
