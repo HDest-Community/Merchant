@@ -20,7 +20,7 @@ Conversation
 		Choice
 		{
 			Text = "Let's see the usual stuff.";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Ammo";
 		}
 		Choice
 		{
@@ -47,10 +47,11 @@ Conversation
 	// --------------------------------------------------
 	// VANILLA
 	// --------------------------------------------------
+
 	Page
 	{
 		Name = "The Brass Collector";
-		PageName = "Trading - Vanilla";
+		PageName = "Trading - Vanilla - Ammo";
 		Dialog = "Ah, excellent! Here's what I can trade:";
 		Goodbye = "\c[White]Actually, I changed my mind.\c-";
 		Choice
@@ -59,7 +60,7 @@ Conversation
 			YesMessage = "It's high noon.";
 			NoMessage = "Don't know if it's high noon, but you're certainly low on cash.";
 			GiveItem = "HD355Store";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Ammo";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -68,24 +69,11 @@ Conversation
 		}
 		Choice
 		{
-			Text = "\c[White]5\c- Rocket Grenades \c[Gold](100 Brass)\c-";
-			YesMessage = "Just keep a safe distance, okay?";
-			NoMessage = "No cash, no boom.";
-			GiveItem = "HDRocketsStore";
-			NextPage = "Trading - Vanilla";
-			Cost
-			{
-				Item = "sevenmilbrass";
-				Amount = 100;
-			}
-		}
-		Choice
-		{
-			Text = "\c[White]1\c- H.E.A.T. Rocket \c[Gold](65 Brass)\c-";
+			Text = "H.E.A.T. Rocket \c[Gold](65 Brass)\c-";
 			YesMessage = "One shot, one kill.";
 			NoMessage = "Packing heat? Well you sure didn't pack any money.";
 			GiveItem = "HEATAmmo";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Ammo";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -94,11 +82,11 @@ Conversation
 		}
 		Choice
 		{
-			Text = "\c[White]1\c- Brontornis Bolt \c[Gold](50 Brass)\c-";
+			Text = "Brontornis Bolt \c[Gold](50 Brass)\c-";
 			YesMessage = "Try not to break your arm firing one.";
 			NoMessage = "Bro bro bro bro bro, get some cash first.";
 			GiveItem = "BrontornisRound";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Ammo";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -107,11 +95,11 @@ Conversation
 		}
 		Choice
 		{
-			Text = "\c[White]1\c- Frag Grenade \c[Gold](40 Brass)\c-";
+			Text = "Frag Grenade \c[Gold](40 Brass)\c-";
 			YesMessage = "Remember: pull pin, THEN throw.";
 			NoMessage = "You don't have enough cash, but you probably just avoided blowing yourself up.";
 			GiveItem = "HDFragGrenadeAmmo";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Ammo";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -120,11 +108,29 @@ Conversation
 		}
 		Choice
 		{
-			Text = "\c[White]1\c- Blue Potion \c[Gold](80 Brass)\c-";
+			Text = "\c[DarkGrey]Let's see the items.\c-";
+			NextPage = "Trading - Vanilla - Items";
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - Vanilla - Items";
+		Dialog = "Ah, excellent! Here's what I can trade:";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "Blue Potion \c[Gold](80 Brass)\c-";
 			YesMessage = "For what ails you.";
 			NoMessage = "You can't afford this, but look at the bright side. At least you won't get an addiction.";
 			GiveItem = "BluePotion";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Items";
 			Cost
 			{
 				Item = "sevenmilbrass";
@@ -133,16 +139,60 @@ Conversation
 		}
 		Choice
 		{
-			Text = "\c[White]1\c- Berserk \c[Gold](100 Brass)\c-";
+			Text = "Berserk \c[Gold](100 Brass)\c-";
 			YesMessage = "Be careful not to overdose. Oh who am I kidding, of course you will.";
 			NoMessage = "Don't get angry at me that you're broke.";
 			GiveItem = "PortableBerserkPack";
-			NextPage = "Trading - Vanilla";
+			NextPage = "Trading - Vanilla - Items";
 			Cost
 			{
 				Item = "sevenmilbrass";
 				Amount = 100;
 			}
+		}
+		Choice
+		{
+			Text = "Door Buster \c[Gold](50 Brass)\c-";
+			YesMessage = "Be careful not to blow yourself up with these.";
+			NoMessage = "Looks like you'll have to stick to finding the keys.";
+			GiveItem = "DoorBuster";
+			NextPage = "Trading - Vanilla - Items";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 50;
+			}
+		}
+		Choice
+		{
+			Text = "Garrison Armor \c[Gold](160 Brass)\c-";
+			YesMessage = "Should last long enough for me to see you again.";
+			NoMessage = "Sorry, pal, protection isn't free.";
+			GiveItem = "GarrisonArmour";
+			NextPage = "Trading - Vanilla - Items";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 160;
+			}
+		}
+		Choice
+		{
+			Text = "Battle Armor \c[Gold](280 Brass)\c-";
+			YesMessage = "You'll be unstoppable with this.";
+			NoMessage = "You'll have to stick to the cheap armor.";
+			GiveItem = "BattleArmour";
+			NextPage = "Trading - Vanilla - Items";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 280;
+			}
+		}
+		Choice
+		{
+			Text = "\c[DarkGrey]Let's go back to the ammo.\c-";
+			NextPage = "Trading - Vanilla - Ammo";
 		}
 		Choice
 		{
@@ -184,7 +234,7 @@ Conversation
 			Cost
 			{
 				Item = "sevenmilbrass";
-				Amount = 70;
+				Amount = 80;
 			}
 		}
 		Choice
