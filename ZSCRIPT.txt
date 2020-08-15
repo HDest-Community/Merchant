@@ -130,6 +130,7 @@ class AceMerchant : Actor
 		Radius 8;
 		+SOLID
 		+PUSHABLE
+		+NOBLOCKMONST
 	}
 
 	States
@@ -188,6 +189,7 @@ class BrassChest : Actor
 		Radius 8;
 		Height 20;
 		+SOLID
+		+NOBLOCKMONST
 	}
 
 	private int MaxBrass;
