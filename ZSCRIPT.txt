@@ -167,13 +167,16 @@ class BrassChest : Actor
 			Angle = AngleTo(user);
 			Opened = true;
 
-			bool HasSight = master && master.CheckSight(self);
-			int Distance = master ? Distance3D(master) : -1;
-			if (HasSight && Distance < 768 || !HasSight && Distance < 256)
+			if (master)
 			{
-				user.A_Log("\c[White]Brass Collector: \c[Green]"..GetRandomMessage().."\c-");
-				user.A_StartSound("misc/chat", 20, CHANF_LOCAL);
-				master.bINCOMBAT = true;
+				bool HasSight = master.CheckSight(self);
+				double Distance = Distance3D(master);
+				if (HasSight && Distance < 768 || !HasSight && Distance < 256)
+				{
+					user.A_Log("\c[White]Brass Collector: \c[Green]"..GetRandomMessage().."\c-");
+					user.A_StartSound("misc/chat", 20, CHANF_LOCAL);
+					master.bINCOMBAT = true;
+				}
 			}
 		}
 
