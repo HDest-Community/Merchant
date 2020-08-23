@@ -167,7 +167,9 @@ class BrassChest : Actor
 			Angle = AngleTo(user);
 			Opened = true;
 
-			if (master)
+			bool HasSight = master && master.CheckSight(self);
+			int Distance = master ? Distance3D(master) : -1;
+			if (HasSight && Distance < 768 || !HasSight && Distance < 256)
 			{
 				user.A_Log("\c[White]Brass Collector: \c[Green]"..GetRandomMessage().."\c-");
 				user.A_StartSound("misc/chat", 20, CHANF_LOCAL);
