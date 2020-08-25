@@ -42,6 +42,26 @@ Conversation
 				Item = "HDTeleporterCheck";
 			}
 		}
+		Choice
+		{
+			Text = "Looking for a red box thingy.";
+			NextPage = "Trading - HackedReloader";
+
+			Require
+			{
+				Item = "HDHackedReloaderCheck";
+			}
+		}
+		Choice
+		{
+			Text = "Happen to have any shiny blue boxes?";
+			NextPage = "Trading - UniversalReloader";
+
+			Require
+			{
+				Item = "HDUniReloaderCheck";
+			}
+		}
 	}
 
 	// --------------------------------------------------
@@ -165,6 +185,32 @@ Conversation
 		}
 		Choice
 		{
+			Text = "Portable Ladder \c[Gold](100 Brass)\c-";
+			YesMessage = "Don't fall and break a leg.";
+			NoMessage = "Guess you'll have to just jump.";
+			GiveItem = "PortableLadder";
+			NextPage = "Trading - Vanilla - Items";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 100;
+			}
+		}
+		Choice
+		{
+			Text = "Jetpack \c[Gold](180 Brass)\c-";
+			YesMessage = "Careful not to leave the atmosphere.";
+			NoMessage = "No money means you stay on the same level as us common folk.";
+			GiveItem = "HDJetPack";
+			NextPage = "Trading - Vanilla - Items";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 180;
+			}
+		}
+		Choice
+		{
 			Text = "Garrison Armor \c[Gold](160 Brass)\c-";
 			YesMessage = "Should last long enough for me to see you again.";
 			NoMessage = "Sorry, pal, protection isn't free.";
@@ -193,11 +239,6 @@ Conversation
 		{
 			Text = "\c[DarkGrey]Let's go back to the ammo.\c-";
 			NextPage = "Trading - Vanilla - Ammo";
-		}
-		Choice
-		{
-			Text = "\c[Gold]Back...\c-";
-			NextPage = "Introduction";
 		}
 	}
 
@@ -256,7 +297,7 @@ Conversation
 		Goodbye = "\c[White]Actually, I changed my mind.\c-";
 		Choice
 		{
-			Text = "\c[White]1\c- Teleporter \c[Gold](120 Brass)\c-";
+			Text = "Teleporter \c[Gold](120 Brass)\c-";
 			YesMessage = "Batteries not included.";
 			NoMessage = "Teleport back here when you have more brass. Oh, wait.";
 			GiveItem = "HDTeleporterStore";
@@ -265,6 +306,66 @@ Conversation
 			{
 				Item = "sevenmilbrass";
 				Amount = 120;
+			}
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	// --------------------------------------------------
+	// HACKED RELOADER
+	// --------------------------------------------------
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - HackedReloader";
+		Dialog = "You mean this thing? I don't even know what it does, but you can have it if you can pay for it.";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "Hacked 7.76 Reloader \c[Gold](120 Brass)\c-";
+			YesMessage = "Good luck figuring out what it does.";
+			NoMessage = "No shiny brass, no shiny box.";
+			GiveItem = "HDHackedReloaderStore";
+			NextPage = "Trading - HackedReloader";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 120;
+			}
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	// --------------------------------------------------
+	// UNIVERSAL RELOADER
+	// --------------------------------------------------
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - UniversalReloader";
+		Dialog = "I think I know what you're talking about. Found a bunch of these in a backpack some fool must have forgotten to pick back up. Hah! No idea how it works, but's pretty heavy. Not going to be cheap, either.";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "Universal Reloader \c[Gold](200 Brass)\c-";
+			YesMessage = "I have no idea why you'd spend this much brass on this.";
+			NoMessage = "Do I look like I give things out for free?";
+			GiveItem = "HDUniReloaderStore";
+			NextPage = "Trading - UniversalReloader";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 200;
 			}
 		}
 		Choice

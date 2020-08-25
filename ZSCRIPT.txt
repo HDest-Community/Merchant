@@ -29,6 +29,8 @@ class MerchantHandler : StaticEventHandler
 			{
 				case 'HDOtisGun': plr.A_GiveInventory("HDOtisCheck"); break;
 				case 'HDTeleporter': plr.A_GiveInventory("HDTeleporterCheck"); break;
+				case 'HackedReloader': plr.A_GiveInventory("HDHackedReloaderCheck"); break;
+				case 'HDUniversalReloader': plr.A_GiveInventory("HDUniReloaderCheck"); break;
 			}
 		}
 	}
@@ -77,6 +79,16 @@ class HDOtisHeavyAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisHea
 
 class HDTeleporterCheck : CompatibilityCheck { }
 class HDTeleporterStore: StoreItem { Default { StoreItem.GiveItem "HDTeleporter", 1; } }
+
+// ---------- HACKED RELOADER ----------
+
+class HDHackedReloaderCheck : CompatibilityCheck { }
+class HDHackedReloaderStore: StoreItem { Default { StoreItem.GiveItem "HackedReloader", 1; } }
+
+// ---------- UNIVERSAL RELOADER ----------
+
+class HDUniReloaderCheck : CompatibilityCheck { }
+class HDUniReloaderStore: StoreItem { Default { StoreItem.GiveItem "HDUniversalReloader", 1; } }
 
 // ----------------------------------------
 // MERCHANT
