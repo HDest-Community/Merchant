@@ -32,6 +32,7 @@ class MerchantHandler : StaticEventHandler
 				case 'HackedReloader': plr.A_GiveInventory("HDHackedReloaderCheck"); break;
 				case 'HDUniversalReloader': plr.A_GiveInventory("HDUniReloaderCheck"); break;
 				case 'LadderLauncher': plr.A_GiveInventory("HDLadderLauncherCheck"); break;
+				case 'HDArmorPatchKit': plr.A_GiveInventory("HDArmorPatchKitCheck"); break;
 			}
 		}
 	}
@@ -95,6 +96,11 @@ class HDUniReloaderStore: StoreItem { Default { StoreItem.GiveItem "HDUniversalR
 
 class HDLadderLauncherCheck : CompatibilityCheck { }
 class HDLadderLauncherStore: StoreItem { Default { StoreItem.GiveItem "LadderLauncher", 1; } }
+
+// ---------- ARMOR PATCH KIT ----------
+
+class HDArmorPatchKitCheck : CompatibilityCheck { }
+class HDArmorPatchKitStore: StoreItem { Default { StoreItem.GiveItem "HDArmorPatchKit", 1; } }
 
 // ----------------------------------------
 // MERCHANT

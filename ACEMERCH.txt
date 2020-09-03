@@ -72,6 +72,16 @@ Conversation
 				Item = "HDLadderLauncherCheck";
 			}
 		}
+		Choice
+		{
+			Text = "My armor is in bad shape.";
+			NextPage = "Trading - ArmorPatchKit";
+
+			Require
+			{
+				Item = "HDArmorPatchKitCheck";
+			}
+		}
 	}
 
 	// --------------------------------------------------
@@ -406,6 +416,36 @@ Conversation
 			{
 				Item = "sevenmilbrass";
 				Amount = 160;
+			}
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	// --------------------------------------------------
+	// ARMOR PATCH KIT
+	// --------------------------------------------------
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - ArmorPatchKit";
+		Dialog = "Perhaps I have something to help you with that. But what's in it for me?";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "Armor Patch Kit \c[Gold](110 Brass)\c-";
+			YesMessage = "Have fun with that.";
+			NoMessage = "Too bad! Try not to get hit.";
+			GiveItem = "HDArmorPatchKitStore";
+			NextPage = "Trading - ArmorPatchKit";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 100;
 			}
 		}
 		Choice
