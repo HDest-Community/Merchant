@@ -62,6 +62,16 @@ Conversation
 				Item = "HDUniReloaderCheck";
 			}
 		}
+		Choice
+		{
+			Text = "I need to chuck ladders far.";
+			NextPage = "Trading - LadderLauncher";
+
+			Require
+			{
+				Item = "HDLadderLauncherCheck";
+			}
+		}
 	}
 
 	// --------------------------------------------------
@@ -366,6 +376,36 @@ Conversation
 			{
 				Item = "sevenmilbrass";
 				Amount = 200;
+			}
+		}
+		Choice
+		{
+			Text = "\c[Gold]Back...\c-";
+			NextPage = "Introduction";
+		}
+	}
+
+	// --------------------------------------------------
+	// LADDER LAUNCHER
+	// --------------------------------------------------
+
+	Page
+	{
+		Name = "The Brass Collector";
+		PageName = "Trading - LadderLauncher";
+		Dialog = "Oh yeah, this old thing. I can sell it to you, sure.";
+		Goodbye = "\c[White]Actually, I changed my mind.\c-";
+		Choice
+		{
+			Text = "Ladder Launcher \c[Gold](160 Brass)\c-";
+			YesMessage = "Aim for the top.";
+			NoMessage = "Guess you'll have to attach ladders like everyone else.";
+			GiveItem = "HDLadderLauncherStore";
+			NextPage = "Trading - LadderLauncher";
+			Cost
+			{
+				Item = "sevenmilbrass";
+				Amount = 160;
 			}
 		}
 		Choice
