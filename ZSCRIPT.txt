@@ -112,7 +112,7 @@ class AceMerchant : Actor
 	{
 		if (random(1, 100) <= hdm_chestchance)
 		{
-			A_SpawnItemEx("BrassChest", random(16, 32), angle: random(0, 359), flags: SXF_NOCHECKPOSITION | SXF_SETMASTER);
+			A_SpawnItemEx("LootChest", random(16, 32), angle: random(0, 359), flags: SXF_NOCHECKPOSITION | SXF_SETMASTER);
 		}
 
 		Super.PostBeginPlay();
@@ -165,7 +165,7 @@ class AceMerchant : Actor
 	}
 }
 
-class BrassChest : Actor
+class LootChest : Actor
 {
 	private string GetRandomMessage() const
 	{
@@ -187,7 +187,7 @@ class BrassChest : Actor
 	{
 		if (!Opened)
 		{
-			SetStateLabel("BrassTime");
+			SetStateLabel("LootTime");
 			Angle = AngleTo(user);
 			Opened = true;
 
@@ -207,10 +207,10 @@ class BrassChest : Actor
 		return Super.Used(user);
 	}
 
-	private void SpillBrass()
+	private void SpillLoot()
 	{
 		A_SpawnItemEx("HDSpent7mm", random(0, 4), 0, height - 6, frandom(0.1, 0.3), 0, frandom(8, 15), random(0, 359));
-		DroppedBrass++;
+		DroppedLoot++;
 	}
 
 	Default
@@ -221,8 +221,8 @@ class BrassChest : Actor
 		+NOBLOCKMONST
 	}
 
-	private int MaxBrass;
-	private int DroppedBrass;
+	private int MaxLoot;
+	private int DroppedLoot;
 	private bool Opened;
 
 	States
@@ -230,11 +230,11 @@ class BrassChest : Actor
 		Spawn:
 			MCST A -1;
 			Stop;
-		BrassTime:
+		LootTime:
 			MCST BCD 2;
 			MCST E 2
 			{
-				MaxBrass = int(ceil(random(50, 200) * hdm_lootmult));
+				MaxLoot = int(ceil(random(50, 200) * hdm_lootmult));
 				A_StartSound("misc/secret");
 			}
 		GimmeGimme:
@@ -242,10 +242,10 @@ class BrassChest : Actor
 			{
 				for (int i = 0; i < max(3, hdm_lootmult); ++i)
 				{
-					SpillBrass();
+					SpillLoot();
 				}
 
-				if (DroppedBrass > MaxBrass)
+				if (DroppedLoot > MaxLoot)
 				{
 					SetStateLabel("StopYouHaveTakenAllOfMySavings");
 				}
