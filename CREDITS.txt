@@ -1,3 +1,2 @@
 Sprites:
 - Merchant: Strife (Rogue)
-- Chest: Castlevania (Konami)
