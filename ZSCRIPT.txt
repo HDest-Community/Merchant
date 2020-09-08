@@ -152,7 +152,7 @@ class AceMerchant : Actor
 		Spawn:
 			AMRC # -1 NoDelay
 			{
-				frame = CVar.GetCVar("hdm_skin");
+				frame = CVar.GetCVar("hdm_skin", players[consoleplayer]).GetInt();
 			}
 			Stop;
 	}
