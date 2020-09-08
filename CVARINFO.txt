@@ -1,0 +1,1 @@
+server int hdm_skin = 0;

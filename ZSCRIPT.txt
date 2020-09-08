@@ -150,7 +150,10 @@ class AceMerchant : Actor
 	States
 	{
 		Spawn:
-			AMRC H -1;
+			AMRC # -1 NoDelay
+			{
+				frame = CVar.GetCVar("hdm_skin");
+			}
 			Stop;
 	}
 }
