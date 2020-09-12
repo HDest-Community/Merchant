@@ -200,7 +200,7 @@ Conversation
 			Cost
 			{
 				Item = "SevenMilAmmo";
-				Amount = 30;
+				Amount = 20;
 			}
 		}
 		Choice
