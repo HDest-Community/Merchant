@@ -192,7 +192,7 @@ Conversation
 		}
 		Choice
 		{
-			Text = "Door Buster \c[Gold](30 7mm)\c-";
+			Text = "Door Buster \c[Gold](20 7mm)\c-";
 			YesMessage = "Be careful not to blow yourself up with these.";
 			NoMessage = "Looks like you'll have to stick to finding the keys.";
 			GiveItem = "DoorBuster";
