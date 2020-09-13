@@ -56,51 +56,58 @@ class StoreItem : Inventory
 	{
 		if (other)
 		{
-			other.A_GiveInventory(GiveItem, GiveAmount);
+			if (IsWeapon && other.CheckInventory(GiveItem, 1))
+			{
+				other.A_SpawnItemEx(GiveItem, 6, 0, other.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+			}
+			else
+			{
+				other.A_GiveInventory(GiveItem, GiveAmount);
+			}
 		}
 	}
 
 	string GiveItem;
 	int GiveAmount;
-	Property GiveItem: GiveItem, GiveAmount;
+	bool IsWeapon;
+	Property GiveItem: GiveItem, GiveAmount, IsWeapon;
 }
 
 // ---------- VANILLA ----------
 
 // [Ace] These exist because the Dialog's GiveItem only supports an amount of 1.
-class HD355Store : StoreItem { Default { StoreItem.GiveItem "HDRevolverAmmo", 72; } }
-class HDRocketsStore : StoreItem { Default { StoreItem.GiveItem "HDRocketAmmo", 5; } }
+class HD355Store : StoreItem { Default { StoreItem.GiveItem "HDRevolverAmmo", 72, false; } }
 
 // ---------- OTIS-5 ----------
 
 class HDOtisCheck : CompatibilityCheck { }
-class HDOtisLightAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisLightAmmo", 40; } }
-class HDOtisHeavyAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisHeavyAmmo", 20; } }
+class HDOtisLightAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisLightAmmo", 40, false; } }
+class HDOtisHeavyAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisHeavyAmmo", 20, false; } }
 
 // ---------- TELEPORTER ----------
 
 class HDTeleporterCheck : CompatibilityCheck { }
-class HDTeleporterStore: StoreItem { Default { StoreItem.GiveItem "HDTeleporter", 1; } }
+class HDTeleporterStore: StoreItem { Default { StoreItem.GiveItem "HDTeleporter", false, 1; } }
 
 // ---------- HACKED RELOADER ----------
 
 class HDHackedReloaderCheck : CompatibilityCheck { }
-class HDHackedReloaderStore: StoreItem { Default { StoreItem.GiveItem "HackedReloader", 1; } }
+class HDHackedReloaderStore: StoreItem { Default { StoreItem.GiveItem "HackedReloader", true, 1; } }
 
 // ---------- UNIVERSAL RELOADER ----------
 
 class HDUniReloaderCheck : CompatibilityCheck { }
-class HDUniReloaderStore: StoreItem { Default { StoreItem.GiveItem "HDUniversalReloader", 1; } }
+class HDUniReloaderStore: StoreItem { Default { StoreItem.GiveItem "HDUniversalReloader", true, 1; } }
 
 // ---------- LADDER LAUNCHER ----------
 
 class HDLadderLauncherCheck : CompatibilityCheck { }
-class HDLadderLauncherStore: StoreItem { Default { StoreItem.GiveItem "LadderLauncher", 1; } }
+class HDLadderLauncherStore: StoreItem { Default { StoreItem.GiveItem "LadderLauncher", true, 1; } }
 
 // ---------- ARMOR PATCH KIT ----------
 
 class HDArmorPatchKitCheck : CompatibilityCheck { }
-class HDArmorPatchKitStore: StoreItem { Default { StoreItem.GiveItem "HDArmorPatchKit", 1; } }
+class HDArmorPatchKitStore: StoreItem { Default { StoreItem.GiveItem "HDArmorPatchKit", true, 1; } }
 
 // ----------------------------------------
 // MERCHANT
