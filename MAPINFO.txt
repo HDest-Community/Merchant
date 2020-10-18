@@ -1,5 +1,4 @@
 GameInfo
 {
 	AddEventHandlers = "MerchantHandler"
-	Dialogue = "ACEMERCH"
 }

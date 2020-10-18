@@ -1,7 +1,111 @@
 version "4.2"
 
+#include "ZSCRIPT.MerchantMenu.zsc"
+#include "ZSCRIPT.StoreItems.zsc"
+
 class MerchantHandler : StaticEventHandler
 {
+	Array<StoreItem> StoreItems;
+	Array<string> Categories;
+
+	override void OnRegister()
+	{
+		for (int i = 0; i < AllClasses.Size(); ++i)
+		{
+			if (AllClasses[i] is "StoreItem" && AllClasses[i].GetClassName() != 'StoreItem')
+			{
+				StoreItem Item = StoreItem(new(AllClasses[i]));
+				class<Actor> a = Item.GetItem();
+				if (a)
+				{
+					StoreItems.Push(Item);
+				}
+			}
+		}
+
+		for (int i = 0; i < StoreItems.Size(); ++i)
+		{
+			// [Ace] Don't duplicate categories.
+			if (Categories.Find(StoreItems[i].GetCategory()) == Categories.Size())
+			{
+				Categories.Push(StoreItems[i].GetCategory());
+			}
+		}
+
+		// [Ace] Sort by category index.
+		for (int i = 0; i < StoreItems.Size() - 1; ++i)
+		{
+			for (int j = i + 1; j < StoreItems.Size(); ++j)
+			{
+				string C1, C2; int I1, I2;
+				[C1, I1] = StoreItems[i].GetCategory();
+				[C2, I2] = StoreItems[j].GetCategory();
+
+				if (I1 > I2)
+				{
+					let Swap = StoreItems[i];
+					StoreItems[i] = StoreItems[j];
+					StoreItems[j] = Swap;
+				}
+			}
+		}
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		let plr = players[e.Player].mo;
+		Array<string> ParsedName;
+		e.Name.Split(ParsedName, ":");
+		if (ParsedName[0] ~== "HDM_BuyStuff")
+		{
+			StoreItem Item;
+			for (int i = 0; i < StoreItems.Size(); ++i)
+			{
+				if (StoreItems[i].GetClass() == ParsedName[1])
+				{
+					Item = StoreItems[i];
+					break;
+				}
+			}
+
+			if (Item && plr)
+			{
+				class<Inventory> ItemClass = Item.GetItem();
+				int Amount = Item.GetAmount();
+
+				int Currency = hdm_currency;
+				class<Inventory> CurrencyClass = StoreItem.GetCurrencyClass(Currency);
+				int Price = Item.GetAdjustedPrice(Currency);
+
+				if (Price > plr.CountInv(CurrencyClass))
+				{
+					plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
+					return;
+				}
+
+				if (ItemClass is "HDWeapon")
+				{
+					plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+				}
+				else
+				{
+					int MaxGive = GetDefaultByType(ItemClass).MaxAmount - plr.CountInv(ItemClass);
+					int MaxActualGive = min(Amount, MaxGive);
+
+					// [Ace] Give what you can directly and drop the rest on the ground.
+					plr.A_GiveInventory(ItemClass, MaxActualGive);
+					Amount -= MaxActualGive;
+					for (int i = 0; i < Amount; ++i)
+					{
+						plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+					}
+				}
+				plr.A_TakeInventory(CurrencyClass, Price);
+				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+			}
+		}
+	}
+
 	override void WorldLoaded(WorldEvent e)
 	{
 		if (e.IsSaveGame) return;
@@ -19,102 +123,50 @@ class MerchantHandler : StaticEventHandler
 		}
 	}
 
-	override void PlayerEntered(PlayerEvent e)
+	override void WorldUnloaded(WorldEvent e)
 	{
-		let plr = players[e.PlayerNumber].mo;
-		for (int i = 0; i < AllActorClasses.Size(); ++i)
+		if (hdm_currency != 1)
 		{
-			Name cls = AllActorClasses[i].GetClassName();
-			switch (cls)
-			{
-				case 'HDOtisGun': plr.A_GiveInventory("HDOtisCheck"); break;
-				case 'HDTeleporter': plr.A_GiveInventory("HDTeleporterCheck"); break;
-				case 'HackedReloader': plr.A_GiveInventory("HDHackedReloaderCheck"); break;
-				case 'HDUniversalReloader': plr.A_GiveInventory("HDUniReloaderCheck"); break;
-				case 'LadderLauncher': plr.A_GiveInventory("HDLadderLauncherCheck"); break;
-				case 'HDArmorPatchKit': plr.A_GiveInventory("HDArmorPatchKitCheck"); break;
-			}
+			return;
 		}
-	}
-}
 
-// ----------------------------------------
-// COMPATIBILITY
-// ----------------------------------------
-
-class CompatibilityCheck : Inventory
-{
-	Default
-	{
-		+INVENTORY.UNDROPPABLE
-	}
-}
-
-class StoreItem : Inventory
-{
-	override void AttachToOwner(Actor other)
-	{
-		if (other)
+		int MoneyPerPlayer = GetMoney();
+		for (int i = 0; i < MAXPLAYERS; ++i)
 		{
-			if (IsWeapon && other.CheckInventory(GiveItem, 1))
+			if (players[i].mo && MoneyPerPlayer > 0)
 			{
-				other.A_SpawnItemEx(GiveItem, 6, 0, other.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
-			}
-			else
-			{
-				other.A_GiveInventory(GiveItem, GiveAmount);
+				players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
 			}
 		}
 	}
 
-	string GiveItem;
-	int GiveAmount;
-	bool IsWeapon;
-	Property GiveItem: GiveItem, GiveAmount, IsWeapon;
+	private int GetPlayersInGame()
+	{
+		int TotalPlayers = 0;
+		for (int i = 0; i < MAXPLAYERS; ++i)
+		{
+			if (playeringame[i])
+			{
+				TotalPlayers++;
+			}
+		}
+		return TotalPlayers;
+	}
+
+	private int GetMoney() // [Ace] You know how the first bit goes.
+	{
+		double TotalCash = (level.killed_monsters * 0.75 + level.found_secrets * 30) - Thinker.Tics2Seconds(level.time) / 60;
+
+		return int(TotalCash / GetPlayersInGame());
+	}
 }
-
-// ---------- VANILLA ----------
-
-// [Ace] These exist because the Dialog's GiveItem only supports an amount of 1.
-class HD355Store : StoreItem { Default { StoreItem.GiveItem "HDRevolverAmmo", 72, false; } }
-
-// ---------- OTIS-5 ----------
-
-class HDOtisCheck : CompatibilityCheck { }
-class HDOtisLightAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisLightAmmo", 40, false; } }
-class HDOtisHeavyAmmoStore : StoreItem { Default { StoreItem.GiveItem "HDOtisHeavyAmmo", 20, false; } }
-
-// ---------- TELEPORTER ----------
-
-class HDTeleporterCheck : CompatibilityCheck { }
-class HDTeleporterStore: StoreItem { Default { StoreItem.GiveItem "HDTeleporter", false, 1; } }
-
-// ---------- HACKED RELOADER ----------
-
-class HDHackedReloaderCheck : CompatibilityCheck { }
-class HDHackedReloaderStore: StoreItem { Default { StoreItem.GiveItem "HackedReloader", true, 1; } }
-
-// ---------- UNIVERSAL RELOADER ----------
-
-class HDUniReloaderCheck : CompatibilityCheck { }
-class HDUniReloaderStore: StoreItem { Default { StoreItem.GiveItem "HDUniversalReloader", true, 1; } }
-
-// ---------- LADDER LAUNCHER ----------
-
-class HDLadderLauncherCheck : CompatibilityCheck { }
-class HDLadderLauncherStore: StoreItem { Default { StoreItem.GiveItem "LadderLauncher", true, 1; } }
-
-// ---------- ARMOR PATCH KIT ----------
-
-class HDArmorPatchKitCheck : CompatibilityCheck { }
-class HDArmorPatchKitStore: StoreItem { Default { StoreItem.GiveItem "HDArmorPatchKit", true, 1; } }
 
 // ----------------------------------------
 // MERCHANT
 // ----------------------------------------
 
 class AceMerchant : Actor
-{	
+{
 	override void Tick()
 	{
 		if (CheckProximity("PlayerPawn", 96, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
@@ -134,6 +186,16 @@ class AceMerchant : Actor
 		Super.Tick();
 	}
 
+	override bool Used(Actor user)
+	{
+		if (user.PlayerNumber() == consoleplayer)
+		{
+			Menu.SetMenu('MerchantShopMenu');
+		}
+
+		return Super.Used(user);
+	}
+
 	override bool CanCollideWith(Actor other, bool passive)
 	{
 		if (other is "PlayerPawn")
@@ -147,8 +209,9 @@ class AceMerchant : Actor
 	Default
 	{
 		Mass 100;
-		Height 64;
+		Height 58;
 		Radius 8;
+		Scale 1.0;
 		+SOLID
 		+PUSHABLE
 		+NOBLOCKMONST
@@ -161,6 +224,55 @@ class AceMerchant : Actor
 			{
 				frame = CVar.GetCVar("hdm_skin", players[consoleplayer]).GetInt();
 			}
+			Stop;
+	}
+}
+
+class MercenaryBucks : HDAmmo
+{
+	override void SplitPickup()
+	{
+		int SplitAmount = min(Amount, random(20, 100));
+		while (Amount > SplitAmount)
+		{
+			int SubSplit = min(Amount, random(20, 100));
+			Actor a = Spawn("MercenaryBucks", pos);
+			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
+			Scale.X *= randompick(-1, 1);
+			Inventory(a).Amount = SubSplit;
+			Amount -= SubSplit;
+		}
+
+		if (amount < 1)
+		{
+			Destroy();
+			return;
+		}
+	}
+
+	override bool IsUsed()
+	{
+		return true;
+	}
+
+	Default
+	{
+		+FORCEXYBILLBOARD
+		Tag "Bucks";
+		Inventory.Icon "MBCKA0";
+		+HDPICKUP.MULTIPICKUP
+		+HDPICKUP.FITSINBACKPACK
+		-HDPICKUP.DROPTRANSLATION
+		HDPickup.Bulk 0.08;
+		Inventory.MaxAmount 10000;
+		Inventory.PickupMessage "Picked up some bucks.";
+		Scale 0.4;
+	}
+
+	States
+	{
+		Spawn:
+			MBCK A -1;
 			Stop;
 	}
 }

@@ -1,0 +1,180 @@
+class MerchantShopMenu : GenericMenu
+{
+	private MerchantHandler Handler;
+	private ui int SelectedCategory;
+	private ui int SelectedItemIndex; // [Ace] This is only used within a specific category. Don't bother using it with the full array.
+
+	override void Init(Menu parent)
+	{
+		Super.Init(parent);
+
+		menuactive = Menu.OnNoPause;
+		Handler = MerchantHandler(StaticEventHandler.Find("MerchantHandler"));
+	}
+
+	override void Drawer()
+	{
+		Super.Drawer();
+
+		if (GetCurrentMenu() == self)
+		{
+			let PrevArrow = TexMan.CheckForTexture("PREVARRW", TexMan.Type_MiscPatch);
+			let NextArrow = TexMan.CheckForTexture("NEXTARRW", TexMan.Type_MiscPatch);
+			int W = Screen.GetWidth();
+			int H = Screen.GetHeight();
+			int W2 = W / 2;
+			int H2 = H / 2;
+
+			int BaseX = int(W * 0.2);
+			int BaseY = 40;
+			int BaseW = W - BaseX * 2;
+
+			// ----- CATEGORY -----
+			int CatH = 60;
+			Screen.Dim("000000", 0.75, BaseX, BaseY, BaseW, CatH);
+
+			// Text.
+			string SelCat = GetSelectedCategory();
+			Screen.DrawText(BigFont, Font.CR_WHITE, (W - BigFont.StringWidth(SelCat) * CleanXfac_1) / 2, BaseY + CatH / 2 - ((BigFont.GetHeight() - 4) * CleanYfac_1) / 2, SelCat, DTA_CleanNoMove_1, true);
+
+			// Arrows.
+			Screen.DrawTexture(PrevArrow, false, W2 - (BaseW / 2 - 40), BaseY + CatH / 2, DTA_CleanNoMove, true, DTA_CenterOffset, true);
+			Screen.DrawTexture(NextArrow, false, W2 + (BaseW / 2 - 40), BaseY + CatH / 2, DTA_CleanNoMove, true, DTA_CenterOffset, true);
+
+			// ----- ITEMS -----
+			Array<StoreItem> ItemsInCategory;
+			GetItemsInCategory(ItemsInCategory, SelCat);
+			int ItemX = BaseX;
+			int ItemY = BaseY + CatH + 10;
+			int ItemH = 60;
+			for (int i = 0; i < ItemsInCategory.Size(); ++i)
+			{
+				DrawStoreItem(players[consoleplayer].mo, ItemsInCategory[i], ItemX, ItemY + (ItemH + 10) * i, BaseW, ItemH, i == SelectedItemIndex);
+			}
+		}
+	}
+
+	private ui string GetSelectedCategory()
+	{
+		if (Handler && SelectedCategory < Handler.Categories.Size())
+		{
+			return Handler.Categories[SelectedCategory];
+		}
+
+		return "U DUN GOOF'D, FOO'!";
+	}
+
+	private ui void GetItemsInCategory(out Array<StoreItem> items, string category)
+	{
+		items.Clear();
+		for (int i = 0; i < Handler.StoreItems.Size(); ++i)
+		{
+			if (Handler.StoreItems[i].GetCategory() == category)
+			{
+				items.Push(Handler.StoreItems[i]);
+			}
+		}
+	}
+
+	private ui void DrawStoreItem(PlayerPawn plr, StoreItem item, int x, int y, int w, int h, bool selected)
+	{
+		int Spacing = 10;
+		string DimColor = selected ? "332211" : "000000";
+
+		// Icon.
+		Screen.Dim(DimColor, 0.75, x, y, h, h);
+		TextureID ItemIcon = TexMan.CheckForTexture(item.GetIcon(), TexMan.Type_Any);
+		if (ItemIcon.IsValid())
+		{
+			vector2 IconSize = TexMan.GetScaledSize(ItemIcon);
+			IconSize *= CleanXfac;
+			IconSize = GetBoxedSize(IconSize, h - 10);
+			Screen.DrawTexture(ItemIcon, false, x + h / 2, y + h / 2, DTA_CleanNoMove, true, DTA_CenterOffset, true, DTA_DestWidth, int(IconSize.X), DTA_DestHeight, int(IconSize.Y));
+		}
+
+		// Name & Flavor text.
+		int ContBoxX = x + h + Spacing;
+		int ContBoxW = w - h * 2 - Spacing * 2;
+		Screen.Dim(DimColor, 0.75, ContBoxX, y, ContBoxW, h);
+
+		int Amount = item.GetAmount();
+		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName();
+		Screen.DrawText(SmallFont, Font.CR_ICE, ContBoxX + 5, y + 5, DisplayName, DTA_CleanNoMove_1, true);
+
+		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), ContBoxW / CleanXfac_1);
+		int LinesCount = FlavorLines.Count();
+		for (int i = LinesCount - 1; i >= 0; --i)
+		{
+			int LineHeight = ConFont.GetHeight() * CleanYfac_1 + 3;
+			Screen.DrawText(ConFont, Font.CR_DARKGRAY, ContBoxX + 5, y + h - LineHeight - LineHeight * (LinesCount - 1 - i), FlavorLines.StringAt(i), DTA_CleanNoMove_1, true);
+		}
+
+		// Price
+		int PriceBoxX = ContBoxX + ContBoxW + Spacing;
+		Screen.Dim(DimColor, 0.75, PriceBoxX, y, h, h);
+
+		TextureID CurrencyIcon = TexMan.CheckForTexture(StoreItem.GetCurrencyIcon(hdm_currency), TexMan.Type_Any);
+		if (CurrencyIcon.IsValid())
+		{
+			vector2 IconSize = TexMan.GetScaledSize(CurrencyIcon);
+			IconSize *= CleanXfac;
+			IconSize = GetBoxedSize(IconSize, int(h / 1.5));
+			Screen.DrawTexture(CurrencyIcon, false, PriceBoxX + h / 2, y + h / 3, DTA_CleanNoMove, true, DTA_CenterOffset, true, DTA_DestWidth, int(IconSize.X), DTA_DestHeight, int(IconSize.Y));
+		}
+
+		int Price = item.GetAdjustedPrice(hdm_currency);
+		string DisplayPrice = (Price <= plr.CountInv(StoreItem.GetCurrencyClass(hdm_currency)) ? "\c[White]" : "\c[Red]")..Price.."\c-";
+		Screen.DrawText(SmallFont, Font.CR_GOLD, PriceBoxX + h / 2 - (SmallFont.StringWidth(DisplayPrice) * CleanXfac_1) / 2, y + h - SmallFont.GetHeight() * CleanYfac_1, DisplayPrice, DTA_CleanNoMove_1, true);
+	}
+
+	private ui vector2 GetBoxedSize(vector2 size, int boxSize)
+	{
+		size /= max(size.X, size.Y);
+		size *= boxSize;
+		return size;
+	}
+
+	override bool MenuEvent(int mkey, bool fromcontroller)
+	{
+		bool Result = Super.MenuEvent(mkey, fromcontroller);
+
+		Array<StoreItem> ItemsInCategory;
+		switch (mkey)
+		{
+			case MKEY_Left:
+				SelectedItemIndex = 0;
+				if (--SelectedCategory < 0)
+				{
+					SelectedCategory = Handler.Categories.Size() - 1;
+				}
+				break;
+			case MKEY_Right:
+				SelectedItemIndex = 0;
+				if (++SelectedCategory == Handler.Categories.Size())
+				{
+					SelectedCategory = 0;
+				}
+				break;
+			case MKEY_Up:
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
+				if (--SelectedItemIndex < 0)
+				{
+					SelectedItemIndex = ItemsInCategory.Size() - 1;
+				}
+				break;
+			case MKEY_Down:
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
+				if (++SelectedItemIndex == ItemsInCategory.Size())
+				{
+					SelectedItemIndex = 0;
+				}
+				break;
+			case MKEY_Enter:
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
+				EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", ItemsInCategory[SelectedItemIndex].GetClassName()));
+				break;
+		}
+
+		return Result;
+	}
+}
