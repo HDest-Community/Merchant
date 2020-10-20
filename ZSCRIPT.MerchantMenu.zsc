@@ -99,7 +99,7 @@ class MerchantShopMenu : GenericMenu
 
 		int Amount = item.GetAmount();
 		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName();
-		Screen.DrawText(SmallFont, Font.CR_ICE, ContBoxX + 5, y + 5, DisplayName, DTA_CleanNoMove_1, true);
+		Screen.DrawText(SmallFont, Font.CR_GREEN, ContBoxX + 5, y + 5, DisplayName, DTA_CleanNoMove_1, true);
 
 		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), ContBoxW / CleanXfac_1);
 		int LinesCount = FlavorLines.Count();
