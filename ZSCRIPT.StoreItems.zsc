@@ -40,9 +40,20 @@ class StoreItem
 
 // ---------- VANILLA ----------
 
-class HD355Store : StoreItem
+class HD9mmStore : StoreItem
 {
 	override string, int GetCategory() { return "Vanilla Ammo", 1; }
+	override string GetItem() { return "HDPistolAmmo"; }
+	override int GetAmount() { return 100; }
+	override string GetIcon() { return "9BOXA0"; }
+	override string GetDisplayName() { return "9mm Rounds"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "It's like candy but inedible."; }
+}
+
+class HD355Store : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Ammo", 2; }
 	override string GetItem() { return "HDRevolverAmmo"; }
 	override int GetAmount() { return 72; }
 	override string GetIcon() { return "3BOXA0"; }
@@ -51,9 +62,20 @@ class HD355Store : StoreItem
 	override string GetFlavorText() { return "It's high noon."; }
 }
 
+class HDRocketGrenadeStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Ammo", 3; }
+	override string GetItem() { return "HDRocketAmmo"; }
+	override int GetAmount() { return 5; }
+	override string GetIcon() { return "BROKA0"; }
+	override string GetDisplayName() { return "Rocket Grenades"; }
+	override int GetBasePrice() { return 45; }
+	override string GetFlavorText() { return "Krognar's favourite."; }
+}
+
 class HDHeatStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 2; }
+	override string, int GetCategory() { return "Vanilla Ammo", 4; }
 	override string GetItem() { return "HEATAmmo"; }
 	override string GetIcon() { return "ROCKA0"; }
 	override string GetDisplayName() { return "H.E.A.T. Rocket"; }
@@ -61,9 +83,19 @@ class HDHeatStore : StoreItem
 	override string GetFlavorText() { return "One shot, one kill."; }
 }
 
+class HDBatteryStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Ammo", 5; }
+	override string GetItem() { return "HDBattery"; }
+	override string GetIcon() { return "CELLA0"; }
+	override string GetDisplayName() { return "Battery"; }
+	override int GetBasePrice() { return 25; }
+	override string GetFlavorText() { return "Positively charged."; }
+}
+
 class HDBrontoRoundStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 3; }
+	override string, int GetCategory() { return "Vanilla Ammo", 6; }
 	override string GetItem() { return "BrontornisRound"; }
 	override string GetIcon() { return "BROCA0"; }
 	override string GetDisplayName() { return "Brontornis Round"; }
@@ -73,7 +105,7 @@ class HDBrontoRoundStore : StoreItem
 
 class HDFragGrenadeStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 4; }
+	override string, int GetCategory() { return "Vanilla Ammo", 7; }
 	override string GetItem() { return "HDFragGrenadeAmmo"; }
 	override string GetIcon() { return "FRAGA0"; }
 	override string GetDisplayName() { return "Frag Grenade"; }
