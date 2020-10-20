@@ -65,7 +65,7 @@ class HDShellsStore : StoreItem
 	override string GetIcon() { return "SBOXA0"; }
 	override string GetDisplayName() { return "Shotgun Shells"; }
 	override int GetBasePrice() { return 20; }
-	override string GetFlavorText() { return ""; }
+	override string GetFlavorText() { return "Point away from self."; }
 }
 
 class HD355Store : StoreItem
