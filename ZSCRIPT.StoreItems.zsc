@@ -51,9 +51,20 @@ class HD9mmStore : StoreItem
 	override string GetFlavorText() { return "It's like candy but inedible."; }
 }
 
-class HD355Store : StoreItem
+class HDShellsStore : StoreItem
 {
 	override string, int GetCategory() { return "Vanilla Ammo", 2; }
+	override string GetItem() { return "HDShellAmmo"; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "SBOXA0"; }
+	override string GetDisplayName() { return "Shotgun Shells"; }
+	override int GetBasePrice() { return 20; }
+	override string GetFlavorText() { return ""; }
+}
+
+class HD355Store : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Ammo", 3; }
 	override string GetItem() { return "HDRevolverAmmo"; }
 	override int GetAmount() { return 72; }
 	override string GetIcon() { return "3BOXA0"; }
@@ -64,7 +75,7 @@ class HD355Store : StoreItem
 
 class HDRocketGrenadeStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 3; }
+	override string, int GetCategory() { return "Vanilla Ammo", 4; }
 	override string GetItem() { return "HDRocketAmmo"; }
 	override int GetAmount() { return 5; }
 	override string GetIcon() { return "BROKA0"; }
@@ -75,7 +86,7 @@ class HDRocketGrenadeStore : StoreItem
 
 class HDHeatStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 4; }
+	override string, int GetCategory() { return "Vanilla Ammo", 5; }
 	override string GetItem() { return "HEATAmmo"; }
 	override string GetIcon() { return "ROCKA0"; }
 	override string GetDisplayName() { return "H.E.A.T. Rocket"; }
@@ -85,7 +96,7 @@ class HDHeatStore : StoreItem
 
 class HDBatteryStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 5; }
+	override string, int GetCategory() { return "Vanilla Ammo", 6; }
 	override string GetItem() { return "HDBattery"; }
 	override string GetIcon() { return "CELLA0"; }
 	override string GetDisplayName() { return "Battery"; }
@@ -95,7 +106,7 @@ class HDBatteryStore : StoreItem
 
 class HDBrontoRoundStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 6; }
+	override string, int GetCategory() { return "Vanilla Ammo", 7; }
 	override string GetItem() { return "BrontornisRound"; }
 	override string GetIcon() { return "BROCA0"; }
 	override string GetDisplayName() { return "Brontornis Round"; }
@@ -105,7 +116,7 @@ class HDBrontoRoundStore : StoreItem
 
 class HDFragGrenadeStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Ammo", 7; }
+	override string, int GetCategory() { return "Vanilla Ammo", 8; }
 	override string GetItem() { return "HDFragGrenadeAmmo"; }
 	override string GetIcon() { return "FRAGA0"; }
 	override string GetDisplayName() { return "Frag Grenade"; }
@@ -217,6 +228,18 @@ class HD9mmNDMStore : StoreItem
 	override int GetBasePrice() { return 35; }
 	override string GetFlavorText() { return "Looks like 9mm, but it's not."; }
 }
+
+class HDPepperSlugsStore : StoreItem
+{
+	override string, int GetCategory() { return "Peppergrinder Ammo", 4; }
+	override string GetItem() { return "HDSlugAmmo"; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "SLBXA0"; }
+	override string GetDisplayName() { return "Shotgun Slugs"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "These aren't slimy like the others"; }
+}
+
 
 // ---------- ACCENSUS' STUFF ----------
 
