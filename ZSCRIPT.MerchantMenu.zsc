@@ -100,7 +100,7 @@ class MerchantShopMenu : GenericMenu
 	private ui void DrawStoreItem(PlayerPawn plr, StoreItem item, int x, int y, int w, int h, bool selected)
 	{
 		int Spacing = 10;
-		string DimColor = selected ? "332211" : "000000";
+		Color DimColor = selected ? Color(60, 35, 20) : Color(0, 0, 0);
 
 		// Icon.
 		Screen.Dim(DimColor, 0.75, x, y, h, h);
