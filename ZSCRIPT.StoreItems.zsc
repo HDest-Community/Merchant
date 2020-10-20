@@ -237,3 +237,35 @@ class HDArmorPatchKitStore : StoreItem
 	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Have fun with that."; }
 }
+
+// ---------- MELONADES ----------
+
+class HDThunderGrenadeStore : StoreItem
+{
+	override string, int GetCategory() { return "Melonades", 1; }
+	override string GetItem() { return "HDThunderGrenades"; }
+	override string GetIcon() { return "TFRGA0"; }
+	override string GetDisplayName() { return "Thunder Grenade"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "Shockingly fun to use."; }
+}
+
+class HDMG13Store : StoreItem
+{
+	override string, int GetCategory() { return "Melonades", 2; }
+	override string GetItem() { return "HDMG13Grenades"; }
+	override string GetIcon() { return "MG13A0"; }
+	override string GetDisplayName() { return "MG13 Grenade"; }
+	override int GetBasePrice() { return 70; }
+	override string GetFlavorText() { return "Dome of death."; }
+}
+
+class HDStoneStore : StoreItem
+{
+	override string, int GetCategory() { return "Melonades", 3; }
+	override string GetItem() { return "HDStoneGrenades"; }
+	override string GetIcon() { return "STNEA0"; }
+	override string GetDisplayName() { return "Stone"; }
+	override int GetBasePrice() { return 5; }
+	override string GetFlavorText() { return "Rock and roll."; }
+}
