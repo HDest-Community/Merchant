@@ -1,2 +1,1 @@
 user int hdm_skin = 0;
-server int hdm_currency = 0;

@@ -73,7 +73,7 @@ class MerchantHandler : StaticEventHandler
 				class<Inventory> ItemClass = Item.GetItem();
 				int Amount = Item.GetAmount();
 
-				int Currency = hdm_currency;
+				int Currency = e.Args[0];
 				class<Inventory> CurrencyClass = StoreItem.GetCurrencyClass(Currency);
 				int Price = Item.GetAdjustedPrice(Currency);
 
@@ -125,11 +125,6 @@ class MerchantHandler : StaticEventHandler
 
 	override void WorldUnloaded(WorldEvent e)
 	{
-		if (hdm_currency != 1)
-		{
-			return;
-		}
-
 		int MoneyPerPlayer = GetMoney();
 		for (int i = 0; i < MAXPLAYERS; ++i)
 		{

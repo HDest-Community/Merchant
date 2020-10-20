@@ -1,3 +1,9 @@
+enum MerchantCurrencies
+{
+	Currency_7mm,
+	Currency_Bucks
+}
+
 class StoreItem
 {
 	static class<Inventory> GetCurrencyClass(int currency)
