@@ -147,7 +147,7 @@ class HDBerserkStore : StoreItem
 	override string GetIcon() { return "PSTRA0"; }
 	override string GetDisplayName() { return "Berserk Pack"; }
 	override int GetBasePrice() { return 70; }
-	override string GetFlavorText() { return "Be careful not to overdose. Oh who am I kidding, of course you will."; }
+	override string GetFlavorText() { return "Do not overdose. Oh who am I kidding, of course you will."; }
 }
 
 class HDDoorBusterStore : StoreItem
