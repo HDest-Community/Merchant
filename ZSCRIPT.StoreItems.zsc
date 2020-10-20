@@ -79,7 +79,7 @@ class HDHeatStore : StoreItem
 	override string GetItem() { return "HEATAmmo"; }
 	override string GetIcon() { return "ROCKA0"; }
 	override string GetDisplayName() { return "H.E.A.T. Rocket"; }
-	override int GetBasePrice() { return 30; }
+	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "One shot, one kill."; }
 }
 
@@ -99,7 +99,7 @@ class HDBrontoRoundStore : StoreItem
 	override string GetItem() { return "BrontornisRound"; }
 	override string GetIcon() { return "BROCA0"; }
 	override string GetDisplayName() { return "Brontornis Round"; }
-	override int GetBasePrice() { return 50; }
+	override int GetBasePrice() { return 35; }
 	override string GetFlavorText() { return "Overcompensating, aren't we?"; }
 }
 
@@ -307,7 +307,7 @@ class HDStoneStore : StoreItem
 class HDRespiratorStore : StoreItem
 {
 	override string, int GetCategory() { return "Ugly as Sin", 1; }
-	override string GetItem() { return "UaS_Respirator "; }
+	override string GetItem() { return "UaS_Respirator"; }
 	override string GetIcon() { return "UGSID0"; }
 	override string GetDisplayName() { return "Respirator"; }
 	override int GetBasePrice() { return 60; }

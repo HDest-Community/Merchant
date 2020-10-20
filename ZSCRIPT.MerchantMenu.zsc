@@ -136,11 +136,14 @@ class MerchantShopMenu : GenericMenu
 
 	override bool MenuEvent(int mkey, bool fromcontroller)
 	{
-		bool Result = Super.MenuEvent(mkey, fromcontroller);
-
 		Array<StoreItem> ItemsInCategory;
 		switch (mkey)
 		{
+			case MKEY_Back:
+			{
+				Close();
+				return true;
+			}
 			case MKEY_Left:
 				SelectedItemIndex = 0;
 				if (--SelectedCategory < 0)
@@ -175,6 +178,6 @@ class MerchantShopMenu : GenericMenu
 				break;
 		}
 
-		return Result;
+		return false;
 	}
 }
