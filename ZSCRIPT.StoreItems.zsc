@@ -301,3 +301,15 @@ class HDStoneStore : StoreItem
 	override int GetBasePrice() { return 5; }
 	override string GetFlavorText() { return "Rock and roll."; }
 }
+
+// ---------- UAS ----------
+
+class HDRespiratorStore : StoreItem
+{
+	override string, int GetCategory() { return "Ugly as Sin", 1; }
+	override string GetItem() { return "UaS_Respirator "; }
+	override string GetIcon() { return "UGSID0"; }
+	override string GetDisplayName() { return "Respirator"; }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return "Blub blub blub."; }
+}
