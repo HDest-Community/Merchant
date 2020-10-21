@@ -243,7 +243,7 @@ class HDPepperSlugsStore : StoreItem
 	override string GetIcon() { return "SLBXA0"; }
 	override string GetDisplayName() { return "Shotgun Slugs"; }
 	override int GetBasePrice() { return 30; }
-	override string GetFlavorText() { return "These aren't slimy like the others"; }
+	override string GetFlavorText() { return "These aren't slimy like the others."; }
 }
 
 
