@@ -253,7 +253,7 @@ class HD50OMGStore : StoreItem
 	override string, int GetCategory() { return "HoagieTech Ammo", 1; }
 	override string GetItem() { return "HD50OMGAmmo"; }
 	override int GetAmount() { return 20; }
-	override string GetIcon() { return "OGBLA0"; }
+	override string GetIcon() { return "OGBXA0"; }
 	override string GetDisplayName() { return ".50 OMG"; }
 	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return "For hunting very large, murderous, demonic game."; }
