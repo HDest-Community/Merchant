@@ -136,7 +136,7 @@ class HDBluePotionStore : StoreItem
 	override string GetItem() { return "BluePotion"; }
 	override string GetIcon() { return "BON1A0"; }
 	override string GetDisplayName() { return "Blue Potion"; }
-	override int GetBasePrice() { return 90; }
+	override int GetBasePrice() { return 70; }
 	override string GetFlavorText() { return "For what ails you."; }
 }
 
@@ -156,7 +156,7 @@ class HDDoorBusterStore : StoreItem
 	override string GetItem() { return "DoorBuster"; }
 	override string GetIcon() { return "BGRNA3A7"; }
 	override string GetDisplayName() { return "Door Buster"; }
-	override int GetBasePrice() { return 20; }
+	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "Be careful not to blow yourself up with these."; }
 }
 
