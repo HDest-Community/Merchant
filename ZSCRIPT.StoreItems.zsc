@@ -64,7 +64,7 @@ class HDShellsStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "SBOXA0"; }
 	override string GetDisplayName() { return "Shotgun Shells"; }
-	override int GetBasePrice() { return 20; }
+	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "Point away from self."; }
 }
 
@@ -106,7 +106,7 @@ class HDBatteryStore : StoreItem
 	override string GetItem() { return "HDBattery"; }
 	override string GetIcon() { return "CELLA0"; }
 	override string GetDisplayName() { return "Battery"; }
-	override int GetBasePrice() { return 25; }
+	override int GetBasePrice() { return 20; }
 	override string GetFlavorText() { return "Positively charged."; }
 }
 
@@ -246,6 +246,18 @@ class HDPepperSlugsStore : StoreItem
 	override string GetFlavorText() { return "These aren't slimy like the others."; }
 }
 
+// ---------- BOGUS' STUFF ----------
+
+class HD50OMGStore : StoreItem
+{
+	override string, int GetCategory() { return "HoagieTech Ammo", 1; }
+	override string GetItem() { return "HD50OMGAmmo"; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "OGBLA0"; }
+	override string GetDisplayName() { return ".50 OMG"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "For hunting very large, murderous, demonic game."; }
+}
 
 // ---------- ACCENSUS' STUFF ----------
 
