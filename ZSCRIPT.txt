@@ -168,15 +168,6 @@ class AceMerchant : Actor
 		{
 			Angle = AngleTo(target);
 		}
-		else if (target && Distance3D(target) > 96)
-		{
-			// [Ace] Allow other people to talk to the NPC as well, but you'll need to keep a distance so the pointer gets nullified.
-			let plr = PlayerPawn(target);
-			if (plr && plr.player)
-			{
-				plr.player.ConversationNPC = null;
-			}
-		}
 
 		Super.Tick();
 	}
