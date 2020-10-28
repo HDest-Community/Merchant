@@ -311,6 +311,16 @@ class HDArmorPatchKitStore : StoreItem
 	override string GetFlavorText() { return "Have fun with that."; }
 }
 
+class HDWeaponUpgradeKitStore : StoreItem
+{
+	override string, int GetCategory() { return "AceCorp Items", 6; }
+	override string GetItem() { return "HDWeaponUpgradeKit"; }
+	override string GetIcon() { return "WUKTA0"; }
+	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "Upgrade complete."; }
+}
+
 // ---------- MELONADES ----------
 
 class HDThunderGrenadeStore : StoreItem
