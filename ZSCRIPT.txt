@@ -66,7 +66,7 @@ class MerchantHandler : EventHandler
 
 	override void WorldThingDied(WorldEvent e)
 	{
-		if (!e.Thing || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER)
+		if (!e.Thing || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.Thing.target is "HDPlayerPawn"))
 		{
 			return;
 		}
@@ -78,11 +78,11 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "ZombieStormTrooper" || e.Thing is "HideousShotgunGuy" || e.Thing is "Babuin" || e.Thing is "UndeadHomeboy")
 		{
-			Reward = 1;
+			Reward = 0.75;
 		}
 		else if (e.Thing is "Serpentipede" || e.Thing is "VulcanetteGuy")
 		{
-			Reward = 1.5;
+			Reward = 1;
 		}
 		else if (e.Thing is "HDMarine" || e.Thing is "HoopBubble" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
 		{
