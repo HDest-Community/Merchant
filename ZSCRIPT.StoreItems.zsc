@@ -180,6 +180,16 @@ class HDJetpackStore : StoreItem
 	override string GetFlavorText() { return "Careful not to leave the atmosphere."; }
 }
 
+class HDSummoningTalismanStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 6; }
+	override string GetItem() { return "SquadSummoner"; }
+	override string GetIcon() { return "PLHELMA0"; }
+	override string GetDisplayName() { return "Summoning Talisman"; }
+	override int GetBasePrice() { return 180; }
+	override string GetFlavorText() { return "Who ya gonna call?"; }
+}
+
 class HDGreenArmorStore : StoreItem
 {
 	override string, int GetCategory() { return "Armor", 1; }
