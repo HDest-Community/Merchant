@@ -3,54 +3,11 @@ version "4.2"
 #include "ZSCRIPT.MerchantMenu.zsc"
 #include "ZSCRIPT.StoreItems.zsc"
 
-class MerchantHandler : StaticEventHandler
+class MerchantHandler : EventHandler
 {
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
 	private int CashFromMonsters;
-
-	override void OnRegister()
-	{
-		for (int i = 0; i < AllClasses.Size(); ++i)
-		{
-			if (AllClasses[i] is "StoreItem" && AllClasses[i].GetClassName() != 'StoreItem')
-			{
-				StoreItem Item = StoreItem(new(AllClasses[i]));
-				class<Actor> a = Item.GetItem();
-				if (a)
-				{
-					StoreItems.Push(Item);
-				}
-			}
-		}
-
-		for (int i = 0; i < StoreItems.Size(); ++i)
-		{
-			// [Ace] Don't duplicate categories.
-			if (Categories.Find(StoreItems[i].GetCategory()) == Categories.Size())
-			{
-				Categories.Push(StoreItems[i].GetCategory());
-			}
-		}
-
-		// [Ace] Sort by category index.
-		for (int i = 0; i < StoreItems.Size() - 1; ++i)
-		{
-			for (int j = i + 1; j < StoreItems.Size(); ++j)
-			{
-				string C1, C2; int I1, I2;
-				[C1, I1] = StoreItems[i].GetCategory();
-				[C2, I2] = StoreItems[j].GetCategory();
-
-				if (I1 > I2)
-				{
-					let Swap = StoreItems[i];
-					StoreItems[i] = StoreItems[j];
-					StoreItems[j] = Swap;
-				}
-			}
-		}
-	}
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
@@ -169,7 +126,45 @@ class MerchantHandler : StaticEventHandler
 
 	override void WorldLoaded(WorldEvent e)
 	{
-		if (e.IsSaveGame) return;
+		for (int i = 0; i < AllClasses.Size(); ++i)
+		{
+			if (AllClasses[i] is "StoreItem" && AllClasses[i].GetClassName() != 'StoreItem')
+			{
+				StoreItem Item = StoreItem(new(AllClasses[i]));
+				class<Actor> a = Item.GetItem();
+				if (a)
+				{
+					StoreItems.Push(Item);
+				}
+			}
+		}
+
+		for (int i = 0; i < StoreItems.Size(); ++i)
+		{
+			// [Ace] Don't duplicate categories.
+			if (Categories.Find(StoreItems[i].GetCategory()) == Categories.Size())
+			{
+				Categories.Push(StoreItems[i].GetCategory());
+			}
+		}
+
+		// [Ace] Sort by category index.
+		for (int i = 0; i < StoreItems.Size() - 1; ++i)
+		{
+			for (int j = i + 1; j < StoreItems.Size(); ++j)
+			{
+				string C1, C2; int I1, I2;
+				[C1, I1] = StoreItems[i].GetCategory();
+				[C2, I2] = StoreItems[j].GetCategory();
+
+				if (I1 > I2)
+				{
+					let Swap = StoreItems[i];
+					StoreItems[i] = StoreItems[j];
+					StoreItems[j] = Swap;
+				}
+			}
+		}
 
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
@@ -196,8 +191,6 @@ class MerchantHandler : StaticEventHandler
 				players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
 			}
 		}
-
-		CashFromMonsters = 0;
 	}
 
 	private int GetPlayersInGame()

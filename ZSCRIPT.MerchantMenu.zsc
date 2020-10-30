@@ -10,7 +10,7 @@ class MerchantShopMenu : GenericMenu
 		Super.Init(parent);
 
 		menuactive = Menu.OnNoPause;
-		Handler = MerchantHandler(StaticEventHandler.Find("MerchantHandler"));
+		Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 	}
 
 	override void Drawer()
