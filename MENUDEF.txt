@@ -3,7 +3,6 @@ OptionMenu "MerchantMenu"
 	Title "Merchant Options"
 
 	Option "Skin", "hdm_skin", "Skin"
-	Option "Currency", "hdm_currency", "Currency"
 }
 
 AddOptionMenu "OptionsMenu"
@@ -15,10 +14,4 @@ OptionValue "Skin"
 {
 	0, "Resident Evil"
 	1, "Hobo"
-}
-
-OptionValue "Currency"
-{
-	0, "7mm Rounds"
-	1, "Mercenary Bucks"
 }
