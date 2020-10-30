@@ -7,6 +7,7 @@ class MerchantHandler : StaticEventHandler
 {
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
+	private int CashFromMonsters;
 
 	override void OnRegister()
 	{
@@ -106,6 +107,66 @@ class MerchantHandler : StaticEventHandler
 		}
 	}
 
+	override void WorldThingDied(WorldEvent e)
+	{
+		if (!e.Thing || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER)
+		{
+			return;
+		}
+
+		double Reward = 0;
+		if (!(e.Thing is "HDMobBase"))
+		{
+			Reward = ceil(e.Thing.GetSpawnHealth() / 100.0); // [Ace] Not perfect, but it'll do.
+		}
+		else if (e.Thing is "ZombieStormTrooper" || e.Thing is "HideousShotgunGuy" || e.Thing is "Babuin" || e.Thing is "UndeadHomeboy")
+		{
+			Reward = 1;
+		}
+		else if (e.Thing is "Serpentipede" || e.Thing is "VulcanetteGuy")
+		{
+			Reward = 1.5;
+		}
+		else if (e.Thing is "HDMarine" || e.Thing is "HoopBubble" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
+		{
+			Reward = 2;
+		}
+		else if (e.Thing is "TechnoSpider" || e.Thing is "CombatSlug" || e.Thing is "Boner" || e.Thing is "Trilobite")
+		{
+			Reward = 3;
+		}
+		else if (e.Thing is "PainBringer")
+		{
+			Reward = 5;
+		}
+		else if (e.Thing is "PainLord")
+		{
+			Reward = 10;
+		}
+		else if (e.Thing is "Necromancer")
+		{
+			Reward = 50;
+		}
+		else if (e.Thing is "Technorantula")
+		{
+			Reward = 75;
+		}
+		else if (e.Thing is "SatanRobo")
+		{
+			Reward = 100;
+		}
+
+		if (Reward > 0)
+		{
+			int Amount = int(Reward);
+			if (frandom[cashrand](0.01, 1.00) < Reward % 1.0)
+			{
+				Amount++;
+			}
+			CashFromMonsters += Amount;
+		}
+	}
+
 	override void WorldLoaded(WorldEvent e)
 	{
 		if (e.IsSaveGame) return;
@@ -125,7 +186,9 @@ class MerchantHandler : StaticEventHandler
 
 	override void WorldUnloaded(WorldEvent e)
 	{
-		int MoneyPerPlayer = GetMoney();
+		double TotalCash = CashFromMonsters + level.found_secrets * 30 - Thinker.Tics2Seconds(level.time) / 60;
+		int MoneyPerPlayer = TotalCash / GetPlayersInGame();
+
 		for (int i = 0; i < MAXPLAYERS; ++i)
 		{
 			if (players[i].mo && MoneyPerPlayer > 0)
@@ -133,6 +196,8 @@ class MerchantHandler : StaticEventHandler
 				players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
 			}
 		}
+
+		CashFromMonsters = 0;
 	}
 
 	private int GetPlayersInGame()
@@ -146,13 +211,6 @@ class MerchantHandler : StaticEventHandler
 			}
 		}
 		return TotalPlayers;
-	}
-
-	private int GetMoney() // [Ace] You know how the first bit goes.
-	{
-		double TotalCash = (level.killed_monsters * 0.75 + level.found_secrets * 30) - Thinker.Tics2Seconds(level.time) / 60;
-
-		return int(TotalCash / GetPlayersInGame());
 	}
 }
 
