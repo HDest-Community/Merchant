@@ -182,7 +182,7 @@ class MerchantHandler : EventHandler
 	override void WorldUnloaded(WorldEvent e)
 	{
 		double TotalCash = CashFromMonsters + level.found_secrets * 30 - Thinker.Tics2Seconds(level.time) / 60;
-		int MoneyPerPlayer = TotalCash / GetPlayersInGame();
+		int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
 
 		for (int i = 0; i < MAXPLAYERS; ++i)
 		{
