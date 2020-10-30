@@ -301,9 +301,19 @@ class HDLadderLauncherStore : StoreItem
 	override string GetFlavorText() { return "Aim for the top."; }
 }
 
-class HDArmorPatchKitStore : StoreItem
+class HDBoosterJetsStore : StoreItem
 {
 	override string, int GetCategory() { return "AceCorp Items", 5; }
+	override string GetItem() { return "HDBoosterJets"; }
+	override string GetIcon() { return "BSJTA0"; }
+	override string GetDisplayName() { return "Booster Jets"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "Wheeeeeeeeeeeee!"; }
+}
+
+class HDArmorPatchKitStore : StoreItem
+{
+	override string, int GetCategory() { return "AceCorp Items", 6; }
 	override string GetItem() { return "HDArmorPatchKit"; }
 	override string GetIcon() { return "APKTA0"; }
 	override string GetDisplayName() { return "Armor Patch Kit"; }
@@ -313,7 +323,7 @@ class HDArmorPatchKitStore : StoreItem
 
 class HDWeaponUpgradeKitStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 6; }
+	override string, int GetCategory() { return "AceCorp Items", 7; }
 	override string GetItem() { return "HDWeaponUpgradeKit"; }
 	override string GetIcon() { return "WUKTA0"; }
 	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
