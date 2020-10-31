@@ -130,9 +130,39 @@ class HDFragGrenadeStore : StoreItem
 	override string GetFlavorText() { return "Remember: pull pin, THEN throw."; }
 }
 
-class HDBluePotionStore : StoreItem
+class HDStimpackStore : StoreItem
 {
 	override string, int GetCategory() { return "Vanilla Items", 1; }
+	override string GetItem() { return "PortableStimpack"; }
+	override string GetIcon() { return "PSTIA0"; }
+	override string GetDisplayName() { return "Stimpack"; }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return "AHHHH YEAH!"; }
+}
+
+class HDBloodbagStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 2; }
+	override string GetItem() { return "SecondBlood"; }
+	override string GetIcon() { return "PBLDA0"; }
+	override string GetDisplayName() { return "Synthetic Blood"; }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return "'Tis but a scratch."; }
+}
+
+class HDMedikitStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 3; }
+	override string GetItem() { return "PortableMedikit"; }
+	override string GetIcon() { return "PMEDA0"; }
+	override string GetDisplayName() { return "Medikit"; }
+	override int GetBasePrice() { return 20; }
+	override string GetFlavorText() { return "And all the king's horses and all the king's men couldn't staple Humpty Dumpty back together again."; }
+}
+
+class HDBluePotionStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 4; }
 	override string GetItem() { return "BluePotion"; }
 	override string GetIcon() { return "BON1A0"; }
 	override string GetDisplayName() { return "Blue Potion"; }
@@ -142,7 +172,7 @@ class HDBluePotionStore : StoreItem
 
 class HDBerserkStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Items", 2; }
+	override string, int GetCategory() { return "Vanilla Items", 5; }
 	override string GetItem() { return "PortableBerserkPack"; }
 	override string GetIcon() { return "PSTRA0"; }
 	override string GetDisplayName() { return "Berserk Pack"; }
@@ -152,7 +182,7 @@ class HDBerserkStore : StoreItem
 
 class HDDoorBusterStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Items", 3; }
+	override string, int GetCategory() { return "Vanilla Items", 6; }
 	override string GetItem() { return "DoorBuster"; }
 	override string GetIcon() { return "BGRNA3A7"; }
 	override string GetDisplayName() { return "Door Buster"; }
@@ -162,7 +192,7 @@ class HDDoorBusterStore : StoreItem
 
 class HDPortableLadderStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Items", 4; }
+	override string, int GetCategory() { return "Vanilla Items", 7; }
 	override string GetItem() { return "PortableLadder"; }
 	override string GetIcon() { return "LADDD0"; }
 	override string GetDisplayName() { return "Portable Ladder"; }
@@ -172,7 +202,7 @@ class HDPortableLadderStore : StoreItem
 
 class HDJetpackStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Items", 5; }
+	override string, int GetCategory() { return "Vanilla Items", 8; }
 	override string GetItem() { return "HDJetPack"; }
 	override string GetIcon() { return "JPAKA0"; }
 	override string GetDisplayName() { return "Jetpack"; }
@@ -182,7 +212,7 @@ class HDJetpackStore : StoreItem
 
 class HDSummoningTalismanStore : StoreItem
 {
-	override string, int GetCategory() { return "Vanilla Items", 6; }
+	override string, int GetCategory() { return "Vanilla Items", 9; }
 	override string GetItem() { return "SquadSummoner"; }
 	override string GetIcon() { return "PLHELMA0"; }
 	override string GetDisplayName() { return "Summoning Talisman"; }
