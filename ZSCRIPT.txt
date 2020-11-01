@@ -84,7 +84,7 @@ class MerchantHandler : EventHandler
 		{
 			Reward = 1.5;
 		}
-		else if (e.Thing is "HDMarine" || e.Thing is "HoopBubble" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
+		else if (e.Thing is "HDMarine" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
 		{
 			Reward = 2;
 		}
@@ -92,7 +92,7 @@ class MerchantHandler : EventHandler
 		{
 			Reward = 3;
 		}
-		else if (e.Thing is "PainBringer")
+		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
 		{
 			Reward = 5;
 		}
