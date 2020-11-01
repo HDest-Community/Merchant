@@ -1,7 +1,8 @@
 enum MerchantCurrencies
 {
+	Currency_Bucks,
 	Currency_7mm,
-	Currency_Bucks
+	Currency_Brass
 }
 
 class StoreItem
@@ -10,8 +11,9 @@ class StoreItem
 	{
 		switch (currency)
 		{
-			case 0: return "SevenMilAmmo";
-			case 1: return "MercenaryBucks";
+			case Currency_Bucks: return "MercenaryBucks";
+			case Currency_7mm: return "SevenMilAmmo";
+			case Currency_Brass: return "SevenMilBrass";
 		}
 
 		return null;
@@ -20,8 +22,9 @@ class StoreItem
 	{
 		switch (currency)
 		{
-			case 0: return "TEN7A0";
-			case 1: return "MBCKA0";
+			case Currency_Bucks: return "MBCKA0";
+			case Currency_7mm: return "TEN7A0";
+			case Currency_Brass: return "RBRSA3A7";
 		}
 
 		return "";
@@ -38,6 +41,7 @@ class StoreItem
 		switch (currency)
 		{
 			case 1: return int(BaseCost * 2.0);
+			case 2: return int(BaseCost * 2.0);
 		}
 		return BaseCost;
 	}

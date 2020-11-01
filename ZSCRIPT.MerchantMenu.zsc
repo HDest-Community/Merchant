@@ -196,11 +196,11 @@ class MerchantShopMenu : GenericMenu
 			case MKEY_PageUp:
 				if (--SelectedCurrency < 0)
 				{
-					SelectedCurrency = Currency_Bucks;
+					SelectedCurrency = Currency_Brass;
 				}
 				break;
 			case MKEY_PageDown:
-				if (++SelectedCurrency > Currency_Bucks)
+				if (++SelectedCurrency > Currency_Brass)
 				{
 					SelectedCurrency = 0;
 				}
