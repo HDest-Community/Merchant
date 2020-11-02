@@ -62,6 +62,11 @@ class MerchantHandler : EventHandler
 				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
 			}
 		}
+
+		if (e.Name ~== "HDM_ResetStore")
+		{
+			InitStore();
+		}
 	}
 
 	override void WorldThingDamaged(WorldEvent e)
@@ -124,8 +129,11 @@ class MerchantHandler : EventHandler
 		}
 	}
 
-	override void WorldLoaded(WorldEvent e)
+	private void InitStore()
 	{
+		StoreItems.Clear();
+		Categories.Clear();
+		
 		for (int i = 0; i < AllClasses.Size(); ++i)
 		{
 			if (AllClasses[i] is "StoreItem" && AllClasses[i].GetClassName() != 'StoreItem')
@@ -165,6 +173,11 @@ class MerchantHandler : EventHandler
 				}
 			}
 		}
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		InitStore();
 
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
