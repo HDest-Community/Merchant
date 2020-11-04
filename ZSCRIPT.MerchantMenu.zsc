@@ -1,9 +1,127 @@
-class MerchantShopMenu : GenericMenu
+class ItemsFrame : MerchMenuFrame
+{
+	MerchantShopMenu ParentMenu;
+
+	override void Drawer()
+	{
+		int BoxSize = 30;
+
+		for (int i = 0; i < ParentMenu.ItemsInCategory.Size(); ++i)
+		{
+			vector2 DrawPos = (0, (BoxSize + MerchantShopMenu.Spacing) * i);
+			vector2 DrawSize = (box.size.x, BoxSize);
+			DrawStoreItem(players[consoleplayer].mo, ParentMenu.ItemsInCategory[i], DrawPos, DrawSize, i == ParentMenu.SelItemIndex);
+		}
+	}
+
+	private ui void DrawStoreItem(PlayerPawn plr, StoreItem item, vector2 pos, vector2 size, bool selected)
+	{
+		Color DimColor = selected ? Color(60, 35, 20) : Color(0, 0, 0);
+
+		// ----- ICON -----
+		
+		Fill((0, pos.y), (size.y, size.y), DimColor, 0.75);
+
+		TextureID ItemIcon = TexMan.CheckForTexture(item.GetIcon(), TexMan.Type_Any);
+		vector2 ItemIconSize = TexMan.GetScaledSize(ItemIcon);
+		double ItemIconScale = 1.0 / MerchantShopMenu.GetBoxedScale(ItemIconSize, (size.y, size.y) * 0.8);
+		ItemIconSize *= ItemIconScale;
+		vector2 ItemIconPos = ((size.y - ItemIconSize.x) / 2, pos.y + (size.y - ItemIconSize.y) / 2);
+		DrawImage(ItemIconPos, item.GetIcon(), true, (ItemIconScale, ItemIconScale));
+
+		// ----- NAME & FLAVOR TEXT -----
+
+		pos.x += size.y + MerchantShopMenu.Spacing;
+		double ContentW = size.x - (size.y + MerchantShopMenu.Spacing) * 2;
+		Fill(pos, (ContentW, size.y), DimColor, 0.75);
+
+		vector2 ContentPos = pos + (1.5, 1.5);
+		int Amount = item.GetAmount();
+		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName();
+		DrawText(ContentPos, SmallFont, DisplayName, Font.CR_GREEN, MerchantShopMenu.TextScale);
+
+		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), int(size.x - (size.y + MerchantShopMenu.Spacing) * 2));
+		int LinesCount = FlavorLines.Count();
+		ContentPos.y += (SmallFont.GetHeight() * MerchantShopMenu.TextScale) * 2;
+		for (int i = LinesCount - 1; i >= 0; --i)
+		{
+			DrawText(ContentPos, ConFont, FlavorLines.StringAt(i), Font.CR_DARKGRAY, MerchantShopMenu.TextScale);
+			ContentPos.y -= ConFont.GetHeight() * MerchantShopMenu.TextScale;
+		}
+
+		pos.x += ContentW + MerchantShopMenu.Spacing;
+
+		// ----- PRICE -----
+		Fill(pos, (size.y, size.y), DimColor, 0.75);
+
+		string CurIconString = StoreItem.GetCurrencyIcon(ParentMenu.SelCurrencyIndex);
+		TextureID CurIcon = TexMan.CheckForTexture(CurIconString, TexMan.Type_Any);
+		vector2 CurIconSize = TexMan.GetScaledSize(CurIcon);
+		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 20));
+		CurIconSize *= IconScale;
+		vector2 CurIconPos = (pos.x + size.y / 2 - CurIconSize.x / 2, pos.y + 7 - CurIconSize.y / 2);
+		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
+
+		int Price = item.GetAdjustedPrice(ParentMenu.SelCurrencyIndex);
+		string DisplayPrice = (Price <= plr.CountInv(StoreItem.GetCurrencyClass(ParentMenu.SelCurrencyIndex)) ? "\c[White]" : "\c[Red]")..Price.."\c-";
+		vector2 CurrencyTextPos = (pos.x + size.y / 2 - (SmallFont.StringWidth(DisplayPrice) / 2) * MerchantShopMenu.TextScale, pos.y + size.y - SmallFont.GetHeight() * MerchantShopMenu.TextScale - 1);
+		DrawText(CurrencyTextPos, SmallFont, DisplayPrice, Font.CR_UNTRANSLATED, MerchantShopMenu.TextScale);
+	}
+}
+
+class ShopFrame : MerchMenuFrame
+{
+	MerchantShopMenu ParentMenu;
+
+	override void Drawer()
+	{
+		Super.Drawer();
+
+		int CurrencyWidth = 35;
+
+		Fill((0, 0), (box.size.x - CurrencyWidth - MerchantShopMenu.Spacing, box.size.y), Color(0, 0, 0), 0.75);
+
+		// ----- CATEGORY -----
+		string SelCat = ParentMenu.GetSelectedCategory();
+		vector2 CatTextPos = ((box.size.x - CurrencyWidth - MerchantShopMenu.Spacing) / 2 - (BigFont.StringWidth(SelCat) / 2) * MerchantShopMenu.TextScale, (box.size.y - (BigFont.GetHeight() - 4)) / 2 * MerchantShopMenu.TextScale);
+		DrawText(CatTextPos, BigFont, SelCat, Font.CR_WHITE, MerchantShopMenu.TextScale);
+
+		let PrevArrowImg = TexMan.CheckForTexture("PREVARRW", TexMan.Type_Any);
+		vector2 PrevArrowSize = TexMan.GetScaledSize(PrevArrowImg);
+		DrawImage((5, (box.size.y - PrevArrowSize.y) / 2), "PREVARRW", true);
+
+		let NextArrowImg = TexMan.CheckForTexture("NEXTARRW", TexMan.Type_Any);
+		vector2 NextArrowSize = TexMan.GetScaledSize(NextArrowImg);
+		DrawImage((box.size.x - CurrencyWidth - MerchantShopMenu.Spacing - NextArrowSize.x - 5, (box.size.y - NextArrowSize.y) / 2), "NEXTARRW", true);
+
+		// ----- CURRENCY + AMOUNT -----
+
+		Fill((box.size.x - CurrencyWidth, 0), (CurrencyWidth, box.size.y), Color(0, 0, 0), 0.75);
+
+		string CurIconString = StoreItem.GetCurrencyIcon(ParentMenu.SelCurrencyIndex);
+		TextureID CurIcon = TexMan.CheckForTexture(CurIconString, TexMan.Type_Any);
+		vector2 CurIconSize = TexMan.GetScaledSize(CurIcon);
+		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 20));
+		CurIconSize *= IconScale;
+		vector2 CurIconPos = (box.size.x - CurrencyWidth / 2 - CurIconSize.x / 2, 7 - CurIconSize.y / 2);
+		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
+
+		string CurrencyAmount = String.Format("%i", players[consoleplayer].mo.CountInv(StoreItem.GetCurrencyClass(ParentMenu.SelCurrencyIndex)));
+		vector2 CurrencyTextPos = (box.size.x - CurrencyWidth / 2 - (SmallFont.StringWidth(CurrencyAmount) / 2) * MerchantShopMenu.TextScale, box.size.y - SmallFont.GetHeight() * MerchantShopMenu.TextScale - 1);
+		DrawText(CurrencyTextPos, SmallFont, CurrencyAmount, Font.CR_GOLD, MerchantShopMenu.TextScale);
+	}
+}
+
+class MerchantShopMenu : MerchMenuGenericMenu
 {
 	private MerchantHandler Handler;
-	private ui int SelectedCategory;
-	private ui int SelectedItemIndex; // [Ace] This is only used within a specific category. Don't bother using it with the full array.
-	private ui int SelectedCurrency;
+	int SelCategoryIndex;
+	int SelItemIndex; // [Ace] This is only used within a specific category. Don't bother using it with the full array.
+	int SelCurrencyIndex;
+	Array<StoreItem> ItemsInCategory;
+
+	const TextScale = 1.0; // [Ace] Not really used anymore, but still here so I don't have to reimplement it if needed.
+	const Spacing = 3;
 
 	override void Init(Menu parent)
 	{
@@ -11,75 +129,32 @@ class MerchantShopMenu : GenericMenu
 
 		menuactive = Menu.OnNoPause;
 		Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+		GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
+
+		vector2 VirtRes = (640, 480);
+		SetBaseResolution(VirtRes);
+
+		vector2 BasePos = (VirtRes.x * 0.1, 10);
+
+		let SFrame = new("ShopFrame");
+		vector2 SSize = (VirtRes.x - BasePos.x * 2, 30);
+		SFrame.Init(BasePos, SSize);
+		SFrame.ParentMenu = self;
+		SFrame.Pack(MainFrame);
+
+		let IFrame = new("ItemsFrame");
+		vector2 IPos = (BasePos.x, BasePos.y + SSize.y + Spacing);
+		vector2 ISize = (VirtRes.x - BasePos.x * 2, VirtRes.y - BasePos.y * 2 - (SSize.y + Spacing) * 0.90);
+		IFrame.Init(IPos, ISize);
+		IFrame.ParentMenu = self;
+		IFrame.Pack(MainFrame);
 	}
 
-	override void Drawer()
+	ui string GetSelectedCategory()
 	{
-		Super.Drawer();
-
-		if (GetCurrentMenu() == self)
+		if (Handler && SelCategoryIndex < Handler.Categories.Size())
 		{
-			let PrevArrow = TexMan.CheckForTexture("PREVARRW", TexMan.Type_MiscPatch);
-			let NextArrow = TexMan.CheckForTexture("NEXTARRW", TexMan.Type_MiscPatch);
-			int W = Screen.GetWidth();
-			int H = Screen.GetHeight();
-			int W2 = W / 2;
-			int H2 = H / 2;
-
-			int BaseX = int(W * 0.2);
-			int BaseY = 40;
-			int BaseW = W - BaseX * 2;
-			int Spacing = 10;
-
-			// ----- CATEGORY -----
-			int CatW = BaseW - 80 - Spacing;
-			int CatH = 60;
-			Screen.Dim("000000", 0.75, BaseX, BaseY, CatW, CatH);
-
-			// Text.
-			string SelCat = GetSelectedCategory();
-			Screen.DrawText(BigFont, Font.CR_WHITE, BaseX + (CatW - BigFont.StringWidth(SelCat) * CleanXfac_1) / 2, BaseY + CatH / 2 - ((BigFont.GetHeight() - 4) * CleanYfac_1) / 2, SelCat, DTA_CleanNoMove_1, true);
-
-			// Arrows.
-			Screen.DrawTexture(PrevArrow, false, BaseX + 40, BaseY + CatH / 2, DTA_CleanNoMove, true, DTA_CenterOffset, true);
-			Screen.DrawTexture(NextArrow, false, BaseX + (CatW - 40), BaseY + CatH / 2, DTA_CleanNoMove, true, DTA_CenterOffset, true);
-
-			// ----- CURRENCY + AMOUNT -----
-
-			int CurrencyX = BaseX + CatW + Spacing;
-			int CurrencyW = 80;
-			Screen.Dim("000000", 0.75, CurrencyX, BaseY, CurrencyW, CatH);
-
-			TextureID CurrencyIcon = TexMan.CheckForTexture(StoreItem.GetCurrencyIcon(SelectedCurrency), TexMan.Type_Any);
-			if (CurrencyIcon.IsValid())
-			{
-				vector2 IconSize = TexMan.GetScaledSize(CurrencyIcon);
-				IconSize *= CleanXfac;
-				IconSize = GetBoxedSize(IconSize, int(CatH / 1.5));
-				Screen.DrawTexture(CurrencyIcon, false, CurrencyX + CurrencyW / 2, BaseY + CatH / 3, DTA_CleanNoMove, true, DTA_CenterOffset, true, DTA_DestWidth, int(IconSize.X), DTA_DestHeight, int(IconSize.Y));
-			}
-
-			string CurrencyAmount = String.Format("%i", players[consoleplayer].mo.CountInv(StoreItem.GetCurrencyClass(SelectedCurrency)));
-			Screen.DrawText(SmallFont, Font.CR_GOLD, CurrencyX + CurrencyW / 2 - (SmallFont.StringWidth(CurrencyAmount) * CleanXfac_1) / 2, BaseY + CatH - SmallFont.GetHeight() * CleanYfac_1, CurrencyAmount, DTA_CleanNoMove_1, true);
-
-			// ----- ITEMS -----
-			Array<StoreItem> ItemsInCategory;
-			GetItemsInCategory(ItemsInCategory, SelCat);
-			int ItemX = BaseX;
-			int ItemY = BaseY + CatH + 10;
-			int ItemH = 60;
-			for (int i = 0; i < ItemsInCategory.Size(); ++i)
-			{
-				DrawStoreItem(players[consoleplayer].mo, ItemsInCategory[i], ItemX, ItemY + (ItemH + 10) * i, BaseW, ItemH, i == SelectedItemIndex);
-			}
-		}
-	}
-
-	private ui string GetSelectedCategory()
-	{
-		if (Handler && SelectedCategory < Handler.Categories.Size())
-		{
-			return Handler.Categories[SelectedCategory];
+			return Handler.Categories[SelCategoryIndex];
 		}
 
 		return "U DUN GOOF'D, FOO'!";
@@ -97,67 +172,13 @@ class MerchantShopMenu : GenericMenu
 		}
 	}
 
-	private ui void DrawStoreItem(PlayerPawn plr, StoreItem item, int x, int y, int w, int h, bool selected)
+	static clearscope double GetBoxedScale(vector2 size, vector2 boxSize)
 	{
-		int Spacing = 10;
-		Color DimColor = selected ? Color(60, 35, 20) : Color(0, 0, 0);
-
-		// Icon.
-		Screen.Dim(DimColor, 0.75, x, y, h, h);
-		TextureID ItemIcon = TexMan.CheckForTexture(item.GetIcon(), TexMan.Type_Any);
-		if (ItemIcon.IsValid())
-		{
-			vector2 IconSize = TexMan.GetScaledSize(ItemIcon);
-			IconSize *= CleanXfac;
-			IconSize = GetBoxedSize(IconSize, h - 10);
-			Screen.DrawTexture(ItemIcon, false, x + h / 2, y + h / 2, DTA_CleanNoMove, true, DTA_CenterOffset, true, DTA_DestWidth, int(IconSize.X), DTA_DestHeight, int(IconSize.Y));
-		}
-
-		// Name & Flavor text.
-		int ContBoxX = x + h + Spacing;
-		int ContBoxW = w - h * 2 - Spacing * 2;
-		Screen.Dim(DimColor, 0.75, ContBoxX, y, ContBoxW, h);
-
-		int Amount = item.GetAmount();
-		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName();
-		Screen.DrawText(SmallFont, Font.CR_GREEN, ContBoxX + 5, y + 5, DisplayName, DTA_CleanNoMove_1, true);
-
-		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), ContBoxW / CleanXfac_1);
-		int LinesCount = FlavorLines.Count();
-		for (int i = LinesCount - 1; i >= 0; --i)
-		{
-			int LineHeight = ConFont.GetHeight() * CleanYfac_1 + 3;
-			Screen.DrawText(ConFont, Font.CR_DARKGRAY, ContBoxX + 5, y + h - LineHeight - LineHeight * (LinesCount - 1 - i), FlavorLines.StringAt(i), DTA_CleanNoMove_1, true);
-		}
-
-		// Price
-		int PriceBoxX = ContBoxX + ContBoxW + Spacing;
-		Screen.Dim(DimColor, 0.75, PriceBoxX, y, h, h);
-
-		TextureID CurrencyIcon = TexMan.CheckForTexture(StoreItem.GetCurrencyIcon(SelectedCurrency), TexMan.Type_Any);
-		if (CurrencyIcon.IsValid())
-		{
-			vector2 IconSize = TexMan.GetScaledSize(CurrencyIcon);
-			IconSize *= CleanXfac;
-			IconSize = GetBoxedSize(IconSize, int(h / 1.5));
-			Screen.DrawTexture(CurrencyIcon, false, PriceBoxX + h / 2, y + h / 3, DTA_CleanNoMove, true, DTA_CenterOffset, true, DTA_DestWidth, int(IconSize.X), DTA_DestHeight, int(IconSize.Y));
-		}
-
-		int Price = item.GetAdjustedPrice(SelectedCurrency);
-		string DisplayPrice = (Price <= plr.CountInv(StoreItem.GetCurrencyClass(SelectedCurrency)) ? "\c[White]" : "\c[Red]")..Price.."\c-";
-		Screen.DrawText(SmallFont, Font.CR_GOLD, PriceBoxX + h / 2 - (SmallFont.StringWidth(DisplayPrice) * CleanXfac_1) / 2, y + h - SmallFont.GetHeight() * CleanYfac_1, DisplayPrice, DTA_CleanNoMove_1, true);
-	}
-
-	private ui vector2 GetBoxedSize(vector2 size, int boxSize)
-	{
-		size /= max(size.X, size.Y);
-		size *= boxSize;
-		return size;
+		return max(size.x / boxSize.x, size.y / boxSize.y);
 	}
 
 	override bool MenuEvent(int mkey, bool fromcontroller)
 	{
-		Array<StoreItem> ItemsInCategory;
 		switch (mkey)
 		{
 			case MKEY_Back:
@@ -166,48 +187,48 @@ class MerchantShopMenu : GenericMenu
 				return true;
 			}
 			case MKEY_Left:
-				SelectedItemIndex = 0;
-				if (--SelectedCategory < 0)
+				SelItemIndex = 0;
+				if (--SelCategoryIndex < 0)
 				{
-					SelectedCategory = Handler.Categories.Size() - 1;
+					SelCategoryIndex = Handler.Categories.Size() - 1;
 				}
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
 				break;
 			case MKEY_Right:
-				SelectedItemIndex = 0;
-				if (++SelectedCategory == Handler.Categories.Size())
+				SelItemIndex = 0;
+				if (++SelCategoryIndex == Handler.Categories.Size())
 				{
-					SelectedCategory = 0;
+					SelCategoryIndex = 0;
 				}
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
 				break;
 			case MKEY_Up:
-				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
-				if (--SelectedItemIndex < 0)
+				if (--SelItemIndex < 0)
 				{
-					SelectedItemIndex = ItemsInCategory.Size() - 1;
+					SelItemIndex = ItemsInCategory.Size() - 1;
 				}
 				break;
 			case MKEY_Down:
-				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
-				if (++SelectedItemIndex == ItemsInCategory.Size())
+				if (++SelItemIndex == ItemsInCategory.Size())
 				{
-					SelectedItemIndex = 0;
+					SelItemIndex = 0;
 				}
 				break;
 			case MKEY_PageUp:
-				if (--SelectedCurrency < 0)
+				if (--SelCurrencyIndex < 0)
 				{
-					SelectedCurrency = Currency_Brass;
+					SelCurrencyIndex = Currency_Brass;
 				}
 				break;
 			case MKEY_PageDown:
-				if (++SelectedCurrency > Currency_Brass)
+				if (++SelCurrencyIndex > Currency_Brass)
 				{
-					SelectedCurrency = 0;
+					SelCurrencyIndex = 0;
 				}
 				break;
 			case MKEY_Enter:
 				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
-				EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", ItemsInCategory[SelectedItemIndex].GetClassName()), SelectedCurrency);
+				EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", ItemsInCategory[SelItemIndex].GetClassName()), SelCurrencyIndex);
 				break;
 		}
 

@@ -1,0 +1,10 @@
+class MerchMenuHandler ui {
+	virtual void buttonClickCommand(MerchMenuButton caller, string command) {
+	}
+	
+	virtual void buttonHeldCommand(MerchMenuButton caller, string command) {
+	}
+
+	virtual void elementHoverChanged(MerchMenuElement caller, string command, bool unhovered) {
+	}
+}

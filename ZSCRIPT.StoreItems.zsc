@@ -190,7 +190,7 @@ class HDDoorBusterStore : StoreItem
 	override string GetIcon() { return "BGRNA3A7"; }
 	override string GetDisplayName() { return "Door Buster"; }
 	override int GetBasePrice() { return 50; }
-	override string GetFlavorText() { return "Be careful not to blow yourself up with these."; }
+	override string GetFlavorText() { return "Breaching, breaching!"; }
 }
 
 class HDPortableLadderStore : StoreItem
