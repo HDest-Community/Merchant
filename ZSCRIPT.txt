@@ -2,7 +2,7 @@ version "4.5"
 
 #include "ZSCRIPT.MerchantMenu.zsc"
 #include "ZSCRIPT.StoreItems.zsc"
-#include "ZScript/Include.zsc" // [Ace] For the menu.
+#include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 
 class MerchantHandler : EventHandler
 {
