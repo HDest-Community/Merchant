@@ -416,4 +416,14 @@ class HDRespiratorStore : StoreItem
 	override string GetDisplayName() { return "Respirator"; }
 	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Blub blub blub."; }
+
+
+class HDMessKitStore : StoreItem
+{
+	override string, int GetCategory() { return "Ugly as Sin", 2; }
+	override string GetItem() { return "UaS_MessKit"; }
+	override string GetIcon() { return "HSCVB0"; }
+	override string GetDisplayName() { return "Mess Kit"; }
+	override int GetBasePrice() { return 25; }
+	override string GetFlavorText() { return "Don't make a mess."; }
 }
