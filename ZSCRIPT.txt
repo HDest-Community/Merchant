@@ -100,21 +100,21 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
 		{
-			Reward = 5;
+			Reward = 7.5;
 		}
 		else if (e.Thing is "PainLord")
 		{
-			Reward = 10;
-		}
-		else if (e.Thing is "Necromancer")
-		{
-			Reward = 50;
+			Reward = 15;
 		}
 		else if (e.Thing is "Technorantula")
 		{
-			Reward = 75;
+			Reward = 50;
 		}
 		else if (e.Thing is "SatanRobo")
+		{
+			Reward = 75;
+		}
+		else if (e.Thing is "Necromancer")
 		{
 			Reward = 100;
 		}
