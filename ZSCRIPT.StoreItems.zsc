@@ -416,7 +416,7 @@ class HDRespiratorStore : StoreItem
 	override string GetDisplayName() { return "Respirator"; }
 	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Blub blub blub."; }
-
+}
 
 class HDMessKitStore : StoreItem
 {
@@ -426,4 +426,24 @@ class HDMessKitStore : StoreItem
 	override string GetDisplayName() { return "Mess Kit"; }
 	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "Don't make a mess."; }
+}
+
+class HDFoodRationStore : StoreItem
+{
+	override string, int GetCategory() { return "Ugly as Sin", 3; }
+	override string GetItem() { return "UaS_FoodRation"; }
+	override string GetIcon() { return "HSCVA0"; }
+	override string GetDisplayName() { return "Food Ration"; }
+	override int GetBasePrice() { return 15; }
+	override string GetFlavorText() { return "Crunchy."; }
+}
+
+class HDWaterRationStore : StoreItem
+{
+	override string, int GetCategory() { return "Ugly as Sin", 4; }
+	override string GetItem() { return "UaS_WaterRation"; }
+	override string GetIcon() { return "HSCVC0"; }
+	override string GetDisplayName() { return "Water Ration"; }
+	override int GetBasePrice() { return 15; }
+	override string GetFlavorText() { return "NOTE: Taste depends on temperature."; }
 }
