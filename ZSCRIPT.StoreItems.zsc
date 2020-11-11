@@ -334,9 +334,19 @@ class HDUniversalReloaderStore : StoreItem
 	override string GetFlavorText() { return "I have no idea why you'd spend this much cash on this."; }
 }
 
-class HDLadderLauncherStore : StoreItem
+class HDMagazineReloaderStore : StoreItem
 {
 	override string, int GetCategory() { return "AceCorp Items", 4; }
+	override string GetItem() { return "HDMagazineReloader"; }
+	override string GetIcon() { return "MRLDA0"; }
+	override string GetDisplayName() { return "Magazine Reloader"; }
+	override int GetBasePrice() { return 300; }
+	override string GetFlavorText() { return "Waste your enemies, not your time."; }
+}
+
+class HDLadderLauncherStore : StoreItem
+{
+	override string, int GetCategory() { return "AceCorp Items", 5; }
 	override string GetItem() { return "HDLadderLauncher"; }
 	override string GetIcon() { return "LLCHZ0"; }
 	override string GetDisplayName() { return "Ladder Launcher"; }
@@ -346,7 +356,7 @@ class HDLadderLauncherStore : StoreItem
 
 class HDBoosterJetsStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 5; }
+	override string, int GetCategory() { return "AceCorp Items", 6; }
 	override string GetItem() { return "HDBoosterJets"; }
 	override string GetIcon() { return "BSJTA0"; }
 	override string GetDisplayName() { return "Booster Jets"; }
@@ -356,7 +366,7 @@ class HDBoosterJetsStore : StoreItem
 
 class HDArmorPatchKitStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 6; }
+	override string, int GetCategory() { return "AceCorp Items", 7; }
 	override string GetItem() { return "HDArmorPatchKit"; }
 	override string GetIcon() { return "APKTA0"; }
 	override string GetDisplayName() { return "Armor Patch Kit"; }
@@ -366,7 +376,7 @@ class HDArmorPatchKitStore : StoreItem
 
 class HDWeaponUpgradeKitStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 7; }
+	override string, int GetCategory() { return "AceCorp Items", 8; }
 	override string GetItem() { return "HDWeaponUpgradeKit"; }
 	override string GetIcon() { return "WUKTA0"; }
 	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
