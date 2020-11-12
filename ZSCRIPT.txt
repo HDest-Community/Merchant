@@ -72,8 +72,9 @@ class MerchantHandler : EventHandler
 
 	override void WorldThingDamaged(WorldEvent e)
 	{
-		string FollowerClass = "HDFollower";
-		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.DamageSource is Actor.GetReplacement(FollowerClass)) || !(e.DamageSource is "HDPlayerPawn"))
+		string FollowerClassName = "HDFollower";
+		class<Actor> FollowerClass = FollowerClassName;
+		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.DamageSource is "HDPlayerPawn") || FollowerClass && !(e.DamageSource is Actor.GetReplacement(FollowerClass)))
 		{
 			return;
 		}
