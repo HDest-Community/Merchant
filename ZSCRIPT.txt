@@ -317,6 +317,7 @@ class MercenaryBucks : HDAmmo
 		+HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION
 		HDPickup.Bulk 0.08;
+		HDPickup.RefID "bux";
 		Inventory.MaxAmount 10000;
 		Inventory.PickupMessage "Picked up some bucks.";
 		Scale 0.4;
