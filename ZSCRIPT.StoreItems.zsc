@@ -223,6 +223,16 @@ class HDSummoningTalismanStore : StoreItem
 	override string GetFlavorText() { return "Who ya gonna call?"; }
 }
 
+class HDAmmoBoxStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 10; }
+	override string GetItem() { return "HDAmBox"; }
+	override string GetIcon() { return "AMMOA0"; }
+	override string GetDisplayName() { return "Ammo Box"; }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return "I take no responsibility if this explodes. Just don't open it in front of my face."; }
+}
+
 class HDGreenArmorStore : StoreItem
 {
 	override string, int GetCategory() { return "Armor", 1; }
@@ -392,6 +402,16 @@ class HDWeaponUpgradeKitStore : StoreItem
 	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
 	override int GetBasePrice() { return 240; }
 	override string GetFlavorText() { return "Upgrade complete."; }
+}
+
+class HDWeaponCrateStore : StoreItem
+{
+	override string, int GetCategory() { return "AceCorp Items", 10; }
+	override string GetItem() { return "HDWeaponCrate"; }
+	override string GetIcon() { return "WPCRT0"; }
+	override string GetDisplayName() { return "Weapon Crate"; }
+	override int GetBasePrice() { return 300; }
+	override string GetFlavorText() { return "Ammo sold separately."; }
 }
 
 // ---------- MELONADES ----------

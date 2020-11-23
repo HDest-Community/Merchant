@@ -29,7 +29,7 @@ class MerchantHandler : EventHandler
 
 			if (Item && plr)
 			{
-				class<Inventory> ItemClass = Item.GetItem();
+				class<Actor> ItemClass = Item.GetItem();
 				int Amount = Item.GetAmount();
 
 				int Currency = e.Args[0];
@@ -42,21 +42,22 @@ class MerchantHandler : EventHandler
 					return;
 				}
 
-				if (ItemClass is "HDWeapon")
+				if (ItemClass is "HDWeapon" || ItemClass is "HDUPK")
 				{
 					plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
 				}
 				else
 				{
-					int MaxGive = GetDefaultByType(ItemClass).MaxAmount - plr.CountInv(ItemClass);
+					class<Inventory> InvClass = (class<Inventory>)(ItemClass);
+					int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
 					int MaxActualGive = min(Amount, MaxGive);
 
 					// [Ace] Give what you can directly and drop the rest on the ground.
-					plr.A_GiveInventory(ItemClass, MaxActualGive);
+					plr.A_GiveInventory(InvClass, MaxActualGive);
 					Amount -= MaxActualGive;
 					for (int i = 0; i < Amount; ++i)
 					{
-						plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+						plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
 					}
 				}
 				plr.A_TakeInventory(CurrencyClass, Price);
