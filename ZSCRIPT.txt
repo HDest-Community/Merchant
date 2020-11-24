@@ -121,6 +121,10 @@ class MerchantHandler : EventHandler
 		{
 			Reward = 100;
 		}
+		else if (e.Thing is "HDBossBrain")
+		{
+			Reward = 1000;
+		}
 
 		if (Reward > 0)
 		{
