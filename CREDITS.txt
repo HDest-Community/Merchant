@@ -1,7 +1,7 @@
 Sprites:
 - Merchant (Hobo): Strife (Rogue)
 - Merchant (Resident Evil): Based on above but made by PillowBlaster. Ten points to Gryffindor!
-- Bucks: Fallout - Brotherhood of Steel (Interplay)
+- Bucks: ???, reshaded by Mor'ladim.
 
 ZForms:
 - Gutawer & phantombeta
