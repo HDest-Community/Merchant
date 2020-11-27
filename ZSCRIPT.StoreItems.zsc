@@ -229,7 +229,7 @@ class HDAmmoBoxStore : StoreItem
 	override string GetItem() { return "HDAmBox"; }
 	override string GetIcon() { return "AMMOA0"; }
 	override string GetDisplayName() { return "Ammo Box"; }
-	override int GetBasePrice() { return 100; }
+	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "I take no responsibility if this explodes. Just don't open it in front of my face."; }
 }
 
@@ -410,7 +410,7 @@ class HDWeaponCrateStore : StoreItem
 	override string GetItem() { return "HDWeaponCrate"; }
 	override string GetIcon() { return "WPCRT0"; }
 	override string GetDisplayName() { return "Weapon Crate"; }
-	override int GetBasePrice() { return 300; }
+	override int GetBasePrice() { return 250; }
 	override string GetFlavorText() { return "Ammo sold separately."; }
 }
 
