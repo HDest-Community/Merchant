@@ -410,7 +410,7 @@ class HDWeaponCrateStore : StoreItem
 	override string GetItem() { return "HDWeaponCrate"; }
 	override string GetIcon() { return "WPCRT0"; }
 	override string GetDisplayName() { return "Weapon Crate"; }
-	override int GetBasePrice() { return 250; }
+	override int GetBasePrice() { return 300; }
 	override string GetFlavorText() { return "Ammo sold separately."; }
 }
 
