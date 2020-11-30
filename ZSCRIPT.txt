@@ -83,47 +83,47 @@ class MerchantHandler : EventHandler
 		double Reward = 0;
 		if (!(e.Thing is "HDMobBase"))
 		{
-			Reward = ceil(e.Thing.GetSpawnHealth() / 100.0); // [Ace] Not perfect, but it'll do.
+			Reward = ceil(e.Thing.GetSpawnHealth() / 200.0); // [Ace] Not perfect, but it'll do.
 		}
 		else if (e.Thing is "ZombieStormTrooper" || e.Thing is "HideousShotgunGuy" || e.Thing is "Babuin" || e.Thing is "UndeadHomeboy")
 		{
-			Reward = 1;
+			Reward = 0.5;
 		}
 		else if (e.Thing is "Serpentipede" || e.Thing is "VulcanetteGuy")
 		{
-			Reward = 1.5;
+			Reward = 0.75;
 		}
 		else if (e.Thing is "HDMarine" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
 		{
-			Reward = 2;
+			Reward = 1;
 		}
 		else if (e.Thing is "TechnoSpider" || e.Thing is "CombatSlug" || e.Thing is "Boner" || e.Thing is "Trilobite")
 		{
-			Reward = 3;
+			Reward = 1.5;
 		}
 		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
 		{
-			Reward = 7.5;
+			Reward = 3.5;
 		}
 		else if (e.Thing is "PainLord")
 		{
-			Reward = 15;
+			Reward = 7;
 		}
 		else if (e.Thing is "Technorantula")
 		{
-			Reward = 50;
+			Reward = 25;
 		}
 		else if (e.Thing is "SatanRobo")
 		{
-			Reward = 75;
+			Reward = 50;
 		}
 		else if (e.Thing is "Necromancer")
 		{
-			Reward = 100;
+			Reward = 75;
 		}
 		else if (e.Thing is "HDBossBrain")
 		{
-			Reward = 1000;
+			Reward = 500;
 		}
 
 		if (Reward > 0)
@@ -202,7 +202,7 @@ class MerchantHandler : EventHandler
 
 	override void WorldUnloaded(WorldEvent e)
 	{
-		double TotalCash = CashFromMonsters + level.found_secrets * 30 - Thinker.Tics2Seconds(level.time) / 60;
+		double TotalCash = CashFromMonsters + level.found_secrets * 15 - Thinker.Tics2Seconds(level.time) / 60;
 		int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
 
 		for (int i = 0; i < MAXPLAYERS; ++i)

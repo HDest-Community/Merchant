@@ -40,7 +40,7 @@ class StoreItem
 		int BaseCost = GetBasePrice();
 		switch (currency)
 		{
-			case Currency_7mm: return int(BaseCost * 0.5);
+			case Currency_Brass: return int(BaseCost * 2);
 		}
 		return BaseCost;
 	}
