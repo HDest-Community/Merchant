@@ -56,7 +56,7 @@ class HD9mmStore : StoreItem
 	override int GetAmount() { return 100; }
 	override string GetIcon() { return "9BOXA0"; }
 	override string GetDisplayName() { return "9mm Rounds"; }
-	override int GetBasePrice() { return 60; }
+	override int GetBasePrice() { return 30; }
 	override string GetFlavorText() { return "It's like candy but inedible."; }
 }
 
@@ -67,7 +67,7 @@ class HDShellsStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "SBOXA0"; }
 	override string GetDisplayName() { return "Shotgun Shells"; }
-	override int GetBasePrice() { return 50; }
+	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "Point away from self."; }
 }
 
@@ -78,7 +78,7 @@ class HD355Store : StoreItem
 	override int GetAmount() { return 72; }
 	override string GetIcon() { return "3BOXA0"; }
 	override string GetDisplayName() { return ".355 Rounds"; }
-	override int GetBasePrice() { return 60; }
+	override int GetBasePrice() { return 30; }
 	override string GetFlavorText() { return "It's high noon."; }
 }
 
@@ -89,7 +89,7 @@ class HDRocketGrenadeStore : StoreItem
 	override int GetAmount() { return 5; }
 	override string GetIcon() { return "BROKA0"; }
 	override string GetDisplayName() { return "Rocket Grenades"; }
-	override int GetBasePrice() { return 90; }
+	override int GetBasePrice() { return 45; }
 	override string GetFlavorText() { return "Krognar's favourite."; }
 }
 
@@ -99,7 +99,7 @@ class HDHeatStore : StoreItem
 	override string GetItem() { return "HEATAmmo"; }
 	override string GetIcon() { return "ROCKA0"; }
 	override string GetDisplayName() { return "H.E.A.T. Rocket"; }
-	override int GetBasePrice() { return 50; }
+	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "One shot, one kill."; }
 }
 
@@ -109,7 +109,7 @@ class HDBatteryStore : StoreItem
 	override string GetItem() { return "HDBattery"; }
 	override string GetIcon() { return "CELLA0"; }
 	override string GetDisplayName() { return "Battery"; }
-	override int GetBasePrice() { return 40; }
+	override int GetBasePrice() { return 20; }
 	override string GetFlavorText() { return "Positively charged."; }
 }
 
@@ -119,7 +119,7 @@ class HDBrontoRoundStore : StoreItem
 	override string GetItem() { return "BrontornisRound"; }
 	override string GetIcon() { return "BROCA0"; }
 	override string GetDisplayName() { return "Brontornis Round"; }
-	override int GetBasePrice() { return 70; }
+	override int GetBasePrice() { return 35; }
 	override string GetFlavorText() { return "Overcompensating, aren't we?"; }
 }
 
@@ -129,7 +129,7 @@ class HDFragGrenadeStore : StoreItem
 	override string GetItem() { return "HDFragGrenadeAmmo"; }
 	override string GetIcon() { return "FRAGA0"; }
 	override string GetDisplayName() { return "Frag Grenade"; }
-	override int GetBasePrice() { return 40; }
+	override int GetBasePrice() { return 20; }
 	override string GetFlavorText() { return "Remember: pull pin, THEN throw."; }
 }
 
@@ -139,7 +139,7 @@ class HDStimpackStore : StoreItem
 	override string GetItem() { return "PortableStimpack"; }
 	override string GetIcon() { return "PSTIA0"; }
 	override string GetDisplayName() { return "Stimpack"; }
-	override int GetBasePrice() { return 20; }
+	override int GetBasePrice() { return 10; }
 	override string GetFlavorText() { return "AHHHH YEAH!"; }
 }
 
@@ -149,7 +149,7 @@ class HDBloodbagStore : StoreItem
 	override string GetItem() { return "SecondBlood"; }
 	override string GetIcon() { return "PBLDA0"; }
 	override string GetDisplayName() { return "Synthetic Blood"; }
-	override int GetBasePrice() { return 20; }
+	override int GetBasePrice() { return 10; }
 	override string GetFlavorText() { return "'Tis but a scratch."; }
 }
 
@@ -159,7 +159,7 @@ class HDMedikitStore : StoreItem
 	override string GetItem() { return "PortableMedikit"; }
 	override string GetIcon() { return "PMEDA0"; }
 	override string GetDisplayName() { return "Medikit"; }
-	override int GetBasePrice() { return 40; }
+	override int GetBasePrice() { return 20; }
 	override string GetFlavorText() { return "And all the king's horses and all the king's men couldn't staple Humpty Dumpty back together again."; }
 }
 
@@ -169,7 +169,7 @@ class HDBluePotionStore : StoreItem
 	override string GetItem() { return "BluePotion"; }
 	override string GetIcon() { return "BON1A0"; }
 	override string GetDisplayName() { return "Blue Potion"; }
-	override int GetBasePrice() { return 140; }
+	override int GetBasePrice() { return 70; }
 	override string GetFlavorText() { return "For what ails you."; }
 }
 
@@ -179,7 +179,7 @@ class HDBerserkStore : StoreItem
 	override string GetItem() { return "PortableBerserkPack"; }
 	override string GetIcon() { return "PSTRA0"; }
 	override string GetDisplayName() { return "Berserk Pack"; }
-	override int GetBasePrice() { return 140; }
+	override int GetBasePrice() { return 70; }
 	override string GetFlavorText() { return "Do not overdose. Oh who am I kidding, of course you will."; }
 }
 
@@ -189,7 +189,7 @@ class HDDoorBusterStore : StoreItem
 	override string GetItem() { return "DoorBuster"; }
 	override string GetIcon() { return "BGRNA3A7"; }
 	override string GetDisplayName() { return "Door Buster"; }
-	override int GetBasePrice() { return 50; }
+	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "Breaching, breaching!"; }
 }
 
@@ -199,7 +199,7 @@ class HDPortableLadderStore : StoreItem
 	override string GetItem() { return "PortableLadder"; }
 	override string GetIcon() { return "LADDD0"; }
 	override string GetDisplayName() { return "Portable Ladder"; }
-	override int GetBasePrice() { return 180; }
+	override int GetBasePrice() { return 90; }
 	override string GetFlavorText() { return "Don't fall and break a leg."; }
 }
 
@@ -209,7 +209,7 @@ class HDJetpackStore : StoreItem
 	override string GetItem() { return "HDJetPack"; }
 	override string GetIcon() { return "JPAKA0"; }
 	override string GetDisplayName() { return "Jetpack"; }
-	override int GetBasePrice() { return 240; }
+	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Careful not to leave the atmosphere."; }
 }
 
@@ -219,7 +219,7 @@ class HDSummoningTalismanStore : StoreItem
 	override string GetItem() { return "SquadSummoner"; }
 	override string GetIcon() { return "PLHELMA0"; }
 	override string GetDisplayName() { return "Summoning Talisman"; }
-	override int GetBasePrice() { return 360; }
+	override int GetBasePrice() { return 180; }
 	override string GetFlavorText() { return "Who ya gonna call?"; }
 }
 
@@ -229,7 +229,7 @@ class HDAmmoBoxStore : StoreItem
 	override string GetItem() { return "HDAmBox"; }
 	override string GetIcon() { return "AMMOA0"; }
 	override string GetDisplayName() { return "Ammo Box"; }
-	override int GetBasePrice() { return 150; }
+	override int GetBasePrice() { return 75; }
 	override string GetFlavorText() { return "I take no responsibility if this explodes. Just don't open it in front of my face."; }
 }
 
@@ -239,7 +239,7 @@ class HDGreenArmorStore : StoreItem
 	override string GetItem() { return "GarrisonArmour"; }
 	override string GetIcon() { return "ARMSB0"; }
 	override string GetDisplayName() { return "Garrison Armor"; }
-	override int GetBasePrice() { return 320; }
+	override int GetBasePrice() { return 180; }
 	override string GetFlavorText() { return "Should last long enough for me to see you again."; }
 }
 
@@ -249,7 +249,7 @@ class HDBlueArmorStore : StoreItem
 	override string GetItem() { return "BattleArmour"; }
 	override string GetIcon() { return "ARMCB0"; }
 	override string GetDisplayName() { return "Battle Armor"; }
-	override int GetBasePrice() { return 560; }
+	override int GetBasePrice() { return 280; }
 	override string GetFlavorText() { return "You'll be unstoppable with this."; }
 }
 
@@ -262,7 +262,7 @@ class HD500HeavyStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "5HBXA0"; }
 	override string GetDisplayName() { return ".500 S&W Handloads"; }
-	override int GetBasePrice() { return 60; }
+	override int GetBasePrice() { return 30; }
 	override string GetFlavorText() { return "These ought to punch a hole."; }
 }
 
@@ -273,7 +273,7 @@ class HD500LightStore : StoreItem
 	override int GetAmount() { return 40; }
 	override string GetIcon() { return "5LBXA0"; }
 	override string GetDisplayName() { return ".500 S&W"; }
-	override int GetBasePrice() { return 80; }
+	override int GetBasePrice() { return 40; }
 	override string GetFlavorText() { return "Much better than the peashooter .355, isn't it?"; }
 }
 
@@ -284,7 +284,7 @@ class HD9mmNDMStore : StoreItem
 	override int GetAmount() { return 60; }
 	override string GetIcon() { return "NDMBA0"; }
 	override string GetDisplayName() { return "9mm Nail Driver Maximum"; }
-	override int GetBasePrice() { return 70; }
+	override int GetBasePrice() { return 45; }
 	override string GetFlavorText() { return "Looks like 9mm, but it's not."; }
 }
 
@@ -295,7 +295,7 @@ class HDPepperSlugsStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "SLBXA0"; }
 	override string GetDisplayName() { return "Shotgun Slugs"; }
-	override int GetBasePrice() { return 60; }
+	override int GetBasePrice() { return 30; }
 	override string GetFlavorText() { return "These aren't slimy like the others."; }
 }
 
@@ -308,7 +308,7 @@ class HD50OMGStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "OGBXA0"; }
 	override string GetDisplayName() { return ".50 OMG"; }
-	override int GetBasePrice() { return 100; }
+	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return "For hunting very large, murderous, demonic game."; }
 }
 
@@ -320,7 +320,7 @@ class HDTeleporterStore : StoreItem
 	override string GetItem() { return "HDTeleporter"; }
 	override string GetIcon() { return "TPRTZ0"; }
 	override string GetDisplayName() { return "Portable Teleporter"; }
-	override int GetBasePrice() { return 120; }
+	override int GetBasePrice() { return 60; }
 	override string GetFlavorText() { return "Ambush, you say?"; }
 }
 
@@ -330,7 +330,7 @@ class HDRiftGrenadeStore : StoreItem
 	override string GetItem() { return "HDRiftGrenadeAmmo"; }
 	override string GetIcon() { return "RFTGA0"; }
 	override string GetDisplayName() { return "Rift Grenade"; }
-	override int GetBasePrice() { return 30; }
+	override int GetBasePrice() { return 15; }
 	override string GetFlavorText() { return "Disclaimer: AceCorp is not responsible for any dismemberment caused by using unstable spatial rifts."; }
 }
 
@@ -340,7 +340,7 @@ class HDHackedReloaderStore : StoreItem
 	override string GetItem() { return "HackedReloader"; }
 	override string GetIcon() { return "HRLDA0"; }
 	override string GetDisplayName() { return "Hacked Reloader"; }
-	override int GetBasePrice() { return 240; }
+	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Good luck figuring out what it does."; }
 }
 
@@ -350,7 +350,7 @@ class HDUniversalReloaderStore : StoreItem
 	override string GetItem() { return "HDUniversalReloader"; }
 	override string GetIcon() { return "URLDA0"; }
 	override string GetDisplayName() { return "Universal Reloader"; }
-	override int GetBasePrice() { return 600; }
+	override int GetBasePrice() { return 300; }
 	override string GetFlavorText() { return "I have no idea why you'd spend this much cash on this."; }
 }
 
@@ -360,7 +360,7 @@ class HDMagazineReloaderStore : StoreItem
 	override string GetItem() { return "HDMagazineReloader"; }
 	override string GetIcon() { return "MRLDA0"; }
 	override string GetDisplayName() { return "Magazine Reloader"; }
-	override int GetBasePrice() { return 300; }
+	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "Waste your enemies, not your time."; }
 }
 
@@ -370,7 +370,7 @@ class HDLadderLauncherStore : StoreItem
 	override string GetItem() { return "HDLadderLauncher"; }
 	override string GetIcon() { return "LLCHZ0"; }
 	override string GetDisplayName() { return "Ladder Launcher"; }
-	override int GetBasePrice() { return 300; }
+	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "Aim for the top."; }
 }
 
@@ -380,7 +380,7 @@ class HDBoosterJetsStore : StoreItem
 	override string GetItem() { return "HDBoosterJets"; }
 	override string GetIcon() { return "BSJTA0"; }
 	override string GetDisplayName() { return "Booster Jets"; }
-	override int GetBasePrice() { return 300; }
+	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "Wheeeeeeeeeeeee!"; }
 }
 
@@ -390,7 +390,7 @@ class HDArmorPatchKitStore : StoreItem
 	override string GetItem() { return "HDArmorPatchKit"; }
 	override string GetIcon() { return "APKTA0"; }
 	override string GetDisplayName() { return "Armor Patch Kit"; }
-	override int GetBasePrice() { return 240; }
+	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Have fun with that."; }
 }
 
@@ -400,7 +400,7 @@ class HDWeaponUpgradeKitStore : StoreItem
 	override string GetItem() { return "HDWeaponUpgradeKit"; }
 	override string GetIcon() { return "WUKTA0"; }
 	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
-	override int GetBasePrice() { return 240; }
+	override int GetBasePrice() { return 120; }
 	override string GetFlavorText() { return "Upgrade complete."; }
 }
 
@@ -410,7 +410,7 @@ class HDWeaponCrateStore : StoreItem
 	override string GetItem() { return "HDWeaponCrate"; }
 	override string GetIcon() { return "WPCRT0"; }
 	override string GetDisplayName() { return "Weapon Crate"; }
-	override int GetBasePrice() { return 300; }
+	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "Ammo sold separately."; }
 }
 
@@ -422,7 +422,7 @@ class HDThunderGrenadeStore : StoreItem
 	override string GetItem() { return "HDThunderGrenadeAmmo"; }
 	override string GetIcon() { return "TFRGA0"; }
 	override string GetDisplayName() { return "Thunder Grenade"; }
-	override int GetBasePrice() { return 60; }
+	override int GetBasePrice() { return 30; }
 	override string GetFlavorText() { return "Shockingly fun to use."; }
 }
 
@@ -432,7 +432,7 @@ class HDMG13Store : StoreItem
 	override string GetItem() { return "HDMG13GrenadeAmmo"; }
 	override string GetIcon() { return "MG13A0"; }
 	override string GetDisplayName() { return "MG13 Grenade"; }
-	override int GetBasePrice() { return 140; }
+	override int GetBasePrice() { return 70; }
 	override string GetFlavorText() { return "Dome of death."; }
 }
 
@@ -442,7 +442,7 @@ class HDStoneStore : StoreItem
 	override string GetItem() { return "HDStoneGrenadeAmmo"; }
 	override string GetIcon() { return "STNEA0"; }
 	override string GetDisplayName() { return "Stone"; }
-	override int GetBasePrice() { return 10; }
+	override int GetBasePrice() { return 5; }
 	override string GetFlavorText() { return "Rock and roll."; }
 }
 
@@ -454,7 +454,7 @@ class HDRespiratorStore : StoreItem
 	override string GetItem() { return "UaS_Respirator"; }
 	override string GetIcon() { return "UGSID0"; }
 	override string GetDisplayName() { return "Respirator"; }
-	override int GetBasePrice() { return 120; }
+	override int GetBasePrice() { return 60; }
 	override string GetFlavorText() { return "Blub blub blub."; }
 }
 
@@ -464,7 +464,7 @@ class HDMessKitStore : StoreItem
 	override string GetItem() { return "UaS_MessKit"; }
 	override string GetIcon() { return "HSCVB0"; }
 	override string GetDisplayName() { return "Mess Kit"; }
-	override int GetBasePrice() { return 25; }
+	override int GetBasePrice() { return 12; }
 	override string GetFlavorText() { return "Don't make a mess."; }
 }
 
@@ -474,7 +474,7 @@ class HDFoodRationStore : StoreItem
 	override string GetItem() { return "UaS_FoodRation"; }
 	override string GetIcon() { return "HSCVA0"; }
 	override string GetDisplayName() { return "Food Ration"; }
-	override int GetBasePrice() { return 15; }
+	override int GetBasePrice() { return 8; }
 	override string GetFlavorText() { return "Crunchy."; }
 }
 
@@ -484,6 +484,6 @@ class HDWaterRationStore : StoreItem
 	override string GetItem() { return "UaS_WaterRation"; }
 	override string GetIcon() { return "HSCVC0"; }
 	override string GetDisplayName() { return "Water Ration"; }
-	override int GetBasePrice() { return 15; }
+	override int GetBasePrice() { return 8; }
 	override string GetFlavorText() { return "NOTE: Taste depends on temperature."; }
 }
