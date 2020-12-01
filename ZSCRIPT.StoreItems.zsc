@@ -233,6 +233,16 @@ class HDAmmoBoxStore : StoreItem
 	override string GetFlavorText() { return "I take no responsibility if this explodes. Just don't open it in front of my face."; }
 }
 
+class HD7mmReloaderStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 11; }
+	override string GetItem() { return "AutoReloader"; }
+	override string GetIcon() { return "RLDRA0"; }
+	override string GetDisplayName() { return "7mm Reloading Device"; }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return "BRBRBRBRBRBRBRBR *clack*"; }
+}
+
 class HDGreenArmorStore : StoreItem
 {
 	override string, int GetCategory() { return "Armor", 1; }
@@ -341,7 +351,7 @@ class HDHackedReloaderStore : StoreItem
 	override string GetIcon() { return "HRLDA0"; }
 	override string GetDisplayName() { return "Hacked Reloader"; }
 	override int GetBasePrice() { return 120; }
-	override string GetFlavorText() { return "Good luck figuring out what it does."; }
+	override string GetFlavorText() { return "BRBRBRBRBRBRBRBR *clack* but faster."; }
 }
 
 class HDUniversalReloaderStore : StoreItem
