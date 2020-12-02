@@ -109,6 +109,10 @@ class MerchantHandler : EventHandler
 		{
 			Reward = 7;
 		}
+		else if (e.Thing is "CommanderKeen" && !random(0, 2))
+		{
+			Reward = 66.666;
+		}
 		else if (e.Thing is "Technorantula")
 		{
 			Reward = 25;
