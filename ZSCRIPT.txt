@@ -196,7 +196,7 @@ class MerchantHandler : EventHandler
 			Sector CurrSec = level.Sectors[i];
 			vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
 
-			if (CurrSec.IsSecret() && random(1, 100) <= max(8, 20 - 2 * level.total_secrets))
+			if (CurrSec.IsSecret() && random(1, 100) <= max(10, 30 - 2 * (level.total_secrets - 1)))
 			{
 				Actor.Spawn("AceMerchant", SpawnPos);
 				break;
