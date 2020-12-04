@@ -270,7 +270,7 @@ class AceMerchant : Actor
 
 	Default
 	{
-		Mass 100;
+		Mass 300;
 		Height 58;
 		Radius 8;
 		Scale 1.0;
