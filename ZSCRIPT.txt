@@ -113,17 +113,13 @@ class MerchantHandler : EventHandler
 		{
 			Reward = 7;
 		}
-		else if (e.Thing is "Technorantula")
+		else if (e.Thing is "Technorantula" || e.Thing is "SatanRobo")
 		{
-			Reward = 25;
-		}
-		else if (e.Thing is "SatanRobo")
-		{
-			Reward = 50;
+			Reward = 30;
 		}
 		else if (e.Thing is "Necromancer")
 		{
-			Reward = 75;
+			Reward = 50;
 		}
 		else if (e.Thing is "HDBossBrain")
 		{
