@@ -1,6 +1,7 @@
 Sprites:
 - Merchant (Hobo): Strife (Rogue)
 - Merchant (Resident Evil): Based on above but made by PillowBlaster. Ten points to Gryffindor!
+- Merchant (Daina skins): HegeCactus. Taken from La Tailor Girl.
 - Bucks: ???, reshaded by Mor'ladim.
 
 ZForms:
