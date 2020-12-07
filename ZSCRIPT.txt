@@ -278,11 +278,14 @@ class AceMerchant : Actor
 	States
 	{
 		Spawn:
-			AMRC # -1 NoDelay
+			AMRC # 0 NoDelay
 			{
 				frame = CVar.GetCVar("hdm_skin", players[consoleplayer]).GetInt();
 			}
-			Stop;
+		SpawnLoop:
+			AMRC # 35 A_SetScale(Scale.X, Scale.Y - 0.025);
+			AMRC # 35 A_SetScale(Scale.X, Scale.Y + 0.025);
+			Loop;
 	}
 }
 
