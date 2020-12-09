@@ -497,3 +497,15 @@ class HDWaterRationStore : StoreItem
 	override int GetBasePrice() { return 8; }
 	override string GetFlavorText() { return "NOTE: Taste depends on temperature."; }
 }
+
+// ---------- HEXADOKEN'S STUFF ----------
+
+class HDMedicalScannerStore : StoreItem
+{
+	override string, int GetCategory() { return "HexaDoken Industries", ; }
+	override string GetItem() { return "HDScanner"; }
+	override string GetIcon() { return "MEDIZ0"; }
+	override string GetDisplayName() { return "Medical Scanner"; }
+	override int GetBasePrice() { return 25; }
+	override string GetFlavorText() { return "Medikit without the medikit parts."; }
+}
