@@ -502,7 +502,7 @@ class HDWaterRationStore : StoreItem
 
 class HDMedicalScannerStore : StoreItem
 {
-	override string, int GetCategory() { return "HexaDoken Industries", ; }
+	override string, int GetCategory() { return "HexaDoken Industries", 1 ; }
 	override string GetItem() { return "HDScanner"; }
 	override string GetIcon() { return "MEDIZ0"; }
 	override string GetDisplayName() { return "Medical Scanner"; }
