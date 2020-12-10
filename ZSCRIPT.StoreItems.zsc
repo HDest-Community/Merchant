@@ -334,19 +334,9 @@ class HDTeleporterStore : StoreItem
 	override string GetFlavorText() { return "Ambush, you say?"; }
 }
 
-class HDRiftGrenadeStore : StoreItem
-{
-	override string, int GetCategory() { return "AceCorp Items", 2; }
-	override string GetItem() { return "HDRiftGrenadeAmmo"; }
-	override string GetIcon() { return "RFTGA0"; }
-	override string GetDisplayName() { return "Rift Grenade"; }
-	override int GetBasePrice() { return 15; }
-	override string GetFlavorText() { return "Disclaimer: AceCorp is not responsible for any dismemberment caused by using unstable spatial rifts."; }
-}
-
 class HDHackedReloaderStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 3; }
+	override string, int GetCategory() { return "AceCorp Items", 2; }
 	override string GetItem() { return "HackedReloader"; }
 	override string GetIcon() { return "HRLDA0"; }
 	override string GetDisplayName() { return "Hacked Reloader"; }
@@ -356,7 +346,7 @@ class HDHackedReloaderStore : StoreItem
 
 class HDUniversalReloaderStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 4; }
+	override string, int GetCategory() { return "AceCorp Items", 3; }
 	override string GetItem() { return "HDUniversalReloader"; }
 	override string GetIcon() { return "URLDA0"; }
 	override string GetDisplayName() { return "Universal Reloader"; }
@@ -366,7 +356,7 @@ class HDUniversalReloaderStore : StoreItem
 
 class HDMagazineReloaderStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 5; }
+	override string, int GetCategory() { return "AceCorp Items", 4; }
 	override string GetItem() { return "HDMagazineReloader"; }
 	override string GetIcon() { return "MRLDA0"; }
 	override string GetDisplayName() { return "Magazine Reloader"; }
@@ -376,7 +366,7 @@ class HDMagazineReloaderStore : StoreItem
 
 class HDLadderLauncherStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 6; }
+	override string, int GetCategory() { return "AceCorp Items", 5; }
 	override string GetItem() { return "HDLadderLauncher"; }
 	override string GetIcon() { return "LLCHZ0"; }
 	override string GetDisplayName() { return "Ladder Launcher"; }
@@ -386,7 +376,7 @@ class HDLadderLauncherStore : StoreItem
 
 class HDBoosterJetsStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 7; }
+	override string, int GetCategory() { return "AceCorp Items", 6; }
 	override string GetItem() { return "HDBoosterJets"; }
 	override string GetIcon() { return "BSJTA0"; }
 	override string GetDisplayName() { return "Booster Jets"; }
@@ -396,7 +386,7 @@ class HDBoosterJetsStore : StoreItem
 
 class HDArmorPatchKitStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 8; }
+	override string, int GetCategory() { return "AceCorp Items", 7; }
 	override string GetItem() { return "HDArmorPatchKit"; }
 	override string GetIcon() { return "APKTA0"; }
 	override string GetDisplayName() { return "Armor Patch Kit"; }
@@ -406,7 +396,7 @@ class HDArmorPatchKitStore : StoreItem
 
 class HDWeaponUpgradeKitStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 9; }
+	override string, int GetCategory() { return "AceCorp Items", 8; }
 	override string GetItem() { return "HDWeaponUpgradeKit"; }
 	override string GetIcon() { return "WUKTA0"; }
 	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
@@ -416,12 +406,33 @@ class HDWeaponUpgradeKitStore : StoreItem
 
 class HDWeaponCrateStore : StoreItem
 {
-	override string, int GetCategory() { return "AceCorp Items", 10; }
+	override string, int GetCategory() { return "AceCorp Items", 9; }
 	override string GetItem() { return "HDWeaponCrate"; }
 	override string GetIcon() { return "WPCRT0"; }
 	override string GetDisplayName() { return "Weapon Crate"; }
 	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "Ammo sold separately."; }
+}
+
+class HDRiftGrenadeStore : StoreItem
+{
+	override string, int GetCategory() { return "AceCorp Ammo", 1; }
+	override string GetItem() { return "HDRiftGrenadeAmmo"; }
+	override string GetIcon() { return "RFTGA0"; }
+	override string GetDisplayName() { return "Rift Grenade"; }
+	override int GetBasePrice() { return 15; }
+	override string GetFlavorText() { return "Disclaimer: AceCorp is not responsible for any dismemberment caused by using unstable spatial rifts."; }
+}
+
+class HD50AEStore : StoreItem
+{
+	override string, int GetCategory() { return "AceCorp Ammo", 2; }
+	override string GetItem() { return "HDErisAmmo"; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "50AEX0"; }
+	override string GetDisplayName() { return ".50 Action Express"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Rapid fire death. Just pull the trigger."; }
 }
 
 // ---------- MELONADES ----------
