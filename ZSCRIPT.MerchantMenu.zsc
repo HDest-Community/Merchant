@@ -54,7 +54,8 @@ class ItemsFrame : MerchMenuFrame
 		// ----- PRICE -----
 		Fill(pos, (size.y, size.y), DimColor, 0.75);
 
-		string CurIconString = StoreItem.GetCurrencyIcon(ParentMenu.SelCurrencyIndex);
+		StoreCurrency Currency = ParentMenu.Handler.StoreCurrencies[ParentMenu.SelCurrencyIndex];
+		string CurIconString = Currency.GetIcon();
 		TextureID CurIcon = TexMan.CheckForTexture(CurIconString, TexMan.Type_Any);
 		vector2 CurIconSize = TexMan.GetScaledSize(CurIcon);
 		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 20));
@@ -62,8 +63,8 @@ class ItemsFrame : MerchMenuFrame
 		vector2 CurIconPos = (pos.x + size.y / 2 - CurIconSize.x / 2, pos.y + 7 - CurIconSize.y / 2);
 		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
 
-		int Price = item.GetAdjustedPrice(ParentMenu.SelCurrencyIndex);
-		string DisplayPrice = (Price <= plr.CountInv(StoreItem.GetCurrencyClass(ParentMenu.SelCurrencyIndex)) ? "\c[White]" : "\c[Red]")..Price.."\c-";
+		int Price = StoreItem.GetAdjustedPrice(item, Currency);
+		string DisplayPrice = (Price <= plr.CountInv(Currency.GetCurrencyClass()) ? "\c[White]" : "\c[Red]")..Price.."\c-";
 		vector2 CurrencyTextPos = (pos.x + size.y / 2 - (SmallFont.StringWidth(DisplayPrice) / 2) * MerchantShopMenu.TextScale, pos.y + size.y - SmallFont.GetHeight() * MerchantShopMenu.TextScale - 1);
 		DrawText(CurrencyTextPos, SmallFont, DisplayPrice, Font.CR_UNTRANSLATED, MerchantShopMenu.TextScale);
 	}
@@ -98,7 +99,8 @@ class ShopFrame : MerchMenuFrame
 
 		Fill((box.size.x - CurrencyWidth, 0), (CurrencyWidth, box.size.y), Color(0, 0, 0), 0.75);
 
-		string CurIconString = StoreItem.GetCurrencyIcon(ParentMenu.SelCurrencyIndex);
+		StoreCurrency Currency = ParentMenu.Handler.StoreCurrencies[ParentMenu.SelCurrencyIndex];
+		string CurIconString = Currency.GetIcon();
 		TextureID CurIcon = TexMan.CheckForTexture(CurIconString, TexMan.Type_Any);
 		vector2 CurIconSize = TexMan.GetScaledSize(CurIcon);
 		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 20));
@@ -106,7 +108,7 @@ class ShopFrame : MerchMenuFrame
 		vector2 CurIconPos = (box.size.x - CurrencyWidth / 2 - CurIconSize.x / 2, 7 - CurIconSize.y / 2);
 		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
 
-		string CurrencyAmount = String.Format("%i", players[consoleplayer].mo.CountInv(StoreItem.GetCurrencyClass(ParentMenu.SelCurrencyIndex)));
+		string CurrencyAmount = String.Format("%i", players[consoleplayer].mo.CountInv(Currency.GetCurrencyClass()));
 		vector2 CurrencyTextPos = (box.size.x - CurrencyWidth / 2 - (SmallFont.StringWidth(CurrencyAmount) / 2) * MerchantShopMenu.TextScale, box.size.y - SmallFont.GetHeight() * MerchantShopMenu.TextScale - 1);
 		DrawText(CurrencyTextPos, SmallFont, CurrencyAmount, Font.CR_GOLD, MerchantShopMenu.TextScale);
 	}
@@ -114,7 +116,7 @@ class ShopFrame : MerchMenuFrame
 
 class MerchantShopMenu : MerchMenuGenericMenu
 {
-	private MerchantHandler Handler;
+	MerchantHandler Handler;
 	int SelCategoryIndex;
 	int SelItemIndex; // [Ace] This is only used within a specific category. Don't bother using it with the full array.
 	int SelCurrencyIndex;
@@ -217,11 +219,11 @@ class MerchantShopMenu : MerchMenuGenericMenu
 			case MKEY_PageUp:
 				if (--SelCurrencyIndex < 0)
 				{
-					SelCurrencyIndex = Currency_Brass;
+					SelCurrencyIndex = Handler.StoreCurrencies.Size() - 1;
 				}
 				break;
 			case MKEY_PageDown:
-				if (++SelCurrencyIndex > Currency_Brass)
+				if (++SelCurrencyIndex > Handler.StoreCurrencies.Size() - 1)
 				{
 					SelCurrencyIndex = 0;
 				}

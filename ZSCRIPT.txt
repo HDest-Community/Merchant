@@ -6,6 +6,7 @@ version "4.5"
 
 class MerchantHandler : EventHandler
 {
+	Array<StoreCurrency> StoreCurrencies;
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
 	private int CashFromMonsters;
@@ -32,11 +33,10 @@ class MerchantHandler : EventHandler
 				class<Actor> ItemClass = Item.GetItem();
 				int Amount = Item.GetAmount();
 
-				int Currency = e.Args[0];
-				class<Inventory> CurrencyClass = StoreItem.GetCurrencyClass(Currency);
-				int Price = Item.GetAdjustedPrice(Currency);
+				StoreCurrency Currency = StoreCurrencies[e.Args[0]];
+				int Price = StoreItem.GetAdjustedPrice(Item, Currency);
 
-				if (Price > plr.CountInv(CurrencyClass))
+				if (Price > plr.CountInv(Currency.GetCurrencyClass()))
 				{
 					plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
 					return;
@@ -60,7 +60,7 @@ class MerchantHandler : EventHandler
 						plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
 					}
 				}
-				plr.A_TakeInventory(CurrencyClass, Price);
+				plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
 				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
 			}
 		}
@@ -139,6 +139,7 @@ class MerchantHandler : EventHandler
 
 	private void InitStore()
 	{
+		StoreCurrencies.Clear();
 		StoreItems.Clear();
 		Categories.Clear();
 		
@@ -152,6 +153,15 @@ class MerchantHandler : EventHandler
 				{
 					StoreItems.Push(Item);
 				}
+			}
+
+			if (AllClasses[i] is "StoreCurrency" && AllClasses[i].GetClassName() != 'StoreCurrency')
+			{
+				if (!hdm_enablebucks && AllClasses[i] is "BucksCurrency")
+				{
+					continue;
+				}
+				StoreCurrencies.Push(StoreCurrency(new(AllClasses[i])));
 			}
 		}
 

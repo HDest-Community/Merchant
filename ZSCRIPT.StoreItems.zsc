@@ -1,50 +1,42 @@
-enum MerchantCurrencies
+class StoreCurrency abstract
 {
-	Currency_Bucks,
-	Currency_7mm,
-	Currency_Brass
+	abstract class<Inventory> GetCurrencyClass();
+	abstract string GetIcon();
+	virtual double GetPriceMult() { return 1.0; }
 }
 
-class StoreItem
+class BucksCurrency : StoreCurrency
 {
-	static class<Inventory> GetCurrencyClass(int currency)
-	{
-		switch (currency)
-		{
-			case Currency_Bucks: return "MercenaryBucks";
-			case Currency_7mm: return "SevenMilAmmo";
-			case Currency_Brass: return "SevenMilBrass";
-		}
+	override class<Inventory> GetCurrencyClass() { return "MercenaryBucks"; }
+	override string GetIcon() { return "MBCKA0"; }
+}
 
-		return null;
-	}
-	static string GetCurrencyIcon(int currency)
-	{
-		switch (currency)
-		{
-			case Currency_Bucks: return "MBCKA0";
-			case Currency_7mm: return "TEN7A0";
-			case Currency_Brass: return "RBRSA3A7";
-		}
+class SevenMilCurrency : StoreCurrency
+{
+	override class<Inventory> GetCurrencyClass() { return "SevenMilAmmo"; }
+	override string GetIcon() { return "TEN7A0"; }
+}
 
-		return "";
-	}
-	virtual string, int GetCategory() { return "", 0; }
-	virtual string GetItem() { return ""; }
+class SevenMilBrassCurrency : StoreCurrency
+{
+	override class<Inventory> GetCurrencyClass() { return "SevenMilBrass"; }
+	override string GetIcon() { return "RBRSA3A7"; }
+	override double GetPriceMult() { return 2.0; }
+}
+
+class StoreItem abstract
+{
+	abstract string, int GetCategory();
+	abstract string GetItem();
 	virtual int GetAmount() { return 1; }
-	virtual string GetIcon() { return ""; }
-	virtual string GetDisplayName() { return ""; }
-	protected virtual int GetBasePrice() { return 0; } // [Ace] The base cost is for merc bucks.
-	int GetAdjustedPrice(int currency)
+	abstract string GetIcon();
+	abstract string GetDisplayName();
+	protected abstract int GetBasePrice(); // [Ace] The base price is for merc bucks.
+	abstract string GetFlavorText();
+	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
 	{
-		int BaseCost = GetBasePrice();
-		switch (currency)
-		{
-			case Currency_Brass: return int(BaseCost * 2);
-		}
-		return BaseCost;
+		return int(max(Item.GetBasePrice() * Currency.GetPriceMult(), 1));
 	}
-	virtual string GetFlavorText() { return ""; }
 }
 
 // ---------- VANILLA ----------
