@@ -161,7 +161,13 @@ class MerchantHandler : EventHandler
 				{
 					continue;
 				}
-				StoreCurrencies.Push(StoreCurrency(new(AllClasses[i])));
+				
+				StoreCurrency Currency = StoreCurrency(new(AllClasses[i]));
+				class<Actor> a = Currency.GetCurrencyClass();
+				if (a)
+				{
+					StoreCurrencies.Push(Currency);
+				}
 			}
 		}
 

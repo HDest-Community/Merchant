@@ -58,9 +58,9 @@ class ItemsFrame : MerchMenuFrame
 		string CurIconString = Currency.GetIcon();
 		TextureID CurIcon = TexMan.CheckForTexture(CurIconString, TexMan.Type_Any);
 		vector2 CurIconSize = TexMan.GetScaledSize(CurIcon);
-		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 20));
+		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 14));
 		CurIconSize *= IconScale;
-		vector2 CurIconPos = (pos.x + size.y / 2 - CurIconSize.x / 2, pos.y + 7 - CurIconSize.y / 2);
+		vector2 CurIconPos = (pos.x + size.y / 2 - CurIconSize.x / 2, pos.y + 8 - CurIconSize.y / 2);
 		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
 
 		int Price = StoreItem.GetAdjustedPrice(item, Currency);
@@ -103,9 +103,9 @@ class ShopFrame : MerchMenuFrame
 		string CurIconString = Currency.GetIcon();
 		TextureID CurIcon = TexMan.CheckForTexture(CurIconString, TexMan.Type_Any);
 		vector2 CurIconSize = TexMan.GetScaledSize(CurIcon);
-		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 20));
+		double IconScale = 1.0 / MerchantShopMenu.GetBoxedScale(CurIconSize, (20, 14));
 		CurIconSize *= IconScale;
-		vector2 CurIconPos = (box.size.x - CurrencyWidth / 2 - CurIconSize.x / 2, 7 - CurIconSize.y / 2);
+		vector2 CurIconPos = (box.size.x - CurrencyWidth / 2 - CurIconSize.x / 2, 8 - CurIconSize.y / 2);
 		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
 
 		string CurrencyAmount = String.Format("%i", players[consoleplayer].mo.CountInv(Currency.GetCurrencyClass()));
