@@ -42,7 +42,7 @@ class StoreItem abstract
 	abstract string GetFlavorText();
 	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
 	{
-		return int(max(Item.GetBasePrice() * Currency.GetPriceMult(), 1));
+		return int(max(ceil(Item.GetBasePrice() * Currency.GetPriceMult()), 1));
 	}
 }
 
