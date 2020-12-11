@@ -1,1 +1,2 @@
+server bool hdm_enablebucks = true;
 user int hdm_skin = 0;

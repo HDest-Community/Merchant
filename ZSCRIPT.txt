@@ -75,7 +75,7 @@ class MerchantHandler : EventHandler
 	{
 		string FollowerClassName = "HDFollower";
 		class<Actor> FollowerClass = FollowerClassName;
-		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is Actor.GetReplacement(FollowerClass)))
+		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is FollowerClass))
 		{
 			return;
 		}
@@ -202,6 +202,11 @@ class MerchantHandler : EventHandler
 
 	override void WorldUnloaded(WorldEvent e)
 	{
+		if (!hdm_enablebucks)
+		{
+			return;
+		}
+
 		double TotalCash = CashFromMonsters + level.found_secrets * 15 - Thinker.Tics2Seconds(level.time) / 60;
 		int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
 

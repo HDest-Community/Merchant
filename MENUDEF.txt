@@ -2,6 +2,7 @@ OptionMenu "MerchantMenu"
 {
 	Title "Merchant Options"
 
+	Option "Enable Bucks", "hdm_enablebucks", "YesNo"
 	Option "Skin", "hdm_skin", "Skin"
 }
 
