@@ -1,7 +1,7 @@
 class StoreCurrency abstract
 {
-	abstract string GetCurrencyClass();
-	abstract string GetIcon();
+	virtual string GetCurrencyClass() { return ""; }
+	virtual string GetIcon() { return ""; }
 	virtual double GetPriceMult() { return 1.0; }
 }
 
@@ -33,13 +33,14 @@ class MeloStoneCurrency : StoreCurrency
 
 class StoreItem abstract
 {
-	abstract string, int GetCategory();
-	abstract string GetItem();
+	// [Ace] Make some of these abstract again at some point.
+	virtual string, int GetCategory() { return "", -1; }
+	virtual string GetItem() { return ""; }
 	virtual int GetAmount() { return 1; }
-	abstract string GetIcon();
-	abstract string GetDisplayName();
-	protected abstract int GetBasePrice(); // [Ace] The base price is for merc bucks.
-	abstract string GetFlavorText();
+	virtual string GetIcon() { return ""; }
+	virtual string GetDisplayName() { return ""; }
+	protected virtual int GetBasePrice() { return 0; } // [Ace] The base price is for merc bucks.
+	virtual string GetFlavorText() { return ""; }
 	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
 	{
 		return int(max(Item.GetBasePrice() * Currency.GetPriceMult(), 1));

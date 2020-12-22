@@ -3,6 +3,7 @@ Sprites:
 - Merchant (Resident Evil): Based on above but made by PillowBlaster. Ten points to Gryffindor!
 - Merchant (Daina skins): Hege Cactus. Taken from La Tailor Girl.
 - Bucks: ???, reshaded by Mor'ladim.
+- Card: Taken from Doom Vacation. Probably from Duke Nukem, idk.
 
 ZForms:
 - Gutawer & phantombeta

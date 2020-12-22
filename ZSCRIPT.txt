@@ -4,6 +4,27 @@ version "4.5"
 #include "ZSCRIPT.StoreItems.zsc"
 #include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 
+class MerchantSpawnHandler : StaticEventHandler
+{
+	override void CheckReplacement(ReplaceEvent e)
+	{
+		if (!e.Replacement)
+		{
+			return;
+		}
+
+		switch (e.Replacement.GetClassName())
+		{
+			case 'ClipBoxPickup':
+				if (random[merchrand]() <= 8)
+				{
+					e.Replacement = "MercenaryCard";
+				}
+				break;
+		}
+	}
+}
+
 class MerchantHandler : EventHandler
 {
 	Array<StoreCurrency> StoreCurrencies;
@@ -255,11 +276,22 @@ class MerchantHandler : EventHandler
 
 class AceMerchant : Actor
 {
+	enum MerchantSkins
+	{
+		MSkin_Hobo,
+		MSkin_ResidentEvil,
+		MSkin_DainaDefault,
+		MSkin_DainaBunny,
+		MSkin_DainaMaid,
+		MSkin_DainaSuccubus
+	}
+
 	override void Tick()
 	{
-		if (CheckProximity("PlayerPawn", 96, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
+		PlayerIsNear = CheckProximity("PlayerPawn", 64, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
+		if (PlayerIsNear)
 		{
-			Angle = AngleTo(target);
+			A_Face(target, 15);
 		}
 
 		Super.Tick();
@@ -269,6 +301,15 @@ class AceMerchant : Actor
 	{
 		if (user.PlayerNumber() == consoleplayer)
 		{
+			if (InStateSequence(CurState, FindState("SpawnLoop")))
+			{
+				switch (hdm_skin)
+				{
+					case MSkin_DainaBunny: PlaySpecialAnimation("OpenMenu.Daina.Bunny", "Daina/Bunny/Buying"); break;
+					case MSkin_DainaSuccubus: PlaySpecialAnimation("OpenMenu.Daina.Succubus", "Daina/Succubus/Buying"); break;
+				}
+			}
+
 			Menu.SetMenu('MerchantShopMenu');
 		}
 
@@ -285,9 +326,37 @@ class AceMerchant : Actor
 		return false;
 	}
 
+	private void CheckBreathing()
+	{
+		switch (BreatheState)
+		{
+			case 0: A_SetScale(Scale.X, Scale.Y + 0.02); BreatheState = 1; break;
+			case 1: A_SetScale(Scale.X, Scale.Y - 0.02); BreatheState = 0; break;
+		}	
+	}
+
+	private void PlaySpecialAnimation(StateLabel specAnimState, string snd)
+	{
+		A_StartSound(snd, CHAN_VOICE);
+		SetStateLabel(specAnimState);
+	}
+
+	private void BuyingIdle(StateLabel goAwayState, string snd)
+	{
+		CheckBreathing();
+		if (!PlayerIsNear)
+		{
+			A_StartSound(snd, CHAN_VOICE);
+			SetStateLabel(goAwayState);
+		}
+	}
+
+	bool PlayerIsNear;
+	int BreatheState; // 0 = exhaled, 1 = inhaled.
+
 	Default
 	{
-		Mass 300;
+		Mass 400;
 		Height 58;
 		Radius 8;
 		Scale 1.0;
@@ -298,15 +367,33 @@ class AceMerchant : Actor
 
 	States
 	{
+		RegisterSprites: AMR1 A 0; AMR2 A 0; AMR3 A 0; AMR4 A 0; AMR5 A 0; AMR6 A 0;
 		Spawn:
-			AMRC # 0 NoDelay
+			#### A 0 NoDelay
 			{
-				frame = CVar.GetCVar("hdm_skin", players[consoleplayer]).GetInt();
+				sprite = GetSpriteIndex("AMR"..(hdm_skin + 1));
 			}
 		SpawnLoop:
-			AMRC # 35 A_SetScale(Scale.X, Scale.Y - 0.025);
-			AMRC # 35 A_SetScale(Scale.X, Scale.Y + 0.025);
+			#### # 35 CheckBreathing();
 			Loop;
+
+		OpenMenu.Daina.Succubus:
+			AMR6 BCDEFGHJE 4;
+		Buying.Daina.Succubus:
+			AMR6 E 35 BuyingIdle("GoAway.Daina.Succubus", "Daina/Succubus/GoAway");
+			Loop;
+		GoAway.Daina.Succubus:
+			AMR6 EDCB 4;
+			Goto Spawn;
+
+		OpenMenu.Daina.Bunny:
+			AMR4 BCDEFGHIG 4;
+		Buying.Daina.Bunny:
+			AMR4 G 35 BuyingIdle("GoAway.Daina.Bunny", "Daina/Bunny/GoAway");
+			Loop;
+		GoAway.Daina.Bunny:
+			AMR4 GFEDCB 4;
+			Goto Spawn;
 	}
 }
 
@@ -342,6 +429,7 @@ class MercenaryBucks : HDAmmo
 		+FORCEXYBILLBOARD
 		Tag "Bucks";
 		Inventory.Icon "MBCKA0";
+		+HDPICKUP.CHEATNOGIVE
 		+HDPICKUP.MULTIPICKUP
 		+HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION
@@ -356,6 +444,32 @@ class MercenaryBucks : HDAmmo
 	{
 		Spawn:
 			MBCK A -1;
+			Stop;
+	}
+}
+
+class MercenaryCard : HDUPK
+{
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+
+		Amount *= frandom(0.80, 1.20);
+	}
+
+	Default
+	{
+		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Now who could have dropped it here!?";
+		HDUPK.PickupType "MercenaryBucks";
+		HDUPK.Amount 1000;
+		HDUPK.MaxUnitAmount 10000;
+		Scale 0.25;
+	}
+
+	States
+	{
+		Spawn:
+			MCRD A -1;
 			Stop;
 	}
 }

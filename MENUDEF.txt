@@ -15,8 +15,8 @@ OptionValue "Skin"
 {
 	0, "Resident Evil"
 	1, "Hobo"
-	2, "Daina (Bunny)"
-	3, "Daina (Maid)"
-	4, "Daina (Succubus)"
-	5, "Daina (Default)"
+	2, "Daina - Default"
+	3, "Daina - Bunny"
+	4, "Daina - Maid"
+	5, "Daina - Succubus"
 }
