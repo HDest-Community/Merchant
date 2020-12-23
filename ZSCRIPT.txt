@@ -89,6 +89,7 @@ class MerchantHandler : EventHandler
 		if (e.Name ~== "HDM_ResetStore")
 		{
 			InitStore();
+			Console.Printf("Store successfully reset.");
 		}
 	}
 
@@ -178,11 +179,6 @@ class MerchantHandler : EventHandler
 
 			if (AllClasses[i] is "StoreCurrency" && AllClasses[i].GetClassName() != 'StoreCurrency')
 			{
-				if (!hdm_enablebucks && AllClasses[i] is "BucksCurrency")
-				{
-					continue;
-				}
-				
 				StoreCurrency Currency = StoreCurrency(new(AllClasses[i]));
 				class<Actor> a = Currency.GetCurrencyClass();
 				if (a)
