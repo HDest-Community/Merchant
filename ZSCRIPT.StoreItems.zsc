@@ -457,16 +457,6 @@ class HDMG13Store : StoreItem
 	override string GetFlavorText() { return "Dome of death."; }
 }
 
-class HDStoneStore : StoreItem
-{
-	override string, int GetCategory() { return "Melonades", 3; }
-	override string GetItem() { return "HDStoneGrenadeAmmo"; }
-	override string GetIcon() { return "STNEA0"; }
-	override string GetDisplayName() { return "Stone"; }
-	override int GetBasePrice() { return 5; }
-	override string GetFlavorText() { return "Rock and roll."; }
-}
-
 // ---------- UAS ----------
 
 class HDRespiratorStore : StoreItem
