@@ -506,7 +506,7 @@ class MercenaryCard : HDUPK
 	{
 		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Now who could have dropped it here!?";
 		HDUPK.PickupType "MercenaryBucks";
-		HDUPK.Amount 1000;
+		HDUPK.Amount 300;
 		HDUPK.MaxUnitAmount 10000;
 		Scale 0.25;
 	}
