@@ -25,12 +25,24 @@ class MerchantSpawnHandler : StaticEventHandler
 	}
 }
 
+class MerchantRewardStorage : Thinker
+{
+	int Money;
+
+	static MerchantRewardStorage Create()
+	{
+		MerchantRewardStorage s = new('MerchantRewardStorage');
+		s.ChangeStatNum(STAT_STATIC);
+		return s;
+	}
+}
+
 class MerchantHandler : EventHandler
 {
 	Array<StoreCurrency> StoreCurrencies;
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
-	private int CashFromMonsters;
+	private MerchantRewardStorage RewardStorage;
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
@@ -97,7 +109,7 @@ class MerchantHandler : EventHandler
 	{
 		string FollowerClassName = "HDFollower";
 		class<Actor> FollowerClass = FollowerClassName;
-		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is FollowerClass))
+		if (!RewardStorage || !e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is FollowerClass))
 		{
 			return;
 		}
@@ -155,7 +167,7 @@ class MerchantHandler : EventHandler
 			{
 				Amount++;
 			}
-			CashFromMonsters += Amount;
+			RewardStorage.Money += Amount;
 		}
 	}
 
@@ -219,7 +231,6 @@ class MerchantHandler : EventHandler
 	override void WorldLoaded(WorldEvent e)
 	{
 		InitStore();
-
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector CurrSec = level.Sectors[i];
@@ -231,24 +242,37 @@ class MerchantHandler : EventHandler
 				break;
 			}
 		}
-	}
 
-	override void WorldUnloaded(WorldEvent e)
-	{
 		if (!hdm_enablebucks)
 		{
 			return;
 		}
 
-		double TotalCash = CashFromMonsters + level.found_secrets * 15 - Thinker.Tics2Seconds(level.time) / 60;
-		int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
-
-		for (int i = 0; i < MAXPLAYERS; ++i)
+		// [Ace] Init the reward stuff, but only if it's enabled.
+		ThinkerIterator it = ThinkerIterator.Create("MerchantRewardStorage", Thinker.STAT_STATIC);
+		while ((RewardStorage = MerchantRewardStorage(it.Next())))
 		{
-			if (players[i].mo && MoneyPerPlayer > 0)
+			break; // [Ace] Only find the first one.
+		}
+
+		if (!RewardStorage) // [Ace] Didn't find anything? Make a new one.
+		{
+			RewardStorage = MerchantRewardStorage.Create();
+		}
+
+		if (RewardStorage && RewardStorage.Money > 0)
+		{
+			double TotalCash = RewardStorage.Money + level.found_secrets * 15 - Thinker.Tics2Seconds(level.time) / 60;
+			int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
+
+			for (int i = 0; i < MAXPLAYERS; ++i)
 			{
-				players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
+				if (players[i].mo && MoneyPerPlayer > 0)
+				{
+					players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
+				}
 			}
+			RewardStorage.Money = 0;
 		}
 	}
 
