@@ -43,6 +43,7 @@ class MerchantHandler : EventHandler
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
 	private MerchantRewardStorage RewardStorage;
+	private int LastSecret;
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
@@ -260,9 +261,10 @@ class MerchantHandler : EventHandler
 			RewardStorage = MerchantRewardStorage.Create();
 		}
 
+		// [Ace] The process of rewarding players for their intense suffering.
 		if (RewardStorage && RewardStorage.Money > 0)
 		{
-			double TotalCash = RewardStorage.Money + level.found_secrets * 15 - Thinker.Tics2Seconds(level.time) / 60;
+			double TotalCash = RewardStorage.Money;
 			int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
 
 			for (int i = 0; i < MAXPLAYERS; ++i)
@@ -287,6 +289,23 @@ class MerchantHandler : EventHandler
 			}
 		}
 		return TotalPlayers;
+	}
+
+	override void WorldTick()
+	{
+		if (RewardStorage)
+		{
+			if (level.found_secrets != LastSecret)
+			{
+				LastSecret = level.found_secrets;
+				RewardStorage.Money += 15;
+			}
+
+			if (RewardStorage.Money > 0 && level.time % (35 * 60) == 0)
+			{
+				RewardStorage.Money--;
+			}
+		}
 	}
 }
 
