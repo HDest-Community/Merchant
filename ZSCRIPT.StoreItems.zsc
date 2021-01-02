@@ -243,6 +243,16 @@ class HD7mmReloaderStore : StoreItem
 	override string GetFlavorText() { return "BRBRBRBRBRBRBRBR *clack*"; }
 }
 
+class HDBackpackStore : StoreItem
+{
+	override string, int GetCategory() { return "Vanilla Items", 11; }
+	override string GetItem() { return "WildBackpack"; }
+	override string GetIcon() { return "BPAKA0"; }
+	override string GetDisplayName() { return "Backpack"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "May or may not contain anything useful inside."; }
+}
+
 class HDGreenArmorStore : StoreItem
 {
 	override string, int GetCategory() { return "Armor", 1; }

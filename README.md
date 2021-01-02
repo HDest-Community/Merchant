@@ -4,6 +4,7 @@
 - Change between categories using the Left/Right arrow keys, and between items with the Up/Down arrow keys
 - Some enemies will not reward cash for killing them. Putti and Lost Souls in particular.
 - Loadout code for the mercenary bucks is `bux`.
+- When new items are added, `hdm_resetstore` should be used in the console to refresh the merchant's items if loading an older save.
 
 ### Known Issues
 ---

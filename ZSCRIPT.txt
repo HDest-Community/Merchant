@@ -76,7 +76,7 @@ class MerchantHandler : EventHandler
 					return;
 				}
 
-				if (ItemClass is "HDWeapon" || ItemClass is "HDUPK")
+				if (!(ItemClass is 'HDPickup'))
 				{
 					plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
 				}

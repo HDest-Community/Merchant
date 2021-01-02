@@ -1,0 +1,1 @@
+alias hdm_resetstore "netevent HDM_ResetStore"
