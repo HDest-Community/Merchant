@@ -39,6 +39,8 @@ class MerchantRewardStorage : Thinker
 
 class MerchantHandler : EventHandler
 {
+	// [Ace] I need to move some of these to a thinker if I am to allow multiple merchants per map, each with their own store contents.
+	// I could also move these to the merchants themselves. Either way, that's for later.
 	Array<StoreCurrency> StoreCurrencies;
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
@@ -97,12 +99,6 @@ class MerchantHandler : EventHandler
 				plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
 				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
 			}
-		}
-
-		if (e.Name ~== "HDM_ResetStore")
-		{
-			InitStore();
-			Console.Printf("Store successfully reset.");
 		}
 	}
 
@@ -172,7 +168,7 @@ class MerchantHandler : EventHandler
 		}
 	}
 
-	private void InitStore()
+	void InitStore(int type)
 	{
 		StoreCurrencies.Clear();
 		StoreItems.Clear();
@@ -184,7 +180,7 @@ class MerchantHandler : EventHandler
 			{
 				StoreItem Item = StoreItem(new(AllClasses[i]));
 				class<Actor> a = Item.GetItem();
-				if (a)
+				if (a && Item.GetType() == type && random(1, 100) <= 60)
 				{
 					StoreItems.Push(Item);
 				}
@@ -209,37 +205,25 @@ class MerchantHandler : EventHandler
 				Categories.Push(StoreItems[i].GetCategory());
 			}
 		}
-
-		// [Ace] Sort by category index.
-		for (int i = 0; i < StoreItems.Size() - 1; ++i)
-		{
-			for (int j = i + 1; j < StoreItems.Size(); ++j)
-			{
-				string C1, C2; int I1, I2;
-				[C1, I1] = StoreItems[i].GetCategory();
-				[C2, I2] = StoreItems[j].GetCategory();
-
-				if (I1 > I2)
-				{
-					let Swap = StoreItems[i];
-					StoreItems[i] = StoreItems[j];
-					StoreItems[j] = Swap;
-				}
-			}
-		}
 	}
 
 	override void WorldLoaded(WorldEvent e)
 	{
-		InitStore();
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector CurrSec = level.Sectors[i];
-			vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
-
 			if (CurrSec.IsSecret() && random(1, 100) <= max(10, 30 - 2 * (level.total_secrets - 1)))
 			{
-				Actor.Spawn("AceMerchant", SpawnPos);
+				vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
+				
+				static const class<HDMerchant> Merchants[] =
+				{
+					"HoboMerchant", "HoboMerchant", "HoboMerchant",
+					"DainaMerchant", "DainaMerchant",
+					"ResidentEvilMerchant"
+				};
+
+				Actor.Spawn(Merchants[random(0, Merchants.Size() - 1)], SpawnPos);
 				break;
 			}
 		}
@@ -281,7 +265,7 @@ class MerchantHandler : EventHandler
 	override void WorldUnloaded(WorldEvent e)
 	{
 		let plr = players[Net_Arbitrator].mo;
-		if (RewardStorage && RewardStorage.Money > 0 && plr && plr.CheckProximity("AceMerchant", 128 * 3, 1, CPXF_CHECKSIGHT | CPXF_SETTRACER))
+		if (RewardStorage && RewardStorage.Money > 0 && plr && plr.CheckProximity("HDMerchant", 128 * 3, 1, CPXF_CHECKSIGHT | CPXF_SETTRACER | CPXF_ANCESTOR))
 		{
 			RewardStorage.Money *= 1.2;
 			plr.tracer.Destroy(); // [Ace] You have escorted the merchant to the exit. They won't be there if you return. Only affects hubs.
@@ -323,18 +307,8 @@ class MerchantHandler : EventHandler
 // MERCHANT
 // ----------------------------------------
 
-class AceMerchant : Actor
+class HDMerchant : Actor abstract
 {
-	enum MerchantSkins
-	{
-		MSkin_Hobo,
-		MSkin_ResidentEvil,
-		MSkin_DainaDefault,
-		MSkin_DainaBunny,
-		MSkin_DainaMaid,
-		MSkin_DainaSuccubus
-	}
-
 	override void Tick()
 	{
 		PlayerIsNear = CheckProximity("PlayerPawn", 80, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
@@ -348,14 +322,11 @@ class AceMerchant : Actor
 
 	override bool Used(Actor user)
 	{
-		if (InStateSequence(CurState, FindState("SpawnLoop")))
+		if (!HasGeneratedStore)
 		{
-			switch (hdm_skin)
-			{
-				case MSkin_DainaDefault: PlaySpecialAnimation("OpenMenu.Daina.Default", "Daina/Default/Buying"); break;
-				case MSkin_DainaBunny: PlaySpecialAnimation("OpenMenu.Daina.Bunny", "Daina/Bunny/Buying"); break;
-				case MSkin_DainaSuccubus: PlaySpecialAnimation("OpenMenu.Daina.Succubus", "Daina/Succubus/Buying"); break;
-			}
+			MerchantHandler Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+			Handler.InitStore(ItemsType);
+			HasGeneratedStore = true;
 		}
 
 		if (user.PlayerNumber() == consoleplayer)
@@ -376,7 +347,8 @@ class AceMerchant : Actor
 		return false;
 	}
 
-	private void CheckBreathing()
+	// [Ace] This is complete fucking overkill. It could have been done in like 5 lines of code but I wanted a more "generic" solution.
+	protected void CheckBreathing()
 	{
 		if (BreatheStepHold > 0)
 		{
@@ -411,13 +383,13 @@ class AceMerchant : Actor
 		}
 	}
 
-	private void PlaySpecialAnimation(StateLabel specAnimState, string snd)
+	protected void PlaySpecialAnimation(StateLabel specAnimState, string snd)
 	{
 		A_StartSound(snd, CHAN_VOICE);
 		SetStateLabel(specAnimState);
 	}
 
-	private void BuyingIdle(StateLabel goAwayState, string snd)
+	protected void BuyingIdle(StateLabel goAwayState, string snd)
 	{
 		CheckBreathing();
 		if (!PlayerIsNear)
@@ -437,11 +409,15 @@ class AceMerchant : Actor
 
 	const BreatheScaleStep = BreatheMaxScale / BreatheSteps;
 	const BreatheStepsHalf = BreatheSteps / 2;
-	int BreatheIndex;
-	int BreatheHold;
-	int BreatheStepHold;
+	private int BreatheIndex;
+	private int BreatheHold;
+	private int BreatheStepHold;
 
-	bool PlayerIsNear;
+	private bool HasGeneratedStore;
+	private bool PlayerIsNear;
+
+	int ItemsType;
+	property ItemsType: ItemsType;
 
 	Default
 	{
@@ -453,14 +429,70 @@ class AceMerchant : Actor
 		+PUSHABLE
 		+NOBLOCKMONST
 	}
+}
+
+class ResidentEvilMerchant : HDMerchant
+{
+	Default
+	{
+		HDMerchant.ItemsType StoreItem.SType_Weapon;
+	}
 
 	States
 	{
-		RegisterSprites: AMR1 A 0; AMR2 A 0; AMR3 A 0; AMR4 A 0; AMR5 A 0; AMR6 A 0;
+		Spawn:
+			AMR1 # 1 CheckBreathing();
+			Loop;
+	}
+}
+
+class HoboMerchant : HDMerchant
+{
+	Default
+	{
+		HDMerchant.ItemsType StoreItem.SType_Ammo;
+	}
+
+	States
+	{
+		Spawn:
+			AMR2 # 1 CheckBreathing();
+			Loop;
+	}
+}
+
+class DainaMerchant : HDMerchant
+{
+	override bool Used(Actor user)
+	{
+		if (InStateSequence(CurState, FindState("SpawnLoop")))
+		{
+			switch (SkinIndex)
+			{
+				case 3: PlaySpecialAnimation("OpenMenu.Daina.Default", "Daina/Default/Buying"); break;
+				case 4: PlaySpecialAnimation("OpenMenu.Daina.Bunny", "Daina/Bunny/Buying"); break;
+				case 6: PlaySpecialAnimation("OpenMenu.Daina.Succubus", "Daina/Succubus/Buying"); break;
+			}
+		}
+
+		return Super.Used(user);
+	}
+
+	private int SkinIndex;
+
+	Default
+	{
+		HDMerchant.ItemsType StoreItem.SType_Item;
+	}
+
+	States
+	{
+		RegisterSprites: AMR3 A 0; AMR4 A 0; AMR5 A 0; AMR6 A 0;
 		Spawn:
 			#### A 0 NoDelay
 			{
-				sprite = GetSpriteIndex("AMR"..(hdm_skin + 1));
+				SkinIndex =  random(3, 6);
+				sprite = GetSpriteIndex("AMR"..SkinIndex);
 			}
 		SpawnLoop:
 			#### # 1 CheckBreathing();
@@ -472,8 +504,8 @@ class AceMerchant : Actor
 			AMR3 # 1 BuyingIdle("GoAway.Daina.Default", "Daina/Default/GoAway");
 			Loop;
 		GoAway.Daina.Default:
-			AMR3 GFEDDCCBB 2;
-			Goto Spawn;
+			AMR3 GFEDDCCBBA 2;
+			Goto SpawnLoop;
 
 		OpenMenu.Daina.Bunny:
 			AMR4 BCDEFGHIG 4;
@@ -481,8 +513,8 @@ class AceMerchant : Actor
 			AMR4 # 1 BuyingIdle("GoAway.Daina.Bunny", "Daina/Bunny/GoAway");
 			Loop;
 		GoAway.Daina.Bunny:
-			AMR4 GFEDCB 4;
-			Goto Spawn;
+			AMR4 GFEDCBA 4;
+			Goto SpawnLoop;
 
 		OpenMenu.Daina.Succubus:
 			AMR6 BCDEFGHJE 4;
@@ -490,8 +522,8 @@ class AceMerchant : Actor
 			AMR6 # 1 BuyingIdle("GoAway.Daina.Succubus", "Daina/Succubus/GoAway");
 			Loop;
 		GoAway.Daina.Succubus:
-			AMR6 EDCB 4;
-			Goto Spawn;
+			AMR6 EDCBA 4;
+			Goto SpawnLoop;
 	}
 }
 
