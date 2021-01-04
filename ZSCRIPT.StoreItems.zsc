@@ -864,6 +864,17 @@ class HDWeaponCrateStore : StoreItem
 	override string GetFlavorText() { return "Ammo sold separately."; }
 }
 
+class HDPortableZRadarStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp Items"; }
+	override Name GetItem() { return 'PortableZRadar'; }
+	override string GetIcon() { return "ZRDRA0"; }
+	override string GetDisplayName() { return "Portable Radar"; }
+	override int GetBasePrice() { return 400; }
+	override string GetFlavorText() { return "They're coming out of the god damn walls!"; }
+}
+
 class HDRiftGrenadeStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
