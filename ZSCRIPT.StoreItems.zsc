@@ -765,6 +765,17 @@ class HDGungnirStore : StoreItem
 	override string GetFlavorText() { return "Stole it right out of some deity's closet. I hope they don't need it."; }
 }
 
+class HDSuperStimpackStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp Items"; }
+	override Name GetItem() { return 'PortableSuperStimpack'; }
+	override string GetIcon() { return "SSTMA0"; }
+	override string GetDisplayName() { return "Super Stimpack"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "I don't think that's the right dosage, doc."; }
+}
+
 class HDTeleporterStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
