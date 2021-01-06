@@ -154,7 +154,7 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "HDBossBrain")
 		{
-			Reward = 500;
+			Reward = 666;
 		}
 
 		if (Reward > 0)
@@ -180,7 +180,7 @@ class MerchantHandler : EventHandler
 			{
 				StoreItem Item = StoreItem(new(AllClasses[i]));
 				class<Actor> a = Item.GetItem();
-				if (a && Item.GetType() == type && random(1, 100) <= 60)
+				if (a && Item.GetType() == type && random(1, 100) <= 80)
 				{
 					StoreItems.Push(Item);
 				}
