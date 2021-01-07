@@ -313,7 +313,8 @@ class HDMerchantBody : HDPickup
 	{
 		-INVENTORY.INVBAR
 		+INVENTORY.UNDROPPABLE
-		HDPickup.Bulk 400;
+		+HDPICKUP.NOTINPOCKETS
+		HDPickup.Bulk 500;
 	}
 }
 
