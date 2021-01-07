@@ -491,7 +491,14 @@ class DainaMerchant : HDMerchant
 		Spawn:
 			#### A 0 NoDelay
 			{
-				SkinIndex =  random(3, 6);
+				int SkinIndex;
+				int SkinOption = hdm_skin_daina;
+				switch (SkinOption)
+				{
+					case 0: SkinIndex = random(3, 6); break;
+					default: SkinIndex = clamp(SkinOption + 2, 3, 6); break;
+				}
+				
 				sprite = GetSpriteIndex("AMR"..SkinIndex);
 			}
 		SpawnLoop:
