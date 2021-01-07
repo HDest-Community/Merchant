@@ -307,14 +307,43 @@ class MerchantHandler : EventHandler
 // MERCHANT
 // ----------------------------------------
 
+class HDMerchantBody : HDPickup
+{
+	Default
+	{
+		-INVENTORY.INVBAR
+		+INVENTORY.UNDROPPABLE
+		HDPickup.Bulk 400;
+	}
+}
+
 class HDMerchant : Actor abstract
 {
 	override void Tick()
 	{
-		PlayerIsNear = CheckProximity("PlayerPawn", 80, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
-		if (PlayerIsNear)
+		if (PiggyBack)
 		{
-			A_Face(target, 15);
+			A_Face(PiggyBack);
+			double BobFactor = PiggyBack.player.ViewZ / double(PiggyBack.player.ViewHeight);
+			Warp(PiggyBack, -10, 0, 5 + 10 * BobFactor, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
+			bNOGRAVITY = true;
+			bTHRUACTORS = true;
+
+			if (PiggyBack.player.crouchfactor < 1.0)
+			{
+				bNOGRAVITY = false;
+				bTHRUACTORS = false;
+				PiggyBack.A_TakeInventory("HDMerchantBody");
+				PiggyBack = null;
+			}
+		}
+		else
+		{
+			PlayerIsNear = CheckProximity("PlayerPawn", 80, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
+			if (PlayerIsNear)
+			{
+				A_Face(target, 15);
+			}
 		}
 
 		Super.Tick();
@@ -322,6 +351,20 @@ class HDMerchant : Actor abstract
 
 	override bool Used(Actor user)
 	{
+		let plr = HDPlayerPawn(user);
+		if (!plr || PiggyBack == plr)
+		{
+			return false;
+		}
+
+		if (plr.player.cmd.buttons & BT_SPEED)
+		{
+			PiggyBack = plr;
+			PlayerIsNear = false; // [Ace] This forces the merchant to cease their animation.
+			plr.A_GiveInventory("HDMerchantBody");
+			return false;
+		}
+
 		if (!HasGeneratedStore)
 		{
 			MerchantHandler Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
@@ -334,7 +377,7 @@ class HDMerchant : Actor abstract
 			Menu.SetMenu('MerchantShopMenu');
 		}
 
-		return Super.Used(user);
+		return true;
 	}
 
 	override bool CanCollideWith(Actor other, bool passive)
@@ -416,6 +459,8 @@ class HDMerchant : Actor abstract
 	private bool HasGeneratedStore;
 	private bool PlayerIsNear;
 
+	protected HDPlayerPawn PiggyBack;
+
 	int ItemsType;
 	property ItemsType: ItemsType;
 
@@ -465,17 +510,18 @@ class DainaMerchant : HDMerchant
 {
 	override bool Used(Actor user)
 	{
-		if (InStateSequence(CurState, FindState("SpawnLoop")))
+		bool Result = Super.Used(user);
+		if (Result && !PiggyBack && InStateSequence(CurState, FindState("SpawnLoop")))
 		{
 			switch (SkinIndex)
 			{
-				case 3: PlaySpecialAnimation("OpenMenu.Daina.Default", "Daina/Default/Buying"); break;
-				case 4: PlaySpecialAnimation("OpenMenu.Daina.Bunny", "Daina/Bunny/Buying"); break;
-				case 6: PlaySpecialAnimation("OpenMenu.Daina.Succubus", "Daina/Succubus/Buying"); break;
+				case 3: PlaySpecialAnimation('OpenMenu.Daina.Default', "Daina/Default/Buying"); break;
+				case 4: PlaySpecialAnimation('OpenMenu.Daina.Bunny', "Daina/Bunny/Buying"); break;
+				case 6: PlaySpecialAnimation('OpenMenu.Daina.Succubus', "Daina/Succubus/Buying"); break;
 			}
 		}
 
-		return Super.Used(user);
+		return Result;
 	}
 
 	private int SkinIndex;
@@ -491,7 +537,6 @@ class DainaMerchant : HDMerchant
 		Spawn:
 			#### A 0 NoDelay
 			{
-				int SkinIndex;
 				int SkinOption = hdm_skin_daina;
 				switch (SkinOption)
 				{
