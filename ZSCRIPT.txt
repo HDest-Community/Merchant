@@ -267,6 +267,7 @@ class MerchantHandler : EventHandler
 		let plr = players[Net_Arbitrator].mo;
 		if (RewardStorage && RewardStorage.Money > 0 && plr && plr.CheckProximity("HDMerchant", 128 * 3, 1, CPXF_CHECKSIGHT | CPXF_SETTRACER | CPXF_ANCESTOR))
 		{
+			plr.A_TakeInventory("HDMerchantBody");
 			RewardStorage.Money = int(RewardStorage.Money * 1.2);
 			plr.tracer.Destroy(); // [Ace] You have escorted the merchant to the exit. They won't be there if you return. Only affects hubs.
 		}
@@ -315,6 +316,7 @@ class HDMerchantBody : HDPickup
 		+INVENTORY.UNDROPPABLE
 		+HDPICKUP.NOTINPOCKETS
 		HDPickup.Bulk 500;
+		Inventory.MaxAmount 1;
 	}
 }
 
