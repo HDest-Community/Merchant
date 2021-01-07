@@ -295,7 +295,7 @@ class MerchantHandler : EventHandler
 				RewardStorage.Money += 15;
 			}
 
-			if (RewardStorage.Money > 0 && level.time % (35 * 60) == 0f)
+			if (RewardStorage.Money > 0 && level.time % (35 * 60) == 0)
 			{
 				RewardStorage.Money--;
 			}
