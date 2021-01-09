@@ -681,7 +681,7 @@ class HDZM69Store : StoreItem
 	override Name GetItem() { return 'ZM69Rifle'; }
 	override string GetIcon() { return "ZM69A0"; }
 	override string GetDisplayName() { return "ZM69 Anti-Materiel Rifle"; }
-	override int GetBasePrice() { return 50; }
+	override int GetBasePrice() { return 690; }
 	override string GetFlavorText() { return "For hunting very large, murderous, demonic game."; }
 }
 
