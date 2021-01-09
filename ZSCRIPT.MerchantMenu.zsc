@@ -20,19 +20,19 @@ class ItemsFrame : MerchMenuFrame
 
 		// ----- ICON -----
 		
-		Fill((0, pos.y), (size.y, size.y), DimColor, 0.75);
+		Fill((0, pos.y), (size.y * 2, size.y), DimColor, 0.75);
 
 		TextureID ItemIcon = TexMan.CheckForTexture(item.GetIcon(), TexMan.Type_Any);
 		vector2 ItemIconSize = TexMan.GetScaledSize(ItemIcon);
-		double ItemIconScale = 1.0 / MerchantShopMenu.GetBoxedScale(ItemIconSize, (size.y, size.y) * 0.8);
+		double ItemIconScale = 1.0 / MerchantShopMenu.GetBoxedScale(ItemIconSize, (size.y * 2, size.y) * 0.8);
 		ItemIconSize *= ItemIconScale;
-		vector2 ItemIconPos = ((size.y - ItemIconSize.x) / 2, pos.y + (size.y - ItemIconSize.y) / 2);
+		vector2 ItemIconPos = ((size.y * 2 - ItemIconSize.x) / 2, pos.y + (size.y - ItemIconSize.y) / 2);
 		DrawImage(ItemIconPos, item.GetIcon(), true, (ItemIconScale, ItemIconScale));
 
 		// ----- NAME & FLAVOR TEXT -----
 
-		pos.x += size.y + MerchantShopMenu.Spacing;
-		double ContentW = size.x - (size.y + MerchantShopMenu.Spacing) * 2;
+		pos.x += size.y * 2 + MerchantShopMenu.Spacing;
+		double ContentW = size.x - (size.y * 3 + MerchantShopMenu.Spacing * 2);
 		Fill(pos, (ContentW, size.y), DimColor, 0.75);
 
 		vector2 ContentPos = pos + (1.5, 1.5);
@@ -40,7 +40,7 @@ class ItemsFrame : MerchMenuFrame
 		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName();
 		DrawText(ContentPos, SmallFont, DisplayName, Font.CR_GREEN, MerchantShopMenu.TextScale);
 
-		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), int(size.x - (size.y + MerchantShopMenu.Spacing) * 2));
+		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), int(size.x - (size.y * 3 + MerchantShopMenu.Spacing * 2 + 5)));
 		int LinesCount = FlavorLines.Count();
 		ContentPos.y += (SmallFont.GetHeight() * MerchantShopMenu.TextScale) * 2;
 		for (int i = LinesCount - 1; i >= 0; --i)
@@ -52,6 +52,7 @@ class ItemsFrame : MerchMenuFrame
 		pos.x += ContentW + MerchantShopMenu.Spacing;
 
 		// ----- PRICE -----
+
 		Fill(pos, (size.y, size.y), DimColor, 0.75);
 
 		StoreCurrency Currency = ParentMenu.Handler.StoreCurrencies[ParentMenu.SelCurrencyIndex];

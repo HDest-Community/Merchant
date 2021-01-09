@@ -1,4 +1,4 @@
 GameInfo
 {
-	AddEventHandlers = "MerchantHandler"
+	AddEventHandlers = "MerchantHandler", "MerchantSpawnHandler"
 }

@@ -3,7 +3,7 @@ OptionMenu "MerchantMenu"
 	Title "Merchant Options"
 
 	Option "Enable Bucks", "hdm_enablebucks", "YesNo"
-	Option "Skin", "hdm_skin", "Skin"
+	Option "Daina Skin", "hdm_skin_daina", "DainaSkins"
 }
 
 AddOptionMenu "OptionsMenu"
@@ -11,12 +11,11 @@ AddOptionMenu "OptionsMenu"
 	Submenu "Merchant", "MerchantMenu"
 }
 
-OptionValue "Skin"
+OptionValue "DainaSkins"
 {
-	0, "Resident Evil"
-	1, "Hobo"
-	2, "Daina (Bunny)"
-	3, "Daina (Maid)"
-	4, "Daina (Succubus)"
-	5, "Daina (Default)"
+	0, "Random"
+	1, "Default"
+	2, "Bunny"
+	3, "Maid"
+	4, "Succubus"
 }

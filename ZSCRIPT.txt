@@ -4,12 +4,48 @@ version "4.5"
 #include "ZSCRIPT.StoreItems.zsc"
 #include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 
+class MerchantSpawnHandler : StaticEventHandler
+{
+	override void CheckReplacement(ReplaceEvent e)
+	{
+		if (!e.Replacement)
+		{
+			return;
+		}
+
+		switch (e.Replacement.GetClassName())
+		{
+			case 'ClipBoxPickup':
+				if (random[merchrand]() <= 8)
+				{
+					e.Replacement = "MercenaryCard";
+				}
+				break;
+		}
+	}
+}
+
+class MerchantRewardStorage : Thinker
+{
+	int Money;
+
+	static MerchantRewardStorage Create()
+	{
+		MerchantRewardStorage s = new('MerchantRewardStorage');
+		s.ChangeStatNum(STAT_STATIC);
+		return s;
+	}
+}
+
 class MerchantHandler : EventHandler
 {
+	// [Ace] I need to move some of these to a thinker if I am to allow multiple merchants per map, each with their own store contents.
+	// I could also move these to the merchants themselves. Either way, that's for later.
 	Array<StoreCurrency> StoreCurrencies;
 	Array<StoreItem> StoreItems;
 	Array<string> Categories;
-	private int CashFromMonsters;
+	private MerchantRewardStorage RewardStorage;
+	private int LastSecret;
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
@@ -42,7 +78,7 @@ class MerchantHandler : EventHandler
 					return;
 				}
 
-				if (ItemClass is "HDWeapon" || ItemClass is "HDUPK")
+				if (!(ItemClass is 'HDPickup'))
 				{
 					plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
 				}
@@ -64,18 +100,13 @@ class MerchantHandler : EventHandler
 				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
 			}
 		}
-
-		if (e.Name ~== "HDM_ResetStore")
-		{
-			InitStore();
-		}
 	}
 
 	override void WorldThingDamaged(WorldEvent e)
 	{
 		string FollowerClassName = "HDFollower";
 		class<Actor> FollowerClass = FollowerClassName;
-		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is FollowerClass))
+		if (!RewardStorage || !e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is FollowerClass) && e.DamageSource.GetClassName() != 'HDSoulCube')
 		{
 			return;
 		}
@@ -123,7 +154,7 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "HDBossBrain")
 		{
-			Reward = 500;
+			Reward = 666;
 		}
 
 		if (Reward > 0)
@@ -133,11 +164,11 @@ class MerchantHandler : EventHandler
 			{
 				Amount++;
 			}
-			CashFromMonsters += Amount;
+			RewardStorage.Money += Amount;
 		}
 	}
 
-	private void InitStore()
+	void InitStore(int type)
 	{
 		StoreCurrencies.Clear();
 		StoreItems.Clear();
@@ -149,7 +180,7 @@ class MerchantHandler : EventHandler
 			{
 				StoreItem Item = StoreItem(new(AllClasses[i]));
 				class<Actor> a = Item.GetItem();
-				if (a)
+				if (a && Item.GetType() == type && random(1, 100) <= 80)
 				{
 					StoreItems.Push(Item);
 				}
@@ -174,59 +205,71 @@ class MerchantHandler : EventHandler
 				Categories.Push(StoreItems[i].GetCategory());
 			}
 		}
-
-		// [Ace] Sort by category index.
-		for (int i = 0; i < StoreItems.Size() - 1; ++i)
-		{
-			for (int j = i + 1; j < StoreItems.Size(); ++j)
-			{
-				string C1, C2; int I1, I2;
-				[C1, I1] = StoreItems[i].GetCategory();
-				[C2, I2] = StoreItems[j].GetCategory();
-
-				if (I1 > I2)
-				{
-					let Swap = StoreItems[i];
-					StoreItems[i] = StoreItems[j];
-					StoreItems[j] = Swap;
-				}
-			}
-		}
 	}
 
 	override void WorldLoaded(WorldEvent e)
 	{
-		InitStore();
-
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector CurrSec = level.Sectors[i];
-			vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
-
 			if (CurrSec.IsSecret() && random(1, 100) <= max(10, 30 - 2 * (level.total_secrets - 1)))
 			{
-				Actor.Spawn("AceMerchant", SpawnPos);
+				vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
+				
+				static const class<HDMerchant> Merchants[] =
+				{
+					"HoboMerchant", "HoboMerchant", "HoboMerchant",
+					"DainaMerchant", "DainaMerchant",
+					"ResidentEvilMerchant"
+				};
+
+				Actor.Spawn(Merchants[random(0, Merchants.Size() - 1)], SpawnPos);
 				break;
 			}
 		}
-	}
 
-	override void WorldUnloaded(WorldEvent e)
-	{
 		if (!hdm_enablebucks)
 		{
 			return;
 		}
 
-		double TotalCash = CashFromMonsters + level.found_secrets * 15 - Thinker.Tics2Seconds(level.time) / 60;
-		int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
-
-		for (int i = 0; i < MAXPLAYERS; ++i)
+		// [Ace] Init the reward stuff, but only if it's enabled.
+		ThinkerIterator it = ThinkerIterator.Create("MerchantRewardStorage", Thinker.STAT_STATIC);
+		while ((RewardStorage = MerchantRewardStorage(it.Next())))
 		{
-			if (players[i].mo && MoneyPerPlayer > 0)
+			break; // [Ace] Only find the first one.
+		}
+
+		if (!RewardStorage) // [Ace] Didn't find anything? Make a new one.
+		{
+			RewardStorage = MerchantRewardStorage.Create();
+		}
+
+		// [Ace] The process of rewarding players for their intense suffering.
+		if (RewardStorage && RewardStorage.Money > 0)
+		{
+			double TotalCash = RewardStorage.Money;
+			int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
+
+			for (int i = 0; i < MAXPLAYERS; ++i)
 			{
-				players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
+				if (players[i].mo && MoneyPerPlayer > 0)
+				{
+					players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
+				}
 			}
+			RewardStorage.Money = 0;
+		}
+	}
+
+	override void WorldUnloaded(WorldEvent e)
+	{
+		let plr = players[Net_Arbitrator].mo;
+		if (RewardStorage && RewardStorage.Money > 0 && plr && plr.CheckProximity("HDMerchant", 128 * 3, 1, CPXF_CHECKSIGHT | CPXF_SETTRACER | CPXF_ANCESTOR))
+		{
+			plr.A_TakeInventory("HDMerchantBody");
+			RewardStorage.Money = int(RewardStorage.Money * 1.2);
+			plr.tracer.Destroy(); // [Ace] You have escorted the merchant to the exit. They won't be there if you return. Only affects hubs.
 		}
 	}
 
@@ -242,19 +285,68 @@ class MerchantHandler : EventHandler
 		}
 		return TotalPlayers;
 	}
+
+	override void WorldTick()
+	{
+		if (RewardStorage)
+		{
+			if (level.found_secrets != LastSecret)
+			{
+				LastSecret = level.found_secrets;
+				RewardStorage.Money += 15;
+			}
+
+			if (RewardStorage.Money > 0 && level.time % (35 * 60) == 0)
+			{
+				RewardStorage.Money--;
+			}
+		}
+	}
 }
 
 // ----------------------------------------
 // MERCHANT
 // ----------------------------------------
 
-class AceMerchant : Actor
+class HDMerchantBody : HDPickup
+{
+	Default
+	{
+		-INVENTORY.INVBAR
+		+INVENTORY.UNDROPPABLE
+		+HDPICKUP.NOTINPOCKETS
+		HDPickup.Bulk 500;
+		Inventory.MaxAmount 1;
+	}
+}
+
+class HDMerchant : Actor abstract
 {
 	override void Tick()
 	{
-		if (CheckProximity("PlayerPawn", 96, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
+		if (PiggyBack)
 		{
-			Angle = AngleTo(target);
+			A_Face(PiggyBack);
+			double BobFactor = PiggyBack.player.ViewZ / double(PiggyBack.player.ViewHeight);
+			Warp(PiggyBack, -10, 0, 5 + 10 * BobFactor, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
+			bNOGRAVITY = true;
+			bTHRUACTORS = true;
+
+			if (PiggyBack.player.crouchfactor < 1.0)
+			{
+				bNOGRAVITY = false;
+				bTHRUACTORS = false;
+				PiggyBack.A_TakeInventory("HDMerchantBody");
+				PiggyBack = null;
+			}
+		}
+		else
+		{
+			PlayerIsNear = CheckProximity("PlayerPawn", 80, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
+			if (PlayerIsNear)
+			{
+				A_Face(target, 15);
+			}
 		}
 
 		Super.Tick();
@@ -262,12 +354,33 @@ class AceMerchant : Actor
 
 	override bool Used(Actor user)
 	{
+		let plr = HDPlayerPawn(user);
+		if (!plr || PiggyBack == plr)
+		{
+			return false;
+		}
+
+		if (plr.player.cmd.buttons & BT_SPEED)
+		{
+			PiggyBack = plr;
+			PlayerIsNear = false; // [Ace] This forces the merchant to cease their animation.
+			plr.A_GiveInventory("HDMerchantBody");
+			return false;
+		}
+
+		if (!HasGeneratedStore)
+		{
+			MerchantHandler Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+			Handler.InitStore(ItemsType);
+			HasGeneratedStore = true;
+		}
+
 		if (user.PlayerNumber() == consoleplayer)
 		{
 			Menu.SetMenu('MerchantShopMenu');
 		}
 
-		return Super.Used(user);
+		return true;
 	}
 
 	override bool CanCollideWith(Actor other, bool passive)
@@ -280,9 +393,83 @@ class AceMerchant : Actor
 		return false;
 	}
 
+	// [Ace] This is complete fucking overkill. It could have been done in like 5 lines of code but I wanted a more "generic" solution.
+	protected void CheckBreathing()
+	{
+		if (BreatheStepHold > 0)
+		{
+			BreatheStepHold--;
+			return;
+		}
+
+		if (BreatheHold > 0)
+		{
+			BreatheHold--;
+			return;
+		}
+
+		if (BreatheIndex < BreatheStepsHalf)
+		{
+			A_SetScale(Scale.X, Scale.Y + BreatheScaleStep);
+			BreatheStepHold = BreatheStepDelay;
+			if (++BreatheIndex == BreatheStepsHalf)
+			{
+				BreatheHold = BreatheInOutDelay;
+			}
+		}
+		else if (BreatheIndex >= BreatheStepsHalf)
+		{
+			A_SetScale(Scale.X, Scale.Y - BreatheScaleStep);
+			BreatheStepHold = BreatheStepDelay;
+			if (++BreatheIndex == BreatheSteps)
+			{
+				BreatheIndex = 0;
+				BreatheHold = BreatheInOutDelay;
+			}
+		}
+	}
+
+	protected void PlaySpecialAnimation(StateLabel specAnimState, string snd)
+	{
+		A_StartSound(snd, CHAN_VOICE);
+		SetStateLabel(specAnimState);
+	}
+
+	protected void BuyingIdle(StateLabel goAwayState, string snd)
+	{
+		CheckBreathing();
+		if (!PlayerIsNear)
+		{
+			A_StartSound(snd, CHAN_VOICE);
+			SetStateLabel(goAwayState);
+		}
+	}
+
+	const BreatheInOutDelay = 30;
+	const BreatheStepDelay = 4;
+	const BreatheMaxScale = 0.03;
+
+	// [Ace] Always go for even values. Never, ever go for odd values. Only villains do that. Higher values mean smoother animation.
+	// This number is the number of frames from completely exhaled to completely inhaled, to exhaling.
+	const BreatheSteps = 4;
+
+	const BreatheScaleStep = BreatheMaxScale / BreatheSteps;
+	const BreatheStepsHalf = BreatheSteps / 2;
+	private int BreatheIndex;
+	private int BreatheHold;
+	private int BreatheStepHold;
+
+	private bool HasGeneratedStore;
+	private bool PlayerIsNear;
+
+	protected HDPlayerPawn PiggyBack;
+
+	int ItemsType;
+	property ItemsType: ItemsType;
+
 	Default
 	{
-		Mass 300;
+		Mass 400;
 		Height 58;
 		Radius 8;
 		Scale 1.0;
@@ -290,18 +477,108 @@ class AceMerchant : Actor
 		+PUSHABLE
 		+NOBLOCKMONST
 	}
+}
+
+class ResidentEvilMerchant : HDMerchant
+{
+	Default
+	{
+		HDMerchant.ItemsType StoreItem.SType_Weapon;
+	}
 
 	States
 	{
 		Spawn:
-			AMRC # 0 NoDelay
+			AMR1 # 1 CheckBreathing();
+			Loop;
+	}
+}
+
+class HoboMerchant : HDMerchant
+{
+	Default
+	{
+		HDMerchant.ItemsType StoreItem.SType_Ammo;
+	}
+
+	States
+	{
+		Spawn:
+			AMR2 # 1 CheckBreathing();
+			Loop;
+	}
+}
+
+class DainaMerchant : HDMerchant
+{
+	override bool Used(Actor user)
+	{
+		bool Result = Super.Used(user);
+		if (Result && !PiggyBack && InStateSequence(CurState, FindState("SpawnLoop")))
+		{
+			switch (SkinIndex)
 			{
-				frame = CVar.GetCVar("hdm_skin", players[consoleplayer]).GetInt();
+				case 3: PlaySpecialAnimation('OpenMenu.Daina.Default', "Daina/Default/Buying"); break;
+				case 4: PlaySpecialAnimation('OpenMenu.Daina.Bunny', "Daina/Bunny/Buying"); break;
+				case 6: PlaySpecialAnimation('OpenMenu.Daina.Succubus', "Daina/Succubus/Buying"); break;
+			}
+		}
+
+		return Result;
+	}
+
+	private int SkinIndex;
+
+	Default
+	{
+		HDMerchant.ItemsType StoreItem.SType_Item;
+	}
+
+	States
+	{
+		RegisterSprites: AMR3 A 0; AMR4 A 0; AMR5 A 0; AMR6 A 0;
+		Spawn:
+			#### A 0 NoDelay
+			{
+				int SkinOption = hdm_skin_daina;
+				switch (SkinOption)
+				{
+					case 0: SkinIndex = random(3, 6); break;
+					default: SkinIndex = clamp(SkinOption + 2, 3, 6); break;
+				}
+				
+				sprite = GetSpriteIndex("AMR"..SkinIndex);
 			}
 		SpawnLoop:
-			AMRC # 35 A_SetScale(Scale.X, Scale.Y - 0.025);
-			AMRC # 35 A_SetScale(Scale.X, Scale.Y + 0.025);
+			#### # 1 CheckBreathing();
 			Loop;
+
+		OpenMenu.Daina.Default:
+			AMR3 BCDEFGH 4;
+		Buying.Daina.Default:
+			AMR3 # 1 BuyingIdle("GoAway.Daina.Default", "Daina/Default/GoAway");
+			Loop;
+		GoAway.Daina.Default:
+			AMR3 GFEDDCCBBA 2;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Bunny:
+			AMR4 BCDEFGHIG 4;
+		Buying.Daina.Bunny:
+			AMR4 # 1 BuyingIdle("GoAway.Daina.Bunny", "Daina/Bunny/GoAway");
+			Loop;
+		GoAway.Daina.Bunny:
+			AMR4 GFEDCBA 4;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Succubus:
+			AMR6 BCDEFGHJE 4;
+		Buying.Daina.Succubus:
+			AMR6 # 1 BuyingIdle("GoAway.Daina.Succubus", "Daina/Succubus/GoAway");
+			Loop;
+		GoAway.Daina.Succubus:
+			AMR6 EDCBA 4;
+			Goto SpawnLoop;
 	}
 }
 
@@ -337,6 +614,7 @@ class MercenaryBucks : HDAmmo
 		+FORCEXYBILLBOARD
 		Tag "Bucks";
 		Inventory.Icon "MBCKA0";
+		+HDPICKUP.CHEATNOGIVE
 		+HDPICKUP.MULTIPICKUP
 		+HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION
@@ -351,6 +629,32 @@ class MercenaryBucks : HDAmmo
 	{
 		Spawn:
 			MBCK A -1;
+			Stop;
+	}
+}
+
+class MercenaryCard : HDUPK
+{
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+
+		Amount = int(Amount * frandom(0.80, 1.20));
+	}
+
+	Default
+	{
+		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Now who could have dropped it here!?";
+		HDUPK.PickupType "MercenaryBucks";
+		HDUPK.Amount 300;
+		HDUPK.MaxUnitAmount 10000;
+		Scale 0.25;
+	}
+
+	States
+	{
+		Spawn:
+			MCRD A -1;
 			Stop;
 	}
 }

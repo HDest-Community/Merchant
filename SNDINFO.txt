@@ -1,2 +1,8 @@
 Merchant/BuyFailure BUYFAIL
 Merchant/BuySuccess BUYSUCC
+Daina/Default/Buying DDEFBUY
+Daina/Default/GoAway DDEFGOAW
+Daina/Bunny/Buying DBUNBUY
+Daina/Bunny/GoAway DBUNGOAW
+Daina/Succubus/Buying DSUCBUY
+Daina/Succubus/GoAway DSUCGOAW
