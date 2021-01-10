@@ -327,8 +327,7 @@ class HDMerchant : Actor abstract
 		if (PiggyBack)
 		{
 			A_Face(PiggyBack);
-			double BobFactor = PiggyBack.player.ViewZ / double(PiggyBack.player.ViewHeight);
-			Warp(PiggyBack, -10, 0, 5 + 10 * BobFactor, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
+			Warp(PiggyBack, -10, 0, 15, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
 			bNOGRAVITY = true;
 			bTHRUACTORS = true;
 
@@ -355,7 +354,7 @@ class HDMerchant : Actor abstract
 	override bool Used(Actor user)
 	{
 		let plr = HDPlayerPawn(user);
-		if (!plr || PiggyBack == plr)
+		if (!plr || PiggyBack == plr ||  Distance3D(plr) > 48)
 		{
 			return false;
 		}
