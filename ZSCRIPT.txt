@@ -539,7 +539,7 @@ class DainaMerchant : HDMerchant
 		Spawn:
 			#### A 0 NoDelay
 			{
-				int SkinOption = hdm_skin_daina;
+				int SkinOption = CVar.GetCVar("hdm_skin_daina", players[consoleplayer]).GetInt();
 				switch (SkinOption)
 				{
 					case 0: SkinIndex = random(3, 6); break;
