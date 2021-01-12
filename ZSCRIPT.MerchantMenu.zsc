@@ -8,6 +8,13 @@ class ItemsFrame : MerchMenuFrame
 
 		for (int i = 0; i < ParentMenu.ItemsInCategory.Size(); ++i)
 		{
+			// [Ace] I'm not too sure where else to put this.
+			if (!ParentMenu.ItemsInCategory[i])
+			{
+				ParentMenu.ItemsInCategory.Delete(i);
+				ParentMenu.SelItemIndex = max(0, i - 1);
+				continue;
+			}
 			vector2 DrawPos = (0, (BoxSize + MerchantShopMenu.Spacing) * i);
 			vector2 DrawSize = (box.size.x, BoxSize);
 			DrawStoreItem(players[consoleplayer].mo, ParentMenu.ItemsInCategory[i], DrawPos, DrawSize, i == ParentMenu.SelItemIndex);
@@ -37,7 +44,7 @@ class ItemsFrame : MerchMenuFrame
 
 		vector2 ContentPos = pos + (1.5, 1.5);
 		int Amount = item.GetAmount();
-		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName();
+		string DisplayName = (Amount > 1 ? "\c[White]"..Amount.."\c- " : "")..item.GetDisplayName().."\c[Yellow] ("..item.StoreAmount.." remaining)\c-";
 		DrawText(ContentPos, SmallFont, DisplayName, Font.CR_GREEN, MerchantShopMenu.TextScale);
 
 		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), int(size.x - (size.y * 3 + MerchantShopMenu.Spacing * 2 + 5)));
@@ -231,7 +238,10 @@ class MerchantShopMenu : MerchMenuGenericMenu
 				break;
 			case MKEY_Enter:
 				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
-				EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", ItemsInCategory[SelItemIndex].GetClassName()), SelCurrencyIndex);
+				if (ItemsInCategory.Size() > 0)
+				{
+					EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", ItemsInCategory[SelItemIndex].GetClassName()), SelCurrencyIndex);
+				}
 				break;
 		}
 

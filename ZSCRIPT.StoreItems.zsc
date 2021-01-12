@@ -45,6 +45,26 @@ class StoreItem abstract
 	virtual string GetCategory() { return ""; }
 	virtual Name GetItem() { return ''; }
 	virtual int GetAmount() { return 1; }
+	virtual int GetStoreAmount()
+	{
+		switch (GetType())
+		{
+			case SType_Weapon: return randompick(1, 1, 1, 1, 1, 1, 1, 2);
+			case SType_Ammo: return randompick(1, 2, 2, random(2, 5));
+			case SType_Item:
+				if (GetBasePrice() <= 15)
+				{
+					return randompick(1, 2, 2, 3, 3, random(4, 6));
+				}
+				if (GetBasePrice() <= 30)
+				{
+					return randompick(1, 1, 1, 2, 2, 2, 3, 3);
+				}
+				return randompick(1, 1, 1, 1, 1, 1, 1, 1, 2);
+		}
+
+		return 666;
+	}
 	virtual string GetIcon() { return ""; }
 	virtual string GetDisplayName() { return ""; }
 	protected virtual int GetBasePrice() { return 0; } // [Ace] The base price is for merc bucks.
@@ -53,6 +73,7 @@ class StoreItem abstract
 	{
 		return int(max(ceil(Item.GetBasePrice() * Currency.GetPriceMult()), 1));
 	}
+	int StoreAmount;
 }
 
 // ---------- VANILLA ----------
@@ -894,7 +915,7 @@ class HDRiftGrenadeStore : StoreItem
 	override string GetIcon() { return "RFTGA0"; }
 	override string GetDisplayName() { return "Rift Grenade"; }
 	override int GetBasePrice() { return 15; }
-	override string GetFlavorText() { return "Disclaimer: AceCorp is not responsible for any dismemberment caused by using unstable spatial rifts."; }
+	override string GetFlavorText() { return "Note: AceCorp is not responsible for any deaths caused by using unstable spatial rifts."; }
 }
 
 class HD50AEStore : StoreItem

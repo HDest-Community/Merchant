@@ -98,6 +98,13 @@ class MerchantHandler : EventHandler
 				}
 				plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
 				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+
+				Item.StoreAmount--;
+				if (Item.StoreAmount == 0)
+				{
+					StoreItems.Delete(StoreItems.Find(Item));
+					Item.Destroy();
+				}
 			}
 		}
 	}
@@ -182,6 +189,7 @@ class MerchantHandler : EventHandler
 				class<Actor> a = Item.GetItem();
 				if (a && Item.GetType() == type && random(1, 100) <= 80)
 				{
+					Item.StoreAmount = Item.GetStoreAmount();
 					StoreItems.Push(Item);
 				}
 			}
