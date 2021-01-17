@@ -78,9 +78,14 @@ class MerchantHandler : EventHandler
 					return;
 				}
 
-				if (!(ItemClass is 'HDPickup'))
+				if (!(ItemClass is 'HDPickup') ||  ItemClass is 'HDPickupGiver')
 				{
-					plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+					Actor a; bool success;
+					[success, a] = plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+					if (success && a is 'Inventory')
+					{
+						Inventory(a).Amount = amount;
+					}
 				}
 				else
 				{
@@ -91,9 +96,15 @@ class MerchantHandler : EventHandler
 					// [Ace] Give what you can directly and drop the rest on the ground.
 					plr.A_GiveInventory(InvClass, MaxActualGive);
 					Amount -= MaxActualGive;
-					for (int i = 0; i < Amount; ++i)
+
+					if (Amount > 0)
 					{
-						plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+						Actor a; bool success;
+						[success, a] = plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+						if (success)
+						{
+							Inventory(a).Amount = Amount;
+						}
 					}
 				}
 				plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
