@@ -561,7 +561,7 @@ class DainaMerchant : HDMerchant
 				int SkinOption = CVar.GetCVar("hdm_skin_daina", players[consoleplayer]).GetInt();
 				switch (SkinOption)
 				{
-					case 0: SkinIndex = random(3, 6); break;
+					case 0: SkinIndex = random[dainaskinrand](3, 6); break;
 					default: SkinIndex = clamp(SkinOption + 2, 3, 6); break;
 				}
 				
