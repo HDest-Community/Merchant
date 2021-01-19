@@ -731,6 +731,17 @@ class HDSoulCubeStore : StoreItem
 	override string GetFlavorText() { return "I have no idea what this is, but it won't shut up."; }
 }
 
+class HDArcanumStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp Weapons"; }
+	override Name GetItem() { return 'HDArcanumTome'; }
+	override string GetIcon() { return "ARCTZ0"; }
+	override string GetDisplayName() { return "Soul Cube"; }
+	override int GetBasePrice() { return 700; }
+	override string GetFlavorText() { return "I don't understand a damn thing that's written in it."; }
+}
+
 class HDErisStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
