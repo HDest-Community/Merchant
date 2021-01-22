@@ -737,7 +737,7 @@ class HDArcanumStore : StoreItem
 	override string GetCategory() { return "AceCorp Weapons"; }
 	override Name GetItem() { return 'HDArcanumTome'; }
 	override string GetIcon() { return "ARCTZ0"; }
-	override string GetDisplayName() { return "Soul Cube"; }
+	override string GetDisplayName() { return "Arcanum Tome"; }
 	override int GetBasePrice() { return 700; }
 	override string GetFlavorText() { return "I don't understand a damn thing that's written in it."; }
 }
