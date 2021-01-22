@@ -797,6 +797,17 @@ class HDGungnirStore : StoreItem
 	override string GetFlavorText() { return "Stole it right out of some deity's closet. I hope they don't need it."; }
 }
 
+class HDBlackjackStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp Weapons"; }
+	override Name GetItem() { return 'HDBlackjack'; }
+	override string GetIcon() { return "BJFFA0"; }
+	override string GetDisplayName() { return "'Blackjack' .355 rifle"; }
+	override int GetBasePrice() { return 450; }
+	override string GetFlavorText() { return "23. Bust."; }
+}
+
 class HDSuperStimpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
