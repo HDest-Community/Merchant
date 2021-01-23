@@ -792,7 +792,7 @@ class HDBreakerStore : StoreItem
 	override Name GetItem() { return 'HDBreaker'; }
 	override string GetIcon() { return "BRKRZ0"; }
 	override string GetDisplayName() { return "'Breaker' Bolt-action Cannon"; }
-	override int GetBasePrice() { return 600; }
+	override int GetBasePrice() { return 900; }
 	override string GetFlavorText() { return "Deletes just about anything."; }
 }
 
@@ -814,7 +814,7 @@ class HDBlackjackStore : StoreItem
 	override Name GetItem() { return 'HDBlackjack'; }
 	override string GetIcon() { return "BJFFA0"; }
 	override string GetDisplayName() { return "'Blackjack' .355 rifle"; }
-	override int GetBasePrice() { return 450; }
+	override int GetBasePrice() { return 480; }
 	override string GetFlavorText() { return "23. Bust."; }
 }
 
