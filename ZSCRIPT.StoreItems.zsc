@@ -50,17 +50,27 @@ class StoreItem abstract
 		switch (GetType())
 		{
 			case SType_Weapon: return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
-			case SType_Ammo: return randompick[merchrand](1, 2, 2, random[merchrand](2, 5));
+			case SType_Ammo:
+				if (GetAmount() == 1)
+				{
+					return randompick[merchrand](1, 2, 2, random[merchrand](3, 7));
+				}
+				return randompick[merchrand](1, 2, 2, 3, 3, random[merchrand](2, 6));
+
 			case SType_Item:
 				if (GetBasePrice() <= 15)
 				{
-					return randompick[merchrand](1, 2, 2, 3, 3, random[merchrand](4, 6));
+					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7));
 				}
-				if (GetBasePrice() <= 30)
+				if (GetBasePrice() <= 40)
+				{
+					return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5);
+				}
+				if (GetBasePrice() <= 80)
 				{
 					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3);
 				}
-				return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 1, 2);
+				return 1;
 		}
 
 		return 666;
