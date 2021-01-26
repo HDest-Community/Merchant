@@ -19,4 +19,5 @@ OptionValue "DainaSkins"
 	3, "Maid"
 	4, "Succubus"
 	5, "Cowgirl"
+	6, "Labcoat"
 }
