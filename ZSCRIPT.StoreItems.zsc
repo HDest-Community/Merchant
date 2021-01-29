@@ -53,9 +53,9 @@ class StoreItem abstract
 			case SType_Ammo:
 				if (GetAmount() == 1)
 				{
-					return randompick[merchrand](1, 2, 2, random[merchrand](3, 7));
+					return random[merchrand](2, 10);
 				}
-				return randompick[merchrand](1, 2, 2, 3, 3, random[merchrand](2, 6));
+				return randompick[merchrand](1, 2, 3, 3, random[merchrand](4, 8));
 
 			case SType_Item:
 				if (GetBasePrice() <= 15)
