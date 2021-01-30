@@ -4,27 +4,6 @@ version "4.5"
 #include "ZSCRIPT.StoreItems.zsc"
 #include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 
-class MerchantSpawnHandler : StaticEventHandler
-{
-	override void CheckReplacement(ReplaceEvent e)
-	{
-		if (!e.Replacement)
-		{
-			return;
-		}
-
-		switch (e.Replacement.GetClassName())
-		{
-			case 'ClipBoxPickup':
-				if (random[merchrand]() <= 8)
-				{
-					e.Replacement = "MercenaryCard";
-				}
-				break;
-		}
-	}
-}
-
 class MerchantRewardStorage : Thinker
 {
 	int Money;
@@ -46,6 +25,24 @@ class MerchantHandler : EventHandler
 	Array<string> Categories;
 	private MerchantRewardStorage RewardStorage;
 	private int LastSecret;
+
+	override void CheckReplacement(ReplaceEvent e)
+	{
+		if (!e.Replacement)
+		{
+			return;
+		}
+
+		switch (e.Replacement.GetClassName())
+		{
+			case 'ClipBoxPickup':
+				if (random[merchrand]() <= 8)
+				{
+					e.Replacement = "MercenaryCard";
+				}
+				break;
+		}
+	}
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
