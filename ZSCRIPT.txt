@@ -343,12 +343,14 @@ class HDMerchant : Actor abstract
 		if (PiggyBack)
 		{
 			A_Face(PiggyBack);
-			Warp(PiggyBack, -10, 0, 15, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
+			Warp(PiggyBack, -12, 0, 14, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
 			bNOGRAVITY = true;
 			bTHRUACTORS = true;
+			bSOLID = false;
 
 			if (PiggyBack.player.crouchfactor < 1.0 || PiggyBack.incapacitated > 0)
 			{
+				bSOLID = true;
 				bNOGRAVITY = false;
 				bTHRUACTORS = false;
 				PiggyBack.A_TakeInventory("HDMerchantBody");
