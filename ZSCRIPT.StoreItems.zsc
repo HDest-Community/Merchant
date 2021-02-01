@@ -53,7 +53,7 @@ class StoreItem abstract
 			case SType_Ammo:
 				if (GetAmount() == 1)
 				{
-					return random[merchrand](2, 10);
+					return random[merchrand](1, 7);
 				}
 				return randompick[merchrand](1, 2, 3, 3, random[merchrand](4, 8));
 
