@@ -121,7 +121,7 @@ class MerchantHandler : EventHandler
 	{
 		string FollowerClassName = "HDFollower";
 		class<Actor> FollowerClass = FollowerClassName;
-		if (!RewardStorage || !e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is "HDPlayerPawn") && FollowerClass && !(e.DamageSource is FollowerClass) && e.DamageSource.GetClassName() != 'HDSoulCube')
+		if (!RewardStorage || !e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is 'HDPlayerPawn') && !(e.DamageSource.target is 'HDPlayerPawn') && FollowerClass && !(e.DamageSource is FollowerClass) && e.DamageSource.GetClassName() != 'HDSoulCube')
 		{
 			return;
 		}
