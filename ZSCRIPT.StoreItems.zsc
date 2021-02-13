@@ -984,6 +984,29 @@ class HDDSDStore : StoreItem
 	override string GetFlavorText() { return "This item is out of this world!"; }
 }
 
+class HDDespicytoStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp Items"; }
+	override Name GetItem() { return 'Despicyto'; }
+	override string GetIcon() { return "DSPGA0"; }
+	override string GetDisplayName() { return "Gas Mask"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "Found this in an abandoned metro next to some dead guy."; }
+}
+
+class HDDespicytoFilterStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "AceCorp Ammo"; }
+	override Name GetItem() { return 'DespicytoFilter'; }
+	override string GetIcon() { return "DSPFA0"; }
+	override string GetDisplayName() { return "Air Filter"; }
+	override int GetBasePrice() { return 50; }
+	override int GetStoreAmount() { return random[merchrand](1, 3); }
+	override string GetFlavorText() { return "The air in this doesn't smell any better, but at least it won't kill you."; }
+}
+
 // ---------- MELONADES ----------
 
 class HDThunderGrenadeStore : StoreItem
