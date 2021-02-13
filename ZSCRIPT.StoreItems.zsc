@@ -1004,7 +1004,7 @@ class HDDespicytoFilterStore : StoreItem
 	override string GetDisplayName() { return "Air Filter"; }
 	override int GetBasePrice() { return 50; }
 	override int GetStoreAmount() { return random[merchrand](1, 3); }
-	override string GetFlavorText() { return "The air in this doesn't smell any better, but at least it won't kill you."; }
+	override string GetFlavorText() { return "It won't make the air smell any better, but at least it won't kill you."; }
 }
 
 // ---------- MELONADES ----------
