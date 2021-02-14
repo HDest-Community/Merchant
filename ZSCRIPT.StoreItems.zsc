@@ -939,17 +939,6 @@ class HDPortableZRadarStore : StoreItem
 	override string GetFlavorText() { return "They're coming out of the god damn walls!"; }
 }
 
-class HDRiftGrenadeStore : StoreItem
-{
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "AceCorp Ammo"; }
-	override Name GetItem() { return 'HDRiftGrenadeAmmo'; }
-	override string GetIcon() { return "RFTGA0"; }
-	override string GetDisplayName() { return "Rift Grenade"; }
-	override int GetBasePrice() { return 15; }
-	override string GetFlavorText() { return "Note: AceCorp is not responsible for any deaths caused by using unstable spatial rifts."; }
-}
-
 class HD50AEStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
