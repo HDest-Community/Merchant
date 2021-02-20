@@ -1,0 +1,126 @@
+class HDMerchantSkin
+{
+	Name SkinId;
+	vector2 Scale;
+	static HDMerchantSkin Create(Name id, vector2 scl)
+	{
+		HDMerchantSkin Skin = new('HDMerchantSkin');
+		Skin.SkinId = id;
+		Skin.Scale = scl;
+		return Skin;
+	}
+}
+
+extend class HDMerchant
+{
+	override void BeginPlay()
+	{
+		Super.BeginPlay();
+
+		static const Name CVarNames[] = { 'hdm_skin_weapon', 'hdm_skin_ammo', 'hdm_skin_item' };
+		Array<HDMerchantSkin> AvailableSkins;
+		int SelectedSkins = CVar.GetCVar(CVarNames[ItemsType], players[consoleplayer]).GetInt();
+
+		if (SelectedSkins & 1 << 0) { AvailableSkins.Push(HDMerchantSkin.Create('RESM', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 1) { AvailableSkins.Push(HDMerchantSkin.Create('HOBM', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 2) { AvailableSkins.Push(HDMerchantSkin.Create('SUCM', (1.1, 1.0))); }
+		if (SelectedSkins & 1 << 3) { AvailableSkins.Push(HDMerchantSkin.Create('MSHU', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 4) { AvailableSkins.Push(HDMerchantSkin.Create('DAI1', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 5) { AvailableSkins.Push(HDMerchantSkin.Create('DAI2', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 6) { AvailableSkins.Push(HDMerchantSkin.Create('DAI3', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 7) { AvailableSkins.Push(HDMerchantSkin.Create('DAI4', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 8) { AvailableSkins.Push(HDMerchantSkin.Create('DAI5', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 9) { AvailableSkins.Push(HDMerchantSkin.Create('DAI6', (1.0, 1.0))); }
+
+		if (AvailableSkins.Size() > 0)
+		{
+			SelectedSkin = AvailableSkins[random(0, AvailableSkins.Size() - 1)];
+		}
+	}
+
+	States
+	{
+		RegisterSprites:
+			RESM A 0; HOBM A 0; SUCM A 0; MSHU A 0;
+			DAI1 A 0; DAI2 A 0; DAI3 A 0; DAI4 A 0; DAI5 A 0; DAI6 A 0;
+		Spawn:
+			HOBM A 0 NoDelay
+			{
+				if (SelectedSkin)
+				{
+					sprite = GetSpriteIndex(SelectedSkin.SkinId);
+					scale = SelectedSkin.Scale;
+				}
+			}
+		SpawnLoop:
+			#### A 1 CheckBreathing();
+			Loop;
+
+		OpenMenu.Morshu:
+			#### BCDEF 5;
+		Buying.Morshu:
+			#### # 1 BuyingIdle('GoAway.Morshu', "Morshu/GoAway");
+			Loop;
+		GoAway.Morshu:
+			#### FEDCBA 5;
+			Goto SpawnLoop;
+
+		OpenMenu.Succubus:
+			#### EE 1 { scale.y -= 0.04; }
+			#### FF 1 { scale.y -= 0.04; SOffsetY -= 2;} // [Ace] It's so that the take off frame doesn't clip into the ground.
+			#### GG 1 { scale.y -= 0.04; SOffsetY -= 2;}
+			#### G 0
+			{
+				scale.y += 0.04 * 6;
+				double OffAmt = (30 + SOffsetY) * 0.1;
+				SOffsetY -= OffAmt;
+			}
+			#### BBBBCCCCDDDDEEEEFFFFGGGG 1
+			{
+				if (!multiplayer && LastUser)
+				{
+					LastUser.A_Face(self, 2);
+					LastUser.A_SetPitch(LastUser.pitch - 1.5, SPF_INTERPOLATE);
+				}
+				double OffAmt = (30 + SOffsetY) * 0.1;
+				SOffsetY -= OffAmt;
+			}
+		Buying.Succubus:
+			#### BCDEFG 4 BuyingIdle('GoAway.Succubus', "Succubus/GoAway");
+			Loop;
+		GoAway.Succubus:
+			#### BBBBCCCCDDDDEEEEFFFFGGGGBBBBCCCCDDDDEEEE 1
+			{
+				SOffsetY *= 0.94;
+			}
+			#### A 1 { SOffsetY = 0; }
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Default:
+			#### BCDEFGH 4;
+		Buying.Daina.Default:
+			#### # 1 BuyingIdle('GoAway.Daina.Default', "Daina/Default/GoAway");
+			Loop;
+		GoAway.Daina.Default:
+			#### GFEDDCCBBA 2;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Bunny:
+			#### BCDEFGHIG 4;
+		Buying.Daina.Bunny:
+			#### # 1 BuyingIdle('GoAway.Daina.Bunny', "Daina/Bunny/GoAway");
+			Loop;
+		GoAway.Daina.Bunny:
+			#### GFEDCBA 4;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Succubus:
+			#### BCDEFGHJE 4;
+		Buying.Daina.Succubus:
+			#### # 1 BuyingIdle('GoAway.Daina.Succubus', "Daina/Succubus/GoAway");
+			Loop;
+		GoAway.Daina.Succubus:
+			#### EDCBA 4;
+			Goto SpawnLoop;
+	}
+}

@@ -2,27 +2,41 @@ version "4.5"
 
 #include "ZSCRIPT.MerchantMenu.zsc"
 #include "ZSCRIPT.StoreItems.zsc"
+#include "ZSCRIPT.MerchantSkins.zsc"
 #include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 
 class MerchantRewardStorage : Thinker
 {
 	int Money;
 
-	static MerchantRewardStorage Create()
+	static MerchantRewardStorage Get()
 	{
-		MerchantRewardStorage s = new('MerchantRewardStorage');
-		s.ChangeStatNum(STAT_STATIC);
-		return s;
+		ThinkerIterator it = ThinkerIterator.Create('MerchantRewardStorage', STAT_STATIC);
+		MerchantRewardStorage Storage;
+		while ((Storage = MerchantRewardStorage(it.Next())))
+		{
+			return Storage;
+		}
+
+		// [Ace] Create a new one if none exist.
+		Storage = new('MerchantRewardStorage');
+		Storage.ChangeStatNum(Thinker.STAT_STATIC);
+		return Storage;
 	}
+}
+
+class MerchantStore play
+{
+	Array<StoreItem> StoreItems;
+	Array<string> Categories;
 }
 
 class MerchantHandler : EventHandler
 {
-	// [Ace] I need to move some of these to a thinker if I am to allow multiple merchants per map, each with their own store contents.
-	// I could also move these to the merchants themselves. Either way, that's for later.
 	Array<StoreCurrency> StoreCurrencies;
-	Array<StoreItem> StoreItems;
-	Array<string> Categories;
+	MerchantStore Stores[3];
+	int OpenedStoreIndex[MAXPLAYERS]; // [Ace] This is multiplayer bullshit.
+
 	private MerchantRewardStorage RewardStorage;
 	private int LastSecret;
 
@@ -51,67 +65,72 @@ class MerchantHandler : EventHandler
 		e.Name.Split(ParsedName, ":");
 		if (ParsedName[0] ~== "HDM_BuyStuff")
 		{
-			StoreItem Item;
-			for (int i = 0; i < StoreItems.Size(); ++i)
+			for (int i = 0; i < Stores.Size(); ++i)
 			{
-				if (StoreItems[i].GetClass() == ParsedName[1])
+				MerchantStore Store = Stores[i];
+				StoreItem Item;
+				for (int i = 0; i < Store.StoreItems.Size(); ++i)
 				{
-					Item = StoreItems[i];
-					break;
-				}
-			}
-
-			if (Item && plr)
-			{
-				class<Actor> ItemClass = Item.GetItem();
-				int Amount = Item.GetAmount();
-
-				StoreCurrency Currency = StoreCurrencies[e.Args[0]];
-				int Price = StoreItem.GetAdjustedPrice(Item, Currency);
-
-				if (Price > plr.CountInv(Currency.GetCurrencyClass()))
-				{
-					plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
-					return;
-				}
-
-				if (!(ItemClass is 'HDPickup') ||  ItemClass is 'HDPickupGiver')
-				{
-					Actor a; bool success;
-					[success, a] = plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
-					if (success && a is 'Inventory')
+					if (Store.StoreItems[i].GetClass() == ParsedName[1])
 					{
-						Inventory(a).Amount = amount;
+						Item = Store.StoreItems[i];
+						break;
 					}
 				}
-				else
+
+				if (Item && plr)
 				{
-					class<Inventory> InvClass = (class<Inventory>)(ItemClass);
-					int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
-					int MaxActualGive = min(Amount, MaxGive);
+					class<Actor> ItemClass = Item.GetItem();
+					int Amount = Item.GetAmount();
 
-					// [Ace] Give what you can directly and drop the rest on the ground.
-					plr.A_GiveInventory(InvClass, MaxActualGive);
-					Amount -= MaxActualGive;
+					StoreCurrency Currency = StoreCurrencies[e.Args[0]];
+					int Price = StoreItem.GetAdjustedPrice(Item, Currency);
 
-					if (Amount > 0)
+					if (Price > plr.CountInv(Currency.GetCurrencyClass()))
+					{
+						plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
+						return;
+					}
+
+					if (!(ItemClass is 'HDPickup') ||  ItemClass is 'HDPickupGiver')
 					{
 						Actor a; bool success;
-						[success, a] = plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
-						if (success)
+						[success, a] = plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+						if (success && a is 'Inventory')
 						{
-							Inventory(a).Amount = Amount;
+							Inventory(a).Amount = amount;
 						}
 					}
-				}
-				plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
-				plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+					else
+					{
+						class<Inventory> InvClass = (class<Inventory>)(ItemClass);
+						int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
+						int MaxActualGive = min(Amount, MaxGive);
 
-				Item.StoreAmount--;
-				if (Item.StoreAmount == 0)
-				{
-					StoreItems.Delete(StoreItems.Find(Item));
-					Item.Destroy();
+						// [Ace] Give what you can directly and drop the rest on the ground.
+						plr.A_GiveInventory(InvClass, MaxActualGive);
+						Amount -= MaxActualGive;
+
+						if (Amount > 0)
+						{
+							Actor a; bool success;
+							[success, a] = plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+							if (success)
+							{
+								Inventory(a).Amount = Amount;
+							}
+						}
+					}
+					plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
+					plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+
+					Item.StoreAmount--;
+					if (Item.StoreAmount == 0)
+					{
+						Store.StoreItems.Delete(Store.StoreItems.Find(Item));
+						Item.Destroy();
+					}
+					break;
 				}
 			}
 		}
@@ -133,23 +152,23 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "ZombieStormTrooper" || e.Thing is "HideousShotgunGuy" || e.Thing is "Babuin" || e.Thing is "UndeadHomeboy")
 		{
-			Reward = 0.90;
+			Reward = 0.50;
 		}
 		else if (e.Thing is "Serpentipede" || e.Thing is "VulcanetteGuy")
 		{
-			Reward = 1.15;
+			Reward = 0.80;
 		}
 		else if (e.Thing is "HDMarine" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
 		{
-			Reward = 1.30;
+			Reward = 1.0;
 		}
 		else if (e.Thing is "TechnoSpider" || e.Thing is "CombatSlug" || e.Thing is "Boner" || e.Thing is "Trilobite")
 		{
-			Reward = 2;
+			Reward = 1.5;
 		}
 		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
 		{
-			Reward = 3;
+			Reward = 2.5;
 		}
 		else if (e.Thing is "CommanderKeen" && !random(0, 2))
 		{
@@ -185,24 +204,43 @@ class MerchantHandler : EventHandler
 
 	void InitStore(int type)
 	{
-		StoreCurrencies.Clear();
-		StoreItems.Clear();
-		Categories.Clear();
+		if (!Stores[type])
+		{
+			Stores[type] = new('MerchantStore');
+		}
+
+		Stores[type].StoreItems.Clear();
+		Stores[type].Categories.Clear();
 		
 		for (int i = 0; i < AllClasses.Size(); ++i)
 		{
-			if (AllClasses[i] is "StoreItem" && AllClasses[i].GetClassName() != 'StoreItem')
+			if (AllClasses[i] is "StoreItem" && AllClasses[i] != 'StoreItem')
 			{
 				StoreItem Item = StoreItem(new(AllClasses[i]));
 				class<Actor> a = Item.GetItem();
 				if (a && Item.GetType() == type && random(1, 100) <= 80)
 				{
 					Item.StoreAmount = Item.GetStoreAmount();
-					StoreItems.Push(Item);
+					Stores[type].StoreItems.Push(Item);
 				}
 			}
+		}
 
-			if (AllClasses[i] is "StoreCurrency" && AllClasses[i].GetClassName() != 'StoreCurrency')
+		for (int i = 0; i < Stores[type].StoreItems.Size(); ++i)
+		{
+			// [Ace] Don't duplicate categories.
+			if (Stores[type].Categories.Find(Stores[type].StoreItems[i].GetCategory()) == Stores[type].Categories.Size())
+			{
+				Stores[type].Categories.Push(Stores[type].StoreItems[i].GetCategory());
+			}
+		}
+	}
+
+	void InitCurrencies()
+	{
+		for (int i = 0; i < AllClasses.Size(); ++i)
+		{
+			if (AllClasses[i] is "StoreCurrency" && AllClasses[i] != 'StoreCurrency')
 			{
 				StoreCurrency Currency = StoreCurrency(new(AllClasses[i]));
 				class<Actor> a = Currency.GetCurrencyClass();
@@ -212,35 +250,41 @@ class MerchantHandler : EventHandler
 				}
 			}
 		}
-
-		for (int i = 0; i < StoreItems.Size(); ++i)
-		{
-			// [Ace] Don't duplicate categories.
-			if (Categories.Find(StoreItems[i].GetCategory()) == Categories.Size())
-			{
-				Categories.Push(StoreItems[i].GetCategory());
-			}
-		}
 	}
 
 	override void WorldLoaded(WorldEvent e)
 	{
+		if (e.IsReopen)
+		{
+			return;
+		}
+
+		InitCurrencies();
+		for (int i = 0; i < Stores.Size(); ++i)
+		{
+			InitStore(i);
+		}
+
+		int MerchantsLeft = CVar.GetCVar('hdm_maxmerchants').GetInt();
+		Array<class<HDMerchant> > AvailableMerchants;
+		AvailableMerchants.Push((class<HDMerchant>)('AmmoMerchant'));
+		AvailableMerchants.Push((class<HDMerchant>)('ItemMerchant'));
+		AvailableMerchants.Push((class<HDMerchant>)('WeaponMerchant'));
+
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector CurrSec = level.Sectors[i];
-			if (CurrSec.IsSecret() && random(1, 100) <= max(10, 30 - 2 * (level.total_secrets - 1)))
+			if (CurrSec.IsSecret() && random(1, 100) <= max(10, 35 - 2 * (level.total_secrets - 1)))
 			{
 				vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
 				
-				static const class<HDMerchant> Merchants[] =
+				int SpawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+				Actor.Spawn(AvailableMerchants[SpawnIndex], SpawnPos);
+				AvailableMerchants.Delete(SpawnIndex);
+				if (AvailableMerchants.Size() == 0 || --MerchantsLeft == 0)
 				{
-					"HoboMerchant", "HoboMerchant", "HoboMerchant",
-					"DainaMerchant", "DainaMerchant",
-					"ResidentEvilMerchant"
-				};
-
-				Actor.Spawn(Merchants[random(0, Merchants.Size() - 1)], SpawnPos);
-				break;
+					break;
+				}
 			}
 		}
 
@@ -250,16 +294,7 @@ class MerchantHandler : EventHandler
 		}
 
 		// [Ace] Init the reward stuff, but only if it's enabled.
-		ThinkerIterator it = ThinkerIterator.Create("MerchantRewardStorage", Thinker.STAT_STATIC);
-		while ((RewardStorage = MerchantRewardStorage(it.Next())))
-		{
-			break; // [Ace] Only find the first one.
-		}
-
-		if (!RewardStorage) // [Ace] Didn't find anything? Make a new one.
-		{
-			RewardStorage = MerchantRewardStorage.Create();
-		}
+		RewardStorage = MerchantRewardStorage.Get();
 
 		// [Ace] The process of rewarding players for their intense suffering.
 		if (RewardStorage && RewardStorage.Money > 0)
@@ -281,11 +316,39 @@ class MerchantHandler : EventHandler
 	override void WorldUnloaded(WorldEvent e)
 	{
 		let plr = players[Net_Arbitrator].mo;
-		if (RewardStorage && RewardStorage.Money > 0 && plr && plr.CheckProximity("HDMerchant", 128 * 3, 1, CPXF_CHECKSIGHT | CPXF_SETTRACER | CPXF_ANCESTOR))
+		if (!plr)
 		{
-			plr.A_TakeInventory("HDMerchantBody");
-			RewardStorage.Money = int(RewardStorage.Money * 1.2);
-			plr.tracer.Destroy(); // [Ace] You have escorted the merchant to the exit. They won't be there if you return. Only affects hubs.
+			return;
+		}
+
+		for (int i = 0; i < MAXPLAYERS; ++i)
+		{
+			if (players[i].mo)
+			{
+				players[i].mo.A_TakeInventory("HDMerchantBody");
+			}
+		}
+
+		Array<HDMerchant> EscortedMerchants;
+		BlockThingsIterator it = BlockThingsIterator.Create(plr, 128 * 3);
+		while (it.Next())
+		{
+			if (!(it.thing is 'HDMerchant') || plr.Distance3D(it.thing) > 128 * 3 || !plr.CheckSight(it.thing))
+			{
+				continue;
+			}
+
+			EscortedMerchants.Push(HDMerchant(it.thing));
+		}
+
+		if (RewardStorage && RewardStorage.Money > 0)
+		{
+			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
+		}
+
+		for (int i = 0; i < EscortedMerchants.Size(); ++i)
+		{
+			EscortedMerchants[i].Destroy(); // [Ace] You have escorted the merchant(s) to the exit. They won't be there if you return. Only affects hubs.
 		}
 	}
 
@@ -311,11 +374,6 @@ class MerchantHandler : EventHandler
 				LastSecret = level.found_secrets;
 				RewardStorage.Money += 15;
 			}
-
-			if (RewardStorage.Money > 0 && level.time % (35 * 60) == 0)
-			{
-				RewardStorage.Money--;
-			}
 		}
 	}
 }
@@ -340,6 +398,8 @@ class HDMerchant : Actor abstract
 {
 	override void Tick()
 	{
+		A_SpriteOffset(0, SOffsetY);
+
 		if (PiggyBack)
 		{
 			A_Face(PiggyBack);
@@ -377,7 +437,7 @@ class HDMerchant : Actor abstract
 			return false;
 		}
 
-		if (plr.player.cmd.buttons & BT_SPEED)
+		if (plr.player.cmd.buttons & BT_SPEED && !plr.CheckInventory("HDMerchantBody", 1))
 		{
 			PiggyBack = plr;
 			PlayerIsNear = false; // [Ace] This forces the merchant to cease their animation.
@@ -385,16 +445,27 @@ class HDMerchant : Actor abstract
 			return false;
 		}
 
-		if (!HasGeneratedStore)
+		if (plr.PlayerNumber() == consoleplayer)
 		{
+			LastUser = plr;
 			MerchantHandler Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
-			Handler.InitStore(ItemsType);
-			HasGeneratedStore = true;
+			Handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
+			//Menu.SetMenu('MerchantShopMenu');
 		}
 
-		if (user.PlayerNumber() == consoleplayer)
+		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop')))
 		{
-			Menu.SetMenu('MerchantShopMenu');
+			if (SelectedSkin)
+			{
+				switch (SelectedSkin.SkinId)
+				{
+					case 'SUCM': PlaySpecialAnimation('OpenMenu.Succubus', "Succubus/Buying"); break;
+					case 'MSHU': PlaySpecialAnimation('OpenMenu.Morshu', "Morshu/Buying"); break;
+					case 'DAI1': PlaySpecialAnimation('OpenMenu.Daina.Default', "Daina/Default/Buying"); break;
+					case 'DAI2': PlaySpecialAnimation('OpenMenu.Daina.Bunny', "Daina/Bunny/Buying"); break;
+					case 'DAI4': PlaySpecialAnimation('OpenMenu.Daina.Succubus', "Daina/Succubus/Buying"); break;
+				}
+			}
 		}
 
 		return true;
@@ -476,12 +547,16 @@ class HDMerchant : Actor abstract
 	private int BreatheHold;
 	private int BreatheStepHold;
 
-	private bool HasGeneratedStore;
 	private bool PlayerIsNear;
 
-	protected HDPlayerPawn PiggyBack;
+	private HDPlayerPawn PiggyBack;
+	private HDPlayerPawn LastUser;
 
-	int ItemsType;
+	private double SOffsetY;
+
+	private HDMerchantSkin SelectedSkin;
+
+	meta int ItemsType;
 	property ItemsType: ItemsType;
 
 	Default
@@ -496,106 +571,27 @@ class HDMerchant : Actor abstract
 	}
 }
 
-class ResidentEvilMerchant : HDMerchant
+class WeaponMerchant : HDMerchant
 {
 	Default
 	{
 		HDMerchant.ItemsType StoreItem.SType_Weapon;
 	}
-
-	States
-	{
-		Spawn:
-			AMR1 # 1 CheckBreathing();
-			Loop;
-	}
 }
 
-class HoboMerchant : HDMerchant
+class AmmoMerchant : HDMerchant
 {
 	Default
 	{
 		HDMerchant.ItemsType StoreItem.SType_Ammo;
 	}
-
-	States
-	{
-		Spawn:
-			AMR2 # 1 CheckBreathing();
-			Loop;
-	}
 }
 
-class DainaMerchant : HDMerchant
+class ItemMerchant : HDMerchant
 {
-	override bool Used(Actor user)
-	{
-		bool Result = Super.Used(user);
-		if (Result && !PiggyBack && InStateSequence(CurState, FindState("SpawnLoop")))
-		{
-			switch (SkinIndex)
-			{
-				case 3: PlaySpecialAnimation('OpenMenu.Daina.Default', "Daina/Default/Buying"); break;
-				case 4: PlaySpecialAnimation('OpenMenu.Daina.Bunny', "Daina/Bunny/Buying"); break;
-				case 6: PlaySpecialAnimation('OpenMenu.Daina.Succubus', "Daina/Succubus/Buying"); break;
-			}
-		}
-
-		return Result;
-	}
-
-	private int SkinIndex;
-
 	Default
 	{
 		HDMerchant.ItemsType StoreItem.SType_Item;
-	}
-
-	States
-	{
-		RegisterSprites: AMR3 A 0; AMR4 A 0; AMR5 A 0; AMR6 A 0; AMR7 A 0; AMR8 A 0;
-		Spawn:
-			#### A 0 NoDelay
-			{
-				int SkinOption = CVar.GetCVar("hdm_skin_daina", players[consoleplayer]).GetInt();
-				switch (SkinOption)
-				{
-					case 0: SkinIndex = random[dainaskinrand](3, 8); break;
-					default: SkinIndex = clamp(SkinOption + 2, 3, 8); break;
-				}
-				
-				sprite = GetSpriteIndex("AMR"..SkinIndex);
-			}
-		SpawnLoop:
-			#### # 1 CheckBreathing();
-			Loop;
-
-		OpenMenu.Daina.Default:
-			AMR3 BCDEFGH 4;
-		Buying.Daina.Default:
-			AMR3 # 1 BuyingIdle("GoAway.Daina.Default", "Daina/Default/GoAway");
-			Loop;
-		GoAway.Daina.Default:
-			AMR3 GFEDDCCBBA 2;
-			Goto SpawnLoop;
-
-		OpenMenu.Daina.Bunny:
-			AMR4 BCDEFGHIG 4;
-		Buying.Daina.Bunny:
-			AMR4 # 1 BuyingIdle("GoAway.Daina.Bunny", "Daina/Bunny/GoAway");
-			Loop;
-		GoAway.Daina.Bunny:
-			AMR4 GFEDCBA 4;
-			Goto SpawnLoop;
-
-		OpenMenu.Daina.Succubus:
-			AMR6 BCDEFGHJE 4;
-		Buying.Daina.Succubus:
-			AMR6 # 1 BuyingIdle("GoAway.Daina.Succubus", "Daina/Succubus/GoAway");
-			Loop;
-		GoAway.Daina.Succubus:
-			AMR6 EDCBA 4;
-			Goto SpawnLoop;
 	}
 }
 
@@ -614,7 +610,7 @@ class MercenaryBucks : HDAmmo
 			Amount -= SubSplit;
 		}
 
-		if (amount < 1)
+		if (Amount < 1)
 		{
 			Destroy();
 			return;
@@ -625,6 +621,8 @@ class MercenaryBucks : HDAmmo
 	{
 		return true;
 	}
+
+	private int BuckFrame;
 
 	Default
 	{

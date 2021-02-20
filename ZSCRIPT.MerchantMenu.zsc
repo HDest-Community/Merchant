@@ -162,9 +162,10 @@ class MerchantShopMenu : MerchMenuGenericMenu
 
 	ui string GetSelectedCategory()
 	{
-		if (Handler && SelCategoryIndex < Handler.Categories.Size())
+		MerchantStore OpenedStore = Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
+		if (SelCategoryIndex < OpenedStore.Categories.Size())
 		{
-			return Handler.Categories[SelCategoryIndex];
+			return OpenedStore.Categories[SelCategoryIndex];
 		}
 
 		return "U DUN GOOF'D, FOO'!";
@@ -173,11 +174,13 @@ class MerchantShopMenu : MerchMenuGenericMenu
 	private ui void GetItemsInCategory(out Array<StoreItem> items, string category)
 	{
 		items.Clear();
-		for (int i = 0; i < Handler.StoreItems.Size(); ++i)
+
+		MerchantStore OpenedStore = Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
+		for (int i = 0; i < OpenedStore.StoreItems.Size(); ++i)
 		{
-			if (Handler.StoreItems[i].GetCategory() == category)
+			if (OpenedStore.StoreItems[i].GetCategory() == category)
 			{
-				items.Push(Handler.StoreItems[i]);
+				items.Push(OpenedStore.StoreItems[i]);
 			}
 		}
 	}
@@ -200,13 +203,13 @@ class MerchantShopMenu : MerchMenuGenericMenu
 				SelItemIndex = 0;
 				if (--SelCategoryIndex < 0)
 				{
-					SelCategoryIndex = Handler.Categories.Size() - 1;
+					SelCategoryIndex = Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]].Categories.Size() - 1;
 				}
 				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
 				break;
 			case MKEY_Right:
 				SelItemIndex = 0;
-				if (++SelCategoryIndex == Handler.Categories.Size())
+				if (++SelCategoryIndex == Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]].Categories.Size())
 				{
 					SelCategoryIndex = 0;
 				}

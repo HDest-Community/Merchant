@@ -1,7 +1,7 @@
 class StoreCurrency abstract
 {
-	virtual string GetCurrencyClass() { return ""; }
-	virtual string GetIcon() { return ""; }
+	abstract string GetCurrencyClass();
+	abstract string GetIcon();
 	virtual double GetPriceMult() { return 1.0; }
 }
 
@@ -41,9 +41,9 @@ class StoreItem abstract
 	}
 
 	// [Ace] Make some of these abstract again at some point.
-	virtual int GetType() { return -1; }
-	virtual string GetCategory() { return ""; }
-	virtual Name GetItem() { return ''; }
+	abstract int GetType();
+	abstract string GetCategory();
+	abstract Name GetItem();
 	virtual int GetAmount() { return 1; }
 	virtual int GetStoreAmount()
 	{
@@ -75,9 +75,9 @@ class StoreItem abstract
 
 		return 666;
 	}
-	virtual string GetIcon() { return ""; }
-	virtual string GetDisplayName() { return ""; }
-	protected virtual int GetBasePrice() { return 0; } // [Ace] The base price is for merc bucks.
+	abstract string GetIcon();
+	abstract string GetDisplayName();
+	protected abstract int GetBasePrice(); // [Ace] The base price is for merc bucks.
 	virtual string GetFlavorText() { return ""; }
 	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
 	{
@@ -474,7 +474,7 @@ class HDBoxCannonStore : StoreItem
 	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
 	override Name GetItem() { return 'HDBoxCannon'; }
 	override string GetIcon() { return "MPS1A0"; }
-	override string GetDisplayName() { return "Otis-5"; }
+	override string GetDisplayName() { return "Box Cannon"; }
 	override int GetBasePrice() { return 150; }
 	override string GetFlavorText() { return "HALT!"; }
 }
@@ -659,7 +659,7 @@ class HD500HeavyStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "Peppergrinder Ammo"; }
-	override Name GetItem() { return 'HDOtisHeavyAmmo'; }
+	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "5HBXA0"; }
 	override string GetDisplayName() { return ".500 S&W Handloads"; }
@@ -671,7 +671,7 @@ class HD500LightStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "Peppergrinder Ammo"; }
-	override Name GetItem() { return 'HDOtisLightAmmo'; }
+	override Name GetItem() { return 'HD500SWLightAmmo'; }
 	override int GetAmount() { return 40; }
 	override string GetIcon() { return "5LBXA0"; }
 	override string GetDisplayName() { return ".500 S&W"; }
@@ -769,7 +769,7 @@ class HDJackdawStore : StoreItem
 	override string GetCategory() { return "AceCorp Weapons"; }
 	override Name GetItem() { return 'HDJackdaw'; }
 	override string GetIcon() { return "JDWGY0"; }
-	override string GetDisplayName() { return "'Jackdaw' 9mm LMG"; }
+	override string GetDisplayName() { return "'Jackdaw' 9mm SMG"; }
 	override int GetBasePrice() { return 400; }
 	override string GetFlavorText() { return "It's like five SMGs strapped together, but you can only fire one at a time."; }
 }
