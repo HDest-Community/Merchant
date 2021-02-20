@@ -72,21 +72,14 @@ extend class HDMerchant
 			#### G 0
 			{
 				scale.y += 0.04 * 6;
-				double OffAmt = (30 + SOffsetY) * 0.1;
-				SOffsetY -= OffAmt;
 			}
-			#### BBBBCCCCDDDDEEEEFFFFGGGG 1
+			#### BBBCCCDDDEEEFFFGGG 1
 			{
-				if (!multiplayer && LastUser)
-				{
-					LastUser.A_Face(self, 2);
-					LastUser.A_SetPitch(LastUser.pitch - 1.5, SPF_INTERPOLATE);
-				}
-				double OffAmt = (30 + SOffsetY) * 0.1;
+				double OffAmt = (30 + SOffsetY) * 0.15;
 				SOffsetY -= OffAmt;
 			}
 		Buying.Succubus:
-			#### BCDEFG 4 BuyingIdle('GoAway.Succubus', "Succubus/GoAway");
+			#### BCDEFG 3 BuyingIdle('GoAway.Succubus', "Succubus/GoAway");
 			Loop;
 		GoAway.Succubus:
 			#### BBBBCCCCDDDDEEEEFFFFGGGGBBBBCCCCDDDDEEEE 1
