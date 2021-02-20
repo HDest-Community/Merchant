@@ -450,7 +450,7 @@ class HDMerchant : Actor abstract
 			LastUser = plr;
 			MerchantHandler Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 			Handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
-			//Menu.SetMenu('MerchantShopMenu');
+			Menu.SetMenu('MerchantShopMenu');
 		}
 
 		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop')))
