@@ -91,7 +91,7 @@ class StoreItem abstract
 class HDLumberjackStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'Lumberjack'; }
 	override string GetIcon() { return "CSAWA0"; }
 	override string GetDisplayName() { return "Lumberjack"; }
@@ -102,7 +102,7 @@ class HDLumberjackStore : StoreItem
 class HDRevolverStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDRevolver'; }
 	override string GetIcon() { return "REVLA0"; }
 	override string GetDisplayName() { return "Revolver"; }
@@ -113,7 +113,7 @@ class HDRevolverStore : StoreItem
 class HDSMGStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDSMG'; }
 	override string GetIcon() { return "SMGNA0"; }
 	override string GetDisplayName() { return "SMG"; }
@@ -124,7 +124,7 @@ class HDSMGStore : StoreItem
 class HDVulcanetteStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'Vulcanette'; }
 	override string GetIcon() { return "VULCA0"; }
 	override string GetDisplayName() { return "Vulcanette"; }
@@ -135,7 +135,7 @@ class HDVulcanetteStore : StoreItem
 class HDBlooperStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'Blooper'; }
 	override string GetIcon() { return "BLOPA0"; }
 	override string GetDisplayName() { return "Blooper"; }
@@ -146,7 +146,7 @@ class HDBlooperStore : StoreItem
 class HDRocketLauncherStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDRL'; }
 	override string GetIcon() { return "LAUNA0"; }
 	override string GetDisplayName() { return "Rocket Launcher"; }
@@ -157,7 +157,7 @@ class HDRocketLauncherStore : StoreItem
 class HDLiberatorStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'LiberatorRifle'; }
 	override string GetIcon() { return "BRFLB0"; }
 	override string GetDisplayName() { return "Liberator"; }
@@ -168,7 +168,7 @@ class HDLiberatorStore : StoreItem
 class HDThunderBusterStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'ThunderBuster'; }
 	override string GetIcon() { return "PLASA0"; }
 	override string GetDisplayName() { return "Thunder Buster"; }
@@ -179,7 +179,7 @@ class HDThunderBusterStore : StoreItem
 class HDBrontornisStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'Brontornis'; }
 	override string GetIcon() { return "BLSTA0"; }
 	override string GetDisplayName() { return "Brontornis"; }
@@ -190,7 +190,7 @@ class HDBrontornisStore : StoreItem
 class HDBFGStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'BFG9K'; }
 	override string GetIcon() { return "BFUGA0"; }
 	override string GetDisplayName() { return "BFG 9000"; }
@@ -201,7 +201,7 @@ class HDBFGStore : StoreItem
 class HDBossStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Vanilla Weapons"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'BossRifle'; }
 	override string GetIcon() { return "BORFA0"; }
 	override string GetDisplayName() { return "Boss Rifle"; }
@@ -212,7 +212,7 @@ class HDBossStore : StoreItem
 class HD9mmStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDPistolAmmo'; }
 	override int GetAmount() { return 100; }
 	override string GetIcon() { return "9BOXA0"; }
@@ -224,7 +224,7 @@ class HD9mmStore : StoreItem
 class HDShellsStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDShellAmmo'; }
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "SBOXA0"; }
@@ -236,7 +236,7 @@ class HDShellsStore : StoreItem
 class HD355Store : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDRevolverAmmo'; }
 	override int GetAmount() { return 72; }
 	override string GetIcon() { return "3BOXA0"; }
@@ -248,7 +248,7 @@ class HD355Store : StoreItem
 class HDRocketGrenadeStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDRocketAmmo'; }
 	override int GetAmount() { return 5; }
 	override string GetIcon() { return "BROKA0"; }
@@ -260,7 +260,7 @@ class HDRocketGrenadeStore : StoreItem
 class HDHeatStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HEATAmmo'; }
 	override string GetIcon() { return "ROCKA0"; }
 	override string GetDisplayName() { return "H.E.A.T. Rocket"; }
@@ -271,7 +271,7 @@ class HDHeatStore : StoreItem
 class HDBatteryStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDBattery'; }
 	override string GetIcon() { return "CELLA0"; }
 	override string GetDisplayName() { return "Battery"; }
@@ -282,7 +282,7 @@ class HDBatteryStore : StoreItem
 class HDBrontoRoundStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'BrontornisRound'; }
 	override string GetIcon() { return "BROCA0"; }
 	override string GetDisplayName() { return "Brontornis Round"; }
@@ -293,7 +293,7 @@ class HDBrontoRoundStore : StoreItem
 class HDFragGrenadeStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Vanilla Ammo"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDFragGrenadeAmmo'; }
 	override string GetIcon() { return "FRAGA0"; }
 	override string GetDisplayName() { return "Frag Grenade"; }
@@ -304,7 +304,7 @@ class HDFragGrenadeStore : StoreItem
 class HDStimpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'PortableStimpack'; }
 	override string GetIcon() { return "PSTIA0"; }
 	override string GetDisplayName() { return "Stimpack"; }
@@ -315,7 +315,7 @@ class HDStimpackStore : StoreItem
 class HDBloodbagStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'SecondBlood'; }
 	override string GetIcon() { return "PBLDA0"; }
 	override string GetDisplayName() { return "Synthetic Blood"; }
@@ -326,7 +326,7 @@ class HDBloodbagStore : StoreItem
 class HDMedikitStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'PortableMedikit'; }
 	override string GetIcon() { return "PMEDA0"; }
 	override string GetDisplayName() { return "Medikit"; }
@@ -337,7 +337,7 @@ class HDMedikitStore : StoreItem
 class HDBluePotionStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'BluePotion'; }
 	override string GetIcon() { return "BON1A0"; }
 	override string GetDisplayName() { return "Blue Potion"; }
@@ -348,7 +348,7 @@ class HDBluePotionStore : StoreItem
 class HDBerserkStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'PortableBerserkPack'; }
 	override string GetIcon() { return "PSTRA0"; }
 	override string GetDisplayName() { return "Berserk Pack"; }
@@ -359,7 +359,7 @@ class HDBerserkStore : StoreItem
 class HDDoorBusterStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'DoorBuster'; }
 	override string GetIcon() { return "BGRNA3A7"; }
 	override string GetDisplayName() { return "Door Buster"; }
@@ -370,7 +370,7 @@ class HDDoorBusterStore : StoreItem
 class HDPortableLadderStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'PortableLadder'; }
 	override string GetIcon() { return "LADDD0"; }
 	override string GetDisplayName() { return "Portable Ladder"; }
@@ -381,7 +381,7 @@ class HDPortableLadderStore : StoreItem
 class HDJetpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDJetPack'; }
 	override string GetIcon() { return "JPAKA0"; }
 	override string GetDisplayName() { return "Jetpack"; }
@@ -392,7 +392,7 @@ class HDJetpackStore : StoreItem
 class HDSummoningTalismanStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'SquadSummoner'; }
 	override string GetIcon() { return "PLHELMA0"; }
 	override string GetDisplayName() { return "Summoning Talisman"; }
@@ -403,7 +403,7 @@ class HDSummoningTalismanStore : StoreItem
 class HDAmmoBoxStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDAmBox'; }
 	override string GetIcon() { return "AMMOA0"; }
 	override string GetDisplayName() { return "Ammo Box"; }
@@ -414,7 +414,7 @@ class HDAmmoBoxStore : StoreItem
 class HD7mmReloaderStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'AutoReloader'; }
 	override string GetIcon() { return "RLDRA0"; }
 	override string GetDisplayName() { return "7mm Reloading Device"; }
@@ -425,7 +425,7 @@ class HD7mmReloaderStore : StoreItem
 class HDBackpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Vanilla Items"; }
+	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'WildBackpack'; }
 	override string GetIcon() { return "BPAKA0"; }
 	override string GetDisplayName() { return "Backpack"; }
@@ -455,12 +455,50 @@ class HDBlueArmorStore : StoreItem
 	override string GetFlavorText() { return "You'll be unstoppable with this."; }
 }
 
+// ---------- HDBULLETLIB ----------
+
+class HD50AEStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HDErisAmmo'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "50AEX0"; }
+	override string GetDisplayName() { return ".50 Action Express"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Ought to kill something in a single shot. If it doesn't, shoot again."; }
+}
+
+class HD50OMGStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD50OMGAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "OGBXA0"; }
+	override string GetDisplayName() { return ".50 OMG"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "The one round that guarantees nothing will wallbang back at you."; }
+}
+
+class HDPepperSlugsStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HDSlugAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "SLBXA0"; }
+	override string GetDisplayName() { return "Shotgun Slugs"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "These aren't slimy like the others."; }
+}
+
 // ---------- PEPPERGRINDER ----------
 
 class HDOtisStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
 	override Name GetItem() { return 'HDOtisGun'; }
 	override string GetIcon() { return "OTIPA0"; }
 	override string GetDisplayName() { return "Otis-5"; }
@@ -471,7 +509,7 @@ class HDOtisStore : StoreItem
 class HDBoxCannonStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
 	override Name GetItem() { return 'HDBoxCannon'; }
 	override string GetIcon() { return "MPS1A0"; }
 	override string GetDisplayName() { return "Box Cannon"; }
@@ -482,7 +520,7 @@ class HDBoxCannonStore : StoreItem
 class HDScopedRevolverStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
 	override Name GetItem() { return 'HDScopedRevolver'; }
 	override string GetIcon() { return "SRVPA0"; }
 	override string GetDisplayName() { return "Scoped Revolver"; }
@@ -493,7 +531,7 @@ class HDScopedRevolverStore : StoreItem
 class HDGuillotineStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
 	override Name GetItem() { return 'HDGuillotine'; }
 	override string GetIcon() { return "EMLPA0"; }
 	override string GetDisplayName() { return "Guillotine"; }
@@ -504,7 +542,7 @@ class HDGuillotineStore : StoreItem
 class HDOddballStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
 	override Name GetItem() { return 'HDOddball'; }
 	override string GetIcon() { return "ODPAA0"; }
 	override string GetDisplayName() { return "Oddball"; }
@@ -515,7 +553,7 @@ class HDOddballStore : StoreItem
 class HDHelzingStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Handguns"; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
 	override Name GetItem() { return 'HDHelzing'; }
 	override string GetIcon() { return "HMPTA0"; }
 	override string GetDisplayName() { return "Helzing"; }
@@ -526,7 +564,7 @@ class HDHelzingStore : StoreItem
 class HDGreelyStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Shotguns"; }
+	override string GetCategory() { return "Peppergrinder - Shotguns"; }
 	override Name GetItem() { return 'HDGreely'; }
 	override string GetIcon() { return "GSGPA0"; }
 	override string GetDisplayName() { return "Greely 12"; }
@@ -537,7 +575,7 @@ class HDGreelyStore : StoreItem
 class HDScopedSlayerStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Shotguns"; }
+	override string GetCategory() { return "Peppergrinder - Shotguns"; }
 	override Name GetItem() { return 'ScopedSlayer'; }
 	override string GetIcon() { return "SLSCA0"; }
 	override string GetDisplayName() { return "Scoped Slayer"; }
@@ -548,7 +586,7 @@ class HDScopedSlayerStore : StoreItem
 class HDSawedOffSlayerStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Shotguns"; }
+	override string GetCategory() { return "Peppergrinder - Shotguns"; }
 	override Name GetItem() { return 'SawedSlayer'; }
 	override string GetIcon() { return "SGSWA0"; }
 	override string GetDisplayName() { return "Sawed-off Slayer"; }
@@ -559,7 +597,7 @@ class HDSawedOffSlayerStore : StoreItem
 class HDHLARStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Rifles"; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
 	override Name GetItem() { return 'HDHLAR'; }
 	override string GetIcon() { return "HLPIA0"; }
 	override string GetDisplayName() { return "HLAR"; }
@@ -570,7 +608,7 @@ class HDHLARStore : StoreItem
 class HDTrogStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Rifles"; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
 	override Name GetItem() { return 'HDTROGRifle'; }
 	override string GetIcon() { return "TRG1A0"; }
 	override string GetDisplayName() { return "TRO-G Rifle"; }
@@ -581,7 +619,7 @@ class HDTrogStore : StoreItem
 class HDBastardStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Rifles"; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
 	override Name GetItem() { return 'HDHLAR'; }
 	override string GetIcon() { return "BSPAA0"; }
 	override string GetDisplayName() { return "Bastard Rifle"; }
@@ -592,7 +630,7 @@ class HDBastardStore : StoreItem
 class HDVeraStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Rifles"; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
 	override Name GetItem() { return 'HDVera'; }
 	override string GetIcon() { return "VRAPA0"; }
 	override string GetDisplayName() { return "Vera"; }
@@ -603,7 +641,7 @@ class HDVeraStore : StoreItem
 class HDIronsLibStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Rifles"; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
 	override Name GetItem() { return 'IronsLiberatorRifle'; }
 	override string GetIcon() { return "IBFLB0"; }
 	override string GetDisplayName() { return "Irons Liberator"; }
@@ -614,7 +652,7 @@ class HDIronsLibStore : StoreItem
 class HDLotusStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Rifles"; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
 	override Name GetItem() { return 'HDLotus'; }
 	override string GetIcon() { return "RRVLA0"; }
 	override string GetDisplayName() { return "Lotus Rifle"; }
@@ -625,7 +663,7 @@ class HDLotusStore : StoreItem
 class HDWiseauStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Energy"; }
+	override string GetCategory() { return "Peppergrinder - Energy"; }
 	override Name GetItem() { return 'HDWiseau'; }
 	override string GetIcon() { return "ENUFA0"; }
 	override string GetDisplayName() { return "WF-60 Plasma Magnum"; }
@@ -636,7 +674,7 @@ class HDWiseauStore : StoreItem
 class HDLisaStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Energy"; }
+	override string GetCategory() { return "Peppergrinder - Energy"; }
 	override Name GetItem() { return 'HDLisa'; }
 	override string GetIcon() { return "TOMPA0"; }
 	override string GetDisplayName() { return "'Lisa' Plasma DMR"; }
@@ -647,7 +685,7 @@ class HDLisaStore : StoreItem
 class HDRubyMaserStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Peppergrinder Weapons - Energy"; }
+	override string GetCategory() { return "Peppergrinder - Energy"; }
 	override Name GetItem() { return 'RubyMaser'; }
 	override string GetIcon() { return "MASEZ0"; }
 	override string GetDisplayName() { return "Ruby Maser"; }
@@ -658,7 +696,7 @@ class HDRubyMaserStore : StoreItem
 class HD500HeavyStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Peppergrinder Ammo"; }
+	override string GetCategory() { return "Peppergrinder"; }
 	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "5HBXA0"; }
@@ -670,7 +708,7 @@ class HD500HeavyStore : StoreItem
 class HD500LightStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Peppergrinder Ammo"; }
+	override string GetCategory() { return "Peppergrinder"; }
 	override Name GetItem() { return 'HD500SWLightAmmo'; }
 	override int GetAmount() { return 40; }
 	override string GetIcon() { return "5LBXA0"; }
@@ -682,7 +720,7 @@ class HD500LightStore : StoreItem
 class HD9mmNDMStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Peppergrinder Ammo"; }
+	override string GetCategory() { return "Peppergrinder"; }
 	override Name GetItem() { return 'HDNDMLoose'; }
 	override int GetAmount() { return 60; }
 	override string GetIcon() { return "NDMBA0"; }
@@ -691,24 +729,12 @@ class HD9mmNDMStore : StoreItem
 	override string GetFlavorText() { return "Looks like 9mm, but it's not."; }
 }
 
-class HDPepperSlugsStore : StoreItem
-{
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Peppergrinder Ammo"; }
-	override Name GetItem() { return 'HDSlugAmmo'; }
-	override int GetAmount() { return 20; }
-	override string GetIcon() { return "SLBXA0"; }
-	override string GetDisplayName() { return "Shotgun Slugs"; }
-	override int GetBasePrice() { return 30; }
-	override string GetFlavorText() { return "These aren't slimy like the others."; }
-}
-
 // ---------- BOGUS' STUFF ----------
 
 class HDZM69Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "HoagieTech Weapons"; }
+	override string GetCategory() { return "HoagieTech"; }
 	override Name GetItem() { return 'ZM69Rifle'; }
 	override string GetIcon() { return "ZM69A0"; }
 	override string GetDisplayName() { return "ZM69 Anti-Materiel Rifle"; }
@@ -716,24 +742,12 @@ class HDZM69Store : StoreItem
 	override string GetFlavorText() { return "For hunting very large, murderous, demonic game."; }
 }
 
-class HD50OMGStore : StoreItem
-{
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "HoagieTech Ammo"; }
-	override Name GetItem() { return 'HD50OMGAmmo'; }
-	override int GetAmount() { return 20; }
-	override string GetIcon() { return "OGBXA0"; }
-	override string GetDisplayName() { return ".50 OMG"; }
-	override int GetBasePrice() { return 50; }
-	override string GetFlavorText() { return "The one round that guarantees nothing will wallbang back at you."; }
-}
-
 // ---------- ACCENSUS' STUFF ----------
 
 class HDSoulCubeStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDSoulCube'; }
 	override string GetIcon() { return "SLCBA3A7"; }
 	override string GetDisplayName() { return "Soul Cube"; }
@@ -744,7 +758,7 @@ class HDSoulCubeStore : StoreItem
 class HDArcanumStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDArcanumTome'; }
 	override string GetIcon() { return "ARCTZ0"; }
 	override string GetDisplayName() { return "Arcanum Tome"; }
@@ -755,7 +769,7 @@ class HDArcanumStore : StoreItem
 class HDErisStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDEris'; }
 	override string GetIcon() { return "ERSGY0"; }
 	override string GetDisplayName() { return "'Eris' .50 AE Handgun"; }
@@ -766,7 +780,7 @@ class HDErisStore : StoreItem
 class HDJackdawStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDJackdaw'; }
 	override string GetIcon() { return "JDWGY0"; }
 	override string GetDisplayName() { return "'Jackdaw' 9mm SMG"; }
@@ -777,7 +791,7 @@ class HDJackdawStore : StoreItem
 class HDRedlineStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDRedline'; }
 	override string GetIcon() { return "RDNGZ0"; }
 	override string GetDisplayName() { return "'Redline' Thermal Lance"; }
@@ -788,7 +802,7 @@ class HDRedlineStore : StoreItem
 class HDBreakerStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDBreaker'; }
 	override string GetIcon() { return "BRKRZ0"; }
 	override string GetDisplayName() { return "'Breaker' Bolt-action Cannon"; }
@@ -799,7 +813,7 @@ class HDBreakerStore : StoreItem
 class HDGungnirStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDGungnir'; }
 	override string GetIcon() { return "GNGRZ0"; }
 	override string GetDisplayName() { return "'Gungnir' Frag Beam Rifle"; }
@@ -810,7 +824,7 @@ class HDGungnirStore : StoreItem
 class HDBlackjackStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "AceCorp Weapons"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDBlackjack'; }
 	override string GetIcon() { return "BJFFA0"; }
 	override string GetDisplayName() { return "'Blackjack' .355 rifle"; }
@@ -821,7 +835,7 @@ class HDBlackjackStore : StoreItem
 class HDSuperStimpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'PortableSuperStimpack'; }
 	override string GetIcon() { return "SSTMA0"; }
 	override string GetDisplayName() { return "Super Stimpack"; }
@@ -832,7 +846,7 @@ class HDSuperStimpackStore : StoreItem
 class HDTeleporterStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDTeleporter'; }
 	override string GetIcon() { return "TPRTZ0"; }
 	override string GetDisplayName() { return "Portable Teleporter"; }
@@ -843,7 +857,7 @@ class HDTeleporterStore : StoreItem
 class HDHackedReloaderStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HackedReloader'; }
 	override string GetIcon() { return "HRLDA0"; }
 	override string GetDisplayName() { return "Hacked Reloader"; }
@@ -854,7 +868,7 @@ class HDHackedReloaderStore : StoreItem
 class HDUniversalReloaderStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDUniversalReloader'; }
 	override string GetIcon() { return "URLDA0"; }
 	override string GetDisplayName() { return "Universal Reloader"; }
@@ -865,7 +879,7 @@ class HDUniversalReloaderStore : StoreItem
 class HDMagazineReloaderStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDMagazineReloader'; }
 	override string GetIcon() { return "MRLDA0"; }
 	override string GetDisplayName() { return "Magazine Reloader"; }
@@ -876,7 +890,7 @@ class HDMagazineReloaderStore : StoreItem
 class HDLadderLauncherStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDLadderLauncher'; }
 	override string GetIcon() { return "LLCHZ0"; }
 	override string GetDisplayName() { return "Ladder Launcher"; }
@@ -887,7 +901,7 @@ class HDLadderLauncherStore : StoreItem
 class HDBoosterJetsStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDBoosterJets'; }
 	override string GetIcon() { return "BSJTA0"; }
 	override string GetDisplayName() { return "Booster Jets"; }
@@ -898,7 +912,7 @@ class HDBoosterJetsStore : StoreItem
 class HDArmorPatchKitStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDArmorPatchKit'; }
 	override string GetIcon() { return "APKTA0"; }
 	override string GetDisplayName() { return "Armor Patch Kit"; }
@@ -909,7 +923,7 @@ class HDArmorPatchKitStore : StoreItem
 class HDWeaponUpgradeKitStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDWeaponUpgradeKit'; }
 	override string GetIcon() { return "WUKTA0"; }
 	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
@@ -920,7 +934,7 @@ class HDWeaponUpgradeKitStore : StoreItem
 class HDWeaponCrateStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDWeaponCrate'; }
 	override string GetIcon() { return "WPCRT0"; }
 	override string GetDisplayName() { return "Weapon Crate"; }
@@ -931,7 +945,7 @@ class HDWeaponCrateStore : StoreItem
 class HDPortableZRadarStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'PortableZRadar'; }
 	override string GetIcon() { return "ZRDRA0"; }
 	override string GetDisplayName() { return "Portable Radar"; }
@@ -939,22 +953,10 @@ class HDPortableZRadarStore : StoreItem
 	override string GetFlavorText() { return "They're coming out of the god damn walls!"; }
 }
 
-class HD50AEStore : StoreItem
-{
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "AceCorp Ammo"; }
-	override Name GetItem() { return 'HDErisAmmo'; }
-	override int GetAmount() { return 50; }
-	override string GetIcon() { return "50AEX0"; }
-	override string GetDisplayName() { return ".50 Action Express"; }
-	override int GetBasePrice() { return 50; }
-	override string GetFlavorText() { return "Ought to kill something in a single shot. If it doesn't, shoot again."; }
-}
-
 class HDRoombaStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDRoomba'; }
 	override string GetIcon() { return "RMBAA1"; }
 	override string GetDisplayName() { return "Roomba"; }
@@ -965,7 +967,7 @@ class HDRoombaStore : StoreItem
 class HDDSDStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'DSDInterface'; }
 	override string GetIcon() { return "DSDDA0"; }
 	override string GetDisplayName() { return "Dimensional Storage Device"; }
@@ -976,7 +978,7 @@ class HDDSDStore : StoreItem
 class HDDespicytoStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp Items"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'Despicyto'; }
 	override string GetIcon() { return "DSPGA0"; }
 	override string GetDisplayName() { return "Gas Mask"; }
@@ -987,13 +989,37 @@ class HDDespicytoStore : StoreItem
 class HDDespicytoFilterStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "AceCorp Ammo"; }
+	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'DespicytoFilter'; }
 	override string GetIcon() { return "DSPFA0"; }
 	override string GetDisplayName() { return "Air Filter"; }
 	override int GetBasePrice() { return 50; }
 	override int GetStoreAmount() { return random[merchrand](1, 3); }
 	override string GetFlavorText() { return "It won't make the air smell any better, but at least it won't kill you."; }
+}
+
+// ---------- ICARUS' STUFF ----------
+
+class HDSix12Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDSix12'; }
+	override string GetIcon() { return "STBFA0"; }
+	override string GetDisplayName() { return "Six-12"; }
+	override int GetBasePrice() { return 520; }
+	override string GetFlavorText() { return "The magazine! It spins!"; }
+}
+
+class HDPD42Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDPDFour'; }
+	override string GetIcon() { return "PDWGY0"; }
+	override string GetDisplayName() { return "PD-42"; }
+	override int GetBasePrice() { return 280; }
+	override string GetFlavorText() { return "Silent and deadlier."; }
 }
 
 // ---------- MELONADES ----------
