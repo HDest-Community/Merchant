@@ -455,17 +455,7 @@ class HDMerchant : Actor abstract
 
 		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop')))
 		{
-			if (SelectedSkin)
-			{
-				switch (SelectedSkin.SkinId)
-				{
-					case 'SUCM': PlaySpecialAnimation('OpenMenu.Succubus', "Succubus/Buying"); break;
-					case 'MSHU': PlaySpecialAnimation('OpenMenu.Morshu', "Morshu/Buying"); break;
-					case 'DAI1': PlaySpecialAnimation('OpenMenu.Daina.Default', "Daina/Default/Buying"); break;
-					case 'DAI2': PlaySpecialAnimation('OpenMenu.Daina.Bunny', "Daina/Bunny/Buying"); break;
-					case 'DAI4': PlaySpecialAnimation('OpenMenu.Daina.Succubus', "Daina/Succubus/Buying"); break;
-				}
-			}
+			TryPlaySpecialAnimation();
 		}
 
 		return true;
@@ -515,12 +505,6 @@ class HDMerchant : Actor abstract
 				BreatheHold = BreatheInOutDelay;
 			}
 		}
-	}
-
-	protected void PlaySpecialAnimation(StateLabel specAnimState, string snd)
-	{
-		A_StartSound(snd, CHAN_VOICE);
-		SetStateLabel(specAnimState);
 	}
 
 	protected void BuyingIdle(StateLabel goAwayState, string snd)

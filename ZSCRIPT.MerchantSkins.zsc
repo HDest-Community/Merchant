@@ -13,6 +13,32 @@ class HDMerchantSkin
 
 extend class HDMerchant
 {
+	private void TryPlaySpecialAnimation()
+	{
+		if (!SelectedSkin)
+		{
+			return;
+		}
+
+		StateLabel SpecAnimState;
+		string Snd;
+		switch (SelectedSkin.SkinId)
+		{
+			case 'SUCM': SpecAnimState = 'OpenMenu.Succubus'; Snd = "Succubus/Buying"; break;
+			case 'MSHU': SpecAnimState = 'OpenMenu.Morshu'; Snd = "Morshu/Buying"; break;
+			case 'DAI1': SpecAnimState = 'OpenMenu.Daina.Default'; Snd = "Daina/Default/Buying"; break;
+			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
+			case 'DAI4': SpecAnimState = 'OpenMenu.Daina.Succubus'; Snd = "Daina/Succubus/Buying"; break;
+			case 'NAR1': SpecAnimState = 'OpenMenu.Nari.Succubus'; Snd = "Nari/Succubus/Buying"; break;
+		}
+
+		if (SpecAnimState)
+		{
+			A_StartSound(Snd, CHAN_VOICE);
+			SetStateLabel(SpecAnimState);
+		}
+	}
+
 	override void BeginPlay()
 	{
 		Super.BeginPlay();
@@ -31,6 +57,7 @@ extend class HDMerchant
 		if (SelectedSkins & 1 << 7) { AvailableSkins.Push(HDMerchantSkin.Create('DAI4', (1.0, 1.0))); }
 		if (SelectedSkins & 1 << 8) { AvailableSkins.Push(HDMerchantSkin.Create('DAI5', (1.0, 1.0))); }
 		if (SelectedSkins & 1 << 9) { AvailableSkins.Push(HDMerchantSkin.Create('DAI6', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 10) { AvailableSkins.Push(HDMerchantSkin.Create('NAR1', (1.0, 1.0))); }
 
 		if (AvailableSkins.Size() > 0)
 		{
@@ -43,6 +70,7 @@ extend class HDMerchant
 		RegisterSprites:
 			RESM A 0; HOBM A 0; SUCM A 0; MSHU A 0;
 			DAI1 A 0; DAI2 A 0; DAI3 A 0; DAI4 A 0; DAI5 A 0; DAI6 A 0;
+			NAR1 A 0;
 		Spawn:
 			HOBM A 0 NoDelay
 			{
@@ -108,12 +136,21 @@ extend class HDMerchant
 			Goto SpawnLoop;
 
 		OpenMenu.Daina.Succubus:
-			#### BCDEFGHJE 4;
+			#### BCDEFGHIJE 4;
 		Buying.Daina.Succubus:
 			#### # 1 BuyingIdle('GoAway.Daina.Succubus', "Daina/Succubus/GoAway");
 			Loop;
 		GoAway.Daina.Succubus:
 			#### EDCBA 4;
+			Goto SpawnLoop;
+
+		OpenMenu.Nari.Succubus:
+			#### BCDEFGHII 4;
+		Buying.Nari.Succubus:
+			#### JKLMI 8 BuyingIdle('GoAway.Nari.Succubus', "Nari/Succubus/GoAway");
+			Loop;
+		GoAway.Nari.Succubus:
+			#### IHGFEDCB 4;
 			Goto SpawnLoop;
 	}
 }

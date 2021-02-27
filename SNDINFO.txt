@@ -3,11 +3,16 @@ Merchant/BuySuccess BUYSUCC
 
 Morshu/Buying "Sounds/Morshu/Start.ogg"
 Morshu/GoAway "Sounds/Morshu/End.ogg"
+
 Succubus/Buying "Sounds/Succubus/Start.wav"
 Succubus/GoAway "Sounds/Succubus/End.wav"
+
 Daina/Default/Buying "Sounds/Daina/DefaultStart.ogg"
 Daina/Default/GoAway "Sounds/Daina/DefaultEnd.ogg"
 Daina/Bunny/Buying "Sounds/Daina/BunnyStart.ogg"
 Daina/Bunny/GoAway "Sounds/Daina/BunnyEnd.ogg"
 Daina/Succubus/Buying "Sounds/Daina/SuccubusStart.ogg"
 Daina/Succubus/GoAway "Sounds/Daina/SuccubusEnd.ogg"
+
+Nari/Succubus/Buying "Sounds/Nari/SuccubusStart.ogg"
+Nari/Succubus/GoAway "Sounds/Nari/SuccubusEnd.ogg"
