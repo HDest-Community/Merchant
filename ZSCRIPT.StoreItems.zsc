@@ -1030,7 +1030,7 @@ class HDFenrisStore : StoreItem
 	override string GetIcon() { return "FWRLDB"; }
 	override string GetDisplayName() { return "Fenris"; }
 	override int GetBasePrice() { return 540; }
-	override string GetFlavorText() { return "Spray and pray."; }
+	override string GetFlavorText() { return "It's a cold day in hell."; }
 }
 
 // ---------- MELONADES ----------
