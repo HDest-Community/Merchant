@@ -1022,6 +1022,17 @@ class HDPD42Store : StoreItem
 	override string GetFlavorText() { return "Silent and deadlier."; }
 }
 
+class HDFenrisStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDFenris'; }
+	override string GetIcon() { return "FWRLDB"; }
+	override string GetDisplayName() { return "Fenris"; }
+	override int GetBasePrice() { return 540; }
+	override string GetFlavorText() { return "Spray and pray."; }
+}
+
 // ---------- MELONADES ----------
 
 class HDThunderGrenadeStore : StoreItem
