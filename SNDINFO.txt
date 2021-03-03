@@ -1,6 +1,32 @@
 Merchant/BuyFailure BUYFAIL
 Merchant/BuySuccess BUYSUCC
 
+ResidentEvil/Buying1 "Sounds/ResidentEvil/Start1.ogg"
+ResidentEvil/Buying2 "Sounds/ResidentEvil/Start2.ogg"
+ResidentEvil/Buying3 "Sounds/ResidentEvil/Start3.ogg"
+ResidentEvil/Buying4 "Sounds/ResidentEvil/Start4.ogg"
+ResidentEvil/Buying5 "Sounds/ResidentEvil/Start5.ogg"
+$random ResidentEvil/Buying
+{
+	ResidentEvil/Buying1
+	ResidentEvil/Buying2
+	ResidentEvil/Buying3
+	ResidentEvil/Buying4
+	ResidentEvil/Buying5
+}
+
+ResidentEvil/GoAway1 "Sounds/ResidentEvil/End1.ogg"
+ResidentEvil/GoAway2 "Sounds/ResidentEvil/End2.ogg"
+ResidentEvil/GoAway3 "Sounds/ResidentEvil/End3.ogg"
+ResidentEvil/GoAway4 "Sounds/ResidentEvil/End4.ogg"
+$random ResidentEvil/GoAway
+{
+	ResidentEvil/GoAway1
+	ResidentEvil/GoAway2
+	ResidentEvil/GoAway3
+	ResidentEvil/GoAway4
+}
+
 Morshu/Buying "Sounds/Morshu/Start.ogg"
 Morshu/GoAway "Sounds/Morshu/End.ogg"
 

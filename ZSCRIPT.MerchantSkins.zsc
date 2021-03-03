@@ -24,6 +24,7 @@ extend class HDMerchant
 		string Snd;
 		switch (SelectedSkin.SkinId)
 		{
+			case 'RESM': SpecAnimState = 'Buying.ResidentEvil'; Snd = "ResidentEvil/Buying"; break;
 			case 'SUCM': SpecAnimState = 'OpenMenu.Succubus'; Snd = "Succubus/Buying"; break;
 			case 'MSHU': SpecAnimState = 'OpenMenu.Morshu'; Snd = "Morshu/Buying"; break;
 			case 'DAI1': SpecAnimState = 'OpenMenu.Daina.Default'; Snd = "Daina/Default/Buying"; break;
@@ -82,6 +83,10 @@ extend class HDMerchant
 			}
 		SpawnLoop:
 			#### A 1 CheckBreathing();
+			Loop;
+
+		Buying.ResidentEvil:
+			#### A 1 BuyingIdle('SpawnLoop', "ResidentEvil/GoAway");
 			Loop;
 
 		OpenMenu.Morshu:
