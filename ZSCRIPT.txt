@@ -550,7 +550,6 @@ class HDMerchant : Actor abstract
 		Radius 8;
 		Scale 1.0;
 		+SOLID
-		+PUSHABLE
 		+NOBLOCKMONST
 	}
 }
