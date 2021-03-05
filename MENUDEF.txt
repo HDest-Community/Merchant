@@ -8,56 +8,47 @@ OptionMenu "MerchantMenu"
 	StaticText "---------- WEAPON MERCHANTS ----------", "Teal"
 	FlagOption "Resident Evil", "hdm_skin_weapon", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_weapon", "OnOff", 1
-	FlagOption "Succubus", "hdm_skin_weapon", "OnOff", 2
-	FlagOption "Morshu", "hdm_skin_weapon", "OnOff", 3
-	FlagOption "Daina (Default)", "hdm_skin_weapon", "OnOff", 4
-	FlagOption "Daina (Bunny)", "hdm_skin_weapon", "OnOff", 5
-	FlagOption "Daina (Maid)", "hdm_skin_weapon", "OnOff", 6
-	FlagOption "Daina (Succubus)", "hdm_skin_weapon", "OnOff", 7
-	FlagOption "Daina (Cowgirl)", "hdm_skin_weapon", "OnOff", 8
-	FlagOption "Daina (Labcoat)", "hdm_skin_weapon", "OnOff", 9
-	FlagOption "Nari (Succubus)", "hdm_skin_weapon", "OnOff", 10
+	FlagOption "Succubus (Naked)", "hdm_skin_weapon", "OnOff", 2
+	FlagOption "Succubus (Clothed)", "hdm_skin_weapon", "OnOff", 3
+	FlagOption "Morshu", "hdm_skin_weapon", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_weapon", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_weapon", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_weapon", "OnOff", 7
+	FlagOption "Daina (Succubus)", "hdm_skin_weapon", "OnOff", 8
+	FlagOption "Daina (Cowgirl)", "hdm_skin_weapon", "OnOff", 9
+	FlagOption "Daina (Labcoat)", "hdm_skin_weapon", "OnOff", 10
+	FlagOption "Nari (Succubus)", "hdm_skin_weapon", "OnOff", 11
 	StaticText ""
 	StaticText "---------- AMMO MERCHANTS ----------", "Teal"
 	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_ammo", "OnOff", 1
-	FlagOption "Succubus", "hdm_skin_ammo", "OnOff", 2
-	FlagOption "Morshu", "hdm_skin_ammo", "OnOff", 3
-	FlagOption "Daina (Default)", "hdm_skin_ammo", "OnOff", 4
-	FlagOption "Daina (Bunny)", "hdm_skin_ammo", "OnOff", 5
-	FlagOption "Daina (Maid)", "hdm_skin_ammo", "OnOff", 6
-	FlagOption "Daina (Succubus)", "hdm_skin_ammo", "OnOff", 7
-	FlagOption "Daina (Cowgirl)", "hdm_skin_ammo", "OnOff", 8
-	FlagOption "Daina (Labcoat)", "hdm_skin_ammo", "OnOff", 9
-	FlagOption "Nari (Succubus)", "hdm_skin_ammo", "OnOff", 10
+	FlagOption "Succubus (Naked)", "hdm_skin_ammo", "OnOff", 2
+	FlagOption "Succubus (Clothed)", "hdm_skin_ammo", "OnOff", 3
+	FlagOption "Morshu", "hdm_skin_ammo", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_ammo", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_ammo", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_ammo", "OnOff", 7
+	FlagOption "Daina (Succubus)", "hdm_skin_ammo", "OnOff", 8
+	FlagOption "Daina (Cowgirl)", "hdm_skin_ammo", "OnOff", 9
+	FlagOption "Daina (Labcoat)", "hdm_skin_ammo", "OnOff", 10
+	FlagOption "Nari (Succubus)", "hdm_skin_ammo", "OnOff", 11
 	StaticText ""
 	StaticText "---------- ITEM MERCHANTS ----------", "Teal"
 	FlagOption "Resident Evil", "hdm_skin_item", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_item", "OnOff", 1
-	FlagOption "Succubus", "hdm_skin_item", "OnOff", 2
-	FlagOption "Morshu", "hdm_skin_item", "OnOff", 3
-	FlagOption "Daina (Default)", "hdm_skin_item", "OnOff", 4
-	FlagOption "Daina (Bunny)", "hdm_skin_item", "OnOff", 5
-	FlagOption "Daina (Maid)", "hdm_skin_item", "OnOff", 6
-	FlagOption "Daina (Succubus)", "hdm_skin_item", "OnOff", 7
-	FlagOption "Daina (Cowgirl)", "hdm_skin_item", "OnOff", 8
-	FlagOption "Daina (Labcoat)", "hdm_skin_item", "OnOff", 9
-	FlagOption "Nari (Succubus)", "hdm_skin_item", "OnOff", 10
+	FlagOption "Succubus (Naked)", "hdm_skin_item", "OnOff", 2
+	FlagOption "Succubus (Clothed)", "hdm_skin_item", "OnOff", 3
+	FlagOption "Morshu", "hdm_skin_item", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_item", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_item", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_item", "OnOff", 7
+	FlagOption "Daina (Succubus)", "hdm_skin_item", "OnOff", 8
+	FlagOption "Daina (Cowgirl)", "hdm_skin_item", "OnOff", 9
+	FlagOption "Daina (Labcoat)", "hdm_skin_item", "OnOff", 10
+	FlagOption "Nari (Succubus)", "hdm_skin_item", "OnOff", 11
 }
 
 AddOptionMenu "OptionsMenu"
 {
 	Submenu "Merchant", "MerchantMenu"
-}
-
-OptionValue "BuckSkins"
-{
-	0, "Default"
-	1, "Rubies"
-}
-
-OptionValue "CardSkins"
-{
-	0, "Default"
-	1, "Rubies"
 }

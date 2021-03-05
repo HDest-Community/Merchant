@@ -25,7 +25,8 @@ extend class HDMerchant
 		switch (SelectedSkin.SkinId)
 		{
 			case 'RESM': SpecAnimState = 'Buying.ResidentEvil'; Snd = "ResidentEvil/Buying"; break;
-			case 'SUCM': SpecAnimState = 'OpenMenu.Succubus'; Snd = "Succubus/Buying"; break;
+			case 'SUC1': // [Ace] Intentional fallthrough.
+			case 'SUC2': SpecAnimState = 'OpenMenu.Succubus'; Snd = "Succubus/Buying"; break;
 			case 'MSHU': SpecAnimState = 'OpenMenu.Morshu'; Snd = "Morshu/Buying"; break;
 			case 'DAI1': SpecAnimState = 'OpenMenu.Daina.Default'; Snd = "Daina/Default/Buying"; break;
 			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
@@ -50,15 +51,16 @@ extend class HDMerchant
 
 		if (SelectedSkins & 1 << 0) { AvailableSkins.Push(HDMerchantSkin.Create('RESM', (1.0, 1.0))); }
 		if (SelectedSkins & 1 << 1) { AvailableSkins.Push(HDMerchantSkin.Create('HOBM', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 2) { AvailableSkins.Push(HDMerchantSkin.Create('SUCM', (1.1, 1.0))); }
-		if (SelectedSkins & 1 << 3) { AvailableSkins.Push(HDMerchantSkin.Create('MSHU', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 4) { AvailableSkins.Push(HDMerchantSkin.Create('DAI1', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 5) { AvailableSkins.Push(HDMerchantSkin.Create('DAI2', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 6) { AvailableSkins.Push(HDMerchantSkin.Create('DAI3', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 7) { AvailableSkins.Push(HDMerchantSkin.Create('DAI4', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 8) { AvailableSkins.Push(HDMerchantSkin.Create('DAI5', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 9) { AvailableSkins.Push(HDMerchantSkin.Create('DAI6', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 10) { AvailableSkins.Push(HDMerchantSkin.Create('NAR1', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 2) { AvailableSkins.Push(HDMerchantSkin.Create('SUC1', (1.1, 1.0))); }
+		if (SelectedSkins & 1 << 3) { AvailableSkins.Push(HDMerchantSkin.Create('SUC2', (1.1, 1.0))); }
+		if (SelectedSkins & 1 << 4) { AvailableSkins.Push(HDMerchantSkin.Create('MSHU', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 5) { AvailableSkins.Push(HDMerchantSkin.Create('DAI1', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 6) { AvailableSkins.Push(HDMerchantSkin.Create('DAI2', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 7) { AvailableSkins.Push(HDMerchantSkin.Create('DAI3', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 8) { AvailableSkins.Push(HDMerchantSkin.Create('DAI4', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 9) { AvailableSkins.Push(HDMerchantSkin.Create('DAI5', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 10) { AvailableSkins.Push(HDMerchantSkin.Create('DAI6', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 11) { AvailableSkins.Push(HDMerchantSkin.Create('NAR1', (1.0, 1.0))); }
 
 		if (AvailableSkins.Size() > 0)
 		{
@@ -69,7 +71,9 @@ extend class HDMerchant
 	States
 	{
 		RegisterSprites:
-			RESM A 0; HOBM A 0; SUCM A 0; MSHU A 0;
+			RESM A 0; HOBM A 0;
+			SUC1 A 0; SUC2 A 0;
+			MSHU A 0;
 			DAI1 A 0; DAI2 A 0; DAI3 A 0; DAI4 A 0; DAI5 A 0; DAI6 A 0;
 			NAR1 A 0;
 		Spawn:

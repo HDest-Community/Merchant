@@ -2,4 +2,4 @@ server bool hdm_enablebucks = true;
 server int hdm_maxmerchants = 1;
 user int hdm_skin_weapon = 1;
 user int hdm_skin_ammo = 2;
-user int hdm_skin_item = 1008;
+user int hdm_skin_item = 4064;
