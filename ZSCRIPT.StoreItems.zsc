@@ -502,7 +502,7 @@ class HDOtisStore : StoreItem
 	override Name GetItem() { return 'HDOtisGun'; }
 	override string GetIcon() { return "OTIPA0"; }
 	override string GetDisplayName() { return "Otis-5"; }
-	override int GetBasePrice() { return 260; }
+	override int GetBasePrice() { return 300; }
 	override string GetFlavorText() { return "Feeling lucky, punk?"; }
 }
 
@@ -999,6 +999,17 @@ class HDDespicytoFilterStore : StoreItem
 }
 
 // ---------- ICARUS' STUFF ----------
+
+class HDGFSBtore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDGFBlaster'; }
+	override string GetIcon() { return "GFBNZ0"; }
+	override string GetDisplayName() { return "GFB-9 'Backup Plan'"; }
+	override int GetBasePrice() { return 240; }
+	override string GetFlavorText() { return "For when all else fails."; }
+}
 
 class HDSix12Store : StoreItem
 {
