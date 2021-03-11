@@ -1071,6 +1071,17 @@ class HDMG13Store : StoreItem
 
 // ---------- UAS ----------
 
+class HDAmmoPouchStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Ugly as Sin"; }
+	override Name GetItem() { return 'UaS_AmmoPouch'; }
+	override string GetIcon() { return "UGSIJ0"; }
+	override string GetDisplayName() { return "Ammo Pouch"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "I swear I had some ammo in here somewhere."; }
+}
+
 class HDRespiratorStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
