@@ -998,6 +998,18 @@ class HDDespicytoFilterStore : StoreItem
 	override string GetFlavorText() { return "It won't make the air smell any better, but at least it won't kill you."; }
 }
 
+class HDRearviewMirrorStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDRearviewMirror'; }
+	override string GetIcon() { return "RVMGZ0"; }
+	override string GetDisplayName() { return "Rearview Mirror"; }
+	override int GetBasePrice() { return 50; }
+	override int GetStoreAmount() { return 1; }
+	override string GetFlavorText() { return "They came from... BEHIND!"; }
+}
+
 // ---------- ICARUS' STUFF ----------
 
 class HDGFSBtore : StoreItem
