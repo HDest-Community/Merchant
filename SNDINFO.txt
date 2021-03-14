@@ -32,6 +32,7 @@ Morshu/GoAway "Sounds/Morshu/End.ogg"
 
 Succubus/Buying "Sounds/Succubus/Start.wav"
 Succubus/GoAway "Sounds/Succubus/End.wav"
+Succubus/Wings "Sounds/Succubus/Wings.wav"
 
 Daina/Default/Buying "Sounds/Daina/DefaultStart.ogg"
 Daina/Default/GoAway "Sounds/Daina/DefaultEnd.ogg"
