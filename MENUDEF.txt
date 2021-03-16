@@ -6,7 +6,7 @@ OptionMenu "MerchantMenu"
 	StaticText ""
 	Option "Enable Bucks", "hdm_enablebucks", "YesNo"
 	Slider "Reward Scale", "hdm_rewardscale", 0.05, 2.00, 0.05, 2
-	Slider "Max Reward", "hdm_maxreward", 50, 3000, 50, 0
+	Slider "Max Reward", "hdm_maxreward", 0, 3000, 50, 0
 	StaticText "Max reward is the amount of cash you can gain total per level, after it has been scaled.", "White"
 	StaticText ""
 	StaticText "---------- WEAPON MERCHANTS ----------", "Teal"
