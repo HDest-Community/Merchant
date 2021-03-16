@@ -164,11 +164,11 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "TechnoSpider" || e.Thing is "CombatSlug" || e.Thing is "Boner" || e.Thing is "Trilobite")
 		{
-			Reward = 1.25;
+			Reward = 1.5;
 		}
 		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
 		{
-			Reward = 1.5;
+			Reward = 2.5;
 		}
 		else if (e.Thing is "CommanderKeen" && !random(0, 2))
 		{
@@ -176,15 +176,15 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "PainLord")
 		{
-			Reward = 3;
+			Reward = 5;
 		}
 		else if (e.Thing is "Necromancer")
 		{
-			Reward = 15;
+			Reward = 35;
 		}
 		else if (e.Thing is "Technorantula" || e.Thing is "SatanRobo")
 		{
-			Reward = 25;
+			Reward = 50;
 		}
 		else if (e.Thing is "HDBossBrain")
 		{
@@ -299,7 +299,7 @@ class MerchantHandler : EventHandler
 		// [Ace] The process of rewarding players for their intense suffering.
 		if (RewardStorage && RewardStorage.Money > 0)
 		{
-			double TotalCash = RewardStorage.Money;
+			double TotalCash = min(RewardStorage.Money * hdm_rewardscale, hdm_maxreward);
 			int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
 
 			for (int i = 0; i < MAXPLAYERS; ++i)
