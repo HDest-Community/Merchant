@@ -164,11 +164,11 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "TechnoSpider" || e.Thing is "CombatSlug" || e.Thing is "Boner" || e.Thing is "Trilobite")
 		{
-			Reward = 1.5;
+			Reward = 1.25;
 		}
 		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
 		{
-			Reward = 2.5;
+			Reward = 1.5;
 		}
 		else if (e.Thing is "CommanderKeen" && !random(0, 2))
 		{
@@ -176,15 +176,15 @@ class MerchantHandler : EventHandler
 		}
 		else if (e.Thing is "PainLord")
 		{
-			Reward = 5;
+			Reward = 3;
 		}
 		else if (e.Thing is "Necromancer")
 		{
-			Reward = 35;
+			Reward = 15;
 		}
 		else if (e.Thing is "Technorantula" || e.Thing is "SatanRobo")
 		{
-			Reward = 50;
+			Reward = 25;
 		}
 		else if (e.Thing is "HDBossBrain")
 		{
