@@ -30,6 +30,7 @@ extend class HDMerchant
 			case 'MSHU': SpecAnimState = 'OpenMenu.Morshu'; Snd = "Morshu/Buying"; break;
 			case 'DAI1': SpecAnimState = 'OpenMenu.Daina.Default'; Snd = "Daina/Default/Buying"; break;
 			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
+			case 'DAI3': SpecAnimState = 'OpenMenu.Daina.Maid'; Snd = "Daina/Maid/Buying"; break;
 			case 'DAI4': SpecAnimState = 'OpenMenu.Daina.Succubus'; Snd = "Daina/Succubus/Buying"; break;
 			case 'NAR1': SpecAnimState = 'OpenMenu.Nari.Succubus'; Snd = "Nari/Succubus/Buying"; break;
 		}
@@ -144,6 +145,15 @@ extend class HDMerchant
 			Loop;
 		GoAway.Daina.Bunny:
 			#### GFEDCBA 4;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Maid:
+			#### BCDEFGHIJKLMN 2;
+		Buying.Daina.Maid:
+			#### # 1 BuyingIdle('GoAway.Daina.Maid', "Daina/Maid/GoAway");
+			Loop;
+		GoAway.Daina.Maid:
+			#### NMLKJA 2;
 			Goto SpawnLoop;
 
 		OpenMenu.Daina.Succubus:
