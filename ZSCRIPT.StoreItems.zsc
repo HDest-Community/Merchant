@@ -461,7 +461,7 @@ class HD50AEStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "Joint Task Force"; }
-	override Name GetItem() { return 'HDErisAmmo'; }
+	override Name GetItem() { return 'HD50AEAmmo'; }
 	override int GetAmount() { return 50; }
 	override string GetIcon() { return "50AEX0"; }
 	override string GetDisplayName() { return ".50 Action Express"; }
