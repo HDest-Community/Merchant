@@ -833,6 +833,17 @@ class HDBlackjackStore : StoreItem
 	override string GetFlavorText() { return "23. Bust."; }
 }
 
+class HDSledgeStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDSledge'; }
+	override string GetIcon() { return "SLGZA0"; }
+	override string GetDisplayName() { return "Sledge"; }
+	override int GetBasePrice() { return 360; }
+	override string GetFlavorText() { return "1 + 1 = dead goat."; }
+}
+
 class HDSuperStimpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
