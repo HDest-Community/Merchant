@@ -1,4 +1,4 @@
-server int hdm_enablebucks = 1;
+server int hdm_enablebucks = 5;
 server float hdm_rewardscale = 1.0;
 server float hdm_cardscale = 1.0;
 server int hdm_maxreward = 1000;

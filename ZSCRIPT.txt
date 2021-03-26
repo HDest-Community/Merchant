@@ -372,12 +372,12 @@ class MerchantHandler : EventHandler
 
 	override void WorldTick()
 	{
-		if (RewardStorage)
+		if (RewardStorage && level.found_secrets != LastSecret)
 		{
-			if (level.found_secrets != LastSecret)
+			LastSecret = level.found_secrets;
+			if (hdm_enablebucks & 4)
 			{
-				LastSecret = level.found_secrets;
-				RewardStorage.Money += 15;
+				RewardStorage.Money += 20;
 			}
 		}
 	}
