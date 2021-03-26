@@ -140,7 +140,7 @@ class MerchantHandler : EventHandler
 	{
 		string FollowerClassName = "HDFollower";
 		class<Actor> FollowerClass = FollowerClassName;
-		if (!e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is 'HDPlayerPawn') && !(e.DamageSource.target is 'HDPlayerPawn') && FollowerClass && !(e.DamageSource is FollowerClass) && e.DamageSource.GetClassName() != 'HDSoulCube')
+		if (!RewardStorage || !e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is 'HDPlayerPawn') && !(e.DamageSource.target is 'HDPlayerPawn') && FollowerClass && !(e.DamageSource is FollowerClass) && e.DamageSource.GetClassName() != 'HDSoulCube')
 		{
 			return;
 		}
@@ -335,19 +335,22 @@ class MerchantHandler : EventHandler
 			EscortedMerchants.Push(HDMerchant(it.thing));
 		}
 
-		if (hdm_enablebucks & 1 && RewardStorage.Money > 0)
+		if (RewardStorage)
 		{
-			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
-		}
-		else // [Ace] Nullify rewards from killing monsters if the option isn't enabled.
-		{
-			RewardStorage.Money = 0;
+			if (hdm_enablebucks & 1 && RewardStorage.Money > 0)
+			{
+				RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
+			}
+			else // [Ace] Nullify rewards from killing monsters if the option isn't enabled.
+			{
+				RewardStorage.Money = 0;
+			}
 		}
 
 		for (int i = 0; i < EscortedMerchants.Size(); ++i)
 		{
 			EscortedMerchants[i].Destroy(); // [Ace] You have escorted the merchant(s) to the exit. They won't be there if you return. Only affects hubs.
-			if (hdm_enablebucks & 2)
+			if (RewardStorage && hdm_enablebucks & 2)
 			{
 				RewardStorage.Money += 200;
 			}
