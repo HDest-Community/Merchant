@@ -335,7 +335,7 @@ class MerchantHandler : EventHandler
 			EscortedMerchants.Push(HDMerchant(it.thing));
 		}
 
-		if (RewardStorage && RewardStorage.Money > 0 hdm_enablebucks & 1)
+		if (RewardStorage && RewardStorage.Money > 0 && hdm_enablebucks & 1)
 		{
 			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
 		}
