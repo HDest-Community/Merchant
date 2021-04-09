@@ -32,6 +32,7 @@ extend class HDMerchant
 			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
 			case 'DAI3': SpecAnimState = 'OpenMenu.Daina.Maid'; Snd = "Daina/Maid/Buying"; break;
 			case 'DAI4': SpecAnimState = 'OpenMenu.Daina.Succubus'; Snd = "Daina/Succubus/Buying"; break;
+			case 'DAI6': SpecAnimState = 'OpenMenu.Daina.Labcoat'; Snd = "Daina/Labcoat/Buying"; break;
 			case 'NAR1': SpecAnimState = 'OpenMenu.Nari.Succubus'; Snd = "Nari/Succubus/Buying"; break;
 		}
 
@@ -105,8 +106,8 @@ extend class HDMerchant
 
 		OpenMenu.Succubus:
 			#### EE 1 { scale.y -= 0.04; }
-			#### FF 1 { scale.y -= 0.04; SOffsetY -= 2;} // [Ace] It's so that the take off frame doesn't clip into the ground.
-			#### GG 1 { scale.y -= 0.04; SOffsetY -= 2;}
+			#### FF 1 { scale.y -= 0.04; SOffsetY -= 2; } // [Ace] It's so that the take off frame doesn't clip into the ground.
+			#### GG 1 { scale.y -= 0.04; SOffsetY -= 2; }
 			#### G 0
 			{
 				scale.y += 0.04 * 6;
@@ -163,6 +164,15 @@ extend class HDMerchant
 			Loop;
 		GoAway.Daina.Succubus:
 			#### EDCBA 4;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Labcoat:
+			#### BCDEFGHIJKKLMMNNOO 4;
+		Buying.Daina.Labcoat:
+			#### # 1 BuyingIdle('GoAway.Daina.Labcoat', "Daina/Labcoat/GoAway");
+			Loop;
+		GoAway.Daina.Labcoat:
+			#### LKJIHGFEDCBA 4;
 			Goto SpawnLoop;
 
 		OpenMenu.Nari.Succubus:
