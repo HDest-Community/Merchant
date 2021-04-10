@@ -621,7 +621,7 @@ class HDBastardStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Peppergrinder - Rifles"; }
-	override Name GetItem() { return 'HDHLAR'; }
+	override Name GetItem() { return 'HDBastardRifle'; }
 	override string GetIcon() { return "BSPAA0"; }
 	override string GetDisplayName() { return "Bastard Rifle"; }
 	override int GetBasePrice() { return 430; }
