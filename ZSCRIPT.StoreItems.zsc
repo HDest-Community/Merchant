@@ -1079,6 +1079,28 @@ class HDDEagleStore : StoreItem
 	override string GetFlavorText() { return "For the Economical Action 'Hero'."; }
 }
 
+class HDFlamethrowerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDFlamethrower'; }
+	override string GetIcon() { return "WFLMA0"; }
+	override string GetDisplayName() { return "Flamenwerfer 77"; }
+	override int GetBasePrice() { return 900; }
+	override string GetFlavorText() { return "It werfs flammen."; }
+}
+
+class HDGasTankStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDGasTank'; }
+	override string GetIcon() { return "AGASA0"; }
+	override string GetDisplayName() { return "Fuel Tank"; }
+	override int GetBasePrice() { return 35; }
+	override string GetFlavorText() { return "Fire up the BBQ!"; }
+}
+
 // ---------- MELONADES ----------
 
 class HDThunderGrenadeStore : StoreItem
