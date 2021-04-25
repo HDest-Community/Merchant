@@ -1101,6 +1101,17 @@ class HDGasTankStore : StoreItem
 	override string GetFlavorText() { return "Fire up the BBQ!"; }
 }
 
+class HDBarracudaStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDBarracuda'; }
+	override string GetIcon() { return "BSABA0"; }
+	override string GetDisplayName() { return "Barracuda"; }
+	override int GetBasePrice() { return 750; }
+	override string GetFlavorText() { return "The time for vengeance is now."; }
+}
+
 // ---------- MELONADES ----------
 
 class HDThunderGrenadeStore : StoreItem
