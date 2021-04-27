@@ -324,10 +324,10 @@ class MerchantHandler : EventHandler
 		}
 
 		Array<HDMerchant> EscortedMerchants;
-		BlockThingsIterator it = BlockThingsIterator.Create(plr, 128 * 3);
+		BlockThingsIterator it = BlockThingsIterator.Create(plr, 42 * 10);
 		while (it.Next())
 		{
-			if (!(it.thing is 'HDMerchant') || plr.Distance3D(it.thing) > 128 * 3 || !plr.CheckSight(it.thing))
+			if (!(it.thing is 'HDMerchant') || plr.Distance3D(it.thing) > 42 * 10 || !plr.CheckSight(it.thing))
 			{
 				continue;
 			}
