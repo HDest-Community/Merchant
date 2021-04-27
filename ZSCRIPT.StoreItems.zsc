@@ -470,6 +470,30 @@ class HD50AEStore : StoreItem
 	override string GetFlavorText() { return "Ought to kill something in a single shot. If it doesn't, shoot again."; }
 }
 
+class HD500HeavyStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "5HBXA0"; }
+	override string GetDisplayName() { return ".500 S&W Handloads"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "These ought to punch a hole."; }
+}
+
+class HD500LightStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD500SWLightAmmo'; }
+	override int GetAmount() { return 40; }
+	override string GetIcon() { return "5LBXA0"; }
+	override string GetDisplayName() { return ".500 S&W"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "Much better than the peashooter .355, isn't it?"; }
+}
+
 class HD50OMGStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
@@ -692,30 +716,6 @@ class HDRubyMaserStore : StoreItem
 	override string GetDisplayName() { return "Ruby Maser"; }
 	override int GetBasePrice() { return 390; }
 	override string GetFlavorText() { return "It can even heat up leftover pizza! Once."; }
-}
-
-class HD500HeavyStore : StoreItem
-{
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Peppergrinder"; }
-	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
-	override int GetAmount() { return 20; }
-	override string GetIcon() { return "5HBXA0"; }
-	override string GetDisplayName() { return ".500 S&W Handloads"; }
-	override int GetBasePrice() { return 30; }
-	override string GetFlavorText() { return "These ought to punch a hole."; }
-}
-
-class HD500LightStore : StoreItem
-{
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Peppergrinder"; }
-	override Name GetItem() { return 'HD500SWLightAmmo'; }
-	override int GetAmount() { return 40; }
-	override string GetIcon() { return "5LBXA0"; }
-	override string GetDisplayName() { return ".500 S&W"; }
-	override int GetBasePrice() { return 40; }
-	override string GetFlavorText() { return "Much better than the peashooter .355, isn't it?"; }
 }
 
 class HD9mmNDMStore : StoreItem
