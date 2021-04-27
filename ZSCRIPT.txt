@@ -411,6 +411,7 @@ class HDMerchant : Actor abstract
 				bSOLID = true;
 				bNOGRAVITY = false;
 				bTHRUACTORS = false;
+				bFORCEYBILLBOARD = false;
 				PiggyBack.A_TakeInventory("HDMerchantBody");
 				PiggyBack = null;
 			}
@@ -440,6 +441,7 @@ class HDMerchant : Actor abstract
 			PiggyBack = plr;
 			PlayerIsNear = false; // [Ace] This forces the merchant to cease their animation.
 			plr.A_GiveInventory("HDMerchantBody");
+			bFORCEYBILLBOARD = true;
 			return false;
 		}
 
