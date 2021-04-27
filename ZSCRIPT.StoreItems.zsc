@@ -1188,7 +1188,7 @@ class HDWaterRationStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return "Ugly as Sin"; }
 	override Name GetItem() { return 'UaS_WaterRation'; }
-	override string GetIcon() { return "HSCVC0"; }
+	override string GetIcon() { return "HSCVR0"; }
 	override string GetDisplayName() { return "Water Ration"; }
 	override int GetBasePrice() { return 8; }
 	override string GetFlavorText() { return "NOTE: Taste depends on temperature."; }
