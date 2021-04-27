@@ -218,7 +218,9 @@ class MerchantHandler : EventHandler
 			{
 				StoreItem Item = StoreItem(new(AllClasses[i]));
 				class<Actor> a = Item.GetItem();
-				if (a && Item.GetType() == type && random(1, 100) <= 80)
+
+				static const Name CVarNames[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
+				if (a && Item.GetType() == type && frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat())
 				{
 					Item.StoreAmount = Item.GetStoreAmount();
 					Stores[type].StoreItems.Push(Item);

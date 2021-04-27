@@ -20,6 +20,9 @@ OptionMenu "MerchantMenu"
 	StaticText "Max reward is the amount of cash you can gain total per level, after it has been scaled.", "White"
 	StaticText ""
 	StaticText "---------- WEAPON MERCHANTS ----------", "Teal"
+	Slider "Weapon Chance", "hdm_chance_weapon", 0.05, 1.0, 0.05, 2
+	StaticText "Chance a weapon will be sold by the merchant.", "White"
+	StaticText ""
 	FlagOption "Resident Evil", "hdm_skin_weapon", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_weapon", "OnOff", 1
 	FlagOption "Succubus (Naked)", "hdm_skin_weapon", "OnOff", 2
@@ -34,6 +37,9 @@ OptionMenu "MerchantMenu"
 	FlagOption "Nari (Succubus)", "hdm_skin_weapon", "OnOff", 11
 	StaticText ""
 	StaticText "---------- AMMO MERCHANTS ----------", "Teal"
+	Slider "Ammo Chance", "hdm_chance_ammo", 0.05, 1.0, 0.05, 2
+	StaticText "Chance an ammo type will be sold by the merchant.", "White"
+	StaticText ""
 	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_ammo", "OnOff", 1
 	FlagOption "Succubus (Naked)", "hdm_skin_ammo", "OnOff", 2
@@ -48,6 +54,9 @@ OptionMenu "MerchantMenu"
 	FlagOption "Nari (Succubus)", "hdm_skin_ammo", "OnOff", 11
 	StaticText ""
 	StaticText "---------- ITEM MERCHANTS ----------", "Teal"
+	Slider "Item Chance", "hdm_chance_item", 0.05, 1.0, 0.05, 2
+	StaticText "Chance an item will be sold by the merchant.", "White"
+	StaticText ""
 	FlagOption "Resident Evil", "hdm_skin_item", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_item", "OnOff", 1
 	FlagOption "Succubus (Naked)", "hdm_skin_item", "OnOff", 2
