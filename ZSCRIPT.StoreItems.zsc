@@ -874,7 +874,7 @@ class HDTeleporterStore : StoreItem
 	override Name GetItem() { return 'HDTeleporter'; }
 	override string GetIcon() { return "TPRTZ0"; }
 	override string GetDisplayName() { return "Portable Teleporter"; }
-	override int GetBasePrice() { return 100; }
+	override int GetBasePrice() { return 500; }
 	override string GetFlavorText() { return "Ambush, you say?"; }
 }
 
