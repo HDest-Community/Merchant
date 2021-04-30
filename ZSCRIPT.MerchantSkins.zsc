@@ -28,6 +28,7 @@ extend class HDMerchant
 			case 'SUC1': // [Ace] Intentional fallthrough.
 			case 'SUC2': SpecAnimState = 'OpenMenu.Succubus'; Snd = "Succubus/Buying"; break;
 			case 'MSHU': SpecAnimState = 'OpenMenu.Morshu'; Snd = "Morshu/Buying"; break;
+			case 'WTRD': SpecAnimState = 'Buying.WanderingTrader'; Snd = "WanderingTrader/Buying"; break;
 			case 'DAI1': SpecAnimState = 'OpenMenu.Daina.Default'; Snd = "Daina/Default/Buying"; break;
 			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
 			case 'DAI3': SpecAnimState = 'OpenMenu.Daina.Maid'; Snd = "Daina/Maid/Buying"; break;
@@ -63,6 +64,7 @@ extend class HDMerchant
 		if (SelectedSkins & 1 << 9) { AvailableSkins.Push(HDMerchantSkin.Create('DAI5', (1.0, 1.0))); }
 		if (SelectedSkins & 1 << 10) { AvailableSkins.Push(HDMerchantSkin.Create('DAI6', (1.0, 1.0))); }
 		if (SelectedSkins & 1 << 11) { AvailableSkins.Push(HDMerchantSkin.Create('NAR1', (1.0, 1.0))); }
+		if (SelectedSkins & 1 << 12) { AvailableSkins.Push(HDMerchantSkin.Create('WTRD', (1.0, 1.0))); }
 
 		if (AvailableSkins.Size() > 0)
 		{
@@ -76,6 +78,7 @@ extend class HDMerchant
 			RESM A 0; HOBM A 0;
 			SUC1 A 0; SUC2 A 0;
 			MSHU A 0;
+			WTRD A 0;
 			DAI1 A 0; DAI2 A 0; DAI3 A 0; DAI4 A 0; DAI5 A 0; DAI6 A 0;
 			NAR1 A 0;
 		Spawn:
@@ -103,6 +106,10 @@ extend class HDMerchant
 		GoAway.Morshu:
 			#### FEDCBA 5;
 			Goto SpawnLoop;
+
+		Buying.WanderingTrader:
+			#### A 1 BuyingIdle('SpawnLoop', "WanderingTrader/GoAway");
+			Loop;
 
 		OpenMenu.Succubus:
 			#### EE 1 { scale.y -= 0.04; }

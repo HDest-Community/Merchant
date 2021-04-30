@@ -28,6 +28,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Succubus (Naked)", "hdm_skin_weapon", "OnOff", 2
 	FlagOption "Succubus (Clothed)", "hdm_skin_weapon", "OnOff", 3
 	FlagOption "Morshu", "hdm_skin_weapon", "OnOff", 4
+	FlagOption "Wandering Trader", "hdm_skin_weapon", "OnOff", 12
 	FlagOption "Daina (Default)", "hdm_skin_weapon", "OnOff", 5
 	FlagOption "Daina (Bunny)", "hdm_skin_weapon", "OnOff", 6
 	FlagOption "Daina (Maid)", "hdm_skin_weapon", "OnOff", 7
@@ -45,6 +46,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Succubus (Naked)", "hdm_skin_ammo", "OnOff", 2
 	FlagOption "Succubus (Clothed)", "hdm_skin_ammo", "OnOff", 3
 	FlagOption "Morshu", "hdm_skin_ammo", "OnOff", 4
+	FlagOption "Wandering Trader", "hdm_skin_ammo", "OnOff", 12
 	FlagOption "Daina (Default)", "hdm_skin_ammo", "OnOff", 5
 	FlagOption "Daina (Bunny)", "hdm_skin_ammo", "OnOff", 6
 	FlagOption "Daina (Maid)", "hdm_skin_ammo", "OnOff", 7
@@ -62,6 +64,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Succubus (Naked)", "hdm_skin_item", "OnOff", 2
 	FlagOption "Succubus (Clothed)", "hdm_skin_item", "OnOff", 3
 	FlagOption "Morshu", "hdm_skin_item", "OnOff", 4
+	FlagOption "Wandering Trader", "hdm_skin_item", "OnOff", 12
 	FlagOption "Daina (Default)", "hdm_skin_item", "OnOff", 5
 	FlagOption "Daina (Bunny)", "hdm_skin_item", "OnOff", 6
 	FlagOption "Daina (Maid)", "hdm_skin_item", "OnOff", 7

@@ -4,6 +4,7 @@ Sprites:
 - Merchant (Daina skins): Hege Cactus. Taken from La Tailor Girl.
 - Merchant (Succubus): YuraoftheHairFan, Espi, Ebola, Vader; greatly edited by Mor'ladim to match my high standards, the absolute madman and legend.
 - Merchant (Morshu): Legend of Zelda by Capcom; rotations edited by HegeCactus.
+- Merchant (Minecraft): Based on the Wandering Trader from Minecraft (Mojang), edited by Craneo.
 - Bucks: ???, reshaded by Mor'ladim.
 - Card: Taken from Doom Vacation. Probably from Duke Nukem, idk.
 

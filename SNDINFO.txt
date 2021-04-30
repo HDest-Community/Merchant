@@ -47,3 +47,27 @@ Daina/Labcoat/GoAway "Sounds/Daina/LabcoatEnd.ogg"
 
 Nari/Succubus/Buying "Sounds/Nari/SuccubusStart.ogg"
 Nari/Succubus/GoAway "Sounds/Nari/SuccubusEnd.ogg"
+
+WanderingTrader/Buying1 "Sounds/WanderingTrader/Start1.ogg"
+WanderingTrader/Buying2 "Sounds/WanderingTrader/Start2.ogg"
+WanderingTrader/Buying3 "Sounds/WanderingTrader/Start3.ogg"
+WanderingTrader/Buying4 "Sounds/WanderingTrader/Start4.ogg"
+WanderingTrader/Buying5 "Sounds/WanderingTrader/Start5.ogg"
+$random WanderingTrader/Buying
+{
+	WanderingTrader/Buying1
+	WanderingTrader/Buying2
+	WanderingTrader/Buying3
+	WanderingTrader/Buying4
+	WanderingTrader/Buying5
+}
+
+WanderingTrader/GoAway1 "Sounds/WanderingTrader/End1.ogg"
+WanderingTrader/GoAway2 "Sounds/WanderingTrader/End2.ogg"
+WanderingTrader/GoAway3 "Sounds/WanderingTrader/End3.ogg"
+$random WanderingTrader/GoAway
+{
+	WanderingTrader/GoAway1
+	WanderingTrader/GoAway2
+	WanderingTrader/GoAway3
+}
