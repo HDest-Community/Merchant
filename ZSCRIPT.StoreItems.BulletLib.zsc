@@ -1,0 +1,71 @@
+class HD50AEStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD50AEAmmo'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "50AEX0"; }
+	override string GetDisplayName() { return ".50 Action Express"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Ought to kill something in a single shot. If it doesn't, shoot again."; }
+}
+
+class HD500HeavyStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "5HBXA0"; }
+	override string GetDisplayName() { return ".500 S&W Handloads"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "These ought to punch a hole."; }
+}
+
+class HD500LightStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD500SWLightAmmo'; }
+	override int GetAmount() { return 40; }
+	override string GetIcon() { return "5LBXA0"; }
+	override string GetDisplayName() { return ".500 S&W"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "Much better than the peashooter .355, isn't it?"; }
+}
+
+class HD50OMGStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD50OMGAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "OGBXA0"; }
+	override string GetDisplayName() { return ".50 OMG"; }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return "The one round that guarantees nothing will wallbang back at you."; }
+}
+
+class HDPepperSlugsStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HDSlugAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "SLBXA0"; }
+	override string GetDisplayName() { return "Shotgun Slugs"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "These aren't slimy like the others."; }
+}
+
+class HD45ACPStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD45ACPAmmo'; }
+	override int GetAmount() { return 40; }
+	override string GetIcon() { return "45BXA0"; }
+	override string GetDisplayName() { return ".45 ACP"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "The stopping power on these is really incredible."; }
+}

@@ -1,0 +1,54 @@
+class HDBallCrafterStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Bryan's Armory"; }
+	override Name GetItem() { return 'B_BallCrafter'; }
+	override string GetIcon() { return "CFBNC0"; }
+	override string GetDisplayName() { return "Ball Crafter"; }
+	override int GetBasePrice() { return 125; }
+	override string GetFlavorText() { return "Balls of steel."; }
+}
+
+class HDCaseCrafterStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Bryan's Armory"; }
+	override Name GetItem() { return 'B_CaseCrafter'; }
+	override string GetIcon() { return "CFBNB0"; }
+	override string GetDisplayName() { return "Case Crafter"; }
+	override int GetBasePrice() { return 125; }
+	override string GetFlavorText() { return "I rest my case."; }
+}
+
+class HDBulletAssemblerStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Bryan's Armory"; }
+	override Name GetItem() { return 'B_BulletAssembler'; }
+	override string GetIcon() { return "CFBND0"; }
+	override string GetDisplayName() { return "Bullet Assembler"; }
+	override int GetBasePrice() { return 125; }
+	override string GetFlavorText() { return "Will you create the regular ammo?"; }
+}
+
+class HDRocketAssemblerStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Bryan's Armory"; }
+	override Name GetItem() { return 'B_RocketAssembler'; }
+	override string GetIcon() { return "CFBNA0"; }
+	override string GetDisplayName() { return "Rocket Assembler"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "Warning: Do not try at home."; }
+}
+
+class HDM249ReloaderStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Bryan's Armory"; }
+	override Name GetItem() { return 'B_M249_Reloader'; }
+	override string GetIcon() { return "BRLAA0"; }
+	override string GetDisplayName() { return "M249 Pouch Reloading Machine"; }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return "Too tired to load?"; }
+}

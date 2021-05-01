@@ -1,0 +1,10 @@
+class HDMedicalScannerStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "HexaDoken Industries"; }
+	override Name GetItem() { return 'HDScanner'; }
+	override string GetIcon() { return "MEDIZ0"; }
+	override string GetDisplayName() { return "Medical Scanner"; }
+	override int GetBasePrice() { return 25; }
+	override string GetFlavorText() { return "Medikit without the medikit parts."; }
+}

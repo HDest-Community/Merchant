@@ -1,0 +1,54 @@
+class HDAmmoPouchStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Ugly as Sin"; }
+	override Name GetItem() { return 'UaS_AmmoPouch'; }
+	override string GetIcon() { return "UGSPA0"; }
+	override string GetDisplayName() { return "Ammo Pouch"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "I swear I had some ammo in here somewhere."; }
+}
+
+class HDRespiratorStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Ugly as Sin"; }
+	override Name GetItem() { return 'UaS_Respirator'; }
+	override string GetIcon() { return "UGSID0"; }
+	override string GetDisplayName() { return "Respirator"; }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return "Blub blub blub."; }
+}
+
+class HDMessKitStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Ugly as Sin"; }
+	override Name GetItem() { return 'UaS_MessKit'; }
+	override string GetIcon() { return "HSCVB0"; }
+	override string GetDisplayName() { return "Mess Kit"; }
+	override int GetBasePrice() { return 12; }
+	override string GetFlavorText() { return "Don't make a mess."; }
+}
+
+class HDFoodRationStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Ugly as Sin"; }
+	override Name GetItem() { return 'UaS_FoodRation'; }
+	override string GetIcon() { return "HSCVA0"; }
+	override string GetDisplayName() { return "Food Ration"; }
+	override int GetBasePrice() { return 8; }
+	override string GetFlavorText() { return "Crunchy."; }
+}
+
+class HDWaterRationStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Ugly as Sin"; }
+	override Name GetItem() { return 'UaS_WaterRation'; }
+	override string GetIcon() { return "HSCVR0"; }
+	override string GetDisplayName() { return "Water Ration"; }
+	override int GetBasePrice() { return 8; }
+	override string GetFlavorText() { return "NOTE: Taste depends on temperature."; }
+}

@@ -1,0 +1,276 @@
+class HDSoulCubeStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDSoulCube'; }
+	override string GetIcon() { return "SLCBA3A7"; }
+	override string GetDisplayName() { return "Soul Cube"; }
+	override int GetBasePrice() { return 800; }
+	override string GetFlavorText() { return "I have no idea what this is, but it won't shut up."; }
+}
+
+class HDArcanumStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDArcanumTome'; }
+	override string GetIcon() { return "ARCTZ0"; }
+	override string GetDisplayName() { return "Arcanum Tome"; }
+	override int GetBasePrice() { return 700; }
+	override string GetFlavorText() { return "I don't understand a damn thing that's written in it."; }
+}
+
+class HDErisStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDEris'; }
+	override string GetIcon() { return "ERSGY0"; }
+	override string GetDisplayName() { return "'Eris' .50 AE Handgun"; }
+	override int GetBasePrice() { return 240; }
+	override string GetFlavorText() { return "Excellent for pretending to be the last action hero."; }
+}
+
+class HDJackdawStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDJackdaw'; }
+	override string GetIcon() { return "JDWGY0"; }
+	override string GetDisplayName() { return "'Jackdaw' 9mm SMG"; }
+	override int GetBasePrice() { return 400; }
+	override string GetFlavorText() { return "It's like five SMGs strapped together, but you can only fire one at a time."; }
+}
+
+class HDRedlineStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDRedline'; }
+	override string GetIcon() { return "RDNGZ0"; }
+	override string GetDisplayName() { return "'Redline' Thermal Lance"; }
+	override int GetBasePrice() { return 540; }
+	override string GetFlavorText() { return "Look here. Smile. Wait for flash."; }
+}
+
+class HDBreakerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBreaker'; }
+	override string GetIcon() { return "BRKRZ0"; }
+	override string GetDisplayName() { return "'Breaker' Bolt-action Cannon"; }
+	override int GetBasePrice() { return 900; }
+	override string GetFlavorText() { return "Deletes just about anything."; }
+}
+
+class HDGungnirStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDGungnir'; }
+	override string GetIcon() { return "GNGRZ0"; }
+	override string GetDisplayName() { return "'Gungnir' Frag Beam Rifle"; }
+	override int GetBasePrice() { return 1200; }
+	override string GetFlavorText() { return "Stole it right out of some deity's closet. I hope they don't need it."; }
+}
+
+class HDBlackjackStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBlackjack'; }
+	override string GetIcon() { return "BJFFA0"; }
+	override string GetDisplayName() { return "'Blackjack' .355 rifle"; }
+	override int GetBasePrice() { return 480; }
+	override string GetFlavorText() { return "23. Bust."; }
+}
+
+class HDSledgeStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDSledge'; }
+	override string GetIcon() { return "SLGZA0"; }
+	override string GetDisplayName() { return "Sledge"; }
+	override int GetBasePrice() { return 360; }
+	override string GetFlavorText() { return "1 + 1 = dead goat."; }
+}
+
+class HDSuperStimpackStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'PortableSuperStimpack'; }
+	override string GetIcon() { return "SSTMA0"; }
+	override string GetDisplayName() { return "Super Stimpack"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "I don't think that's the right dosage, doc."; }
+}
+
+class HDTeleporterStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDTeleporter'; }
+	override string GetIcon() { return "TPRTZ0"; }
+	override string GetDisplayName() { return "Portable Teleporter"; }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return "Ambush, you say?"; }
+}
+
+class HDHackedReloaderStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HackedReloader'; }
+	override string GetIcon() { return "HRLDA0"; }
+	override string GetDisplayName() { return "Hacked Reloader"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "BRBRBRBRBRBRBRBR *clack* but faster."; }
+}
+
+class HDUniversalReloaderStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDUniversalReloader'; }
+	override string GetIcon() { return "URLDA0"; }
+	override string GetDisplayName() { return "Universal Reloader"; }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return "I have no idea why you'd spend this much cash on this."; }
+}
+
+class HDMagazineReloaderStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDMagazineReloader'; }
+	override string GetIcon() { return "MRLDA0"; }
+	override string GetDisplayName() { return "Magazine Reloader"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "Waste your enemies, not your time."; }
+}
+
+class HDLadderLauncherStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDLadderLauncher'; }
+	override string GetIcon() { return "LLCHZ0"; }
+	override string GetDisplayName() { return "Ladder Launcher"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "Aim for the top."; }
+}
+
+class HDBoosterJetsStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBoosterJets'; }
+	override string GetIcon() { return "BSJTA0"; }
+	override string GetDisplayName() { return "Booster Jets"; }
+	override int GetBasePrice() { return 320; }
+	override string GetFlavorText() { return "Wheeeeeeeeeeeee!"; }
+}
+
+class HDArmorPatchKitStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDArmorPatchKit'; }
+	override string GetIcon() { return "APKTA0"; }
+	override string GetDisplayName() { return "Armor Patch Kit"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "Have fun with that."; }
+}
+
+class HDWeaponUpgradeKitStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDWeaponUpgradeKit'; }
+	override string GetIcon() { return "WUKTA0"; }
+	override string GetDisplayName() { return "Weapon Upgrade Kit"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "Upgrade complete."; }
+}
+
+class HDWeaponCrateStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDWeaponCrate'; }
+	override string GetIcon() { return "WPCRT0"; }
+	override string GetDisplayName() { return "Weapon Crate"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "Ammo sold separately."; }
+}
+
+class HDPortableZRadarStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'PortableZRadar'; }
+	override string GetIcon() { return "ZRDRA0"; }
+	override string GetDisplayName() { return "Portable Radar"; }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return "They're coming out of the god damn walls!"; }
+}
+
+class HDRoombaStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDRoomba'; }
+	override string GetIcon() { return "RMBAA1"; }
+	override string GetDisplayName() { return "Roomba"; }
+	override int GetBasePrice() { return 180; }
+	override string GetFlavorText() { return "Stop breaking your back trying to pick up brass."; }
+}
+
+class HDDSDStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'DSDInterface'; }
+	override string GetIcon() { return "DSDDA0"; }
+	override string GetDisplayName() { return "Dimensional Storage Device"; }
+	override int GetBasePrice() { return 1000; }
+	override string GetFlavorText() { return "This item is out of this world!"; }
+}
+
+class HDDespicytoStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'Despicyto'; }
+	override string GetIcon() { return "DSPGA0"; }
+	override string GetDisplayName() { return "Gas Mask"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "Found this in an abandoned metro next to some dead guy."; }
+}
+
+class HDDespicytoFilterStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'DespicytoFilter'; }
+	override string GetIcon() { return "DSPFA0"; }
+	override string GetDisplayName() { return "Air Filter"; }
+	override int GetBasePrice() { return 50; }
+	override int GetStoreAmount() { return random[merchrand](1, 3); }
+	override string GetFlavorText() { return "It won't make the air smell any better, but at least it won't kill you."; }
+}
+
+class HDRearviewMirrorStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDRearviewMirror'; }
+	override string GetIcon() { return "RVMGZ0"; }
+	override string GetDisplayName() { return "Rearview Mirror"; }
+	override int GetBasePrice() { return 50; }
+	override int GetStoreAmount() { return 1; }
+	override string GetFlavorText() { return "They came from... BEHIND!"; }
+}

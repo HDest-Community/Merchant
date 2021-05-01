@@ -1,0 +1,209 @@
+class HDOtisStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
+	override Name GetItem() { return 'HDOtisGun'; }
+	override string GetIcon() { return "OTIPA0"; }
+	override string GetDisplayName() { return "Otis-5"; }
+	override int GetBasePrice() { return 300; }
+	override string GetFlavorText() { return "Feeling lucky, punk?"; }
+}
+
+class HDBoxCannonStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
+	override Name GetItem() { return 'HDBoxCannon'; }
+	override string GetIcon() { return "MPS1A0"; }
+	override string GetDisplayName() { return "Box Cannon"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "HALT!"; }
+}
+
+class HDScopedRevolverStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
+	override Name GetItem() { return 'HDScopedRevolver'; }
+	override string GetIcon() { return "SRVPA0"; }
+	override string GetDisplayName() { return "Scoped Revolver"; }
+	override int GetBasePrice() { return 130; }
+	override string GetFlavorText() { return "Only a dark lord would have a use for such a thing."; }
+}
+
+class HDGuillotineStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
+	override Name GetItem() { return 'HDGuillotine'; }
+	override string GetIcon() { return "EMLPA0"; }
+	override string GetDisplayName() { return "Guillotine"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "Chop, chop."; }
+}
+
+class HDOddballStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
+	override Name GetItem() { return 'HDOddball'; }
+	override string GetIcon() { return "ODPAA0"; }
+	override string GetDisplayName() { return "Oddball"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "Crank it up."; }
+}
+
+class HDHelzingStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Handguns"; }
+	override Name GetItem() { return 'HDHelzing'; }
+	override string GetIcon() { return "HMPTA0"; }
+	override string GetDisplayName() { return "Helzing"; }
+	override int GetBasePrice() { return 280; }
+	override string GetFlavorText() { return "In the name of the Lord!"; }
+}
+
+class HDGreelyStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Shotguns"; }
+	override Name GetItem() { return 'HDGreely'; }
+	override string GetIcon() { return "GSGPA0"; }
+	override string GetDisplayName() { return "Greely 12"; }
+	override int GetBasePrice() { return 260; }
+	override string GetFlavorText() { return "Might fit in your pockets."; }
+}
+
+class HDScopedSlayerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Shotguns"; }
+	override Name GetItem() { return 'ScopedSlayer'; }
+	override string GetIcon() { return "SLSCA0"; }
+	override string GetDisplayName() { return "Scoped Slayer"; }
+	override int GetBasePrice() { return 240; }
+	override string GetFlavorText() { return "Budget sniper rifle."; }
+}
+
+class HDSawedOffSlayerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Shotguns"; }
+	override Name GetItem() { return 'SawedSlayer'; }
+	override string GetIcon() { return "SGSWA0"; }
+	override string GetDisplayName() { return "Sawed-off Slayer"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "Size doesn't matter, right?"; }
+}
+
+class HDHLARStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'HDHLAR'; }
+	override string GetIcon() { return "HLPIA0"; }
+	override string GetDisplayName() { return "HLAR"; }
+	override int GetBasePrice() { return 240; }
+	override string GetFlavorText() { return "Makes more noise and throws grenades, but that's about it."; }
+}
+
+class HDTrogStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'HDTROGRifle'; }
+	override string GetIcon() { return "TRG1A0"; }
+	override string GetDisplayName() { return "TRO-G Rifle"; }
+	override int GetBasePrice() { return 350; }
+	override string GetFlavorText() { return "Blast from the past."; }
+}
+
+class HDBastardStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'HDBastardRifle'; }
+	override string GetIcon() { return "BSPAA0"; }
+	override string GetDisplayName() { return "Bastard Rifle"; }
+	override int GetBasePrice() { return 430; }
+	override string GetFlavorText() { return "Has no familiar relationship with the bastard sword."; }
+}
+
+class HDVeraStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'HDVera'; }
+	override string GetIcon() { return "VRAPA0"; }
+	override string GetDisplayName() { return "Vera"; }
+	override int GetBasePrice() { return 450; }
+	override string GetFlavorText() { return "Diet Vulcanette."; }
+}
+
+class HDIronsLibStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'IronsLiberatorRifle'; }
+	override string GetIcon() { return "IBFLB0"; }
+	override string GetDisplayName() { return "Irons Liberator"; }
+	override int GetBasePrice() { return 480; }
+	override string GetFlavorText() { return "Liberator rifle in and out. Almost."; }
+}
+
+class HDLotusStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'HDLotus'; }
+	override string GetIcon() { return "RRVLA0"; }
+	override string GetDisplayName() { return "Lotus Rifle"; }
+	override int GetBasePrice() { return 250; }
+	override string GetFlavorText() { return "Rifle, but it's really a revolver. Why?"; }
+}
+
+class HDWiseauStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Energy"; }
+	override Name GetItem() { return 'HDWiseau'; }
+	override string GetIcon() { return "ENUFA0"; }
+	override string GetDisplayName() { return "WF-60 Plasma Magnum"; }
+	override int GetBasePrice() { return 260; }
+	override string GetFlavorText() { return "You're going to tear me apart if you don't buy this."; }
+}
+
+class HDLisaStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Energy"; }
+	override Name GetItem() { return 'HDLisa'; }
+	override string GetIcon() { return "TOMPA0"; }
+	override string GetDisplayName() { return "'Lisa' Plasma DMR"; }
+	override int GetBasePrice() { return 390; }
+	override string GetFlavorText() { return "This rifle has not been hit."; }
+}
+
+class HDRubyMaserStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Energy"; }
+	override Name GetItem() { return 'RubyMaser'; }
+	override string GetIcon() { return "MASEZ0"; }
+	override string GetDisplayName() { return "Ruby Maser"; }
+	override int GetBasePrice() { return 390; }
+	override string GetFlavorText() { return "It can even heat up leftover pizza! Once."; }
+}
+
+class HD9mmNDMStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Peppergrinder"; }
+	override Name GetItem() { return 'HDNDMLoose'; }
+	override int GetAmount() { return 60; }
+	override string GetIcon() { return "NDMBA0"; }
+	override string GetDisplayName() { return "9mm Nail Driver Maximum"; }
+	override int GetBasePrice() { return 45; }
+	override string GetFlavorText() { return "Looks like 9mm, but it's not."; }
+}

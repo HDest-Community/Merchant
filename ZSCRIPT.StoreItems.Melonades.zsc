@@ -1,0 +1,22 @@
+class HDThunderGrenadeStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Melonades"; }
+	override Name GetItem() { return 'HDThunderGrenadeAmmo'; }
+	override string GetIcon() { return "TFRGA0"; }
+	override string GetDisplayName() { return "Thunder Grenade"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "Shockingly fun to use."; }
+}
+
+class HDMG13Store : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Melonades"; }
+	override Name GetItem() { return 'HDMG13GrenadeAmmo'; }
+	override string GetIcon() { return "MG13A0"; }
+	override string GetDisplayName() { return "MG13 Grenade"; }
+	override int GetBasePrice() { return 70; }
+	override int GetStoreAmount() { return random[merchrand](1, 2); }
+	override string GetFlavorText() { return "Dome of death."; }
+}
