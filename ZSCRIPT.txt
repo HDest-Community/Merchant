@@ -276,7 +276,7 @@ class MerchantHandler : EventHandler
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector CurrSec = level.Sectors[i];
-			if (CurrSec.IsSecret() && random(1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)))
+			if (CurrSec.IsSecret() && random(1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)) || CurrSec.special == 10201)
 			{
 				vector3 SpawnPos = (CurrSec.centerspot.x, CurrSec.centerspot.y, CurrSec.floorplane.ZAtPoint(CurrSec.centerspot));
 				
