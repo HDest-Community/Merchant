@@ -108,6 +108,17 @@ class HDHLARStore : StoreItem
 	override string GetFlavorText() { return "Makes more noise and throws grenades, but that's about it."; }
 }
 
+class HDP90Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Peppergrinder - Rifles"; }
+	override Name GetItem() { return 'HDBreakerp90'; }
+	override string GetIcon() { return "PNTKA0"; }
+	override string GetDisplayName() { return "BreakerTek P90"; }
+	override int GetBasePrice() { return 330; }
+	override string GetFlavorText() { return "Strong and stable NDM with no apparent downsides."; }
+}
+
 class HDTrogStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
