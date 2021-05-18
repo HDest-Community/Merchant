@@ -35,6 +35,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Daina (Succubus)", "hdm_skin_weapon", "OnOff", 8
 	FlagOption "Daina (Cowgirl)", "hdm_skin_weapon", "OnOff", 9
 	FlagOption "Daina (Labcoat)", "hdm_skin_weapon", "OnOff", 10
+	FlagOption "Daina (Marauder)", "hdm_skin_weapon", "OnOff", 13
 	FlagOption "Nari (Succubus)", "hdm_skin_weapon", "OnOff", 11
 	StaticText ""
 	StaticText "---------- AMMO MERCHANTS ----------", "Teal"
@@ -53,6 +54,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Daina (Succubus)", "hdm_skin_ammo", "OnOff", 8
 	FlagOption "Daina (Cowgirl)", "hdm_skin_ammo", "OnOff", 9
 	FlagOption "Daina (Labcoat)", "hdm_skin_ammo", "OnOff", 10
+	FlagOption "Daina (Marauder)", "hdm_skin_ammo", "OnOff", 13
 	FlagOption "Nari (Succubus)", "hdm_skin_ammo", "OnOff", 11
 	StaticText ""
 	StaticText "---------- ITEM MERCHANTS ----------", "Teal"
@@ -71,6 +73,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Daina (Succubus)", "hdm_skin_item", "OnOff", 8
 	FlagOption "Daina (Cowgirl)", "hdm_skin_item", "OnOff", 9
 	FlagOption "Daina (Labcoat)", "hdm_skin_item", "OnOff", 10
+	FlagOption "Daina (Marauder)", "hdm_skin_item", "OnOff", 13
 	FlagOption "Nari (Succubus)", "hdm_skin_item", "OnOff", 11
 }
 
