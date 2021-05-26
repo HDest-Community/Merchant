@@ -296,7 +296,7 @@ class HDRadsuitStore : StoreItem
 	override string GetIcon() { return "SUITA0"; }
 	override string GetDisplayName() { return "Portable Radsuit"; }
 	override int GetBasePrice() { return 100; }
-	override string GetFlavorText() { return "May or may not contain anything useful inside."; }
+	override string GetFlavorText() { return "It smells funny inside."; }
 }
 
 class HDJetpackStore : StoreItem
