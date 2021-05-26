@@ -288,6 +288,17 @@ class HDPortableLadderStore : StoreItem
 	override string GetFlavorText() { return "Don't fall and break a leg."; }
 }
 
+class HDRadsuitStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Vanilla"; }
+	override Name GetItem() { return 'PortableRadsuit'; }
+	override string GetIcon() { return "SUITA0"; }
+	override string GetDisplayName() { return "Portable Radsuit"; }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return "May or may not contain anything useful inside."; }
+}
+
 class HDJetpackStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
