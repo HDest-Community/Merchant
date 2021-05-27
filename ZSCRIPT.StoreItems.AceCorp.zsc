@@ -93,7 +93,7 @@ class HDSledgeStore : StoreItem
 	override Name GetItem() { return 'HDSledge'; }
 	override string GetIcon() { return "SLGZA0"; }
 	override string GetDisplayName() { return "Sledge"; }
-	override int GetBasePrice() { return 360; }
+	override int GetBasePrice() { return 480; }
 	override string GetFlavorText() { return "1 + 1 = dead goat."; }
 }
 
