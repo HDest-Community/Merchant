@@ -420,7 +420,7 @@ class HDMerchant : Actor abstract
 		}
 		else
 		{
-			PlayerIsNear = CheckProximity("PlayerPawn", 80, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
+			PlayerIsNear = CheckProximity("PlayerPawn", 42 * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
 			if (PlayerIsNear)
 			{
 				A_Face(target, 15);
