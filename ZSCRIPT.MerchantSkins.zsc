@@ -33,6 +33,7 @@ extend class HDMerchant
 			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
 			case 'DAI3': SpecAnimState = 'OpenMenu.Daina.Maid'; Snd = "Daina/Maid/Buying"; break;
 			case 'DAI4': SpecAnimState = 'OpenMenu.Daina.Succubus'; Snd = "Daina/Succubus/Buying"; break;
+			case 'DAI5': SpecAnimState = 'OpenMenu.Daina.Cowgirl'; Snd = "Daina/Cowgirl/Buying"; break;
 			case 'DAI6': SpecAnimState = 'OpenMenu.Daina.Labcoat'; Snd = "Daina/Labcoat/Buying"; break;
 			case 'NAR1': SpecAnimState = 'OpenMenu.Nari.Succubus'; Snd = "Nari/Succubus/Buying"; break;
 		}
@@ -172,6 +173,17 @@ extend class HDMerchant
 			Loop;
 		GoAway.Daina.Succubus:
 			#### EDCBA 4;
+			Goto SpawnLoop;
+
+		OpenMenu.Daina.Cowgirl:
+			#### BCDEEFFEEFFEEFFFFGHIJK 2;
+			#### L 2 A_StartSound("weapons/pistol");
+			#### MNOPQR 2;
+		Buying.Daina.Cowgirl:
+			#### # 1 BuyingIdle('GoAway.Daina.Cowgirl', "Daina/Cowgirl/GoAway");
+			Loop;
+		GoAway.Daina.Cowgirl:
+			#### RKJIHGFDCBA 2;
 			Goto SpawnLoop;
 
 		OpenMenu.Daina.Labcoat:
