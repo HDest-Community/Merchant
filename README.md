@@ -12,6 +12,10 @@
 - Some enemies will not reward cash for killing them. Putti and Lost Souls in particular.
 - Loadout code for the mercenary bucks is `bux`.
 
+### Modding
+---
+- Sectors with the custom UDMF property `user_merchantsector` set to `1` will always spawn a merchant.
+
 ### Known Issues
 ---
 - Merchant can block some paths. Grab them or pick them up to move them out of the way.
