@@ -9,6 +9,7 @@
 #include "ZSCRIPT.StoreItems.HexaDoken.zsc"
 #include "ZSCRIPT.StoreItems.DeusDoom.zsc"
 #include "ZSCRIPT.StoreItems.Bryan.zsc"
+#include "ZSCRIPT.StoreItems.Dastrukar.zsc"
 
 class StoreCurrency abstract
 {

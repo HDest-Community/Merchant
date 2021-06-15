@@ -1,0 +1,10 @@
+class HDHHelmetStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Dastrukar"; }
+	override Name GetItem() { return 'HHelmet'; }
+	override string GetIcon() { return "HELMA0"; }
+	override string GetDisplayName() { return "Helmet"; }
+	override int GetBasePrice() { return 80; }
+	override string GetFlavorText() { return "Does not protect from bicycle falls."; }
+}
