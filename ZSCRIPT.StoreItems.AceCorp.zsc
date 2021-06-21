@@ -271,6 +271,17 @@ class HDRearviewMirrorStore : StoreItem
 	override string GetIcon() { return "RVMGZ0"; }
 	override string GetDisplayName() { return "Rearview Mirror"; }
 	override int GetBasePrice() { return 50; }
-	override int GetStoreAmount() { return 1; }
 	override string GetFlavorText() { return "They came from... BEHIND!"; }
+}
+
+class HDDeployableBarricadeStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDDeployableBarricade'; }
+	override string GetIcon() { return "DABRB0"; }
+	override string GetDisplayName() { return "Deployable Barricade"; }
+	override int GetBasePrice() { return 700; }
+	override int GetStoreAmount() { return 1; }
+	override string GetFlavorText() { return "Enjoy your safe space."; }
 }
