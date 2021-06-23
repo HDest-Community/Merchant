@@ -105,7 +105,7 @@ class HDMajesticStore : StoreItem
 	override string GetIcon() { return "MJCGZ0"; }
 	override string GetDisplayName() { return "Majestic"; }
 	override int GetBasePrice() { return 400; }
-	override string GetFlavorText() { return "What a majestic beast."; }
+	override string GetFlavorText() { return "Aliens may or may not have been involved in the production of this."; }
 }
 
 class HDSuperStimpackStore : StoreItem
