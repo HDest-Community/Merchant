@@ -1,0 +1,8 @@
+Model MerchantSlotMachine
+{
+	Path "Models" DONTCULLBACKFACES Scale 10.0 10.0 10.0
+	Model 0 "SlotMachineAA.obj" Model 1 "SlotMachineAB.obj"
+	Model 2 "SlotMachineAC.obj" FrameIndex SLMC A 0 0
+	Model 2 "SlotMachineBC.obj" FrameIndex SLMC B 0 0
+	Model 2 "SlotMachineCC.obj" FrameIndex SLMC C 0 0
+}

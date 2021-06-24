@@ -1,0 +1,214 @@
+class MerchantSlotMachine : Actor
+{
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		for (int i = 0; i < Slots.Size(); ++i)
+		{
+			let slot = SlotMachineSlot(Spawn("SlotMachineSlot", pos));
+			slot.master = self;
+			slot.PlaceIndex = i;
+			Slots[i] = slot;
+		}
+	}
+
+	private void RollSlots()
+	{
+		for (int i = StartSlot; i < Slots.Size(); ++i)
+		{
+			++Slots[i].RollIndex %= 6;
+		}
+		if (++LockTicker > CurrentLock)
+		{
+			LockTicker = 0;
+			CurrentLock = random(10, random(10, 40));
+			StartSlot++;
+
+			if (StartSlot == Slots.Size())
+			{
+				CheckPayout();
+			}
+			else
+			{
+				A_StartSound("weapons/pistol", 7);
+			}
+		}
+	}
+
+	private bool IsFullRow(int rollIndex)
+	{
+		int num = 0;
+		for (int i = 0; i < Slots.Size(); ++i)
+		{
+			if (Slots[i].RollIndex > 0 && Slots[i].RollIndex == rollIndex)
+			{
+				num++;
+			}
+		}
+		return num == Slots.Size();
+	}
+
+	private void CheckPayout()
+	{
+		int wildcards = 0;
+		for (int i = 0; i < Slots.Size(); ++i)
+		{
+			if (Slots[i].RollIndex == 0)
+			{
+				wildcards++;
+			}
+		}
+		
+		double mult = 0;
+		int winIndex;
+		switch (wildcards)
+		{
+			case 1: mult = 1; break;
+			case 2: mult = 1.5; break;
+			case 3: mult = 3; break;
+		}
+
+		if (wildcards == 0)
+		{
+			for (int i = 1; i < Slots.Size(); ++i)
+			{
+				if (IsFullRow(i))
+				{
+					switch (i)
+					{
+						case 1: mult = 5; break;
+						case 2: mult = 10; break;
+						case 3: mult = 25; break;
+						case 4: mult = 50; break;
+						case 5: mult = 100; break;
+					}
+				}
+			}
+		}
+
+		BucksToWin = int(InsertedAmmo * mult);
+		InsertedAmmo = 0;
+		if (BucksToWin > 0)
+		{
+			A_StartSound("skeleton/sight", 6);
+			SetStateLabel('WinnerWinnerChickenDinner');
+		}
+		else
+		{
+			A_StartSound("vile/pain", 6);
+			SetStateLabel('Spawn');
+		}
+	}
+
+	override bool Used(Actor user)
+	{
+		if (Distance3D(user) > radius + user.radius + 15 || !InStateSequence(CurState, FindState('Spawn')))
+		{
+			return false;
+		}
+
+		bool add = user.player.cmd.buttons & BT_SPEED;
+		if (add || InsertedAmmo == 0)
+		{
+			if (!user.CheckInventory('SevenMilAmmo', 10))
+			{
+				user.A_Log("You don't have enough 7.76mm ammo.", true);
+				return false;
+			}
+			A_StartSound("misc/casing", 5);
+			user.A_TakeInventory('SevenMilAmmo', 10);
+			InsertedAmmo += 10;
+		}
+		if (!add)
+		{
+			SetStateLabel('Rollerino');
+		}
+
+		return true;
+	}
+
+	private int InsertedAmmo;
+	private int BucksToWin;
+	private int CurrentLock;
+	private int LockTicker;
+	private int StartSlot;
+	private SlotMachineSlot Slots[3];
+
+	Default
+	{
+		Mass 800;
+		Radius 15;
+		Height 50;
+		+SOLID
+	}
+
+	States
+	{
+		Spawn:
+			SLMC A -1;
+			Stop;
+		Rollerino:
+			TROO A 0
+			{
+				CurrentLock = random(10, 50);
+				LockTicker = 0;
+				StartSlot = 0;
+			}
+			SLMC BC 4;
+			SLMC C 0 A_StartSound("weapons/sawidle", 5);
+			SLMC CCCCCCC 2 RollSlots();
+			SLMC CCBB 2 RollSlots();
+			SLMC A 2 RollSlots();
+			Wait;
+		WinnerWinnerChickenDinner:
+			SLMC A 5
+			{
+				int toDrop = min(random(5, 50), BucksToWin);
+				Inventory a = Inventory(Spawn('MercenaryBucks', Vec3Offset(0, 0, 8)));
+				a.angle = angle + frandom(-15, 15);
+				a.A_ChangeVelocity(frandom(1.5, 4), 0, 0, CVF_RELATIVE);
+				a.Amount = toDrop;
+				BucksToWin -= toDrop;
+
+				if (BucksToWin == 0)
+				{
+					SetStateLabel('Spawn');
+					return;
+				}
+			}
+			Loop;
+	}
+}
+
+class SlotMachineSlot : Actor
+{
+	override void Tick()
+	{
+		Super.Tick();
+		if (!master)
+		{
+			Destroy();
+			return;
+		}
+		Warp(master, -6, 7 - 9 * PlaceIndex, master.height - 10, flags: WARPF_NOCHECKPOSITION);
+	}
+
+	int PlaceIndex;
+	int RollIndex;
+
+	Default
+	{
+		+NOINTERACTION
+		+WALLSPRITE
+	}
+
+	States
+	{
+		Spawn:
+			SLMS A 1
+			{
+				frame = RollIndex;
+			}
+			Loop;
+	}
+}

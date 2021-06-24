@@ -12,6 +12,19 @@
 - Some enemies will not reward cash for killing them. Putti and Lost Souls in particular.
 - Loadout code for the mercenary bucks is `bux`.
 
+### Slot Machines
+---
+Why play when you can gamble? Machines spawn in secret sectors, much like merchants, and cost 10 7mm rounds to roll. Hold Sprint when pressing Use to insert +10 rounds for a higher reward.
+Payouts are as follows:
+- 1 Stim = x1
+- 2 Stims = x1.5
+- 3 Stims = x3
+- 3 Medkits = x5
+- 3 Potions = x10
+- 3 Spiritual Armors = x25
+- 3 Megaspheres = x50
+- 3 Precious = x100
+
 ### Modding
 ---
 - Sectors with the custom UDMF property `user_merchantsector` set to `1` will always spawn a merchant.
