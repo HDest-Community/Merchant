@@ -53,24 +53,46 @@ class StoreItem abstract
 		SType_Item
 	}
 
-	// [Ace] Make some of these abstract again at some point.
-	abstract int GetType();
+	// --------------------------------------------------
+	// STATIC
+	// --------------------------------------------------
+
+	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
+	{
+		return int(max(ceil(Item.GetBasePrice() * Currency.GetPriceMult()), 1));
+	}
+
+	// --------------------------------------------------
+	// VIRTUALS
+	// --------------------------------------------------
+
+	protected abstract int GetBasePrice(); // [Ace] The base price is for merc bucks.
 	abstract string GetCategory();
+	abstract string GetDisplayName();
+	abstract string GetIcon();
 	abstract Name GetItem();
+	abstract int GetType();
+
 	virtual int GetAmount() { return 1; }
+	virtual string GetFlavorText() { return ""; }
 	virtual int GetStoreAmount()
 	{
 		switch (GetType())
 		{
-			case SType_Weapon: return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
+			case SType_Weapon:
+			{
+				return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
+			}
 			case SType_Ammo:
+			{
 				if (GetAmount() == 1)
 				{
 					return random[merchrand](1, 8);
 				}
 				return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6));
-
+			}
 			case SType_Item:
+			{
 				if (GetBasePrice() <= 15)
 				{
 					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7));
@@ -84,17 +106,15 @@ class StoreItem abstract
 					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3);
 				}
 				return 1;
+			}
 		}
 
 		return 666;
 	}
-	abstract string GetIcon();
-	abstract string GetDisplayName();
-	protected abstract int GetBasePrice(); // [Ace] The base price is for merc bucks.
-	virtual string GetFlavorText() { return ""; }
-	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
-	{
-		return int(max(ceil(Item.GetBasePrice() * Currency.GetPriceMult()), 1));
-	}
+	
+	// --------------------------------------------------
+	// VARIABLES
+	// --------------------------------------------------
+
 	int StoreAmount;
 }
