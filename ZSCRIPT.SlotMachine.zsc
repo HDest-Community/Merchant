@@ -30,7 +30,7 @@ class MerchantSlotMachine : Actor
 			}
 			else
 			{
-				A_StartSound("weapons/pistol", 7);
+				A_StartSound("SlotMachine/Stop", 6);
 			}
 		}
 	}
@@ -90,12 +90,12 @@ class MerchantSlotMachine : Actor
 		InsertedAmmo = 0;
 		if (BucksToWin > 0)
 		{
-			A_StartSound("skeleton/sight", 6);
+			A_StartSound(BucksToWin >= 1000 ? "SlotMachine/Jackpot" : "skeleton/sight");
 			SetStateLabel('WinnerWinnerChickenDinner');
 		}
 		else
 		{
-			A_StartSound("vile/pain", 6);
+			A_StartSound("vile/pain");
 			SetStateLabel('Spawn');
 		}
 	}
@@ -115,7 +115,7 @@ class MerchantSlotMachine : Actor
 				user.A_Log("You don't have enough 7.76mm ammo.", true);
 				return false;
 			}
-			A_StartSound("misc/casing", 5);
+			A_StartSound("misc/casing", 6);
 			user.A_TakeInventory('SevenMilAmmo', 10);
 			InsertedAmmo += 10;
 		}
@@ -155,7 +155,8 @@ class MerchantSlotMachine : Actor
 				StartSlot = 0;
 			}
 			SLMC BC 4;
-			SLMC C 0 A_StartSound("weapons/sawidle", 5);
+			SLMC C 0 A_StartSound("weapons/sawidle");
+			SLMC C 0 A_StartSound("SlotMachine/Rolling", CHAN_BODY, CHANF_OVERLAP | CHANF_LOOP);
 			SLMC CCCCCCC 2 RollSlots();
 			SLMC CCBB 2 RollSlots();
 			SLMC A 2 RollSlots();

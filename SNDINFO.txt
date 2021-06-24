@@ -1,3 +1,7 @@
+SlotMachine/Jackpot SLOTJACK
+SlotMachine/Rolling SLOTSPIN
+SlotMachine/Stop SLOTSTOP
+
 Merchant/BuyFailure BUYFAIL
 Merchant/BuySuccess BUYSUCC
 
