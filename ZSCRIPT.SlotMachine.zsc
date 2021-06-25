@@ -1,8 +1,16 @@
 class MerchantSlotMachine : Actor
 {
+	override void Tick()
+	{
+		if (!Debug)
+		{
+			Debug = CVar.GetCVar('hdm_debug');
+		}
+		Super.Tick();
+	}
+
 	override void PostBeginPlay()
 	{
-		Debug = CVar.GetCVar('hdm_debug');
 		Super.PostBeginPlay();
 		for (int i = 0; i < Slots.Size(); ++i)
 		{
