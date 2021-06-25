@@ -139,7 +139,7 @@ class MerchantSlotMachine : Actor
 		}
 		else
 		{
-			BucksToWin = int(InsertedAmmo * mult);
+			BucksToWin = int(ceil(InsertedAmmo * mult));
 			InsertedAmmo = 0;
 			if (BucksToWin > 0)
 			{
