@@ -2,6 +2,7 @@ class MerchantSlotMachine : Actor
 {
 	override void PostBeginPlay()
 	{
+		Debug = CVar.GetCVar('hdm_debug');
 		Super.PostBeginPlay();
 		for (int i = 0; i < Slots.Size(); ++i)
 		{
@@ -90,13 +91,14 @@ class MerchantSlotMachine : Actor
 		}
 		
 		double mult = 0;
+		string winSound = "SlotMachine/WinRegular";
+
 		switch (wildcards)
 		{
 			case 1: mult = 1; Results[1]++; break;
 			case 2: mult = 1.5; Results[2]++; break;
 			case 3: mult = 3; Results[3]++; break;
 		}
-
 		if (wildcards == 0)
 		{
 			switch (GetFullRowIndex())
@@ -105,41 +107,45 @@ class MerchantSlotMachine : Actor
 				case 2: mult = 10; Results[5]++; break;
 				case 3: mult = 25; Results[6]++; break;
 				case 4: mult = 50; Results[7]++; break;
-				case 5: mult = 100; Results[8]++; break;
+				case 5: mult = 75; Results[8]++; winSound = "SlotMachine/WinAss"; break;
+				case 6: mult = 100; Results[9]++; winSound = "SlotMachine/WinJackpot"; break;
 			}
 		}
-
 		if (mult == 0)
 		{
 			Results[0]++;
 		}
 
-		TimesRolled++;
-		// [Ace] Debug stuff.
-		// string full = "Times rolled: "..TimesRolled.." -";
-		// for (int i = 0; i < Results.Size(); ++i)
-		// {
-		// 	full = full.." "..Results[i]..",";
-		// 	if (i == Results.Size() - 1)
-		// 	{
-		// 		full.DeleteLastCharacter();
-		// 	}
-		// }
-		// Console.Printf(full);
-
-		BucksToWin = int(InsertedAmmo * mult);
-		InsertedAmmo = 0;
-		if (BucksToWin > 0)
+		if (Debug.GetBool())
 		{
-			A_StartSound(BucksToWin >= 1000 ? "SlotMachine/Jackpot" : "skeleton/sight");
-			SetStateLabel('WinnerWinnerChickenDinner');
+			string full = "Times rolled: "..TimesRolled.." -";
+			for (int i = 0; i < Results.Size(); ++i)
+			{
+				full = full.." "..Results[i]..",";
+				if (i == Results.Size() - 1)
+				{
+					full.DeleteLastCharacter();
+				}
+			}
+			Console.Printf(full);
 		}
 		else
 		{
-			A_StartSound("vile/pain");
-			SetStateLabel('Spawn');
+			BucksToWin = int(InsertedAmmo * mult);
+			InsertedAmmo = 0;
+			if (BucksToWin > 0)
+			{
+				A_StartSound(winSound);
+				SetStateLabel('WinnerWinnerChickenDinner');
+			}
+			else
+			{
+				A_StartSound("vile/pain");
+				SetStateLabel('Spawn');
+			}
+			BucksToWin = 0;
 		}
-		BucksToWin = 0;
+		TimesRolled++;
 	}
 
 	override bool Used(Actor user)
@@ -169,8 +175,9 @@ class MerchantSlotMachine : Actor
 		return true;
 	}
 
+	private transient CVar Debug;
 	private int TimesRolled;
-	private int Results[9];
+	private int Results[10];
 	private int InsertedAmmo;
 	private int BucksToWin;
 	private int CurrentLock;
@@ -199,7 +206,13 @@ class MerchantSlotMachine : Actor
 			SLMC C 0 A_StartSound("SlotMachine/Rolling", CHAN_BODY, CHANF_OVERLAP | CHANF_LOOP);
 			SLMC CCCCCC 2 RollSlots();
 			SLMC CCBB 2 RollSlots();
-			SLMC A 2 RollSlots();
+			SLMC A 2
+			{
+				for (int i = 0; i < (Debug.GetBool() ? 1000 : 1); ++i)
+				{
+					RollSlots();
+				}
+			}
 			Wait;
 		WinnerWinnerChickenDinner:
 			SLMC A 4
@@ -232,7 +245,7 @@ class SlotMachineSlot : Actor
 			Destroy();
 			return;
 		}
-		Warp(master, -6, 7 - 9 * PlaceIndex, master.height - 10, flags: WARPF_NOCHECKPOSITION);
+		Warp(master, -5, 7 - 9 * PlaceIndex, master.height - 10, flags: WARPF_NOCHECKPOSITION);
 	}
 
 	static int GetWeightSum()
@@ -245,7 +258,7 @@ class SlotMachineSlot : Actor
 		return sum;
 	}
 
-	static const int Weights[] = { 25, 50, 45, 35, 27, 20 };
+	static const int Weights[] = { 25, 50, 45, 35, 27, 20, 15 };
 	int PlaceIndex;
 	int RollIndex;
 

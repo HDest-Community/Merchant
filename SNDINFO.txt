@@ -1,4 +1,7 @@
-SlotMachine/Jackpot SLOTJACK
+$alias SlotMachine/WinRegular skeleton/sight
+$alias SlotMachine/WinAss Daina/Default/Buying
+SlotMachine/WinJackpot SLOTJPT1
+
 SlotMachine/Rolling SLOTSPIN
 SlotMachine/Stop SLOTSTOP
 
