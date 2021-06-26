@@ -104,19 +104,19 @@ class MerchantSlotMachine : Actor
 		switch (wildcards)
 		{
 			case 1: mult = 1; Results[1]++; break;
-			case 2: mult = 1.5; Results[2]++; break;
-			case 3: mult = 3; Results[3]++; break;
+			case 2: mult = 2.5; Results[2]++; break;
+			case 3: mult = 5; Results[3]++; break;
 		}
 		if (wildcards == 0)
 		{
 			switch (GetFullRowIndex())
 			{
-				case 1: mult = 5; Results[4]++; break;
-				case 2: mult = 10; Results[5]++; break;
-				case 3: mult = 25; Results[6]++; break;
-				case 4: mult = 50; Results[7]++; break;
-				case 5: mult = 75; Results[8]++; winSound = "SlotMachine/WinAss"; break;
-				case 6: mult = 100; Results[9]++; winSound = "SlotMachine/WinJackpot"; break;
+				case 1: mult = 10; Results[4]++; break;
+				case 2: mult = 25; Results[5]++; break;
+				case 3: mult = 50; Results[6]++; break;
+				case 4: mult = 75; Results[7]++; break;
+				case 5: mult = 125; Results[8]++; winSound = "SlotMachine/WinAss"; break;
+				case 6: mult = 200; Results[9]++; winSound = "SlotMachine/WinJackpot"; break;
 			}
 		}
 		if (mult == 0)
@@ -266,7 +266,7 @@ class SlotMachineSlot : Actor
 		return sum;
 	}
 
-	static const int Weights[] = { 25, 50, 45, 35, 27, 20, 15 };
+	static const int Weights[] = { 3, 4, 3, 3, 3, 2, 1 };
 	int PlaceIndex;
 	int RollIndex;
 
