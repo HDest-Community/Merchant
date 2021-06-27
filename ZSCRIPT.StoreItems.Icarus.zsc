@@ -53,6 +53,17 @@ class HDDEagleStore : StoreItem
 	override string GetFlavorText() { return "For the Economical Action 'Hero'."; }
 }
 
+class HDNyxtore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDNyx'; }
+	override string GetIcon() { return "NYXCM0"; }
+	override string GetDisplayName() { return "CM-3 'Nyx'"; }
+	override int GetBasePrice() { return 325; }
+	override string GetFlavorText() { return "The Queen of Thicc."; }
+}
+
 class HDFlamethrowerStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
