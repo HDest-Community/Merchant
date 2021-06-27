@@ -17,13 +17,14 @@
 Why play when you can gamble? Machines spawn in secret sectors, much like merchants, and cost 10 7mm rounds to roll. Hold Sprint when pressing Use to insert +10 rounds for a higher reward.
 Payouts are as follows:
 - 1 Stim = x1
-- 2 Stims = x1.5
-- 3 Stims = x3
-- 3 Medkits = x5
-- 3 Potions = x10
-- 3 Spiritual Armors = x25
-- 3 Megaspheres = x50
-- 3 Precious = x100
+- 2 Stims = x2.5
+- 3 Stims = x5
+- 3 Medkits = x10
+- 3 Potions = x25
+- 3 Spiritual Armors = x50
+- 3 Megaspheres = x75
+- 3 Butts = x125
+- 3 Precious = x200
 
 ### Modding
 ---
