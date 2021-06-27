@@ -274,6 +274,8 @@ class MerchantHandler : EventHandler
 		AvailableMerchants.Push((class<HDMerchant>)('ItemMerchant'));
 		AvailableMerchants.Push((class<HDMerchant>)('WeaponMerchant'));
 
+		bool spawnedMachine = false;
+
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector sec = level.Sectors[i];
@@ -288,10 +290,11 @@ class MerchantHandler : EventHandler
 					break;
 				}
 			}
-			if (sec.IsSecret() && random(1, 100) <= max(15, 40 - 4 * (level.total_secrets - 1)))
+			if (!spawnedMachine && sec.IsSecret() && random(1, 100) <= max(15, 40 - 4 * (level.total_secrets - 1)))
 			{
 				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
 				Actor.Spawn('MerchantSlotMachine', spawnPos);
+				spawnedMachine = true;
 			}
 		}
 
