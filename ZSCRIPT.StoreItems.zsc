@@ -87,9 +87,9 @@ class StoreItem abstract
 			{
 				if (GetAmount() == 1)
 				{
-					return random[merchrand](1, 8);
+					return random[merchrand](1, 5) * hdm_stock_ammo;
 				}
-				return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6));
+				return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6)) * hdm_stock_ammo;
 			}
 			case SType_Item:
 			{

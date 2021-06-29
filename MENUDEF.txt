@@ -42,6 +42,10 @@ OptionMenu "MerchantMenu"
 	Slider "Ammo Chance", "hdm_chance_ammo", 0.05, 1.0, 0.05, 2
 	StaticText "Chance an ammo type will be sold by the merchant.", "White"
 	StaticText ""
+	Option "Ammo Amount", "hdm_stock_ammo", "AmmoStock"
+	StaticText "Multiplier for how much ammo the merchant can sell.", "White"
+	StaticText ""
+	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
 	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_ammo", "OnOff", 1
 	FlagOption "Succubus (Naked)", "hdm_skin_ammo", "OnOff", 2
@@ -75,6 +79,15 @@ OptionMenu "MerchantMenu"
 	FlagOption "Daina (Labcoat)", "hdm_skin_item", "OnOff", 10
 	FlagOption "Daina (Marauder)", "hdm_skin_item", "OnOff", 13
 	FlagOption "Nari (Succubus)", "hdm_skin_item", "OnOff", 11
+}
+
+OptionValue "AmmoStock"
+{
+	1, "Standard"
+	2, "Double the fun"
+	5, "Black Friday"
+	10, "I won the jackpot"
+	25, "Intergalactic resupply"
 }
 
 AddOptionMenu "OptionsMenu"
