@@ -151,7 +151,6 @@ class MerchantSlotMachine : Actor
 				A_StartSound("vile/pain");
 				SetStateLabel('Spawn');
 			}
-			BucksToWin = 0;
 		}
 		TimesRolled++;
 	}
