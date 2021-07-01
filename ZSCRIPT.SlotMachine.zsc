@@ -194,9 +194,6 @@ class MerchantSlotMachine : Actor
 
 	Default
 	{
-		//$Category "AceCorp/Merchant"
-		//$Title "Slot Machine"
-		//$Sprite "SLMCA0"
 		Mass 800;
 		Radius 15;
 		Height 50;
