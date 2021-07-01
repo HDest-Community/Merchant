@@ -283,7 +283,7 @@ class MerchantHandler : EventHandler
 			{
 				continue;
 			}
-			if (MerchantsLeft > 0 && sec.IsSecret() && random(1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)) || sec.GetUDMFInt('user_merchantsector') == 1)
+			if (MerchantsLeft > 0 && (sec.IsSecret() && random(1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)) || sec.GetUDMFInt('user_merchantsector') == 1))
 			{
 				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
 				int SpawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);

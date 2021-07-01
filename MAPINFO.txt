@@ -2,3 +2,8 @@ GameInfo
 {
 	AddEventHandlers = "MerchantHandler"
 }
+
+DoomEdNums
+{
+	15590 = MerchantSlotMachine
+}
