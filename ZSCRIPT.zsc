@@ -298,11 +298,18 @@ class MerchantHandler : EventHandler
 			}
 		}
 
-		int size = validSecs.Size();
-		for (int i = 0; i < size; ++i)
+		Array<int> iteratedIndices;
+		int vsize = validSecs.Size();
+		do
 		{
-			int rnd = random(0, size - 1);
-			Sector sec = validSecs[rnd];
+			int i = random(0, vsize - 1);
+			if (iteratedIndices.Size() > 0 && iteratedIndices.Find(i) != iteratedIndices.Size())
+			{
+				continue;
+			}
+			iteratedIndices.Push(i);
+
+			Sector sec = validSecs[i];
 			if (MerchantsLeft > 0)
 			{
 				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
@@ -316,7 +323,7 @@ class MerchantHandler : EventHandler
 			{
 				break;
 			}
-		}
+		} while (iteratedIndices.Size() < vsize);
 
 		// [Ace] The process of rewarding players for their intense suffering.
 		RewardStorage = MerchantRewardStorage.Get();
