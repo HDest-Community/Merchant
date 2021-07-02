@@ -276,6 +276,8 @@ class MerchantHandler : EventHandler
 
 		bool spawnedMachine = false;
 
+		Array<Sector> validSecs;
+
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector sec = level.Sectors[i];
@@ -283,13 +285,9 @@ class MerchantHandler : EventHandler
 			{
 				continue;
 			}
-			if (MerchantsLeft > 0 && (sec.IsSecret() && random(1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)) || sec.GetUDMFInt('user_merchantsector') == 1))
+			if (sec.IsSecret() && random(1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)) || sec.GetUDMFInt('user_merchantsector') == 1)
 			{
-				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
-				int SpawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
-				Actor.Spawn(AvailableMerchants[SpawnIndex], spawnPos);
-				AvailableMerchants.Delete(SpawnIndex);
-				MerchantsLeft--;
+				validSecs.Push(sec);
 			}
 			else if (!spawnedMachine && sec.IsSecret() && random(1, 100) <= max(15, 40 - 5 * (level.total_secrets - 1)) || sec.GetUDMFInt('user_slotmachinesector') == 1)
 			{
@@ -297,6 +295,26 @@ class MerchantHandler : EventHandler
 				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
 				a.angle = sec.GetUDMFInt('user_slotmachineangle');
 				spawnedMachine = true;
+			}
+		}
+
+		int size = validSecs.Size();
+		for (int i = 0; i < size; ++i)
+		{
+			int rnd = random(0, size - 1);
+			Sector sec = validSecs[rnd];
+			if (MerchantsLeft > 0)
+			{
+				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
+				int SpawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+				Actor a = Actor.Spawn(AvailableMerchants[SpawnIndex], spawnPos);
+				a.angle = sec.GetUDMFInt('user_merchantangle');
+				AvailableMerchants.Delete(SpawnIndex);
+				MerchantsLeft--;
+			}
+			else
+			{
+				break;
 			}
 		}
 
