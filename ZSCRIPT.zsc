@@ -300,7 +300,7 @@ class MerchantHandler : EventHandler
 
 		Array<int> iteratedIndices;
 		int vsize = validSecs.Size();
-		do
+		while (vsize > 0 && iteratedIndices.Size() < vsize)
 		{
 			int i = random(0, vsize - 1);
 			if (iteratedIndices.Size() > 0 && iteratedIndices.Find(i) != iteratedIndices.Size())
@@ -323,7 +323,7 @@ class MerchantHandler : EventHandler
 			{
 				break;
 			}
-		} while (iteratedIndices.Size() < vsize);
+		}
 
 		// [Ace] The process of rewarding players for their intense suffering.
 		RewardStorage = MerchantRewardStorage.Get();
