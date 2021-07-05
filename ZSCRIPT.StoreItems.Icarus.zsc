@@ -119,3 +119,14 @@ class HDFoGStore : StoreItem
 	override int GetBasePrice() { return 1200; }
 	override string GetFlavorText() { return "Now go and touch some Viles."; }
 }
+
+class HDWD40Store : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDWD40'; }
+	override string GetIcon() { return "SPRAY0"; }
+	override string GetDisplayName() { return "Weapon Repair Spray"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "If this doesn't get it working again nothing will."; }
+}
