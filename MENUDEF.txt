@@ -46,7 +46,6 @@ OptionMenu "MerchantMenu"
 	StaticText "Multiplier for how much ammo the merchant can sell.", "White"
 	StaticText ""
 	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
-	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_ammo", "OnOff", 1
 	FlagOption "Succubus (Naked)", "hdm_skin_ammo", "OnOff", 2
 	FlagOption "Succubus (Clothed)", "hdm_skin_ammo", "OnOff", 3
