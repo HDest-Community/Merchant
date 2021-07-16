@@ -20,13 +20,13 @@ class HDArcanumStore : StoreItem
 	override string GetFlavorText() { return "I don't understand a damn thing that's written in it."; }
 }
 
-class HDErisStore : StoreItem
+class HDViperStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "AceCorp"; }
-	override Name GetItem() { return 'HDEris'; }
-	override string GetIcon() { return "ERSGY0"; }
-	override string GetDisplayName() { return "'Eris' .50 AE Handgun"; }
+	override Name GetItem() { return 'HDViper'; }
+	override string GetIcon() { return "VPRGY0"; }
+	override string GetDisplayName() { return "'Viper' .50 AE Handgun"; }
 	override int GetBasePrice() { return 240; }
 	override string GetFlavorText() { return "Excellent for pretending to be the last action hero."; }
 }
@@ -53,13 +53,13 @@ class HDRedlineStore : StoreItem
 	override string GetFlavorText() { return "Look here. Smile. Wait for flash."; }
 }
 
-class HDBreakerStore : StoreItem
+class HDScorpionStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "AceCorp"; }
-	override Name GetItem() { return 'HDBreaker'; }
-	override string GetIcon() { return "BRKRZ0"; }
-	override string GetDisplayName() { return "'Breaker' Bolt-action Cannon"; }
+	override Name GetItem() { return 'HDScorpion'; }
+	override string GetIcon() { return "SCRPZ0"; }
+	override string GetDisplayName() { return "'Scorpion' 35mm sniper cannon"; }
 	override int GetBasePrice() { return 900; }
 	override string GetFlavorText() { return "Deletes just about anything."; }
 }
@@ -86,15 +86,15 @@ class HDBlackjackStore : StoreItem
 	override string GetFlavorText() { return "23. Bust."; }
 }
 
-class HDSledgeStore : StoreItem
+class HDWyvernStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "AceCorp"; }
-	override Name GetItem() { return 'HDSledge'; }
-	override string GetIcon() { return "SLGZA0"; }
-	override string GetDisplayName() { return "Sledge"; }
+	override Name GetItem() { return 'HDWyvern'; }
+	override string GetIcon() { return "WYVZA0"; }
+	override string GetDisplayName() { return "Wyvern"; }
 	override int GetBasePrice() { return 480; }
-	override string GetFlavorText() { return "1 + 1 = dead goat."; }
+	override string GetFlavorText() { return "No more \"WIIW\"."; }
 }
 
 class HDMajesticStore : StoreItem
