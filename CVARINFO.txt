@@ -1,4 +1,5 @@
 server bool hdm_debug = false;
+server bool hdm_enableslots = true;
 server int hdm_enablebucks = 5;
 server float hdm_rewardscale = 1.0;
 server float hdm_cardscale = 1.0;
