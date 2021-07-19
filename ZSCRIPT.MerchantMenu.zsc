@@ -49,7 +49,7 @@ class ItemsFrame : MerchMenuFrame
 
 		BrokenLines FlavorLines = ConFont.BreakLines(item.GetFlavorText(), int(size.x - (size.y * 3 + MerchantShopMenu.Spacing * 2 + 5)));
 		int LinesCount = FlavorLines.Count();
-		ContentPos.y += (SmallFont.GetHeight() * MerchantShopMenu.TextScale) * 2;
+		ContentPos.y += ((ConFont.GetHeight() + 1) * MerchantShopMenu.TextScale) * 2;
 		for (int i = LinesCount - 1; i >= 0; --i)
 		{
 			DrawText(ContentPos, ConFont, FlavorLines.StringAt(i), Font.CR_DARKGRAY, MerchantShopMenu.TextScale);
