@@ -289,7 +289,7 @@ class MerchantHandler : EventHandler
 			{
 				validSecs.Push(sec);
 			}
-			else if (!spawnedMachine && sec.IsSecret() && random(1, 100) <= max(15, 40 - 5 * (level.total_secrets - 1)) && hdm_enableslots || sec.GetUDMFInt('user_slotmachinesector') == 1)
+			else if (!spawnedMachine && sec.IsSecret() && random(1, 100) <= max(15, 50 - 5 * (level.total_secrets - 1)) && hdm_enableslots || sec.GetUDMFInt('user_slotmachinesector') == 1)
 			{
 				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
 				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
