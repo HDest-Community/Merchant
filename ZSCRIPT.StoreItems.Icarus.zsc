@@ -31,6 +31,17 @@ class HDPD42Store : StoreItem
 	override string GetFlavorText() { return "Silent and deadlier."; }
 }
 
+class HDBitchStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDBitch'; }
+	override string GetIcon() { return "BCHGZ0"; }
+	override string GetDisplayName() { return "The Bitch"; }
+	override int GetBasePrice() { return 520; }
+	override string GetFlavorText() { return "Pour Your Little Heart Out."; }
+}
+
 class HDFenrisStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
