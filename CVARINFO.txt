@@ -1,9 +1,7 @@
 server bool hdm_debug = false;
-server bool hdm_enableslots = true;
 server int hdm_enablebucks = 5;
-server float hdm_rewardscale = 1.0;
+server bool hdm_enableslots = true;
 server float hdm_cardscale = 1.0;
-server int hdm_maxreward = 1000;
 server int hdm_maxmerchants = 1;
 server float hdm_chance_weapon = 0.6;
 server float hdm_chance_ammo = 0.8;

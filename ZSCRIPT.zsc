@@ -41,24 +41,6 @@ class MerchantHandler : EventHandler
 	private MerchantRewardStorage RewardStorage;
 	private int LastSecret;
 
-	override void CheckReplacement(ReplaceEvent e)
-	{
-		if (!e.Replacement)
-		{
-			return;
-		}
-
-		switch (e.Replacement.GetClassName())
-		{
-			case 'ClipBoxPickup':
-				if (random[merchrand]() <= 8)
-				{
-					e.Replacement = "MercenaryCard";
-				}
-				break;
-		}
-	}
-
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let plr = players[e.Player].mo;
@@ -140,66 +122,10 @@ class MerchantHandler : EventHandler
 	override void WorldThingDamaged(WorldEvent e)
 	{
 		string FollowerClassName = "HDFollower";
-		class<Actor> FollowerClass = FollowerClassName;
-		if (!RewardStorage || !e.Thing || e.Thing.Health > 0 || e.Thing.bFRIENDLY || !e.Thing.bISMONSTER || e.DamageSource == e.Thing || !e.DamageSource || !(e.DamageSource is 'HDPlayerPawn') && !(e.DamageSource.target is 'HDPlayerPawn') && FollowerClass && !(e.DamageSource is FollowerClass) && e.DamageSource.GetClassName() != 'HDSoulCube' || !(hdm_enablebucks & 1))
+		class<Actor> followerCls = FollowerClassName;
+		if (!random(0, 16) && hdm_enablebucks & 1 && e.Thing is 'HDOperator' && e.Thing.Health <= 0 && !e.Thing.bCORPSE && !e.Thing.bFRIENDLY && e.DamageSource && (e.DamageSource is 'HDPlayerPawn' || e.DamageSource.target is 'HDPlayerPawn' || followerCls && e.DamageSource is followerCls || e.DamageSource.GetClassName() == 'HDSoulCube'))
 		{
-			return;
-		}
-
-		double Reward = 0;
-		if (!(e.Thing is "HDMobBase"))
-		{
-			Reward = ceil(e.Thing.GetSpawnHealth() / 200.0); // [Ace] Not perfect, but it'll do.
-		}
-		else if (e.Thing is "ZombieStormTrooper" || e.Thing is "HideousShotgunGuy" || e.Thing is "Babuin" || e.Thing is "UndeadHomeboy")
-		{
-			Reward = 0.50;
-		}
-		else if (e.Thing is "Serpentipede" || e.Thing is "VulcanetteGuy")
-		{
-			Reward = 0.80;
-		}
-		else if (e.Thing is "HDMarine" || e.Thing is "NinjaPirate" || e.Thing is "Yokai")
-		{
-			Reward = 1.0;
-		}
-		else if (e.Thing is "TechnoSpider" || e.Thing is "CombatSlug" || e.Thing is "Boner" || e.Thing is "Trilobite")
-		{
-			Reward = 1.5;
-		}
-		else if (e.Thing is "PainBringer" || e.Thing is "HoopBubble")
-		{
-			Reward = 2.5;
-		}
-		else if (e.Thing is "CommanderKeen" && !random(0, 2))
-		{
-			Reward = 6.666;
-		}
-		else if (e.Thing is "PainLord")
-		{
-			Reward = 5;
-		}
-		else if (e.Thing is "Necromancer")
-		{
-			Reward = 35;
-		}
-		else if (e.Thing is "Technorantula" || e.Thing is "SatanRobo")
-		{
-			Reward = 50;
-		}
-		else if (e.Thing is "HDBossBrain")
-		{
-			Reward = 666;
-		}
-
-		if (Reward > 0)
-		{
-			int Amount = int(Reward);
-			if (frandom[cashrand](0.01, 1.00) < Reward % 1.0)
-			{
-				Amount++;
-			}
-			RewardStorage.Money += Amount;
+			e.Thing.A_SpawnItemEx('MercenaryCard', 0, 0, 0, frandom(0.5, 2.0), 0, frandom(1.0, 4.0), random(0, 359), SXF_NOCHECKPOSITION);
 		}
 	}
 
@@ -329,9 +255,7 @@ class MerchantHandler : EventHandler
 		RewardStorage = MerchantRewardStorage.Get();
 		if (RewardStorage.Money > 0)
 		{
-			int MaxCash = hdm_maxreward > 0 ? hdm_maxreward : int.Max;
-			double TotalCash = min(RewardStorage.Money * hdm_rewardscale, MaxCash);
-			int MoneyPerPlayer = int(TotalCash / GetPlayersInGame());
+			int MoneyPerPlayer = int(RewardStorage.Money / GetPlayersInGame());
 
 			for (int i = 0; i < MAXPLAYERS; ++i)
 			{
@@ -372,7 +296,7 @@ class MerchantHandler : EventHandler
 			EscortedMerchants.Push(HDMerchant(it.thing));
 		}
 
-		if (RewardStorage && RewardStorage.Money > 0 && hdm_enablebucks & (1 | 4))
+		if (RewardStorage && RewardStorage.Money > 0 && hdm_enablebucks & 4)
 		{
 			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
 		}
@@ -674,14 +598,14 @@ class MercenaryCard : HDUPK
 	{
 		Super.PostBeginPlay();
 
-		Amount = int(Amount * frandom(0.80, 1.20) * hdm_cardscale);
+		Amount = int(Amount * frandom(0.60, 1.20) * hdm_cardscale);
 	}
 
 	Default
 	{
 		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Now who could have dropped it here!?";
 		HDUPK.PickupType "MercenaryBucks";
-		HDUPK.Amount 300;
+		HDUPK.Amount 100;
 		HDUPK.MaxUnitAmount 10000;
 		Scale 0.25;
 	}
