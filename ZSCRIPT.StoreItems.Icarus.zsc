@@ -139,5 +139,5 @@ class HDWD40Store : StoreItem
 	override string GetIcon() { return "SPRAY0"; }
 	override string GetDisplayName() { return "Weapon Repair Spray"; }
 	override int GetBasePrice() { return 150; }
-	override string GetFlavorText() { return "If this doesn't get it working again nothing will."; }
+	override string GetFlavorText() { return "If this doesn't get it working again, nothing will."; }
 }
