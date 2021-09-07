@@ -285,10 +285,10 @@ class MerchantHandler : EventHandler
 		}
 
 		Array<HDMerchant> EscortedMerchants;
-		BlockThingsIterator it = BlockThingsIterator.Create(plr, 42 * 10);
+		BlockThingsIterator it = BlockThingsIterator.Create(plr, HDCONST_ONEMETRE * 10);
 		while (it.Next())
 		{
-			if (!(it.thing is 'HDMerchant') || plr.Distance3D(it.thing) > 42 * 10 || !plr.CheckSight(it.thing))
+			if (!(it.thing is 'HDMerchant') || plr.Distance3D(it.thing) > HDCONST_ONEMETRE * 10 || !plr.CheckSight(it.thing))
 			{
 				continue;
 			}
@@ -379,7 +379,7 @@ class HDMerchant : Actor abstract
 		}
 		else
 		{
-			PlayerIsNear = CheckProximity("PlayerPawn", 42 * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
+			PlayerIsNear = CheckProximity("PlayerPawn", HDCONST_ONEMETRE * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
 			if (PlayerIsNear)
 			{
 				A_Face(target, 15);
