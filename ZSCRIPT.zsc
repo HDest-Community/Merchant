@@ -367,7 +367,7 @@ class HDMerchant : Actor abstract
 			bTHRUACTORS = true;
 			bSOLID = false;
 
-			if (PiggyBack.player.crouchfactor < 1.0 || PiggyBack.incapacitated > 0)
+			if (PiggyBack.player.crouchfactor < 0.6 || PiggyBack.incapacitated > 0)
 			{
 				bSOLID = true;
 				bNOGRAVITY = false;
