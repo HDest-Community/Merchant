@@ -603,7 +603,7 @@ class MercenaryCard : HDUPK
 
 	Default
 	{
-		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Now who could have dropped it here!?";
+		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Looks like the previous owner won't need it anymore.";
 		HDUPK.PickupType "MercenaryBucks";
 		HDUPK.Amount 100;
 		HDUPK.MaxUnitAmount 10000;
