@@ -319,3 +319,14 @@ class HDPersonalShieldGeneratorStore : StoreItem
 	override int GetStoreAmount() { return 1; }
 	override string GetFlavorText() { return "Guaranteed to make rocket marines sad."; }
 }
+
+class HDSupplyBeaconStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDSupplyBeacon'; }
+	override string GetIcon() { return "SPBCZ0"; }
+	override string GetDisplayName() { return "Supply Beacon"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "Intergalactic resupply."; }
+}
