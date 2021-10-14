@@ -327,6 +327,6 @@ class HDSupplyBeaconStore : StoreItem
 	override Name GetItem() { return 'HDSupplyBeacon'; }
 	override string GetIcon() { return "SPBCZ0"; }
 	override string GetDisplayName() { return "Supply Beacon"; }
-	override int GetBasePrice() { return 150; }
+	override int GetBasePrice() { return 250; }
 	override string GetFlavorText() { return "Intergalactic resupply."; }
 }
