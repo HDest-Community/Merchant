@@ -313,7 +313,7 @@ class HDPersonalShieldGeneratorStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDPersonalShieldGenerator'; }
-	override string GetIcon() { return "PSGNA0"; }
+	override string GetIcon() { return "PSG0A0"; }
 	override string GetDisplayName() { return "Personal Shield Generator"; }
 	override int GetBasePrice() { return 800; }
 	override int GetStoreAmount() { return 1; }
