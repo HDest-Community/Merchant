@@ -146,10 +146,16 @@ class MerchantHandler : EventHandler
 				StoreItem Item = StoreItem(new(AllClasses[i]));
 				class<Actor> a = Item.GetItem();
 
+				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
+
 				static const Name CVarNames[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-				if (a && Item.GetType() == type && frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat())
+				if (a && Item.GetType() == type && (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat()))
 				{
 					Item.StoreAmount = Item.GetStoreAmount();
+					if (inReloadingRoom)
+					{
+						Item.StoreAmount *= random[merchrand](5, 50);
+					}
 					Stores[type].StoreItems.Push(Item);
 				}
 			}
@@ -198,7 +204,9 @@ class MerchantHandler : EventHandler
 		AvailableMerchants.Push((class<HDMerchant>)('AmmoMerchant'));
 		AvailableMerchants.Push((class<HDMerchant>)('ItemMerchant'));
 		AvailableMerchants.Push((class<HDMerchant>)('WeaponMerchant'));
-		int MerchantsLeft = min(AvailableMerchants.Size(), CVar.GetCVar('hdm_maxmerchants').GetInt());
+
+		int mCount = AvailableMerchants.Size();
+		int MerchantsLeft = min(mCount, level.MapName ~== "LOTSAGUN" ? mCount : CVar.GetCVar('hdm_maxmerchants').GetInt());
 
 		bool spawnedMachine = false;
 
