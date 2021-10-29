@@ -258,7 +258,7 @@ class HDDSDStore : StoreItem
 	override Name GetItem() { return 'DSDInterface'; }
 	override string GetIcon() { return "DSDDA0"; }
 	override string GetDisplayName() { return "Dimensional Storage Device"; }
-	override int GetBasePrice() { return 1000; }
+	override int GetBasePrice() { return 600; }
 	override string GetFlavorText() { return "This item is out of this world!"; }
 }
 
