@@ -154,7 +154,7 @@ class MerchantHandler : EventHandler
 					Item.StoreAmount = Item.GetStoreAmount();
 					if (inReloadingRoom)
 					{
-						Item.StoreAmount *= random[merchrand](50, 300);
+						Item.StoreAmount *= random[merchrand](25, 150);
 					}
 					Stores[type].StoreItems.Push(Item);
 				}

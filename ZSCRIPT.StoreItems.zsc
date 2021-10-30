@@ -95,15 +95,15 @@ class StoreItem abstract
 			{
 				if (GetBasePrice() <= 15)
 				{
-					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7));
+					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7)) * hdm_stock_item;
 				}
 				if (GetBasePrice() <= 40)
 				{
-					return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5);
+					return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5) * hdm_stock_item;
 				}
 				if (GetBasePrice() <= 80)
 				{
-					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3);
+					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3) * hdm_stock_item;
 				}
 				return 1;
 			}
