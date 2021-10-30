@@ -108,13 +108,13 @@ class HDMajesticStore : StoreItem
 	override string GetFlavorText() { return "Aliens may or may not have been involved in the production of this."; }
 }
 
-class HDDefilerStore : StoreItem
+class HDExecutionerStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "AceCorp"; }
-	override Name GetItem() { return 'HDDefiler'; }
-	override string GetIcon() { return "DFLRZ0"; }
-	override string GetDisplayName() { return "Defiler"; }
+	override Name GetItem() { return 'HDExecutioner'; }
+	override string GetIcon() { return "EXECZ0"; }
+	override string GetDisplayName() { return "Executioner"; }
 	override int GetBasePrice() { return 500; }
 	override string GetFlavorText() { return "Just get it the fuck away from me. This thing is fucking cursed."; }
 }
