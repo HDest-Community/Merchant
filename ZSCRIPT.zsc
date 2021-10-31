@@ -119,11 +119,9 @@ class MerchantHandler : EventHandler
 		}
 	}
 
-	override void WorldThingDamaged(WorldEvent e)
+	override void WorldThingDied(WorldEvent e)
 	{
-		string FollowerClassName = "HDFollower";
-		class<Actor> followerCls = FollowerClassName;
-		if (!random(0, 16) && hdm_enablebucks & 1 && e.Thing is 'HDOperator' && e.Thing.Health <= 0 && !e.Thing.bCORPSE && !e.Thing.bFRIENDLY && e.DamageSource && (e.DamageSource is 'HDPlayerPawn' || e.DamageSource.target is 'HDPlayerPawn' || followerCls && e.DamageSource is followerCls || e.DamageSource.GetClassName() == 'HDSoulCube'))
+		if (!random(0, 12) && hdm_enablebucks & 1 && e.Thing is 'HDOperator' && !e.Thing.bFRIENDLY)
 		{
 			e.Thing.A_SpawnItemEx('MercenaryCard', 0, 0, 0, frandom(0.5, 2.0), 0, frandom(1.0, 4.0), random(0, 359), SXF_NOCHECKPOSITION);
 		}
