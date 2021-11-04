@@ -207,7 +207,7 @@ class HDArmorPatchKitStore : StoreItem
 	override string GetFlavorText() { return "Have fun with that."; }
 }
 
-class HDWeaponUpgradeKitStore : StoreItem
+class HDFieldAssemblyKitStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return "AceCorp"; }
@@ -331,7 +331,7 @@ class HDSupplyBeaconStore : StoreItem
 	override string GetFlavorText() { return "Intergalactic resupply."; }
 }
 
-class HDSupplyBeaconStore : StoreItem
+class HDAssemblyCoreStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "AceCorp"; }
