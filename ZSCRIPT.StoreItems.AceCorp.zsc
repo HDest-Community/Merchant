@@ -215,7 +215,7 @@ class HDFieldAssemblyKitStore : StoreItem
 	override string GetIcon() { return "FAKTA0"; }
 	override string GetDisplayName() { return "Field Assembly Kit"; }
 	override int GetBasePrice() { return 400; }
-	override string GetFlavorText() { return "Armor almost gone? Shield generator giving out? You really want that Gungnir upgrade? Well go FAK yourself."; }
+	override string GetFlavorText() { return "Armor almost gone? Shield generator giving out? Well go FAK yourself."; }
 }
 
 class HDWeaponCrateStore : StoreItem
