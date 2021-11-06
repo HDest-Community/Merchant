@@ -256,22 +256,6 @@ class MerchantHandler : EventHandler
 				break;
 			}
 		}
-
-		// [Ace] The process of rewarding players for their intense suffering.
-		RewardStorage = MerchantRewardStorage.Get();
-		if (RewardStorage.Money > 0)
-		{
-			int MoneyPerPlayer = int(RewardStorage.Money / GetPlayersInGame());
-
-			for (int i = 0; i < MAXPLAYERS; ++i)
-			{
-				if (players[i].mo && MoneyPerPlayer > 0)
-				{
-					players[i].mo.A_GiveInventory("MercenaryBucks", MoneyPerPlayer);
-				}
-			}
-			RewardStorage.Money = 0;
-		}
 	}
 
 	override void WorldUnloaded(WorldEvent e)
@@ -302,7 +286,8 @@ class MerchantHandler : EventHandler
 			EscortedMerchants.Push(HDMerchant(it.thing));
 		}
 
-		if (RewardStorage && RewardStorage.Money > 0 && hdm_enablebucks & 4)
+		RewardStorage = MerchantRewardStorage.Get();
+		if (RewardStorage.Money > 0 && hdm_enablebucks & 4)
 		{
 			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
 		}
@@ -310,10 +295,24 @@ class MerchantHandler : EventHandler
 		for (int i = 0; i < EscortedMerchants.Size(); ++i)
 		{
 			EscortedMerchants[i].Destroy(); // [Ace] You have escorted the merchant(s) to the exit. They won't be there if you return. Only affects hubs.
-			if (RewardStorage && hdm_enablebucks & 2)
+			if (hdm_enablebucks & 2)
 			{
 				RewardStorage.Money += 100;
 			}
+		}
+
+		// [Ace] The process of rewarding players for their intense suffering.
+		if (RewardStorage.Money > 0)
+		{
+			int moneyPerPlayer = int(RewardStorage.Money / GetPlayersInGame());
+			for (int i = 0; i < MAXPLAYERS; ++i)
+			{
+				if (players[i].mo && MoneyPerPlayer > 0)
+				{
+					players[i].mo.A_GiveInventory("MercenaryBucks", moneyPerPlayer);
+				}
+			}
+			RewardStorage.Money = 0;
 		}
 	}
 
@@ -332,7 +331,7 @@ class MerchantHandler : EventHandler
 
 	override void WorldTick()
 	{
-		if (RewardStorage && level.found_secrets != LastSecret)
+		if (level.found_secrets != LastSecret)
 		{
 			LastSecret = level.found_secrets;
 			if (hdm_enablebucks & 4)
