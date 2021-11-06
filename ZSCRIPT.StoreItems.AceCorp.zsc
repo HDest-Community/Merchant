@@ -339,5 +339,5 @@ class HDAssemblyCoreStore : StoreItem
 	override string GetIcon() { return "ASCRA0"; }
 	override string GetDisplayName() { return "Assembly Core"; }
 	override int GetBasePrice() { return 200; }
-	override string GetFlavorText() { return "Intergalactic resupply."; }
+	override string GetFlavorText() { return "Avengers not included."; }
 }
