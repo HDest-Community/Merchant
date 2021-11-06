@@ -612,12 +612,18 @@ class MercenaryCard : HDUPK
 		Amount = int(Amount * frandom(0.60, 1.20) * hdm_cardscale);
 	}
 
+	override void A_HDUPKGive()
+	{
+		let storage = MerchantRewardStorage.Get();
+		storage.Money += Amount;
+		Amount = 0;
+		Super.A_HDUPKGive();
+	}
+
 	Default
 	{
 		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Looks like the previous owner won't need it anymore.";
-		HDUPK.PickupType "MercenaryBucks";
 		HDUPK.Amount 100;
-		HDUPK.MaxUnitAmount 10000;
 		Scale 0.25;
 	}
 
