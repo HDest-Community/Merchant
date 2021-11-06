@@ -192,6 +192,8 @@ class MerchantHandler : EventHandler
 			return;
 		}
 
+		RewardStorage = MerchantRewardStorage.Get();
+
 		InitCurrencies();
 		for (int i = 0; i < Stores.Size(); ++i)
 		{
@@ -331,6 +333,10 @@ class MerchantHandler : EventHandler
 
 	override void WorldTick()
 	{
+		if (!RewardStorage)
+		{
+			RewardStorage = MerchantRewardStorage.Get();
+		}
 		if (level.found_secrets != LastSecret)
 		{
 			LastSecret = level.found_secrets;
