@@ -378,14 +378,25 @@ class HDMerchant : Actor abstract
 			bTHRUACTORS = true;
 			bSOLID = false;
 
-			if (PiggyBack.player.crouchfactor < 0.6 || PiggyBack.incapacitated > 0)
+			Scale.Y = default.Scale.Y * PiggyBack.player.crouchfactor;
+
+			if (PiggyBack.player.crouchfactor < 0.6 && PiggyBack.player.cmd.buttons & BT_SPEED || PiggyBack.incapacitated > 0)
 			{
-				bSOLID = true;
-				bNOGRAVITY = false;
-				bTHRUACTORS = false;
-				bFORCEYBILLBOARD = false;
-				PiggyBack.A_TakeInventory("HDMerchantBody");
-				PiggyBack = null;
+				if (DropHoldTimer++ == 16 || PiggyBack.incapacitated > 0)
+				{
+					bSOLID = true;
+					bNOGRAVITY = false;
+					bTHRUACTORS = false;
+					bFORCEYBILLBOARD = false;
+					PiggyBack.A_TakeInventory("HDMerchantBody");
+					PiggyBack = null;
+					Scale.Y = default.Scale.Y;
+					DropHoldTimer = 0;
+				}
+			}
+			else
+			{
+				DropHoldTimer = 0;
 			}
 		}
 		else
@@ -410,6 +421,7 @@ class HDMerchant : Actor abstract
 
 		if (plr.player.cmd.buttons & BT_SPEED && !plr.CheckInventory("HDMerchantBody", 1))
 		{
+			DropHoldTimer = 0;
 			PiggyBack = plr;
 			PlayerIsNear = false; // [Ace] This forces the merchant to cease their animation.
 			plr.A_GiveInventory("HDMerchantBody");
@@ -509,6 +521,8 @@ class HDMerchant : Actor abstract
 	private HDPlayerPawn LastUser;
 
 	private double SOffsetY;
+
+	private int DropHoldTimer;
 
 	private HDMerchantSkin SelectedSkin;
 
