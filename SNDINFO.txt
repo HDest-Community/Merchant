@@ -1,5 +1,4 @@
 $alias SlotMachine/WinRegular skeleton/sight
-$alias SlotMachine/WinAss Daina/Default/Buying
 SlotMachine/WinJackpot SLOTJPT1
 
 SlotMachine/Rolling SLOTSPIN
@@ -47,10 +46,6 @@ Daina/Bunny/Buying "Sounds/Daina/BunnyStart.ogg"
 Daina/Bunny/GoAway "Sounds/Daina/BunnyEnd.ogg"
 Daina/Maid/Buying "Sounds/Daina/MaidStart.ogg"
 Daina/Maid/GoAway "Sounds/Daina/MaidEnd.wav"
-Daina/Succubus/Buying "Sounds/Daina/SuccubusStart.ogg"
-Daina/Succubus/GoAway "Sounds/Daina/SuccubusEnd.ogg"
-Daina/Cowgirl/Buying "Sounds/Daina/CowgirlStart.ogg"
-Daina/Cowgirl/GoAway "Sounds/Daina/CowgirlEnd.ogg"
 Daina/Labcoat/Buying "Sounds/Daina/LabcoatStart.ogg"
 Daina/Labcoat/GoAway "Sounds/Daina/LabcoatEnd.ogg"
 
