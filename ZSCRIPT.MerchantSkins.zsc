@@ -63,7 +63,7 @@ extend class HDMerchant
 
 		if (AvailableSkins.Size() > 0)
 		{
-			SelectedSkin = AvailableSkins[random(0, AvailableSkins.Size() - 1)];
+			SelectedSkin = AvailableSkins[random[merchskinrand](0, AvailableSkins.Size() - 1)];
 		}
 	}
 
