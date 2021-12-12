@@ -115,7 +115,7 @@ class MerchantSlotMachine : Actor
 				case 2: mult = 25; Results[5]++; break;
 				case 3: mult = 50; Results[6]++; break;
 				case 4: mult = 100; Results[7]++; break;
-				case 5: mult = 200; Results[9]++; winSound = "SlotMachine/WinJackpot"; break;
+				case 5: mult = 200; Results[8]++; winSound = "SlotMachine/WinJackpot"; break;
 			}
 		}
 		if (mult == 0)
@@ -183,7 +183,7 @@ class MerchantSlotMachine : Actor
 
 	private transient CVar Debug;
 	private int TimesRolled;
-	private int Results[10];
+	private int Results[9];
 	private int InsertedAmmo;
 	private int BucksToWin;
 	private int CurrentLock;
@@ -264,7 +264,7 @@ class SlotMachineSlot : Actor
 		return sum;
 	}
 
-	static const int Weights[] = { 3, 4, 3, 3, 3, 1 };
+	static const int Weights[] = { 4, 10, 8, 6, 5, 4 };
 	int PlaceIndex;
 	int RollIndex;
 
