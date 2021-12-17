@@ -22,7 +22,7 @@ class PokerPlayerInfo
 	int HighestKicker;
 
 	int Bet;
-	int RelativeBet;
+	int WinLoss;
 
 	bool Winner;
 	bool HasFolded;
@@ -464,9 +464,13 @@ extend class MerchantHandler
 			if (CardPlayers[i].Player)
 			{
 				string moneyStr = "$"..sb.FormatNumber(CardPlayers[i].Player.CountInv('MercenaryBucks'), 1, 5);
-				if (CardPlayers[i].RelativeBet > 0)
+				if (CardPlayers[i].WinLoss < 0)
 				{
-					moneyStr = moneyStr.." \c[Red](-$"..CardPlayers[i].RelativeBet..")";
+					moneyStr = moneyStr.." \c[Red](-$"..abs(CardPlayers[i].WinLoss)..")";
+				}
+				else if (CardPlayers[i].WinLoss > 0)
+				{
+					moneyStr = moneyStr.." \c[Blue](+$"..CardPlayers[i].WinLoss..")";
 				}
 				sb.DrawString(mConFont, moneyStr, pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
 				pos.y += top ? 12 : -19;
@@ -796,7 +800,7 @@ extend class MerchantHandler
 						for (int i = 0; i < CardPlayers.Size(); ++i)
 						{
 							CardPlayers[i].HasChecked = false;
-							CardPlayers[i].RelativeBet = 0;
+							CardPlayers[i].WinLoss = 0;
 						}
 						ActionTimer = 20;
 						RotatePlayer();
@@ -865,6 +869,15 @@ extend class MerchantHandler
 							}
 						}
 
+						// [Ace] Yeah, you may lose 50 cents due to truncation. Too bad!
+						// No division by zero prevention because if this ever gets divided by zero, something has gone terribly wrong.
+						int moneyPerPlayer = GetPotAmount() / winnerCount;
+						for (int i = 0; i < winnerCount; ++i)
+						{
+							winners[i].Player.A_GiveInventory('MercenaryBucks', moneyPerPlayer);
+							winners[i].WinLoss += moneyPerPlayer;
+						}
+
 						// [Ace] Get rid of broke players.
 						for (int i = totalPlayers - 1; i >= 0; --i)
 						{
@@ -873,14 +886,6 @@ extend class MerchantHandler
 								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
 								CardPlayers[i].Bust = true;
 							}
-						}
-
-						// [Ace] Yeah, you may lose 50 cents due to truncation. Too bad!
-						// No division by zero prevention because if this ever gets divided by zero, something has gone terribly wrong.
-						int moneyPerPlayer = GetPotAmount() / winnerCount;
-						for (int i = 0; i < winnerCount; ++i)
-						{
-							winners[i].Player.A_GiveInventory('MercenaryBucks', moneyPerPlayer);
 						}
 
 						if (CheckGameEnd(0))
@@ -1274,7 +1279,7 @@ extend class MerchantHandler
 		for (int i = 0; i < size; ++i)
 		{
 			CardPlayers[i].Bet = 0;
-			CardPlayers[i].RelativeBet = 0;
+			CardPlayers[i].WinLoss = 0;
 			CardPlayers[i].HasChecked = false;
 			CardPlayers[i].HasFolded = false;
 			CardPlayers[i].Winner = false;
@@ -1291,7 +1296,7 @@ extend class MerchantHandler
 		amt = min(amt, plr.Player.CountInv('MercenaryBucks'));
 		plr.Player.A_TakeInventory('MercenaryBucks', amt);
 		plr.Bet += amt;
-		plr.RelativeBet += amt;
+		plr.WinLoss -= amt;
 		plr.Player.A_StartSound("Poker/BetChip", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
 	}
 
