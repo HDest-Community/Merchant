@@ -1283,8 +1283,7 @@ extend class MerchantHandler
 
 	private void PlaceBet(PokerPlayerInfo plr, int amt)
 	{
-		int invAmt = plr.Player.CountInv('MercenaryBucks');
-		if (amt == 0 || amt > invAmt)
+		if (amt == 0)
 		{
 			return;
 		}
