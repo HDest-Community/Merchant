@@ -1,0 +1,1409 @@
+enum HandRank
+{
+	HighCard,
+	Pair,
+	TwoPair,
+	ThreeKind,
+	Straight,
+	Flush,
+	FullHouse,
+	FourKind,
+	StraightFlush,
+	RoyalFlush,
+}
+
+class PokerPlayerInfo
+{
+	vector3 StartingPosition;
+	Actor Player;
+
+	Array<PlayingCard> HoleCards;
+	HandRank HighestRank;
+	int HighestKicker;
+
+	int Bet;
+	int RelativeBet;
+
+	bool Winner;
+	bool HasFolded;
+	bool HasChecked;
+
+	clearscope bool IsAi() const
+	{
+		return Player && !Player.player;
+	}
+
+	clearscope string GetName() const
+	{
+		if (!Player)
+		{
+			return "Abandoned seat";
+		}
+		if (Player is 'PlayerPawn')
+		{
+			return PlayerPawn(Player).player.GetUserName().."\c-";
+		}
+		return Player.GetTag().."\c-";
+	}
+
+	// [Ace] Ensure that the array's size is ALWAYS five. If it's not five, something is fucked.
+	// Also this code was written by arooкas and adapted to ZScript by me. Bless that guy, he's a legend.
+	// I would not have been able to figure this out, ever, without his help. 
+	static clearscope HandRank, int EvaluateHand(Array<PlayingCard> hand)
+	{
+		int handSize = hand.Size();
+
+		int uniqueSuits = 0; // [arooкas] number of unique suits (1-4)
+		int suitBitflags = 0; // [arooкas] the individual suits (bitflags)
+		int highCardValue = 0; // [arooкas] highest face value in the hand (0-12)
+		int faceCount[13] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // [arooкas] number of occurences of each face value
+		int quadValue = -1; // [arooкas] face value of four of a kind
+		int tripleValue = -1; // [arooкas] face value of three of a kind
+		int pairValue[2] = { -1, -1 }; // [arooкas] face value of either pair
+
+		// [arooкas] gather all the face and suit information into a histogram
+		for (int i = 0; i < handSize; ++i)
+		{
+			int rank = hand[i].Rank;
+			int suit = (1 << hand[i].Suit);
+
+			if (suitBitflags & suit == 0)
+			{
+				suitBitflags |= suit;
+				uniqueSuits++;
+			}
+
+			highCardValue = max(highCardValue, rank);
+
+			switch (++faceCount[rank])
+			{
+				case 2:
+				{
+					pairValue[pairValue[0] == -1 ? 0 : 1] = rank;
+					break;
+				}
+				case 3:
+				{
+					pairValue[pairValue[0] == rank ? 0 : 1] = -1;
+					tripleValue = rank;
+					break;
+				}
+				case 4:
+				{
+					if (tripleValue == rank)
+					{
+						tripleValue = -1;
+					}
+					quadValue = rank;
+					break;
+				}
+			}
+		}
+
+		// [arooкas] four of a kind
+		if (quadValue >= 0) 
+		{
+			int kicker = (13 * quadValue);
+
+			for (int i = 0; i < handSize; ++i)
+			{
+				if (faceCount[hand[i].Rank] == 1)
+				{
+					kicker += hand[i].Rank;
+					break;
+				}
+			}
+
+			return FourKind, kicker;
+		}
+
+		// [arooкas] three of a kind OR full house
+		if (tripleValue >= 0)
+		{
+			HandRank rank = HighCard;
+			int kicker = 0;
+
+			if (pairValue[0] >= 0)
+			{
+				rank = FullHouse;
+				kicker = (13 * tripleValue + pairValue[0]);
+			}
+			else if (pairValue[1] >= 0)
+			{
+				rank = FullHouse;
+				kicker = (13 * tripleValue + pairValue[1]);
+			}
+			else
+			{
+				rank = ThreeKind;
+				kicker = tripleValue;
+			}
+
+			return rank, kicker;
+		}
+
+		// [arooкas] pair OR two-pair
+		if (pairValue[0] >= 0 || pairValue[1] >= 0)
+		{
+			HandRank rank = HighCard;
+			int kicker = 0;
+
+			if (pairValue[0] >= 0 && pairValue[1] >= 0)
+			{
+				rank = TwoPair;
+
+				for (int i = 0; i < handSize; ++i)
+				{
+					if (faceCount[hand[i].Rank] == 1)
+					{
+						kicker = hand[i].Rank;
+						break;
+					}
+				}
+
+				kicker += (169 * max(pairValue[0], pairValue[1]) + 13 * min(pairValue[0], pairValue[1]));
+			}
+			else
+			{
+				rank = Pair;
+
+				for (int i = 0; i < handSize; ++i)
+				{
+					if (faceCount[hand[i].Rank] == 1)
+					{
+						kicker = max(kicker, hand[i].Rank);
+						break;
+					}
+				}
+
+				kicker += (13 * pairValue[pairValue[0] >= 0 ? 0 : 1]);
+			}
+
+			return rank, kicker;
+		}
+
+		// [arooкas] straight OR straight flush OR royal flush
+		if (handSize > 2 && highCardValue >= 4)
+		{
+			bool straight = true;
+
+			for (int i = highCardValue; i >= 0; --i)
+			{
+				if (faceCount[i] != 1)
+				{
+					straight = false;
+					break;
+				}
+			}
+
+			if (straight)
+			{
+				HandRank rank = HighCard;
+				int kicker = 0;
+
+				if (uniqueSuits == 1)
+				{
+					if (highCardValue == 12)
+					{
+						rank = RoyalFlush;
+						kicker = 0;
+					}
+					else
+					{
+						rank = StraightFlush;
+						kicker = highCardValue;
+					}
+				}
+				else
+				{
+					rank = Straight;
+					kicker = highCardValue;
+				}
+
+				return rank, kicker;
+			}
+		}
+
+		// [arooкas] flush OR high card
+		return uniqueSuits == 1 ? Flush : HighCard, highCardValue;
+	}
+}
+
+struct PokerUiData
+{
+	int SelectedChipIndex;
+}
+
+extend class MerchantHandler
+{
+	enum PokerGameStage
+	{
+		Stage_BeginRound,
+
+		Stage_SmallBlind,
+		Stage_BigBlind,
+
+		Stage_DealHoles,
+		Stage_InitialBet,
+
+		Stage_DealFlop,
+		Stage_BetFlop,
+
+		Stage_DealTurn,
+		Stage_BetTurn,
+
+		Stage_DealRiver,
+		Stage_BetRiver,
+
+		Stage_EndRound
+	}
+
+	static const int ChipAmounts[] = { 1, 2, 5, 10, 20, 25, 50, 100, 250, 500, 1000, 2000, 5000 };
+
+	private Array<PokerPlayerInfo> CardPlayers;
+	private CardDeck Deck;
+	private Array<PlayingCard> CommunityCards;
+	private Array<PlayingCard> BurnedCards;
+
+	private ui PokerUiData[MAXPLAYERS] UiData;
+
+	private PokerGameStage Stage;
+	private bool GameInProgress;
+	private int ActionTimer;
+	private int PlayerIndex;
+	private int DealerIndex;
+
+	private transient ui HUDFont mConFont;
+
+	// ----------------------------------------------------------
+	// UI
+	// ----------------------------------------------------------
+
+	override void RenderOverlay(RenderEvent e)
+	{
+		if (!mConFont)
+		{
+			mConFont = HUDFont.Create("CONFONT");
+		}
+
+		int OriginalWidth = StatusBar.HorizontalResolution;
+		int OriginalHeight = StatusBar.VerticalResolution;
+
+		StatusBar.BeginHUD();
+		StatusBar.SetSize(StatusBar.RelTop, 480, 320);
+
+		let plr = players[consoleplayer].mo;
+
+		if (GameInProgress && !AutomapActive && GameState == GS_LEVEL && PlayerIsInPokerGame(plr))
+		{
+			DrawGame(HDStatusBar(StatusBar), plr, StatusBar.DI_SCREEN_CENTER | StatusBar.DI_ITEM_CENTER);
+		}
+
+		StatusBar.SetSize(StatusBar.RelTop, OriginalWidth, OriginalHeight);
+	}
+
+	override void UiTick()
+	{
+		if (!GameInProgress)
+		{
+			return;
+		}
+
+		for (int pIndex = 0; pIndex < CardPlayers.Size(); ++pIndex)
+		{
+			if (!CardPlayers[pIndex].Player)
+			{
+				continue;
+			}
+
+			int holeSize = CardPlayers[pIndex].HoleCards.Size();
+			int communitySize = CommunityCards.Size();
+
+			// [Ace] This check is here to make sure you only ever pass a valid-sized array to EvaluateHand().
+			if (holeSize < 2 || Stage > Stage_InitialBet && communitySize < 3)
+			{
+				break;
+			}
+
+			HandRank rank = HighCard;
+			int kicker = 0;
+			CardPlayers[pIndex].HighestRank = HighCard;
+			CardPlayers[pIndex].HighestKicker = 0;
+
+			switch (communitySize)
+			{
+				case 0:
+				{
+					[rank, kicker] = PokerPlayerInfo.EvaluateHand(CardPlayers[pIndex].HoleCards);
+					if (CardPlayers[pIndex].HighestRank < rank) { CardPlayers[pIndex].HighestRank = rank; }
+					if (CardPlayers[pIndex].HighestKicker < kicker) { CardPlayers[pIndex].HighestKicker = kicker; }
+					break;
+				}
+				case 3:
+				{
+					Array<PlayingCard> fullHand;
+					fullHand.Append(CardPlayers[pIndex].HoleCards);
+					fullHand.Append(CommunityCards);
+
+					[rank, kicker] = PokerPlayerInfo.EvaluateHand(fullHand);
+					if (CardPlayers[pIndex].HighestRank < rank) { CardPlayers[pIndex].HighestRank = rank; }
+					if (CardPlayers[pIndex].HighestKicker < kicker) { CardPlayers[pIndex].HighestKicker = kicker; }
+					break;
+				}
+				case 4:
+				{
+					Array<PlayingCard> fullHand;
+					fullHand.Append(CardPlayers[pIndex].HoleCards);
+					fullHand.Append(CommunityCards);
+
+					Array<PlayingCard> tempHand;
+					for (int i = fullHand.Size() - 1; i >= 1; --i)
+					{
+						tempHand.Copy(fullHand);
+						tempHand.Delete(i);
+						[rank, kicker] = PokerPlayerInfo.EvaluateHand(tempHand);
+						if (CardPlayers[pIndex].HighestRank < rank) { CardPlayers[pIndex].HighestRank = rank; }
+						if (CardPlayers[pIndex].HighestKicker < kicker) { CardPlayers[pIndex].HighestKicker = kicker; }
+					}
+					break;
+				}
+				case 5:
+				{
+					Array<PlayingCard> fullHand;
+					fullHand.Append(CardPlayers[pIndex].HoleCards);
+					fullHand.Append(CommunityCards);
+
+					Array<PlayingCard> tempHand;
+					for (int i = fullHand.Size() - 1; i >= 1; --i)
+					{
+						for (int j = i - 1; j >= 0; --j)
+						{
+							tempHand.Copy(fullHand);
+							tempHand.Delete(i);
+							tempHand.Delete(j);
+							[rank, kicker] = PokerPlayerInfo.EvaluateHand(tempHand);
+							if (CardPlayers[pIndex].HighestRank < rank) { CardPlayers[pIndex].HighestRank = rank; }
+							if (CardPlayers[pIndex].HighestKicker < kicker) { CardPlayers[pIndex].HighestKicker = kicker; }
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	private ui void DrawGame(HDStatusBar sb, PlayerPawn plr, int gzflags)
+	{
+		int totalPlayers = CardPlayers.Size();
+		for (int i = 0; i < totalPlayers; ++i)
+		{
+			bool top = i + 1 > (ceil(totalPlayers / 2.0));
+			vector2 pos = (0, 0);
+			switch (totalPlayers)
+			{
+				case 2:
+				{
+					pos.x = 0;
+					break;
+				}
+				case 3:
+				{
+					static const int offs[] = { 150, -150, 0 };
+					pos.x = offs[i];
+					break;
+				}
+				case 4:
+				{
+					static const int offs[] = { 150, -150, -150, 150 };
+					pos.x = offs[i];
+					break;
+				}
+				case 5:
+				{
+					static const int offs[] = { 200, 0, -200, -132, 132 };
+					pos.x = offs[i];
+					break;
+				}
+				case 6:
+				{
+					static const int offs[] = { 200, 0, -200, -200, 0, 200 };
+					pos.x = offs[i];
+					break;
+				}
+				case 7:
+				{
+					static const int offs[] = { 250, 84, -84, -250, -165, 0, 165 };
+					pos.x = offs[i];
+					break;
+				}
+				case 8:
+				{
+					static const int offs[] = { 250, 84, -84, -250, -250, -84, 84, 250 };
+					pos.x = offs[i];
+					break;
+				}
+			}
+
+			if (CardPlayers[i].Player)
+			{
+				for (int j = 0; j < CardPlayers[i].HoleCards.Size(); ++j)
+				{
+					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(CardPlayers[i].Player == plr || Stage == Stage_EndRound && !CardPlayers[i].HasFolded), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
+					if (CardPlayers[i].Winner)
+					{
+						sb.DrawImage("CARDGLOW", (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
+					}
+				}
+			}
+
+			DrawChips(sb, (pos.x - 65, top ? -207 : 153), gzflags, CardPlayers[i].Bet);
+			
+			pos.y = top ? -135 : 125;
+
+			string nameString = (i == PlayerIndex ? "\c[Sapphire]>>>\c- " : "")..CardPlayers[i].GetName()..(i == DealerIndex ? "\c[Gold] (D)\c-" : "")..(i == PlayerIndex ? " \c[Sapphire]<<<\c-" : "");
+			sb.DrawString(sb.pSmallFont, nameString, pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE);
+			pos.y += top ? 10 : -13;
+
+			if (CardPlayers[i].Player)
+			{
+				string moneyStr = "$"..sb.FormatNumber(CardPlayers[i].Player.CountInv('MercenaryBucks'), 1, 5);
+				if (CardPlayers[i].RelativeBet > 0)
+				{
+					moneyStr = moneyStr.." \c[Red](-$"..CardPlayers[i].RelativeBet..")";
+				}
+				sb.DrawString(mConFont, moneyStr, pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
+				pos.y += top ? 12 : -19;
+			}
+
+			if (CardPlayers[i].HasFolded)
+			{
+				sb.DrawString(sb.pNewSmallFont, "FOLDED", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_RED);
+			}
+
+			if (Stage > Stage_DealHoles && CardPlayers[i].Player == plr || Stage == Stage_EndRound && !CardPlayers[i].HasFolded)
+			{
+				string rankStr = "High Card";
+				switch (CardPlayers[i].HighestRank)
+				{
+					case Pair: rankStr = "Pair"; break;
+					case TwoPair: rankStr = "Two Pairs"; break;
+					case ThreeKind: rankStr = "Three of a Kind"; break;
+					case Straight: rankStr = "Straight"; break;
+					case Flush: rankStr = "Flush"; break;
+					case FullHouse: rankStr = "Full House"; break;
+					case FourKind: rankStr = "Four of a Kind"; break;
+					case StraightFlush: rankStr = "Straight Flush"; break;
+					case RoyalFlush: rankStr = "Royal Flush"; break;
+				}
+				sb.DrawString(mConFont, rankStr, (pos.x, top ? -234 : 225), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GOLD);
+			}
+		}
+
+		// ------------------------------------------------------------
+		// I BET YOU CAN'T GO ALL IN
+		// ------------------------------------------------------------
+
+		if (CardPlayers[PlayerIndex].Player == plr && (Stage == Stage_InitialBet || Stage == Stage_BetFlop || Stage == Stage_BetTurn || Stage == Stage_BetRiver))
+		{
+			int chipIndex = UiData[consoleplayer].SelectedChipIndex;
+			sb.DrawImage("PKCHIP"..chipIndex, (220, 0), gzflags, box: (50, 50));
+			if (chipIndex < ChipAmounts.Size() - 1)
+			{
+				sb.DrawImage("CHIPARUP", (220, -40), gzflags);
+			}
+			if (chipIndex > 0)
+			{
+				sb.DrawImage("CHIPARDN", (220, 40), gzflags);
+			}
+
+			int highestBet = GetHighestBet();
+			int curBet = CardPlayers[PlayerIndex].Bet;
+			int chipAmount = ChipAmounts[UiData[consoleplayer].SelectedChipIndex];
+			int money = CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks');
+
+			string actionStr = "Bet";
+			if (curBet < highestBet)
+			{
+				if (money < highestBet)
+				{
+					actionStr = "All in";
+				}
+				actionStr = curBet + chipAmount > highestBet ? "Raise" : "Call";
+			}
+
+			vector2 pos = (0, -20);
+
+			if (money > 0)
+			{
+				sb.DrawString(sb.pSmallFont, "\c[Gold][Enter]\c[White] - "..actionStr, (250, pos.y), gzflags | sb.DI_TEXT_ALIGN_LEFT);
+				pos.y += 10;
+			}
+
+			if (curBet >= highestBet)
+			{
+				sb.DrawString(sb.pSmallFont, "\c[Green][Space]\c[White] - Check", (250, pos.y), gzflags | sb.DI_TEXT_ALIGN_LEFT);
+				pos.y += 10;
+			}
+
+			sb.DrawString(sb.pSmallFont, "\c[Brick][End]\c[White] - Fold", (250, pos.y), gzflags | sb.DI_TEXT_ALIGN_LEFT);
+		}
+
+		// ------------------------------------------------------------
+		// COMMUNITY & BURNER CARDS
+		// ------------------------------------------------------------
+
+		for (int i = 0; i < CommunityCards.Size(); ++i)
+		{
+			sb.DrawImage(CommunityCards[i].GetIcon(true), (-140 + 70 * i, 0), gzflags);
+		}
+
+		for (int i = 0; i < BurnedCards.Size(); ++i)
+		{
+			sb.DrawImage(BurnedCards[i].GetIcon(), (-220 + 5 * i, 0), gzflags);
+		}
+
+		// ------------------------------------------------------------
+		// POT, DON'T SMOKE IT
+		// ------------------------------------------------------------
+
+		sb.DrawString(sb.pNewSmallFont, "-----=====$$$ \c[White]POT\c- $$$=====-----", (0, 60), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
+		DrawChips(sb, (0, 95), gzflags, GetPotAmount(), 20, true, 2);
+
+		// ------------------------------------------------------------
+		// WINRAR
+		// ------------------------------------------------------------
+
+		if (Stage == Stage_EndRound)
+		{
+			Array<string> winnerNames;
+			for (int i = 0; i < totalPlayers; ++i)
+			{
+				if (CardPlayers[i].Winner)
+				{
+					winnerNames.Push(CardPlayers[i].GetName());
+				}
+			}
+			sb.DrawString(sb.pNewSmallFont, String.Format("%s win%s the round", AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
+		}
+
+		// ------------------------------------------------------------
+		// GAME STATUS
+		// ------------------------------------------------------------
+
+		string gameStatus = "";
+		switch (Stage)
+		{
+			case Stage_SmallBlind:
+			{
+				gameStatus = "\c[DarkGray]Posting small blind...";
+				break;
+			}
+			case Stage_BigBlind:
+			{
+				gameStatus = "\c[DarkGray]Posting big blind...";
+				break;
+			}
+
+			case Stage_InitialBet:
+			case Stage_BetFlop:
+			case Stage_BetTurn:
+			case Stage_BetRiver:
+			{
+				gameStatus = CardPlayers[PlayerIndex].GetName().. "\c[DarkGray] is betting...";
+				break;
+			}
+
+			case Stage_DealHoles:
+			case Stage_DealFlop:
+			case Stage_DealTurn:
+			case Stage_DealRiver:
+			{
+				gameStatus = CardPlayers[DealerIndex].GetName().. "\c[DarkGray] is dealing...";
+				break;
+			}
+
+			case Stage_EndRound:
+			{
+				gameStatus = "\c[DarkGray]Resetting game...";
+				break;
+			}
+		}
+		sb.DrawString(sb.pNewSmallFont, gameStatus, (0, -60), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE);
+	}
+
+	private ui void DrawChips(HDStatusBar sb, vector2 pos, int gzflags, int amt, int spacing = 15, bool horizontal = false, int alignment = 0, int wrapCount = 5)
+	{
+		// [Ace] Alignments are: 0 = left, 1 = right, 2 = center.
+		Array<string> chips;
+		for (int i = ChipAmounts.Size() - 1; i >= 0;)
+		{
+			if (amt >= ChipAmounts[i])
+			{
+				chips.Push("PKCHIP"..i);
+				amt -= ChipAmounts[i];
+				continue;
+			}
+			i--;
+		}
+
+		vector2 off = horizontal ? (spacing, 0) : (0, spacing);
+		vector2 flippedOff = horizontal ? (0, spacing) : (spacing, 0);
+		if (alignment == 1)
+		{
+			off *= -1;
+			flippedOff *= -1;
+		}
+
+		int chipCount = chips.Size();
+		if (alignment == 2)
+		{
+			// [Ace] Don't wrap if centered.
+			pos -= (off / 2) * (chipCount - 1);
+			for (int i = 0; i < chipCount; ++i)
+			{
+				sb.DrawImage(chips[i], pos + off * i, gzflags, box: (26.5, 26.5));
+			}
+		}
+		else
+		{
+			if (wrapCount == -1)
+			{
+				wrapCount = int.Max;
+			}
+			vector2 originalPos = pos;
+			for (int i = 0; i < chipCount; ++i)
+			{
+				if (i % wrapCount == 0)
+				{
+					pos = originalPos;
+					pos -= flippedOff * ((chipCount - 1) / wrapCount);
+					pos += flippedOff * (i / wrapCount);
+				}
+				sb.DrawImage(chips[i], pos + off * (i % wrapCount), gzflags, box: (26.5, 26.5));
+			}
+		}
+	}
+
+	// ----------------------------------------------------------
+	// THINK
+	// ----------------------------------------------------------
+
+	private void PokerTick()
+	{
+		int totalPlayers = CardPlayers.Size();
+		int humanPlayersCount = GetHumanPlayersCount();
+
+		for (int i = totalPlayers - 1; i >= 0; --i)
+		{
+			if (CardPlayers[i].Player && level.Vec3Diff(CardPlayers[i].Player.pos, CardPlayers[i].StartingPosition).Length() > HDCONST_ONEMETRE * 4)
+			{
+				if (!CardPlayers[i].IsAi())
+				{
+					humanPlayersCount--;
+				}
+				Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
+				CardPlayers[i].Player = null;
+			}
+		}
+
+		int realPlayers = GetRealPlayerCount();
+		if (realPlayers == 1 || humanPlayersCount == 0) // [Ace] You don't need to hold up the game if you're gonna be playing with yourself. Also you win.
+		{
+			Console.Printf("The poker game was disbanded. %s", humanPlayersCount == 0 ? "No human players left." : "Not enough players.");
+			GameInProgress = false;
+			int pot = GetPotAmount();
+			if (realPlayers == 1 && humanPlayersCount == 1)
+			{
+				for (int i = 0; i < totalPlayers; ++i)
+				{
+					if (CardPlayers[i].Player)
+					{
+						Console.Printf("The pot containing %i bucks goes to %s", pot, CardPlayers[i].GetName());
+						CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', pot);
+						break;
+					}
+				}
+			}
+			else if (realPlayers >= 1 && humanPlayersCount == 0)
+			{
+				int splitPot = pot / realPlayers;
+				for (int i = 0; i < totalPlayers; ++i)
+				{
+					if (CardPlayers[i].Player)
+					{
+						CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', splitPot);
+					}
+				}
+				Console.Printf("The pot containing %i bucks was split between the remaining players.", pot);
+			}
+			return;
+		}
+
+		if (--ActionTimer <= 0)
+		{
+			switch (Stage)
+			{
+				case Stage_BeginRound:
+				{
+					ActionTimer = 30;
+					Stage = Stage_SmallBlind;
+					break;
+				}
+				case Stage_SmallBlind:
+				{
+					RotatePlayer();
+					PlaceBet(CardPlayers[PlayerIndex], ChipAmounts[3]);
+					ActionTimer = 30;
+					Stage = Stage_BigBlind;
+					break;
+				}
+				case Stage_BigBlind:
+				{
+					RotatePlayer();
+					PlaceBet(CardPlayers[PlayerIndex], ChipAmounts[4]);
+					ActionTimer = 30;
+					PlayerIndex = DealerIndex;
+					Stage = Stage_DealHoles;
+					break;
+				}
+				case Stage_DealHoles:
+				{
+					if (!CardPlayers[PlayerIndex].Player)
+					{
+						RotatePlayer();
+					}
+					else
+					{
+						if (CardPlayers[PlayerIndex].HoleCards.Size() < 2)
+						{
+							CardPlayers[PlayerIndex].HoleCards.Push(Deck.TakeTopCard());
+							CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI, attenuation: 1.5);
+							ActionTimer = 20;
+							RotatePlayer();
+						}
+						else
+						{
+							PlayerIndex = DealerIndex;
+							RotatePlayer();
+							Stage = Stage_InitialBet;
+						}
+					}
+					break;
+				}
+				case Stage_DealFlop:
+				case Stage_DealTurn:
+				case Stage_DealRiver:
+				{
+					int maxCards = 3;
+					switch (Stage)
+					{
+						case Stage_DealTurn: maxCards = 4; break;
+						case Stage_DealRiver: maxCards = 5; break;
+					}
+					if (BurnedCards.Size() < maxCards - 2)
+					{
+						BurnedCards.Push(Deck.TakeTopCard());
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI, attenuation: 1.5);
+						ActionTimer = 40;
+					}
+					else if (CommunityCards.Size() < maxCards)
+					{
+						CommunityCards.Push(Deck.TakeTopCard());
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI, attenuation: 1.5);
+						ActionTimer = 20;
+					}
+					else
+					{
+						for (int i = 0; i < CardPlayers.Size(); ++i)
+						{
+							CardPlayers[i].HasChecked = false;
+							CardPlayers[i].RelativeBet = 0;
+						}
+						ActionTimer = 20;
+						RotatePlayer();
+						Stage++;
+					}
+					break;
+				}
+
+				case Stage_InitialBet:
+				case Stage_BetFlop:
+				case Stage_BetTurn:
+				case Stage_BetRiver:
+				{
+					let curPlr = CardPlayers[PlayerIndex];
+					if (curPlr.IsAi())
+					{
+						if (AiMakeDecision())
+						{
+							RotatePlayer();
+							ActionTimer = 0;
+						}
+					}
+
+					int contValue = CanContinue();
+					if (contValue == 2 || contValue == 1 && Stage == Stage_BetRiver)
+					{
+						ActionTimer = 35 * 8;
+						Stage = Stage_EndRound;
+
+						int totalPlayers = CardPlayers.Size();
+
+						Array<PokerPlayerInfo> winners;
+						for (int i = 0; i < totalPlayers; ++i)
+						{
+							if (CardPlayers[i].Player && !CardPlayers[i].HasFolded)
+							{
+								winners.Push(CardPlayers[i]);
+							}
+						}
+
+						int size = winners.Size();
+						for (int i = 0; i < size - 1; ++i)
+						{
+							for (int j = i + 1; j < size; ++j)
+							{
+								if (winners[i].HighestRank < winners[j].HighestRank || (winners[i].HighestRank == winners[j].HighestRank && winners[i].HighestKicker < winners[j].HighestKicker))
+								{
+									let swap = winners[i];
+									winners[i] = winners[j];
+									winners[j] = swap;
+								}
+							}
+						}
+
+						int winnerCount = 0;
+						for (int i = 0; i < size; ++i)
+						{
+							if (i == 0 || winners[i].HighestRank == winners[0].HighestRank && winners[i].HighestKicker == winners[0].HighestKicker)
+							{
+								winners[i].Winner = true;
+								winnerCount++;
+							}
+						}
+
+						// [Ace] Yeah, you may lose 50 cents due to truncation. Too bad!
+						// No division by zero prevention because if this ever gets divided by zero, something has gone terribly wrong.
+						int moneyPerPlayer = GetPotAmount() / winnerCount;
+						for (int i = 0; i < winnerCount; ++i)
+						{
+							winners[i].Player.A_GiveInventory('MercenaryBucks', moneyPerPlayer);
+						}
+
+						// [Ace] Get rid of broke players.
+						for (int i = totalPlayers - 1; i >= 0; --i)
+						{
+							if (CardPlayers[i].Player && CardPlayers[i].CountInv('MercenaryBucks') < ChipAmounts[4])
+							{
+								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
+								CardPlayers[i].Player = null;
+							}
+						}
+					}
+					else if (contValue == 1)
+					{
+						PlayerIndex = DealerIndex;
+						ActionTimer = 15;
+						Stage++;
+					}
+					break;
+				}
+
+				case Stage_EndRound:
+				{
+					RotateRound();
+					break;
+				}
+			}
+		}
+	}
+
+	// ----------------------------------------------------------
+	// INPUT
+	// ----------------------------------------------------------
+
+	override bool InputProcess(InputEvent e)
+	{
+		let plr = players[consoleplayer].mo;
+		if (!GameInProgress || CardPlayers[PlayerIndex].Player != plr)
+		{
+			return false;
+		}
+
+		if (e.Type == InputEvent.Type_KeyDown)
+		{
+			switch (e.KeyScan)
+			{
+				case e.Key_UpArrow:
+				{
+					UiData[consoleplayer].SelectedChipIndex = min(UiData[consoleplayer].SelectedChipIndex + 1, ChipAmounts.Size() - 1);
+					return true;
+				}
+				case e.Key_DownArrow:
+				{
+					UiData[consoleplayer].SelectedChipIndex = max(UiData[consoleplayer].SelectedChipIndex - 1, 0);
+					return true;
+				}
+				case e.Key_Enter:
+				{
+					int highestBet = GetHighestBet();
+					int curBet = CardPlayers[PlayerIndex].Bet;
+					int chipAmount = ChipAmounts[UiData[consoleplayer].SelectedChipIndex];
+					int money = CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks');
+
+					int betAmount = 0;
+					if (curBet + chipAmount < highestBet)
+					{
+						betAmount = min(money, highestBet - curBet);
+					}
+					else
+					{
+						betAmount = min(money, chipAmount);
+					}
+
+					if (betAmount > 0)
+					{
+						SendNetworkEvent("HDM_PlaceBet", betAmount);
+					}
+					return true;
+				}
+				case e.Key_Space:
+				{
+					int highestBet = GetHighestBet();
+					int curBet = CardPlayers[PlayerIndex].Bet;
+					if (curBet >= highestBet)
+					{
+						SendNetworkEvent("HDM_Check");
+						return true;
+					}
+					break;
+				}
+				case e.Key_End:
+				{
+					CardPlayers[PlayerIndex].HasFolded = true;
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	// ----------------------------------------------------------
+	// ACTIONS
+	// ----------------------------------------------------------
+
+	private bool AiMakeDecision()
+	{
+		let ai = CardPlayers[PlayerIndex];
+		int highestBet = GetHighestBet();
+		int curBet = ai.Bet;
+		int money = ai.Player.CountInv('MercenaryBucks');
+
+		if (random(50 + 10 * ai.HighestRank, 1000 + 70 * ai.HighestRank + highestBet >> 2) > abs(ActionTimer))
+		{
+			return false;
+		}
+
+		int decision = 0;
+		int diff = highestBet - curBet;
+
+		bool bluff = !random(0, 2);
+
+		// [Ace] Must call.
+		if (diff > 0)
+		{
+			int chance = 90;
+			switch (Stage)
+			{
+				case Stage_BetFlop:
+				case Stage_BetTurn:
+				case Stage_BetRiver:
+				{
+					chance -= 10;
+					break;
+				}
+			}
+			if (bluff)
+			{
+				chance += random(30, 80);
+			}
+			chance -= diff >> 4;
+			if (money < diff)
+			{
+				chance -= (diff - money) >> 4;
+			}
+			chance += int(1.58 ** ai.HighestRank);
+			if (chance > 100)
+			{
+				PlaceBet(ai, min(money, int(diff * (chance / 100.0))));
+				ai.HasChecked = true;
+				return true;
+			}
+			if (random(0, 100) <= chance * 1.25)
+			{
+				PlaceBet(ai, min(money, diff));
+				ai.HasChecked = true;
+				return true;
+			}
+			ai.HasFolded = true;
+			return true;
+		}
+
+		// [Ace] Can check.
+		if (diff == 0)
+		{
+			int chance = 90;
+			switch (Stage)
+			{
+				case Stage_BetFlop:
+				case Stage_BetTurn:
+				case Stage_BetRiver:
+				{
+					chance -= 10;
+					break;
+				}
+			}
+			if (bluff)
+			{
+				chance += random(30, 80);
+			}
+			chance += 10 * ai.HighestRank + int(1.50 ** ai.HighestRank);
+			if (chance <= 100 && random(0, 100) <= chance)
+			{
+				ai.HasChecked = true;
+				return true;
+			}
+			if (chance > 100)
+			{
+				PlaceBet(ai, min(money, int(curBet * frandom(1.00, 1.50) * (chance / 100.0))));
+				ai.HasChecked = true;
+				return true;
+			}
+			if (random(0, 100) <= chance * 1.25)
+			{
+				PlaceBet(ai, min(money, diff));
+				ai.HasChecked = true;
+				return true;
+			}
+			ai.HasFolded = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	private void AssembleGame(PlayerPawn caller)
+	{
+		if (GameInProgress)
+		{
+			return;
+		}
+
+		if (caller.CountInv('MercenaryBucks') < ChipAmounts[4])
+		{
+			Console.Printf("%s is broke but nevertheless tried to assemble a poker game. And failed, miserably.", caller.player.GetUserName());
+			return;
+		}
+
+		CardPlayers.Clear();
+		Array<PlayerPawn> foundPlayers;
+		Array<Actor> foundOthers;
+
+		foundPlayers.Push(caller);
+
+		BlockThingsIterator it = BlockThingsIterator.Create(caller, HDCONST_ONEMETRE * 3);
+		while (it.Next())
+		{
+			if (caller.Distance3D(it.thing) > HDCONST_ONEMETRE * 3 || it.thing.CountInv('MercenaryBucks') < ChipAmounts[4] || it.thing.Health <= 0)
+			{
+				continue;
+			}
+
+			if (caller != it.thing && it.thing is 'PlayerPawn' && HDPlayerPawn(it.thing).incapacitated == 0)
+			{
+				foundPlayers.Push(PlayerPawn(it.thing));
+			}
+
+			if (it.thing is 'HDMerchant' && !HDMerchant(it.thing).PiggyBack)
+			{
+				foundOthers.Push(it.thing);
+			}
+		}
+
+		int playerCount = foundPlayers.Size();
+		for (int i = 0; i < playerCount; ++i)
+		{
+			let info = new('PokerPlayerInfo');
+			info.Player = foundPlayers[i];
+			info.StartingPosition = foundPlayers[i].pos;
+			CardPlayers.Push(info);
+		}
+
+		// [Ace] Fill the rest of the slots with any nearby valid actors.
+		int otherCount = foundOthers.Size();
+		if (playerCount < MAXPLAYERS && otherCount > 0)
+		{
+			for (int i = 0; i < min(MAXPLAYERS - playerCount, otherCount); ++i)
+			{
+				let info = new('PokerPlayerInfo');
+				info.Player = foundOthers[i];
+				info.StartingPosition = foundOthers[i].pos;
+				CardPlayers.Push(info);
+			}
+		}
+
+		int totalPlayers = CardPlayers.Size();
+		if (totalPlayers >= 2)
+		{
+			string plrStr = "";
+			for (int i = 0; i < totalPlayers; ++i)
+			{
+				plrStr = plrStr..CardPlayers[i].GetName();
+				if (i < totalPlayers - 1)
+				{
+					plrStr = plrStr..", ";
+				}
+			}
+			Console.Printf("Assembled a game with: %s", plrStr);
+			GameInProgress = true;
+			Stage = Stage_BeginRound;
+			ActionTimer = 0;
+			PlayerIndex = 0;
+			DealerIndex = 0;
+			Deck.GenerateDeck(2);
+			CommunityCards.Clear();
+			BurnedCards.Clear();
+		}
+		else
+		{
+			Console.Printf("Not enough players nearby to assemble a poker game with.");
+		}
+	}
+
+	private void CollectAndShuffle()
+	{
+		Deck.Cards.Append(BurnedCards);
+		BurnedCards.Clear();
+
+		Deck.Cards.Append(CommunityCards);
+		CommunityCards.Clear();
+
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			Deck.Cards.Append(CardPlayers[i].HoleCards);
+			CardPlayers[i].HoleCards.Clear();
+		}
+
+		Deck.ShuffleDeck();
+	}
+
+	private void RotatePlayer()
+	{
+		do
+		{
+			++PlayerIndex %= CardPlayers.Size();
+		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].HasFolded);
+	}
+
+	private void RotateRound()
+	{
+		int size = CardPlayers.Size();
+		do
+		{
+			++DealerIndex %= size;
+			PlayerIndex = DealerIndex;
+		} while (!CardPlayers[PlayerIndex].Player);
+		
+		CollectAndShuffle();
+		CardPlayers[DealerIndex].Player.A_StartSound("Poker/DeckShuffle", 10, CHANF_UI, attenuation: 1.5);
+		Stage = Stage_SmallBlind;
+		for (int i = 0; i < size; ++i)
+		{
+			CardPlayers[i].Bet = 0;
+			CardPlayers[i].HasChecked = false;
+			CardPlayers[i].HasFolded = false;
+			CardPlayers[i].Winner = false;
+		}
+	}
+
+	private void PlaceBet(PokerPlayerInfo plr, int amt)
+	{
+		int invAmt = plr.Player.CountInv('MercenaryBucks');
+		if (amt == 0 || amt > invAmt)
+		{
+			return;
+		}
+
+		amt = min(amt, plr.Player.CountInv('MercenaryBucks'));
+		plr.Player.A_TakeInventory('MercenaryBucks', amt);
+		plr.Bet += amt;
+		plr.RelativeBet += amt;
+		plr.Player.A_StartSound("Poker/BetChip", 10, CHANF_UI, attenuation: 1.5);
+	}
+
+	// ----------------------------------------------------------
+	// INFORMATION
+	// ----------------------------------------------------------
+
+	private clearscope bool PlayerIsInPokerGame(PlayerPawn plr)
+	{
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			if (CardPlayers[i].Player == plr)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private clearscope bool GetHumanPlayersCount()
+	{
+		int total = 0;
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			if (!CardPlayers[i].IsAi())
+			{
+				total++;
+			}
+		}
+		return total;
+	}
+
+	private clearscope int GetRealPlayerCount(bool ignoreFolds = true)
+	{
+		int total = 0;
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			if (CardPlayers[i].Player && (ignoreFolds || !CardPlayers[i].HasFolded))
+			{
+				total++;
+			}
+		}
+		return total;
+	}
+
+	private clearscope int GetPotAmount()
+	{
+		int total = 0;
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			total += CardPlayers[i].Bet;
+		}
+		return total;
+	}
+
+	private clearscope int GetHighestBet()
+	{
+		int highest = 0;
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			if (highest < CardPlayers[i].Bet)
+			{
+				highest = CardPlayers[i].Bet;
+			}
+		}
+		return highest;
+	}
+
+	// [Ace] Returns: 0 - do nothing, 1 - continue as normal, 2 - everyone has folded. Win the round.
+	private int CanContinue()
+	{
+		if (GetRealPlayerCount(false) == 1)
+		{
+			return 2;
+		}
+		int highestBet = GetHighestBet();
+		for (int i = 0 ; i < CardPlayers.Size(); ++i)
+		{
+			if (!CardPlayers[i].Player || CardPlayers[i].HasFolded)
+			{
+				continue;
+			}
+
+			if (CardPlayers[i].Bet < highestBet || !CardPlayers[i].HasChecked)
+			{
+				return 0;
+			}
+		}
+		return 1;
+	}
+}
+
+struct CardDeck
+{
+	void GenerateDeck(int numDecks = 1, bool shuffle = true)
+	{
+		while (numDecks > 0)
+		{
+			for (int i = PlayingCard.Suit_Spades; i <= PlayingCard.Suit_Diamonds; ++i)
+			{
+				for (int j = 0; j < 13; ++j)
+				{
+					Cards.Push(PlayingCard.Create(i, j));
+				}
+			}
+			numDecks--;
+		}
+
+		if (shuffle)
+		{
+			ShuffleDeck();
+		}
+	}
+
+	void ShuffleDeck()
+	{
+		int size = Cards.Size();
+		for (int i = 0; i < size; ++i)
+		{
+			let swap = Cards[i];
+			int newIndex = random(0, size - 1);
+			Cards[i] = Cards[newIndex];
+			Cards[newIndex] = swap;
+		}
+	}
+
+	PlayingCard TakeTopCard()
+	{
+		PlayingCard card = Cards[Cards.Size() - 1];
+		Cards.Pop();
+		return card;
+	}
+
+	Array<PlayingCard> Cards;
+}
+
+class PlayingCard
+{
+	enum CardSuit
+	{
+		Suit_Spades,
+		Suit_Hearts,
+		Suit_Clubs,
+		Suit_Diamonds
+	}
+
+	static PlayingCard Create(CardSuit suit, int rank)
+	{
+		let card = new('PlayingCard');
+		card.Suit = suit;
+		card.Rank = rank;
+		return card;
+	}
+
+	clearscope string GetIcon(bool reveal = false)
+	{
+		if (!reveal)
+		{
+			return "CARDBACK";
+		}
+
+		static const string suitLabels[] = { "SPD", "HRT", "CLB", "DMD" };
+		return "CRD"..suitLabels[Suit]..Rank;
+	}
+
+	int Rank; // [Ace] 0-12; From 2 to 10, Jacks, Queens, Kings, Aces.
+	CardSuit Suit;
+}

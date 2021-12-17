@@ -1,0 +1,1 @@
+alias HDM_AssemblePokerGame "netevent HDM_AssemblePokerGame"

@@ -22,14 +22,24 @@ Payouts are as follows:
 - 3 Medkits = x10
 - 3 Potions = x25
 - 3 Spiritual Armors = x50
-- 3 Megaspheres = x75
-- 3 Butts = x125
+- 3 Megaspheres = x100
 - 3 Precious = x200
+
+### Poker
+---
+- A game of Texas Hold'em can be assembled with up to 8 nearby players (3m radius) using the `HDM_AssemblePokerGame` command. The players can be either AI-controlled (merchants) or other human players.
+- Each player needs to have the amount of the big blind ($20) in mercenary bucks in order to join the game.
+- If you walk away from the game, your bet is forfeit. You can shoot enemies if they show up, but do not go farther than 4m away from the spot you occupied when the game started.
+- No idea how to play? See this: https://www.youtube.com/watch?v=b9HYxquQt-M
 
 ### Modding
 ---
-- Sectors with the custom UDMF property `user_merchantsector` set to `1` will always spawn a merchant.
+- The following custom UDMF properties are recognized by the mod:
+	- `user_merchantsector [false/true]`: setting this to true will always spawn a merchant in this sector. Type of merchant is still randomized.
+	- `user_merchantangle [0 - 360]`: The angle the merchant will have when they spawn.
+	- `user_slotmachinesector [false/true]`: same as `user_merchantsector` but for slot machines.
+	- `user_slotmachineangle [0 - 360]`: same as `user_merchantangle` but for slot machines.
 
 ### Known Issues
 ---
-- Merchant can block some paths. Grab them or pick them up to move them out of the way.
+- Merchants can block some paths sometimes. Grab them or pick them up to move them out of the way.

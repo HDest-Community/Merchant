@@ -42,10 +42,8 @@ extend class HDMerchant
 		}
 	}
 
-	override void BeginPlay()
+	void InitSkins()
 	{
-		Super.BeginPlay();
-
 		static const Name CVarNames[] = { 'hdm_skin_weapon', 'hdm_skin_ammo', 'hdm_skin_item' };
 		Array<HDMerchantSkin> AvailableSkins;
 		int SelectedSkins = CVar.GetCVar(CVarNames[ItemsType], players[consoleplayer]).GetInt();
@@ -66,7 +64,7 @@ extend class HDMerchant
 			SelectedSkin = AvailableSkins[random[merchskinrand](0, AvailableSkins.Size() - 1)];
 		}
 	}
-
+	
 	States
 	{
 		RegisterSprites:

@@ -75,3 +75,41 @@ $random WanderingTrader/GoAway
 	WanderingTrader/GoAway2
 	WanderingTrader/GoAway3
 }
+
+// ------------------------------------------------------------
+// POKER STUFF
+// ------------------------------------------------------------
+Poker/BetChip BETCHIP
+Poker/Check PLRCHECK
+
+Poker/DealCard1 CRDDEAL1
+Poker/DealCard2 CRDDEAL2
+Poker/DealCard3 CRDDEAL3
+Poker/DealCard4 CRDDEAL4
+Poker/DealCard5 CRDDEAL5
+Poker/DealCard6 CRDDEAL6
+Poker/DealCard7 CRDDEAL7
+
+$random Poker/DealCard
+{
+	Poker/DealCard1
+	Poker/DealCard2
+	Poker/DealCard3
+	Poker/DealCard4
+	Poker/DealCard5
+	Poker/DealCard6
+	Poker/DealCard7
+}
+
+Poker/DeckShuffle1 DCKSHFL1
+Poker/DeckShuffle2 DCKSHFL2
+Poker/DeckShuffle3 DCKSHFL3
+Poker/DeckShuffle4 DCKSHFL4
+
+$random Poker/DeckShuffle
+{
+	Poker/DeckShuffle1
+	Poker/DeckShuffle2
+	Poker/DeckShuffle3
+	Poker/DeckShuffle4
+}

@@ -5,6 +5,7 @@ version "4.5"
 #include "ZSCRIPT.StoreItems.zsc"
 #include "ZSCRIPT.MerchantSkins.zsc"
 #include "ZSCRIPT.SlotMachine.zsc"
+#include "ZSCRIPT.Poker.zsc"
 
 class MerchantRewardStorage : Thinker
 {
@@ -44,6 +45,27 @@ class MerchantHandler : EventHandler
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let plr = players[e.Player].mo;
+		if (e.Name ~== "HDM_AssemblePokerGame")
+		{
+			AssembleGame(plr);
+			return;
+		}
+
+		if (e.Name ~== "HDM_PlaceBet")
+		{
+			PlaceBet(CardPlayers[PlayerIndex], e.Args[0]);
+			return;
+		}
+
+		if (e.Name ~== "HDM_Check")
+		{
+			ActionTimer = 0;
+			CardPlayers[PlayerIndex].HasChecked = true;
+			CardPlayers[PlayerIndex].Player.A_StartSound("Poker/Check", 10, CHANF_UI, attenuation: 1.5);
+			RotatePlayer();
+			return;
+		}
+
 		Array<string> ParsedName;
 		e.Name.Split(ParsedName, ":");
 		if (ParsedName[0] ~== "HDM_BuyStuff")
@@ -345,6 +367,11 @@ class MerchantHandler : EventHandler
 				RewardStorage.Money += 20;
 			}
 		}
+
+		if (GameInProgress)
+		{
+			PokerTick();
+		}
 	}
 }
 
@@ -366,6 +393,14 @@ class HDMerchantBody : HDPickup
 
 class HDMerchant : Actor abstract
 {
+	override void BeginPlay()
+	{
+		Super.BeginPlay();
+		
+		InitSkins();
+		A_GiveInventory('MercenaryBucks', 1000);
+	}
+
 	override void Tick()
 	{
 		A_SpriteOffset(0, SOffsetY);
@@ -517,7 +552,7 @@ class HDMerchant : Actor abstract
 
 	private bool PlayerIsNear;
 
-	private HDPlayerPawn PiggyBack;
+	HDPlayerPawn PiggyBack;
 	private HDPlayerPawn LastUser;
 
 	private double SOffsetY;
@@ -544,6 +579,7 @@ class WeaponMerchant : HDMerchant
 {
 	Default
 	{
+		Tag "Weapon Merchant";
 		HDMerchant.ItemsType StoreItem.SType_Weapon;
 	}
 }
@@ -552,6 +588,7 @@ class AmmoMerchant : HDMerchant
 {
 	Default
 	{
+		Tag "Ammo Merchant";
 		HDMerchant.ItemsType StoreItem.SType_Ammo;
 	}
 }
@@ -560,6 +597,7 @@ class ItemMerchant : HDMerchant
 {
 	Default
 	{
+		Tag "Item Merchant";
 		HDMerchant.ItemsType StoreItem.SType_Item;
 	}
 }
@@ -568,10 +606,10 @@ class MercenaryBucks : HDAmmo
 {
 	override void SplitPickup()
 	{
-		int SplitAmount = min(Amount, random(20, 100));
+		int SplitAmount = min(Amount, random(100, 500));
 		while (Amount > SplitAmount)
 		{
-			int SubSplit = min(Amount, random(20, 100));
+			int SubSplit = min(Amount, random(100, 500));
 			Actor a = Spawn("MercenaryBucks", pos);
 			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
 			Scale.X *= randompick(-1, 1);
@@ -602,9 +640,9 @@ class MercenaryBucks : HDAmmo
 		+HDPICKUP.MULTIPICKUP
 		+HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION
-		HDPickup.Bulk 0.06;
+		HDPickup.Bulk 0.07;
 		HDPickup.RefID "bux";
-		Inventory.MaxAmount 10000;
+		Inventory.MaxAmount 20000;
 		Inventory.PickupMessage "Picked up some bucks.";
 		Scale 0.4;
 	}
