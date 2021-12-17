@@ -225,7 +225,7 @@ class PokerPlayerInfo
 		}
 
 		// [arooкas] flush OR high card
-		return uniqueSuits == 1 ? Flush : HighCard, highCardValue;
+		return uniqueSuits == 1 && handSize > 2 ? Flush : HighCard, highCardValue;
 	}
 }
 
