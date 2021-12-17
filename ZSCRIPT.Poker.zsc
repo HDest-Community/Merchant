@@ -977,6 +977,11 @@ extend class MerchantHandler
 			return false;
 		}
 
+		if (Stage != Stage_InitialBet && Stage != Stage_BetFlop && Stage != Stage_BetTurn && Stage != Stage_BetRiver)
+		{
+			return false;
+		}
+
 		if (e.Type == InputEvent.Type_KeyDown)
 		{
 			switch (e.KeyScan)
