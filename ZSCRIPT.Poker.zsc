@@ -778,7 +778,7 @@ extend class MerchantHandler
 						if (CardPlayers[PlayerIndex].HoleCards.Size() < 2)
 						{
 							CardPlayers[PlayerIndex].HoleCards.Push(Deck.TakeTopCard());
-							CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI, attenuation: 1.5);
+							CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
 							ActionTimer = 20;
 							RotatePlayer();
 						}
@@ -804,13 +804,13 @@ extend class MerchantHandler
 					if (BurnedCards.Size() < maxCards - 2)
 					{
 						BurnedCards.Push(Deck.TakeTopCard());
-						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI, attenuation: 1.5);
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
 						ActionTimer = 40;
 					}
 					else if (CommunityCards.Size() < maxCards)
 					{
 						CommunityCards.Push(Deck.TakeTopCard());
-						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI, attenuation: 1.5);
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
 						ActionTimer = 20;
 					}
 					else
@@ -1232,7 +1232,7 @@ extend class MerchantHandler
 		} while (!CardPlayers[PlayerIndex].Player);
 		
 		CollectAndShuffle();
-		CardPlayers[DealerIndex].Player.A_StartSound("Poker/DeckShuffle", 10, CHANF_UI, attenuation: 1.5);
+		CardPlayers[DealerIndex].Player.A_StartSound("Poker/DeckShuffle", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
 		Stage = Stage_SmallBlind;
 		for (int i = 0; i < size; ++i)
 		{
@@ -1256,7 +1256,7 @@ extend class MerchantHandler
 		plr.Player.A_TakeInventory('MercenaryBucks', amt);
 		plr.Bet += amt;
 		plr.RelativeBet += amt;
-		plr.Player.A_StartSound("Poker/BetChip", 10, CHANF_UI, attenuation: 1.5);
+		plr.Player.A_StartSound("Poker/BetChip", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
 	}
 
 	// ----------------------------------------------------------
