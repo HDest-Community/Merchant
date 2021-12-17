@@ -501,7 +501,7 @@ extend class MerchantHandler
 		if (CardPlayers[PlayerIndex].Player == plr && (Stage == Stage_InitialBet || Stage == Stage_BetFlop || Stage == Stage_BetTurn || Stage == Stage_BetRiver))
 		{
 			int chipIndex = UiData[consoleplayer].SelectedChipIndex;
-			sb.DrawImage("PKCHIP"..chipIndex, (220, 0), gzflags, box: (50, 50));
+			sb.DrawImage("PKCHIP"..chipIndex, (220, 0), gzflags, box: (53, 53));
 			if (chipIndex < ChipAmounts.Size() - 1)
 			{
 				sb.DrawImage("CHIPARUP", (220, -40), gzflags);
