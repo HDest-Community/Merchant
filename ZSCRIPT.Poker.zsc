@@ -1234,7 +1234,7 @@ extend class MerchantHandler
 			ActionTimer = 0;
 			PlayerIndex = 0;
 			DealerIndex = 0;
-			Deck.GenerateDeck(2);
+			Deck.GenerateDeck(1);
 			CommunityCards.Clear();
 			BurnedCards.Clear();
 		}
