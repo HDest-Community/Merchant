@@ -1042,12 +1042,12 @@ extend class MerchantHandler
 			}
 			if (bluff)
 			{
-				chance += random(30, 80);
+				chance += random(20, random(30, 80));
 			}
-			chance -= diff >> 4;
+			chance -= diff >> 3;
 			if (money < diff)
 			{
-				chance -= (diff - money) >> 4;
+				chance -= (diff - money) >> 3;
 			}
 			chance += int(1.58 ** ai.HighestRank);
 			if (chance > 100)
@@ -1082,7 +1082,7 @@ extend class MerchantHandler
 			}
 			if (bluff)
 			{
-				chance += random(30, 80);
+				chance += random(20, random(30, 80));
 			}
 			chance += 10 * ai.HighestRank + int(1.50 ** ai.HighestRank);
 			if (chance <= 100 && random(0, 100) <= chance)
