@@ -1106,7 +1106,7 @@ extend class MerchantHandler
 		// [Ace] Can check.
 		if (diff == 0)
 		{
-			int chance = 90;
+			int chance = 65;
 			switch (Stage)
 			{
 				case Stage_BetFlop:
@@ -1121,7 +1121,7 @@ extend class MerchantHandler
 			{
 				chance += random(20, random(30, 80));
 			}
-			chance += 10 * ai.HighestRank + int(1.50 ** ai.HighestRank);
+			chance += 7 * ai.HighestRank + int(1.50 ** ai.HighestRank);
 			if (chance <= 100 && random(0, 100) <= chance)
 			{
 				ai.HasChecked = true;
