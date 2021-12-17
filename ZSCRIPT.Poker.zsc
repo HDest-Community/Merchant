@@ -401,11 +401,6 @@ extend class MerchantHandler
 			vector2 pos = (0, 0);
 			switch (totalPlayers)
 			{
-				case 2:
-				{
-					pos.x = 0;
-					break;
-				}
 				case 3:
 				{
 					static const int offs[] = { 150, -150, 0 };
@@ -893,7 +888,7 @@ extend class MerchantHandler
 						// [Ace] Get rid of broke players.
 						for (int i = totalPlayers - 1; i >= 0; --i)
 						{
-							if (CardPlayers[i].Player && CardPlayers[i].CountInv('MercenaryBucks') < ChipAmounts[4])
+							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') < ChipAmounts[4])
 							{
 								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
 								CardPlayers[i].Player = null;
