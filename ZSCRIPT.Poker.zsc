@@ -1116,7 +1116,7 @@ extend class MerchantHandler
 		// [Ace] Can check.
 		if (diff == 0)
 		{
-			int chance = 65;
+			int chance = 85;
 			switch (Stage)
 			{
 				case Stage_BetFlop:
@@ -1280,7 +1280,7 @@ extend class MerchantHandler
 		
 		CollectAndShuffle();
 		CardPlayers[DealerIndex].Player.A_StartSound("Poker/DeckShuffle", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
-		Stage = Stage_SmallBlind;
+		Stage = Stage_InitialBet;
 		for (int i = 0; i < size; ++i)
 		{
 			CardPlayers[i].Bet = 0;
