@@ -1024,7 +1024,7 @@ extend class MerchantHandler
 		int decision = 0;
 		int diff = highestBet - curBet;
 
-		bool bluff = !random(0, 2);
+		bool bluff = !random(0, 3);
 
 		// [Ace] Must call.
 		if (diff > 0)
