@@ -565,8 +565,8 @@ extend class MerchantHandler
 		// POT, DON'T SMOKE IT
 		// ------------------------------------------------------------
 
-		sb.DrawString(sb.pNewSmallFont, "-----=====$$$ \c[White]POT\c- $$$=====-----", (0, 60), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
-		DrawChips(sb, (0, 95), gzflags, GetPotAmount(), 20, true, 2);
+		sb.DrawString(sb.pNewSmallFont, "-----=====$$$ \c[White]POT\c- $$$=====-----", (0, 43), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
+		DrawChips(sb, (0, 75), gzflags, GetPotAmount(), 20, true, 2);
 
 		// ------------------------------------------------------------
 		// WINRAR
