@@ -748,6 +748,7 @@ extend class MerchantHandler
 				{
 					RotatePlayer();
 					PlaceBet(CardPlayers[PlayerIndex], ChipAmounts[3]);
+					CardPlayers[PlayerIndex].HasChecked = true;
 					ActionTimer = 30;
 					Stage = Stage_BigBlind;
 					break;
@@ -756,6 +757,7 @@ extend class MerchantHandler
 				{
 					RotatePlayer();
 					PlaceBet(CardPlayers[PlayerIndex], ChipAmounts[4]);
+					CardPlayers[PlayerIndex].HasChecked = true;
 					ActionTimer = 30;
 					PlayerIndex = DealerIndex;
 					Stage = Stage_DealHoles;
@@ -826,14 +828,18 @@ extend class MerchantHandler
 				case Stage_BetTurn:
 				case Stage_BetRiver:
 				{
-					let curPlr = CardPlayers[PlayerIndex];
-					if (curPlr.IsAi())
+					if (CardPlayers[PlayerIndex].IsAi())
 					{
 						if (AiMakeDecision())
 						{
 							RotatePlayer();
 							ActionTimer = 0;
 						}
+					}
+
+					if (CardPlayers[PlayerIndex].HasChecked && CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks') >= ChipAmounts[4] && CardPlayers[PlayerIndex].Bet < GetHighestBet())
+					{
+						CardPlayers[PlayerIndex].HasChecked = false;
 					}
 
 					int contValue = CanContinue();
@@ -1216,6 +1222,7 @@ extend class MerchantHandler
 		for (int i = 0; i < size; ++i)
 		{
 			CardPlayers[i].Bet = 0;
+			CardPlayers[i].RelativeBet = 0;
 			CardPlayers[i].HasChecked = false;
 			CardPlayers[i].HasFolded = false;
 			CardPlayers[i].Winner = false;
