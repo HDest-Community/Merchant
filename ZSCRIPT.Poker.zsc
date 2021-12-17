@@ -27,6 +27,7 @@ class PokerPlayerInfo
 	bool Winner;
 	bool HasFolded;
 	bool HasChecked;
+	bool Bust;
 
 	clearscope bool IsAi() const
 	{
@@ -255,7 +256,8 @@ extend class MerchantHandler
 		Stage_DealRiver,
 		Stage_BetRiver,
 
-		Stage_EndRound
+		Stage_EndRound,
+		Stage_EndGame
 	}
 
 	static const int ChipAmounts[] = { 1, 2, 5, 10, 20, 50, 100, 250, 500, 1000, 2000, 5000 };
@@ -443,7 +445,7 @@ extend class MerchantHandler
 			{
 				for (int j = 0; j < CardPlayers[i].HoleCards.Size(); ++j)
 				{
-					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(CardPlayers[i].Player == plr || Stage == Stage_EndRound && !CardPlayers[i].HasFolded), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
+					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(CardPlayers[i].Player == plr || Stage == Stage_EndRound && !CardPlayers[i].HasFolded || CardPlayers[i].Bust), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
 					if (CardPlayers[i].Winner)
 					{
 						sb.DrawImage("CARDGLOW", (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
@@ -451,7 +453,7 @@ extend class MerchantHandler
 				}
 			}
 
-			DrawChips(sb, (pos.x - 65, top ? -207 : 153), gzflags, CardPlayers[i].Bet);
+			DrawChips(sb, (pos.x - 65, top ? -210 : 150), gzflags, CardPlayers[i].Bet);
 			
 			pos.y = top ? -135 : 125;
 
@@ -470,12 +472,16 @@ extend class MerchantHandler
 				pos.y += top ? 12 : -19;
 			}
 
-			if (CardPlayers[i].HasFolded)
+			if (CardPlayers[i].Bust)
+			{
+				sb.DrawString(sb.pNewSmallFont, "BUST", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_FIRE);
+			}
+			else if (CardPlayers[i].HasFolded)
 			{
 				sb.DrawString(sb.pNewSmallFont, "FOLDED", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_RED);
 			}
 
-			if (Stage > Stage_DealHoles && CardPlayers[i].Player == plr || Stage == Stage_EndRound && !CardPlayers[i].HasFolded)
+			if (CardPlayers[i].HoleCards.Size() > 0 && (CardPlayers[i].Bust || Stage > Stage_DealHoles && CardPlayers[i].Player == plr || Stage == Stage_EndRound && !CardPlayers[i].HasFolded))
 			{
 				string rankStr = "High Card";
 				switch (CardPlayers[i].HighestRank)
@@ -582,7 +588,7 @@ extend class MerchantHandler
 					winnerNames.Push(CardPlayers[i].GetName());
 				}
 			}
-			sb.DrawString(sb.pNewSmallFont, String.Format("%s win%s the round", AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
+			sb.DrawString(sb.pNewSmallFont, String.Format("\c[White]%s\c- win%s the round", AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
 		}
 
 		// ------------------------------------------------------------
@@ -705,39 +711,11 @@ extend class MerchantHandler
 			}
 		}
 
-		int realPlayers = GetRealPlayerCount();
-		if (realPlayers == 1 || humanPlayersCount == 0) // [Ace] You don't need to hold up the game if you're gonna be playing with yourself. Also you win.
+		if (Stage < Stage_EndGame && CheckGameEnd(2))
 		{
-			Console.Printf("The poker game was disbanded. %s", humanPlayersCount == 0 ? "No human players left." : "Not enough players.");
-			GameInProgress = false;
-			int pot = GetPotAmount();
-			if (realPlayers == 1 && humanPlayersCount == 1)
-			{
-				for (int i = 0; i < totalPlayers; ++i)
-				{
-					if (CardPlayers[i].Player)
-					{
-						Console.Printf("The pot containing %i bucks goes to %s", pot, CardPlayers[i].GetName());
-						CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', pot);
-						break;
-					}
-				}
-			}
-			else if (realPlayers >= 1 && humanPlayersCount == 0)
-			{
-				int splitPot = pot / realPlayers;
-				for (int i = 0; i < totalPlayers; ++i)
-				{
-					if (CardPlayers[i].Player)
-					{
-						CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', splitPot);
-					}
-				}
-				Console.Printf("The pot containing %i bucks was split between the remaining players.", pot);
-			}
 			return;
 		}
-
+		
 		if (--ActionTimer <= 0)
 		{
 			switch (Stage)
@@ -857,7 +835,7 @@ extend class MerchantHandler
 						Array<PokerPlayerInfo> winners;
 						for (int i = 0; i < totalPlayers; ++i)
 						{
-							if (CardPlayers[i].Player && !CardPlayers[i].HasFolded)
+							if (CardPlayers[i].Player && !CardPlayers[i].HasFolded && !CardPlayers[i].Bust)
 							{
 								winners.Push(CardPlayers[i]);
 							}
@@ -887,6 +865,16 @@ extend class MerchantHandler
 							}
 						}
 
+						// [Ace] Get rid of broke players.
+						for (int i = totalPlayers - 1; i >= 0; --i)
+						{
+							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') == 0)
+							{
+								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
+								CardPlayers[i].Bust = true;
+							}
+						}
+
 						// [Ace] Yeah, you may lose 50 cents due to truncation. Too bad!
 						// No division by zero prevention because if this ever gets divided by zero, something has gone terribly wrong.
 						int moneyPerPlayer = GetPotAmount() / winnerCount;
@@ -895,14 +883,11 @@ extend class MerchantHandler
 							winners[i].Player.A_GiveInventory('MercenaryBucks', moneyPerPlayer);
 						}
 
-						// [Ace] Get rid of broke players.
-						for (int i = totalPlayers - 1; i >= 0; --i)
+						if (CheckGameEnd(0))
 						{
-							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') == 0)
-							{
-								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
-								CardPlayers[i].Player = null;
-							}
+							ActionTimer = 35 * 5;
+							Stage = Stage_EndGame;
+							return;
 						}
 					}
 					else if (contValue == 1)
@@ -919,8 +904,60 @@ extend class MerchantHandler
 					RotateRound();
 					break;
 				}
+
+				case Stage_EndGame:
+				{
+					CheckGameEnd(1);
+					break;
+				}
 			}
 		}
+	}
+
+	bool CheckGameEnd(int type)
+	{
+		int totalPlayers = CardPlayers.Size();
+		int humanPlayersCount = GetHumanPlayersCount();
+		int realPlayers = GetRealPlayerCount();
+
+		if (realPlayers == 1 || humanPlayersCount == 0) // [Ace] You don't need to hold up the game if you're gonna be playing with yourself. Also you win.
+		{
+			if (type > 0)
+			{
+				Console.Printf("The poker game was disbanded. %s", humanPlayersCount == 0 ? "No human players left." : "Not enough players.");
+				GameInProgress = false;
+				if (type > 1)
+				{
+					int pot = GetPotAmount();
+					if (realPlayers == 1 && humanPlayersCount == 1)
+					{
+						for (int i = 0; i < totalPlayers; ++i)
+						{
+							if (CardPlayers[i].Player)
+							{
+								Console.Printf("The pot containing %i bucks goes to %s", pot, CardPlayers[i].GetName());
+								CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', pot);
+								break;
+							}
+						}
+					}
+					else if (realPlayers >= 1 && humanPlayersCount == 0)
+					{
+						int splitPot = pot / realPlayers;
+						for (int i = 0; i < totalPlayers; ++i)
+						{
+							if (CardPlayers[i].Player)
+							{
+								CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', splitPot);
+							}
+						}
+						Console.Printf("The pot containing %i bucks was split between the remaining players.", pot);
+					}
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	// ----------------------------------------------------------
@@ -1219,7 +1256,7 @@ extend class MerchantHandler
 		do
 		{
 			++PlayerIndex %= CardPlayers.Size();
-		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].HasFolded);
+		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].HasFolded || CardPlayers[PlayerIndex].Bust);
 	}
 
 	private void RotateRound()
@@ -1293,7 +1330,7 @@ extend class MerchantHandler
 		int total = 0;
 		for (int i = 0; i < CardPlayers.Size(); ++i)
 		{
-			if (CardPlayers[i].Player && (ignoreFolds || !CardPlayers[i].HasFolded))
+			if (CardPlayers[i].Player && !CardPlayers[i].Bust && (ignoreFolds || !CardPlayers[i].HasFolded))
 			{
 				total++;
 			}
