@@ -538,7 +538,7 @@ extend class MerchantHandler
 				pos.y += 10;
 			}
 
-			if (curBet >= highestBet)
+			if (money == 0 || curBet >= highestBet)
 			{
 				sb.DrawString(sb.pSmallFont, "\c[Green][Space]\c[White] - Check", (250, pos.y), gzflags | sb.DI_TEXT_ALIGN_LEFT);
 				pos.y += 10;
@@ -841,7 +841,7 @@ extend class MerchantHandler
 						}
 					}
 
-					if (CardPlayers[PlayerIndex].HasChecked && CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks') >= ChipAmounts[4] && CardPlayers[PlayerIndex].Bet < GetHighestBet())
+					if (CardPlayers[PlayerIndex].HasChecked && CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks') > 0 && CardPlayers[PlayerIndex].Bet < GetHighestBet())
 					{
 						CardPlayers[PlayerIndex].HasChecked = false;
 					}
@@ -898,7 +898,7 @@ extend class MerchantHandler
 						// [Ace] Get rid of broke players.
 						for (int i = totalPlayers - 1; i >= 0; --i)
 						{
-							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') < ChipAmounts[4])
+							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') == 0)
 							{
 								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
 								CardPlayers[i].Player = null;
@@ -969,6 +969,10 @@ extend class MerchantHandler
 					if (betAmount > 0)
 					{
 						SendNetworkEvent("HDM_PlaceBet", betAmount);
+						if (betAmount == money)
+						{
+							SendNetworkEvent("HDM_Check");
+						}
 					}
 					return true;
 				}
@@ -976,7 +980,8 @@ extend class MerchantHandler
 				{
 					int highestBet = GetHighestBet();
 					int curBet = CardPlayers[PlayerIndex].Bet;
-					if (curBet >= highestBet)
+					int money = CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks');
+					if (money == 0 || curBet >= highestBet)
 					{
 						SendNetworkEvent("HDM_Check");
 						return true;
@@ -1008,6 +1013,12 @@ extend class MerchantHandler
 		if (random(50 + 10 * ai.HighestRank, 1000 + 70 * ai.HighestRank + highestBet >> 2) > abs(ActionTimer))
 		{
 			return false;
+		}
+
+		if (money == 0)
+		{
+			ai.HasChecked = true;
+			return true;
 		}
 
 		int decision = 0;
@@ -1328,7 +1339,7 @@ extend class MerchantHandler
 				continue;
 			}
 
-			if (CardPlayers[i].Bet < highestBet || !CardPlayers[i].HasChecked)
+			if (CardPlayers[i].Player.CountInv('MercenaryBucks') > 0 && CardPlayers[i].Bet < highestBet || !CardPlayers[i].HasChecked)
 			{
 				return 0;
 			}
