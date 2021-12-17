@@ -517,7 +517,11 @@ extend class MerchantHandler
 			int money = CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks');
 
 			string actionStr = "Bet";
-			if (curBet < highestBet)
+			if (chipAmount >= money)
+			{
+				actionStr = "All in";
+			}
+			else if (curBet < highestBet)
 			{
 				if (money < highestBet)
 				{
