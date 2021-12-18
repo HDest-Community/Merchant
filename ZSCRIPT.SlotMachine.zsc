@@ -28,23 +28,7 @@ class MerchantSlotMachine : Actor
 			++Slots[i].RollIndex %= SlotMachineSlot.Weights.Size();
 		}
 
-		bool lock = false;
-		if (LockTicker++ > CurrentLock)
-		{
-			int sum = SlotMachineSlot.GetWeightSum();
-			int rng = random[smsrand](0, sum);
-			for (int i = 0; i < SlotMachineSlot.Weights.Size(); ++i)
-			{
-				if (rng < SlotMachineSlot.Weights[Slots[StartSlot].RollIndex])
-				{
-					lock = true;
-					break;
-				}
-				rng -= SlotMachineSlot.Weights[Slots[StartSlot].RollIndex];
-			}
-		}
-
-		if (lock)
+		if (LockTicker++ > CurrentLock && Slots[StartSlot].RollIndex == ChosenSlots[StartSlot])
 		{
 			ResetLock();
 			StartSlot++;
@@ -84,7 +68,7 @@ class MerchantSlotMachine : Actor
 	private void ResetLock()
 	{
 		LockTicker = 0;
-		CurrentLock = random[smsrand](15, 30);
+		CurrentLock = random[smsrand](15, 40);
 	}
 
 	private void CheckPayout()
@@ -152,6 +136,25 @@ class MerchantSlotMachine : Actor
 			}
 		}
 		TimesRolled++;
+		DecideNextPayout();
+	}
+
+	private void DecideNextPayout()
+	{
+		for (int i = 0; i < Slots.Size(); ++i)
+		{
+			int sum = SlotMachineSlot.GetWeightSum();
+			int rng = random[smsrand](0, sum);
+			for (int j = 0; j < SlotMachineSlot.Weights.Size(); ++j)
+			{
+				if (rng < SlotMachineSlot.Weights[j])
+				{
+					ChosenSlots[i] = j;
+					break;
+				}
+				rng -= SlotMachineSlot.Weights[j];
+			}
+		}
 	}
 
 	override bool Used(Actor user)
@@ -189,6 +192,8 @@ class MerchantSlotMachine : Actor
 	private int CurrentLock;
 	private int LockTicker;
 	private int StartSlot;
+
+	private int ChosenSlots[3];
 	private SlotMachineSlot Slots[3];
 
 	Default
@@ -203,10 +208,13 @@ class MerchantSlotMachine : Actor
 	States
 	{
 		Spawn:
-			SLMC A -1;
+			SLMC A -1 NoDelay
+			{
+				ResetLock();
+				DecideNextPayout(); // [Ace] Truth is, the game was rigged from the start.
+			}
 			Stop;
 		Rollerino:
-			SLMC A 0 ResetLock();
 			SLMC BC 4;
 			SLMC C 0 A_StartSound("weapons/sawidle");
 			SLMC C 0 A_StartSound("SlotMachine/Rolling", CHAN_BODY, CHANF_OVERLAP | CHANF_LOOP);
@@ -264,7 +272,7 @@ class SlotMachineSlot : Actor
 		return sum;
 	}
 
-	static const int Weights[] = { 4, 10, 8, 6, 5, 4 };
+	static const int Weights[] = { 5, 5, 4, 3, 2, 1 };
 	int PlaceIndex;
 	int RollIndex;
 
