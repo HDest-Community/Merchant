@@ -582,7 +582,7 @@ extend class MerchantHandler
 		// WINRAR
 		// ------------------------------------------------------------
 
-		if (Stage == Stage_EndRound)
+		if (Stage >= Stage_EndRound)
 		{
 			Array<string> winnerNames;
 			for (int i = 0; i < totalPlayers; ++i)
@@ -592,7 +592,7 @@ extend class MerchantHandler
 					winnerNames.Push(CardPlayers[i].GetName());
 				}
 			}
-			sb.DrawString(sb.pNewSmallFont, String.Format("\c[White]%s\c- win%s the round", AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
+			sb.DrawString(sb.pNewSmallFont, String.Format("\c[White]%s\c- win%s the "..(Stage == Stage_EndGame ? "game" : "round"), AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
 		}
 
 		// ------------------------------------------------------------
