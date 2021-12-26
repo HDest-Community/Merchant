@@ -760,7 +760,7 @@ extend class MerchantHandler
 						if (CardPlayers[PlayerIndex].HoleCards.Size() < 2)
 						{
 							CardPlayers[PlayerIndex].HoleCards.Push(Deck.TakeTopCard());
-							CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
+							CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5, pitch: frandom(0.90, 1.05));
 							ActionTimer = 20;
 							RotatePlayer();
 						}
@@ -786,13 +786,13 @@ extend class MerchantHandler
 					if (BurnedCards.Size() < maxCards - 2)
 					{
 						BurnedCards.Push(Deck.TakeTopCard());
-						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5, pitch: frandom(0.90, 1.05));
 						ActionTimer = 40;
 					}
 					else if (CommunityCards.Size() < maxCards)
 					{
 						CommunityCards.Push(Deck.TakeTopCard());
-						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5, pitch: frandom(0.90, 1.05));
 						ActionTimer = 20;
 					}
 					else

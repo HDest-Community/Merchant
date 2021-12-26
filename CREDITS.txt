@@ -16,6 +16,7 @@ Sprites:
 
 Sounds:
 - Poker stuff: https://www.sounds-resource.com/pc_computer/tabletopsimulator/sound/24381/
+- Card deal sound by arookas.
 
 ZForms:
 - Gutawer & phantombeta
