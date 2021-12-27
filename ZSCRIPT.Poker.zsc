@@ -186,18 +186,18 @@ class PokerPlayerInfo
 		// [arooкas] straight OR straight flush OR royal flush
 		if (handSize > 2 && highCardValue >= 4)
 		{
-			bool straight = true;
+			bool str = true;
 
-			for (int i = highCardValue; i >= 0; --i)
+			for (int i = highCardValue, j = 0; i >= 0 && j < 5; -i, ++j) 
 			{
 				if (faceCount[i] != 1)
 				{
-					straight = false;
+					str = false;
 					break;
 				}
 			}
 
-			if (straight)
+			if (str)
 			{
 				HandRank rank = HighCard;
 				int kicker = 0;
