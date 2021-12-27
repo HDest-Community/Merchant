@@ -188,7 +188,7 @@ class PokerPlayerInfo
 		{
 			bool str = true;
 
-			for (int i = highCardValue, j = 0; i >= 0 && j < 5; -i, ++j) 
+			for (int i = highCardValue, j = 0; i >= 0 && j < 5; --i, ++j) 
 			{
 				if (faceCount[i] != 1)
 				{
@@ -227,6 +227,25 @@ class PokerPlayerInfo
 
 		// [arooкas] flush OR high card
 		return uniqueSuits == 1 && handSize > 2 ? Flush : HighCard, highCardValue;
+	}
+
+	static void PrintHandRanks(string label, Array<PlayingCard> hand)
+	{
+		int handSize = hand.Size();
+		string str = "";
+		if (label != "")
+		{
+			str = "----- "..label.." -----\n";
+		}
+		for (int i = 0; i < handSize; ++i)
+		{
+			str = str..hand[i].Rank;
+			if (i < handSize - 1)
+			{
+				str = str..", ";
+			}
+		}
+		Console.Printf(str.."\n--------------------");
 	}
 }
 
