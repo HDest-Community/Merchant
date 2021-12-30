@@ -1076,15 +1076,15 @@ extend class MerchantHandler
 		int curBet = ai.Bet;
 		int money = ai.Player.CountInv('MercenaryBucks');
 
-		if (random(50 + 10 * ai.HighestRank, 1000 + 70 * ai.HighestRank + highestBet >> 2) > abs(ActionTimer))
-		{
-			return false;
-		}
-
 		if (money == 0)
 		{
 			ai.HasChecked = true;
 			return true;
+		}
+
+		if (random(50 + 2 * ai.HighestRank, 1000 + 80 * ai.HighestRank + highestBet >> 2) > abs(ActionTimer))
+		{
+			return false;
 		}
 
 		int decision = 0;
@@ -1118,11 +1118,11 @@ extend class MerchantHandler
 			chance += int(1.58 ** ai.HighestRank);
 			if (chance > 100)
 			{
-				PlaceBet(ai, min(money, int(diff * (chance / 100.0))));
+				PlaceBet(ai, min(money, int(diff * frandom(1.00, 1.50) * (chance / 100.0))));
 				ai.HasChecked = true;
 				return true;
 			}
-			if (random(0, 100) <= chance * 1.25)
+			if (random(0, 100) <= chance * 1.10)
 			{
 				PlaceBet(ai, min(money, diff));
 				ai.HasChecked = true;
@@ -1162,7 +1162,7 @@ extend class MerchantHandler
 				ai.HasChecked = true;
 				return true;
 			}
-			if (random(0, 100) <= chance * 1.25)
+			if (random(0, 100) <= chance * 1.20)
 			{
 				PlaceBet(ai, min(money, diff));
 				ai.HasChecked = true;
@@ -1396,6 +1396,7 @@ extend class MerchantHandler
 		{
 			return 2;
 		}
+		
 		int highestBet = GetHighestBet();
 		for (int i = 0 ; i < CardPlayers.Size(); ++i)
 		{
