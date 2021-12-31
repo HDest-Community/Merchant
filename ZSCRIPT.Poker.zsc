@@ -476,7 +476,11 @@ extend class MerchantHandler
 			
 			pos.y = top ? -135 : 125;
 
-			string nameString = (i == PlayerIndex ? "\c[Sapphire]>>>\c- " : "")..CardPlayers[i].GetName()..(i == DealerIndex ? "\c[Gold] (D)\c-" : "")..(i == PlayerIndex ? " \c[Sapphire]<<<\c-" : "");
+			string nameString = CardPlayers[i].GetName()..(i == DealerIndex ? "\c[Gold] (D)\c-" : "");
+			if (Stage == Stage_InitialBet || Stage == Stage_BetFlop || Stage == Stage_BetTurn || Stage == Stage_BetRiver)
+			{
+				nameString = (i == PlayerIndex ? "\c[Sapphire]>>>\c- " : "")..nameString..(i == PlayerIndex ? " \c[Sapphire]<<<\c-" : "");
+			}
 			sb.DrawString(sb.pSmallFont, nameString, pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE);
 			pos.y += top ? 10 : -13;
 
@@ -770,25 +774,18 @@ extend class MerchantHandler
 				}
 				case Stage_DealHoles:
 				{
-					if (!CardPlayers[PlayerIndex].Player)
+					RotatePlayer();
+					if (CardPlayers[PlayerIndex].HoleCards.Size() < 2)
 					{
-						RotatePlayer();
+						CardPlayers[PlayerIndex].HoleCards.Push(Deck.TakeTopCard());
+						CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5, pitch: frandom(0.90, 1.05));
+						ActionTimer = 20;
 					}
 					else
 					{
-						if (CardPlayers[PlayerIndex].HoleCards.Size() < 2)
-						{
-							CardPlayers[PlayerIndex].HoleCards.Push(Deck.TakeTopCard());
-							CardPlayers[DealerIndex].Player.A_StartSound("Poker/DealCard", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5, pitch: frandom(0.90, 1.05));
-							ActionTimer = 20;
-							RotatePlayer();
-						}
-						else
-						{
-							PlayerIndex = DealerIndex;
-							RotatePlayer();
-							Stage = Stage_InitialBet;
-						}
+						PlayerIndex = DealerIndex;
+						RotatePlayer();
+						Stage = Stage_InitialBet;
 					}
 					break;
 				}
@@ -1295,7 +1292,7 @@ extend class MerchantHandler
 		{
 			++DealerIndex %= size;
 			PlayerIndex = DealerIndex;
-		} while (!CardPlayers[PlayerIndex].Player);
+		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].Bust);
 		
 		CollectAndShuffle();
 		CardPlayers[DealerIndex].Player.A_StartSound("Poker/DeckShuffle", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
