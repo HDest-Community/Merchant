@@ -167,14 +167,15 @@ class MerchantSlotMachine : Actor
 		bool add = user.player.cmd.buttons & BT_SPEED;
 		if (add || InsertedAmmo == 0)
 		{
-			if (!user.CheckInventory('SevenMilAmmo', 10))
+			int amt = CVar.GetCVar('hdm_slots_bet', user.player).GetInt();
+			if (!user.CheckInventory('SevenMilAmmo', amt))
 			{
 				user.A_Log("You don't have enough 7.76mm ammo.", true);
 				return false;
 			}
 			A_StartSound("misc/casing", 6);
-			user.A_TakeInventory('SevenMilAmmo', 10);
-			InsertedAmmo += 10;
+			user.A_TakeInventory('SevenMilAmmo', amt);
+			InsertedAmmo += amt;
 		}
 		if (!add)
 		{

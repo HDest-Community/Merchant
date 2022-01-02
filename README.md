@@ -9,12 +9,11 @@
 ---
 - Change between currencies using the Page Up/Down keys.
 - Change between categories using the Left/Right arrow keys, and between items with the Up/Down arrow keys
-- Some enemies will not reward cash for killing them. Putti and Lost Souls in particular.
 - Loadout code for the mercenary bucks is `bux`.
 
 ### Slot Machines
 ---
-Why play when you can gamble? Machines spawn in secret sectors, much like merchants, and cost 10 7mm rounds to roll. Hold Sprint when pressing Use to insert +10 rounds for a higher reward.
+Why play when you can gamble? Machines spawn in secret sectors, much like merchants, and cost 10 7mm rounds to roll. Hold Sprint when pressing Use to insert another min bet worth of rounds for a higher reward.
 Payouts are as follows:
 - 1 Stim = x1
 - 2 Stims = x2.5
