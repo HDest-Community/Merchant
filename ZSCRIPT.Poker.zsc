@@ -183,22 +183,16 @@ class PokerPlayerInfo
 		}
 
 		// [arooкas] straight OR straight flush OR royal flush
-		if (handSize > 2 && highCardValue >= 3)
+		if (handSize > 2 && highCardValue >= 4)
 		{
 			bool str = true;
-			int v = highCardValue;
 
-			for (int n = 0; n < 5; ++n)
+			for (int i = highCardValue, j = 0; i >= 0 && j < 5; --i, ++j) 
 			{
-				if (faceCount[v] != 1)
+				if (faceCount[i] != 1)
 				{
 					str = false;
 					break;
-				}
-
-				if (--v < 0)
-				{
-					v = 12; // [arooкas] wrap 2 around to (low) ace
 				}
 			}
 
