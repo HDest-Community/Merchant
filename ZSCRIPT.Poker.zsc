@@ -315,7 +315,7 @@ extend class MerchantHandler
 
 		let plr = players[consoleplayer].mo;
 
-		if (GameInProgress && !AutomapActive && GameState == GS_LEVEL && PlayerIsInPokerGame(plr))
+		if (GameInProgress && !AutomapActive && GameState == GS_LEVEL && ActorIsInPokerGame(plr))
 		{
 			DrawGame(HDStatusBar(StatusBar), plr, StatusBar.DI_SCREEN_CENTER | StatusBar.DI_ITEM_CENTER);
 		}
@@ -729,11 +729,36 @@ extend class MerchantHandler
 		{
 			if (CardPlayers[i].Player && level.Vec3Diff(CardPlayers[i].Player.pos, CardPlayers[i].StartingPosition).Length() > HDCONST_ONEMETRE * 4)
 			{
-				if (!CardPlayers[i].IsAi())
+				// [Ace] If the AI ragequits, that means you cheated somehow. Either you pushed the actor off a cliff or another player pulled them.
+				// In that case, spawn revenge. If you survive it, fuck it, keep the money. You earned it.
+				if (CardPlayers[i].IsAi())
+				{
+					for (int j = 0; j < totalPlayers; ++j)
+					{
+						Actor p = CardPlayers[j].Player;
+						if (!p || CardPlayers[j] == CardPlayers[i])
+						{
+							continue;
+						}
+
+						// [Ace] Extra get fucked.
+						if (!random(0, 1)) { p.A_SpawnItemEx('SatanRobo', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); }
+						for (int k = 0; k < 10; ++k) { p.A_SpawnItemEx('Necromancer', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); if (k > 0 && random(1, 100) <= 50) { break; }}
+						for (int k = 0; k < 10; ++k) { p.A_SpawnItemEx('PainLord', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); if (k > 2 && random(1, 100) <= 40) { break; }}
+						for (int k = 0; k < 10; ++k) { p.A_SpawnItemEx('PainBringer', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); if (k > 4 && random(1, 100) <= 25) { break; }}
+						p.A_AlertMonsters();
+					}
+					if (CardPlayers[i].Player is 'HDMerchant')
+					{
+						HDMerchant(CardPlayers[i].Player).Pissed = true;
+					}
+					Console.Printf("%s was dragged out of the poker game. Now face their anger.", CardPlayers[i].GetName());
+				}
+				else
 				{
 					humanPlayersCount--;
+					Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
 				}
-				Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
 				CardPlayers[i].Player = null;
 			}
 		}
@@ -975,6 +1000,7 @@ extend class MerchantHandler
 						Console.Printf("The pot containing %i bucks was split between the remaining players.", pot);
 					}
 				}
+				CardPlayers.Clear();
 			}
 			return true;
 		}
@@ -1325,7 +1351,7 @@ extend class MerchantHandler
 	// INFORMATION
 	// ----------------------------------------------------------
 
-	private clearscope bool PlayerIsInPokerGame(PlayerPawn plr)
+	clearscope bool ActorIsInPokerGame(Actor plr)
 	{
 		for (int i = 0; i < CardPlayers.Size(); ++i)
 		{
@@ -1409,81 +1435,4 @@ extend class MerchantHandler
 		}
 		return 1;
 	}
-}
-
-struct CardDeck
-{
-	void GenerateDeck(int numDecks = 1, bool shuffle = true)
-	{
-		while (numDecks > 0)
-		{
-			for (int i = PlayingCard.Suit_Spades; i <= PlayingCard.Suit_Diamonds; ++i)
-			{
-				for (int j = 0; j < 13; ++j)
-				{
-					Cards.Push(PlayingCard.Create(i, j));
-				}
-			}
-			numDecks--;
-		}
-
-		if (shuffle)
-		{
-			ShuffleDeck();
-		}
-	}
-
-	void ShuffleDeck()
-	{
-		int size = Cards.Size();
-		for (int i = 0; i < size; ++i)
-		{
-			let swap = Cards[i];
-			int newIndex = random(0, size - 1);
-			Cards[i] = Cards[newIndex];
-			Cards[newIndex] = swap;
-		}
-	}
-
-	PlayingCard TakeTopCard()
-	{
-		PlayingCard card = Cards[Cards.Size() - 1];
-		Cards.Pop();
-		return card;
-	}
-
-	Array<PlayingCard> Cards;
-}
-
-class PlayingCard
-{
-	enum CardSuit
-	{
-		Suit_Spades,
-		Suit_Hearts,
-		Suit_Clubs,
-		Suit_Diamonds
-	}
-
-	static PlayingCard Create(CardSuit suit, int rank)
-	{
-		let card = new('PlayingCard');
-		card.Suit = suit;
-		card.Rank = rank;
-		return card;
-	}
-
-	clearscope string GetIcon(bool reveal = false)
-	{
-		if (!reveal)
-		{
-			return "CARDBACK";
-		}
-
-		static const string suitLabels[] = { "SPD", "HRT", "CLB", "DMD" };
-		return "CRD"..suitLabels[Suit]..Rank;
-	}
-
-	int Rank; // [Ace] 0-12; From 2 to 10, Jacks, Queens, Kings, Aces.
-	CardSuit Suit;
 }

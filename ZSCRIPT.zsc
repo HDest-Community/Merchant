@@ -5,6 +5,7 @@ version "4.5"
 #include "ZSCRIPT.StoreItems.zsc"
 #include "ZSCRIPT.MerchantSkins.zsc"
 #include "ZSCRIPT.SlotMachine.zsc"
+#include "ZSCRIPT.PlayingCards.zsc"
 #include "ZSCRIPT.Poker.zsc"
 
 class MerchantRewardStorage : Thinker
@@ -449,8 +450,16 @@ class HDMerchant : Actor abstract
 	override bool Used(Actor user)
 	{
 		let plr = HDPlayerPawn(user);
-		if (!plr || PiggyBack == plr ||  Distance3D(plr) > 48)
+		let handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+
+		if (!plr || PiggyBack == plr || Distance3D(plr) > 48 || handler.ActorIsInPokerGame(self))
 		{
+			return false;
+		}
+
+		if (Pissed)
+		{
+			plr.A_Print("\c[Red]Fuck off! Store's closed, cheater!");
 			return false;
 		}
 
@@ -467,8 +476,7 @@ class HDMerchant : Actor abstract
 		if (plr.PlayerNumber() == consoleplayer)
 		{
 			LastUser = plr;
-			MerchantHandler Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
-			Handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
+			handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
 			Menu.SetMenu('MerchantShopMenu');
 		}
 
@@ -554,6 +562,7 @@ class HDMerchant : Actor abstract
 
 	HDPlayerPawn PiggyBack;
 	private HDPlayerPawn LastUser;
+	bool Pissed;
 
 	private double SOffsetY;
 

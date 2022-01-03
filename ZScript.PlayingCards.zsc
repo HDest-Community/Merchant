@@ -1,0 +1,76 @@
+struct CardDeck
+{
+	void GenerateDeck(int numDecks = 1, bool shuffle = true)
+	{
+		while (numDecks > 0)
+		{
+			for (int i = PlayingCard.Suit_Spades; i <= PlayingCard.Suit_Diamonds; ++i)
+			{
+				for (int j = 0; j < 13; ++j)
+				{
+					Cards.Push(PlayingCard.Create(i, j));
+				}
+			}
+			numDecks--;
+		}
+
+		if (shuffle)
+		{
+			ShuffleDeck();
+		}
+	}
+
+	void ShuffleDeck()
+	{
+		int size = Cards.Size();
+		for (int i = 0; i < size; ++i)
+		{
+			let swap = Cards[i];
+			int newIndex = random(0, size - 1);
+			Cards[i] = Cards[newIndex];
+			Cards[newIndex] = swap;
+		}
+	}
+
+	PlayingCard TakeTopCard()
+	{
+		PlayingCard card = Cards[Cards.Size() - 1];
+		Cards.Pop();
+		return card;
+	}
+
+	Array<PlayingCard> Cards;
+}
+
+class PlayingCard
+{
+	enum CardSuit
+	{
+		Suit_Spades,
+		Suit_Hearts,
+		Suit_Clubs,
+		Suit_Diamonds
+	}
+
+	static PlayingCard Create(CardSuit suit, int rank)
+	{
+		let card = new('PlayingCard');
+		card.Suit = suit;
+		card.Rank = rank;
+		return card;
+	}
+
+	clearscope string GetIcon(bool reveal = false)
+	{
+		if (!reveal)
+		{
+			return "CARDBACK";
+		}
+
+		static const string suitLabels[] = { "SPD", "HRT", "CLB", "DMD" };
+		return "CRD"..suitLabels[Suit]..Rank;
+	}
+
+	int Rank; // [Ace] 0-12; From 2 to 10, Jacks, Queens, Kings, Aces.
+	CardSuit Suit;
+}
