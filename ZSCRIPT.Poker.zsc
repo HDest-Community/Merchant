@@ -183,16 +183,37 @@ class PokerPlayerInfo
 		}
 
 		// [arooкas] straight OR straight flush OR royal flush
-		if (handSize > 2 && highCardValue >= 4)
+		if (handSize > 2 && highCardValue >= 3)
 		{
 			bool str = true;
 
-			for (int i = highCardValue, j = 0; i >= 0 && j < 5; --i, ++j) 
+			if (highCardValue == 3)
 			{
-				if (faceCount[i] != 1)
+				// [arooкas] add special handling for low aces
+				// (only possible in a 5 straight)
+				for (int i = 0; i <= 3; ++i)
 				{
-					str = false;
-					break;
+					if (faceCount[i] != 1)
+					{
+						str = false;
+						break;
+					}
+				}
+
+				if (str && faceCount[12] != 1)
+				{
+					str = false; // [arooкas] doesn't have an ace
+				}
+			}
+			else
+			{
+				for (int i = highCardValue, j = 0; i >= 0 && j < 5; --i, ++j) 
+				{
+					if (faceCount[i] != 1)
+					{
+						str = false;
+						break;
+					}
 				}
 			}
 
