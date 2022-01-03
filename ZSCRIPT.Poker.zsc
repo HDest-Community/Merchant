@@ -14,7 +14,6 @@ enum HandRank
 
 class PokerPlayerInfo
 {
-	vector3 StartingPosition;
 	Actor Player;
 
 	Array<PlayingCard> HoleCards;
@@ -280,6 +279,7 @@ extend class MerchantHandler
 	}
 
 	static const int ChipAmounts[] = { 1, 2, 5, 10, 20, 50, 100, 250, 500, 1000, 2000, 5000 };
+	const AssembleDistance = HDCONST_ONEMETRE * 3;
 
 	private Array<PokerPlayerInfo> CardPlayers;
 	private CardDeck Deck;
@@ -293,6 +293,8 @@ extend class MerchantHandler
 	private int ActionTimer;
 	private int PlayerIndex;
 	private int DealerIndex;
+	private vector3 CenterSpot;
+	private int PokerGameTics;
 
 	private transient ui HUDFont mConFont;
 
@@ -725,43 +727,90 @@ extend class MerchantHandler
 		int totalPlayers = CardPlayers.Size();
 		int humanPlayersCount = GetHumanPlayersCount();
 
-		for (int i = totalPlayers - 1; i >= 0; --i)
+		if (PokerGameTics > 0)
 		{
-			if (CardPlayers[i].Player && level.Vec3Diff(CardPlayers[i].Player.pos, CardPlayers[i].StartingPosition).Length() > HDCONST_ONEMETRE * 4)
-			{
-				// [Ace] If the AI ragequits, that means you cheated somehow. Either you pushed the actor off a cliff or another player pulled them.
-				// In that case, spawn revenge. If you survive it, fuck it, keep the money. You earned it.
-				if (CardPlayers[i].IsAi())
-				{
-					for (int j = 0; j < totalPlayers; ++j)
-					{
-						Actor p = CardPlayers[j].Player;
-						if (!p || CardPlayers[j] == CardPlayers[i])
-						{
-							continue;
-						}
+			Actor farthestPlayer = null;
+			double farthestDistance = 0;
 
-						// [Ace] Extra get fucked.
-						if (!random(0, 1)) { p.A_SpawnItemEx('SatanRobo', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); }
-						for (int k = 0; k < 10; ++k) { p.A_SpawnItemEx('Necromancer', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); if (k > 0 && random(1, 100) <= 50) { break; }}
-						for (int k = 0; k < 10; ++k) { p.A_SpawnItemEx('PainLord', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); if (k > 2 && random(1, 100) <= 40) { break; }}
-						for (int k = 0; k < 10; ++k) { p.A_SpawnItemEx('PainBringer', p.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS); if (k > 4 && random(1, 100) <= 25) { break; }}
-						p.A_AlertMonsters();
-					}
-					if (CardPlayers[i].Player is 'HDMerchant')
-					{
-						HDMerchant(CardPlayers[i].Player).Pissed = true;
-					}
-					Console.Printf("%s was dragged out of the poker game. Now face their anger.", CardPlayers[i].GetName());
-				}
-				else
+			for (int j = 0; j < totalPlayers; ++j)
+			{
+				Actor p = CardPlayers[j].Player;
+				if (!p)
 				{
-					humanPlayersCount--;
-					Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
+					continue;
 				}
-				CardPlayers[i].Player = null;
+
+				double diffLength = level.Vec3Diff(p.pos, CenterSpot).Length();
+				if (farthestDistance < diffLength)
+				{
+					farthestDistance = diffLength;
+					farthestPlayer = p;
+				}
+			}
+
+			for (int i = totalPlayers - 1; i >= 0; --i)
+			{
+				Actor p = CardPlayers[i].Player;
+				if (!p)
+				{
+					continue;
+				}
+				if (level.Vec3Diff(p.pos, CenterSpot).Length() > AssembleDistance * 1.25 && farthestPlayer == p)
+				{
+					// [Ace] If the AI ragequits, that means you cheated somehow. Either you pushed the actor off a cliff or another player pulled them.
+					// In that case, spawn revenge. If you survive it, fuck it, keep the money. You earned it.
+					if (CardPlayers[i].IsAi())
+					{
+						for (int j = 0; j < totalPlayers; ++j)
+						{
+							Actor p = CardPlayers[j].Player;
+							if (!p || CardPlayers[j] == CardPlayers[i])
+							{
+								continue;
+							}
+
+							SpawnMonster(p, 'SatanRobo', 50, 1, 0); // [Ace] Extra get fucked.
+							SpawnMonster(p, 'Necromancer', 100, 5, 50);
+							SpawnMonster(p, 'PainLord', 100, 5, 40);
+							SpawnMonster(p, 'PainBringer', 100, 10, 25);
+							p.A_AlertMonsters();
+						}
+						if (CardPlayers[i].Player is 'HDMerchant')
+						{
+							HDMerchant(CardPlayers[i].Player).Pissed = true;
+						}
+						Console.Printf("%s was dragged out of the poker game. Now face their anger.", CardPlayers[i].GetName());
+					}
+					else
+					{
+						humanPlayersCount--;
+						Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
+					}
+					CardPlayers[i].Player = null;
+					break;
+				}
 			}
 		}
+
+		vector3 minCoords, maxCoords;
+		bool assignedFirst = false;
+		for (int j = 0; j < totalPlayers; ++j)
+		{
+			Actor p = CardPlayers[j].Player;
+			if (!p)
+			{
+				continue;
+			}
+			if (!assignedFirst)
+			{
+				minCoords = maxCoords = p.pos;
+				assignedFirst = true;
+				continue;
+			}
+			minCoords.x = min(minCoords.x, p.pos.x); minCoords.y = min(minCoords.y, p.pos.y); minCoords.z = min(minCoords.z, p.pos.z);
+			maxCoords.x = max(maxCoords.x, p.pos.x); maxCoords.y = max(maxCoords.y, p.pos.y); maxCoords.z = max(maxCoords.z, p.pos.z);
+		}
+		CenterSpot = (minCoords + maxCoords) * 0.5;
 
 		if (Stage < Stage_EndGame && CheckGameEnd(2))
 		{
@@ -933,7 +982,6 @@ extend class MerchantHandler
 						{
 							ActionTimer = 35 * 5;
 							Stage = Stage_EndGame;
-							return;
 						}
 					}
 					else if (contValue == 1)
@@ -958,6 +1006,7 @@ extend class MerchantHandler
 				}
 			}
 		}
+		PokerGameTics++;
 	}
 
 	bool CheckGameEnd(int type)
@@ -1241,7 +1290,6 @@ extend class MerchantHandler
 		{
 			let info = new('PokerPlayerInfo');
 			info.Player = foundPlayers[i];
-			info.StartingPosition = foundPlayers[i].pos;
 			CardPlayers.Push(info);
 		}
 
@@ -1253,7 +1301,6 @@ extend class MerchantHandler
 			{
 				let info = new('PokerPlayerInfo');
 				info.Player = foundOthers[i];
-				info.StartingPosition = foundOthers[i].pos;
 				CardPlayers.Push(info);
 			}
 		}
@@ -1345,6 +1392,27 @@ extend class MerchantHandler
 		plr.Bet += amt;
 		plr.WinLoss -= amt;
 		plr.Player.A_StartSound("Poker/BetChip", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
+	}
+
+	private void SpawnMonster(Actor spawner, class<Actor> spawnClass, int baseChance, int maxTimes, int stopChance)
+	{
+		if (random(1, 100) > baseChance)
+		{
+			return;
+		}
+		for (int i = 0; i < maxTimes; ++i)
+		{
+			bool success; Actor a;
+			[success, a] = spawner.A_SpawnItemEx(spawnClass, spawner.radius + random(32, 256), angle: random(0, 359), flags: SXF_NOPOINTERS);
+			if (success)
+			{
+				a.A_SpawnItemEx('TeleportFog', 0, 0, a.height / 2, flags: SXF_NOCHECKPOSITION);
+			}
+			if (random(1, 100) <= stopChance)
+			{
+				break;
+			}
+		}
 	}
 
 	// ----------------------------------------------------------
