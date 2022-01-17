@@ -399,7 +399,7 @@ class HDMerchant : Actor abstract
 		Super.BeginPlay();
 		
 		InitSkins();
-		A_GiveInventory('MercenaryBucks', 1000);
+		A_GiveInventory('MercenaryBucks', 250);
 	}
 
 	override void Tick()
