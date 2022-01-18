@@ -178,6 +178,18 @@ class HDHeatStore : StoreItem
 	override string GetFlavorText() { return "One shot, one kill."; }
 }
 
+class HDSevenMilStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Vanilla"; }
+	override Name GetItem() { return 'SevenMilAmmo'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "7BOXA0"; }
+	override string GetDisplayName() { return "7mm Rounds"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "You don't need to face your enemies if you shoot them through the wall."; }
+}
+
 class HDBatteryStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }

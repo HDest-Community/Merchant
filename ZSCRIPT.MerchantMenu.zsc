@@ -178,11 +178,12 @@ class MerchantShopMenu : MerchMenuGenericMenu
 		MerchantStore OpenedStore = Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
 		for (int i = 0; i < OpenedStore.StoreItems.Size(); ++i)
 		{
-			if (OpenedStore.StoreItems[i].GetCategory() == category)
+			if (OpenedStore.StoreItems[i].GetCategory() == category && OpenedStore.StoreItems[i].GetItem() != Handler.StoreCurrencies[SelCurrencyIndex].GetCurrencyClass())
 			{
 				items.Push(OpenedStore.StoreItems[i]);
 			}
 		}
+		SelItemIndex = clamp(SelItemIndex, 0, items.Size() - 1);
 	}
 
 	static clearscope double GetBoxedScale(vector2 size, vector2 boxSize)
@@ -232,12 +233,14 @@ class MerchantShopMenu : MerchMenuGenericMenu
 				{
 					SelCurrencyIndex = Handler.StoreCurrencies.Size() - 1;
 				}
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
 				break;
 			case MKEY_PageDown:
 				if (++SelCurrencyIndex > Handler.StoreCurrencies.Size() - 1)
 				{
 					SelCurrencyIndex = 0;
 				}
+				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());
 				break;
 			case MKEY_Enter:
 				GetItemsInCategory(ItemsInCategory, GetSelectedCategory());

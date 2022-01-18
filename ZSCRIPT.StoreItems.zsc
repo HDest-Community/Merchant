@@ -13,35 +13,21 @@
 
 class StoreCurrency abstract
 {
-	abstract string GetCurrencyClass();
+	abstract Name GetCurrencyClass();
 	abstract string GetIcon();
 	virtual double GetPriceMult() { return 1.0; }
 }
 
 class BucksCurrency : StoreCurrency
 {
-	override string GetCurrencyClass() { return "MercenaryBucks"; }
+	override Name GetCurrencyClass() { return 'MercenaryBucks'; }
 	override string GetIcon() { return "MBCKA0"; }
 }
 
 class SevenMilCurrency : StoreCurrency
 {
-	override string GetCurrencyClass() { return "SevenMilAmmo"; }
+	override Name GetCurrencyClass() { return 'SevenMilAmmo'; }
 	override string GetIcon() { return "TEN7A0"; }
-}
-
-class SevenMilBrassCurrency : StoreCurrency
-{
-	override string GetCurrencyClass() { return "SevenMilBrass"; }
-	override string GetIcon() { return "RBRSA3A7"; }
-	override double GetPriceMult() { return 2.0; }
-}
-
-class MeloStoneCurrency : StoreCurrency
-{
-	override string GetCurrencyClass() { return "HDStoneGrenadeAmmo"; }
-	override string GetIcon() { return "STNEA0"; }
-	override double GetPriceMult() { return 0.1; }
 }
 
 class StoreItem abstract
