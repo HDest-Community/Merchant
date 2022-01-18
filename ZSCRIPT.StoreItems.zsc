@@ -13,9 +13,9 @@
 
 class StoreCurrency abstract
 {
-	abstract Name GetCurrencyClass();
-	abstract string GetIcon();
-	virtual double GetPriceMult() { return 1.0; }
+	abstract Name GetCurrencyClass() const;
+	abstract string GetIcon() const;
+	virtual double GetPriceMult() const { return 1.0; }
 }
 
 class BucksCurrency : StoreCurrency
@@ -28,6 +28,13 @@ class SevenMilCurrency : StoreCurrency
 {
 	override Name GetCurrencyClass() { return 'SevenMilAmmo'; }
 	override string GetIcon() { return "TEN7A0"; }
+}
+
+class AssemblyCoreCurrency : StoreCurrency
+{
+	override Name GetCurrencyClass() { return 'AssemblyCore'; }
+	override string GetIcon() { return "ASCRA0"; }
+	override double GetPriceMult() { return 0.01; }
 }
 
 class StoreItem abstract
