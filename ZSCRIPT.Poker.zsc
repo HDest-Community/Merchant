@@ -1128,8 +1128,7 @@ extend class MerchantHandler
 				}
 				case e.Key_End:
 				{
-					CardPlayers[PlayerIndex].HasFolded = true;
-					SendNetworkEvent("HDM_Check");
+					SendNetworkEvent("HDM_Fold");
 					return true;
 				}
 			}

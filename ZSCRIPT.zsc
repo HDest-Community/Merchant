@@ -58,6 +58,14 @@ class MerchantHandler : EventHandler
 			return;
 		}
 
+		if (e.Name ~== "HDM_Fold")
+		{
+			CardPlayers[PlayerIndex].HasFolded = true;
+			ActionTimer = 0;
+			RotatePlayer();
+			return;
+		}
+
 		if (e.Name ~== "HDM_Check")
 		{
 			ActionTimer = 0;
