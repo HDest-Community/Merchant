@@ -233,7 +233,7 @@ class MerchantSlotMachine : Actor
 			SLMC A 4
 			{
 				int randMult = max(1, BucksToWin / 150);
-				int toDrop = min(random(15, 40) * randMult, BucksToWin);
+				int toDrop = min(random(50, 200) * randMult, BucksToWin);
 				Inventory a = Inventory(Spawn('MercenaryBucks', Vec3Offset(0, 0, 12)));
 				a.angle = angle + frandom(-15, 15);
 				a.A_ChangeVelocity(frandom(1.5, 2.5), 0, 0, CVF_RELATIVE);
