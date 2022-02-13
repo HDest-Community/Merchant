@@ -196,17 +196,6 @@ class HDBoosterJetsStore : StoreItem
 	override string GetFlavorText() { return "Wheeeeeeeeeeeee!"; }
 }
 
-class HDArmorPatchKitStore : StoreItem
-{
-	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "AceCorp"; }
-	override Name GetItem() { return 'HDArmorPatchKit'; }
-	override string GetIcon() { return "APKTA0"; }
-	override string GetDisplayName() { return "Armor Patch Kit"; }
-	override int GetBasePrice() { return 120; }
-	override string GetFlavorText() { return "Have fun with that."; }
-}
-
 class HDFieldAssemblyKitStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
@@ -329,6 +318,17 @@ class HDSupplyBeaconStore : StoreItem
 	override string GetDisplayName() { return "Supply Beacon"; }
 	override int GetBasePrice() { return 250; }
 	override string GetFlavorText() { return "Intergalactic resupply."; }
+}
+
+class HDFlashlightStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'DarkDoomZ_Flashlight'; }
+	override string GetIcon() { return "DDFLA0"; }
+	override string GetDisplayName() { return "Flashlight"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "The clicking mechanism is really satisfying."; }
 }
 
 class HDAssemblyCoreStore : StoreItem
