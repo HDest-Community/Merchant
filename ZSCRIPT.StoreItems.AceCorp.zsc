@@ -47,7 +47,7 @@ class HDRedlineStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDRedline'; }
-	override string GetIcon() { return "RDNGZ0"; }
+	override string GetIcon() { return "RDLGZ0"; }
 	override string GetDisplayName() { return "'Redline' Thermal Lance"; }
 	override int GetBasePrice() { return 540; }
 	override string GetFlavorText() { return "Look here. Smile. Wait for flash."; }
