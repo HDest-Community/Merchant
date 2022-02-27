@@ -1491,7 +1491,7 @@ extend class MerchantHandler
 		int highestBet = GetHighestBet();
 		for (int i = 0 ; i < CardPlayers.Size(); ++i)
 		{
-			if (!CardPlayers[i].Player || CardPlayers[i].HasFolded)
+			if (!CardPlayers[i].Player || CardPlayers[i].HasFolded || CardPlayers[i].Bust)
 			{
 				continue;
 			}
