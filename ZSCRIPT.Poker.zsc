@@ -755,6 +755,7 @@ extend class MerchantHandler
 				{
 					continue;
 				}
+
 				if (level.Vec3Diff(p.pos, CenterSpot).Length() > AssembleDistance * 1.25 && farthestPlayer == p)
 				{
 					// [Ace] If the AI ragequits, that means you cheated somehow. Either you pushed the actor off a cliff or another player pulled them.
@@ -792,8 +793,7 @@ extend class MerchantHandler
 			}
 		}
 
-		vector3 minCoords, maxCoords;
-		bool assignedFirst = false;
+		vector3 newSpot = (0, 0, 0);
 		for (int j = 0; j < totalPlayers; ++j)
 		{
 			Actor p = CardPlayers[j].Player;
@@ -801,16 +801,9 @@ extend class MerchantHandler
 			{
 				continue;
 			}
-			if (!assignedFirst)
-			{
-				minCoords = maxCoords = p.pos;
-				assignedFirst = true;
-				continue;
-			}
-			minCoords.x = min(minCoords.x, p.pos.x); minCoords.y = min(minCoords.y, p.pos.y); minCoords.z = min(minCoords.z, p.pos.z);
-			maxCoords.x = max(maxCoords.x, p.pos.x); maxCoords.y = max(maxCoords.y, p.pos.y); maxCoords.z = max(maxCoords.z, p.pos.z);
+			newSpot += p.pos;
 		}
-		CenterSpot = (minCoords + maxCoords) * 0.5;
+		CenterSpot = newSpot / totalPlayers;
 
 		if (Stage < Stage_EndGame && CheckGameEnd(2))
 		{
@@ -1320,6 +1313,7 @@ extend class MerchantHandler
 			Console.Printf("Assembled a game with: %s", plrStr);
 			GameInProgress = true;
 			Stage = Stage_BeginRound;
+			PokerGameTics = 0;
 			ActionTimer = 0;
 			PlayerIndex = 0;
 			DealerIndex = 0;
