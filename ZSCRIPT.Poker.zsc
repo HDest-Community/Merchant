@@ -9,7 +9,7 @@ enum HandRank
 	FullHouse,
 	FourKind,
 	StraightFlush,
-	RoyalFlush,
+	RoyalFlush
 }
 
 class PokerPlayerInfo
@@ -228,23 +228,25 @@ class PokerPlayerInfo
 		return uniqueSuits == 1 && handSize > 2 ? Flush : HighCard, highCardValue;
 	}
 
-	static void PrintHandRanks(string label, Array<PlayingCard> hand)
+	static void PrintCardRanks(string plrName, string handAndKicker, Array<PlayingCard> hand)
 	{
 		int handSize = hand.Size();
-		string str = "";
-		if (label != "")
-		{
-			str = "----- "..label.." -----\n";
-		}
+		string str = plrName..": "..handAndKicker.." - ";
 		for (int i = 0; i < handSize; ++i)
 		{
-			str = str..hand[i].Rank;
+			str = str..PlayingCard.SuitToIcon(hand[i].Suit)..PlayingCard.RankToString(hand[i].Rank);
 			if (i < handSize - 1)
 			{
 				str = str..", ";
 			}
 		}
-		Console.Printf(str.."\n--------------------");
+		Console.Printf(str);
+	}
+
+	static string RankToString(HandRank rank)
+	{
+		static const string rankStrings[] = { "High Card", "Pair", "Two Pairs", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush", "Royal Flush" };
+		return rankStrings[rank];
 	}
 }
 
@@ -358,6 +360,10 @@ extend class MerchantHandler
 			CardPlayers[pIndex].HighestRank = HighCard;
 			CardPlayers[pIndex].HighestKicker = 0;
 
+			Array<PlayingCard> fullHand;
+			fullHand.Append(CardPlayers[pIndex].HoleCards);
+			fullHand.Append(CommunityCards);
+
 			switch (communitySize)
 			{
 				case 0:
@@ -369,10 +375,6 @@ extend class MerchantHandler
 				}
 				case 3:
 				{
-					Array<PlayingCard> fullHand;
-					fullHand.Append(CardPlayers[pIndex].HoleCards);
-					fullHand.Append(CommunityCards);
-
 					[rank, kicker] = PokerPlayerInfo.EvaluateHand(fullHand);
 					if (CardPlayers[pIndex].HighestRank < rank) { CardPlayers[pIndex].HighestRank = rank; }
 					if (CardPlayers[pIndex].HighestKicker < kicker) { CardPlayers[pIndex].HighestKicker = kicker; }
@@ -380,12 +382,8 @@ extend class MerchantHandler
 				}
 				case 4:
 				{
-					Array<PlayingCard> fullHand;
-					fullHand.Append(CardPlayers[pIndex].HoleCards);
-					fullHand.Append(CommunityCards);
-
 					Array<PlayingCard> tempHand;
-					for (int i = fullHand.Size() - 1; i >= 1; --i)
+					for (int i = fullHand.Size() - 1; i >= 0; --i)
 					{
 						tempHand.Copy(fullHand);
 						tempHand.Delete(i);
@@ -397,10 +395,6 @@ extend class MerchantHandler
 				}
 				case 5:
 				{
-					Array<PlayingCard> fullHand;
-					fullHand.Append(CardPlayers[pIndex].HoleCards);
-					fullHand.Append(CommunityCards);
-
 					Array<PlayingCard> tempHand;
 					for (int i = fullHand.Size() - 1; i >= 1; --i)
 					{
@@ -519,20 +513,7 @@ extend class MerchantHandler
 
 			if (CardPlayers[i].HoleCards.Size() > 0 && (CardPlayers[i].Bust || Stage > Stage_DealHoles && CardPlayers[i].Player == plr || Stage >= Stage_EndRound && !CardPlayers[i].HasFolded))
 			{
-				string rankStr = "High Card";
-				switch (CardPlayers[i].HighestRank)
-				{
-					case Pair: rankStr = "Pair"; break;
-					case TwoPair: rankStr = "Two Pairs"; break;
-					case ThreeKind: rankStr = "Three of a Kind"; break;
-					case Straight: rankStr = "Straight"; break;
-					case Flush: rankStr = "Flush"; break;
-					case FullHouse: rankStr = "Full House"; break;
-					case FourKind: rankStr = "Four of a Kind"; break;
-					case StraightFlush: rankStr = "Straight Flush"; break;
-					case RoyalFlush: rankStr = "Royal Flush"; break;
-				}
-				sb.DrawString(mConFont, rankStr, (pos.x, top ? -234 : 225), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GOLD);
+				sb.DrawString(mConFont, PokerPlayerInfo.RankToString(CardPlayers[i].HighestRank), (pos.x, top ? -234 : 225), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GOLD);
 			}
 		}
 

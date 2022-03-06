@@ -46,6 +46,7 @@ class MerchantHandler : EventHandler
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let plr = players[e.Player].mo;
+
 		if (e.Name ~== "HDM_AssemblePokerGame")
 		{
 			AssembleGame(plr);
