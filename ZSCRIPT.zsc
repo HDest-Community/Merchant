@@ -623,21 +623,77 @@ class MercenaryBucks : HDAmmo
 {
 	override void SplitPickup()
 	{
-		int SplitAmount = min(Amount, random(100, 500));
-		while (Amount > SplitAmount)
+		int splitAmt = min(Amount, random(100, 500));
+		while (Amount > splitAmt)
 		{
-			int SubSplit = min(Amount, random(100, 500));
 			Actor a = Spawn("MercenaryBucks", pos);
 			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
 			Scale.X *= randompick(-1, 1);
-			Inventory(a).Amount = SubSplit;
-			Amount -= SubSplit;
+			Inventory(a).Amount = splitAmt;
+			Amount -= splitAmt;
+			splitAmt = min(Amount, splitAmt);
 		}
 
 		if (Amount < 1)
 		{
 			Destroy();
 			return;
+		}
+	}
+
+	override void ActualPickup(actor other, bool silent)
+	{
+		if(!other)
+		{
+			other = picktarget;
+		}
+
+		if (!other)
+		{
+			return;
+		}
+
+		if (heat.GetAmount(self) > 50)
+		{
+			return;
+		}
+
+		if (bALWAYSPICKUP)
+		{
+			Inventory.Touch(other);
+			return;
+		}
+
+		Name gcn = GetClassName();
+		int maxTake = min(Amount, HDPickup.MaxGive(other, gcn, getbulk()) * 100);
+		if (maxTake < 1)
+		{
+			return;
+		}
+
+		if (!silent)
+		{
+			other.A_StartSound(pickupsound, CHAN_AUTO);
+			HDPickup.LogPickupMessage(other, PickupMessage());
+		}
+
+		if (maxTake < Amount)
+		{
+			HDF.Give(other, gcn, maxtake);
+			Amount -= maxTake;
+			SplitPickup();
+		}
+		else
+		{
+			if (!other.FindInventory(GetClass()))
+			{
+				AttachToOwner(other);
+			}
+			else
+			{
+				HDF.Give(other, gcn, maxtake);
+				Destroy();
+			}
 		}
 	}
 
