@@ -30,7 +30,7 @@ class PokerPlayerInfo
 
 	clearscope bool IsAi() const
 	{
-		return !Player.player;
+		return Player && !Player.player;
 	}
 
 	clearscope string GetName() const
@@ -318,15 +318,19 @@ extend class MerchantHandler
 		StatusBar.BeginHUD();
 		StatusBar.SetSize(StatusBar.RelTop, 480, 320);
 
-		let plr = players[consoleplayer].mo;
-		if (!CardBack[consoleplayer])
+		// [Ace] Spectator is the real player. This may be the actual player if spectator == plr, or it may be someone else in the event of coop spy.
+		// if A is playing and B is spying on A, plr is A, spectator is B. From A's perspective, A is both.
+		let spectator = players[consoleplayer].mo;
+		let plr = players[e.Camera.PlayerNumber()].mo;
+
+		if (!CardBack[plr.PlayerNumber()])
 		{
-			CardBack[consoleplayer] = CVar.GetCVar('hdm_cardback', plr.player);
+			CardBack[plr.PlayerNumber()] = CVar.GetCVar('hdm_cardback', plr.player);
 		}
 
-		if (GameInProgress && !AutomapActive && GameState == GS_LEVEL && ActorIsInPokerGame(plr))
+		if (GameInProgress && !AutomapActive && GameState == GS_LEVEL && ActorIsInPokerGame(plr) && (spectator == plr || !ActorIsInPokerGame(spectator)))
 		{
-			DrawGame(HDStatusBar(StatusBar), plr, StatusBar.DI_SCREEN_CENTER | StatusBar.DI_ITEM_CENTER);
+			DrawGame(HDStatusBar(StatusBar), plr, StatusBar.DI_SCREEN_CENTER | StatusBar.DI_ITEM_CENTER, spectator);
 		}
 
 		StatusBar.SetSize(StatusBar.RelTop, OriginalWidth, OriginalHeight);
@@ -414,9 +418,9 @@ extend class MerchantHandler
 		}
 	}
 
-	private ui void DrawGame(HDStatusBar sb, PlayerPawn plr, int gzflags)
+	private ui void DrawGame(HDStatusBar sb, PlayerPawn plr, int gzflags, PlayerPawn spectator)
 	{
-		int cardBackIndex = CardBack[consoleplayer].GetInt();
+		int cardBackIndex = CardBack[plr.PlayerNumber()].GetInt();
 
 		int totalPlayers = CardPlayers.Size();
 		for (int i = 0; i < totalPlayers; ++i)
@@ -463,11 +467,13 @@ extend class MerchantHandler
 				}
 			}
 
+			bool reveal = false;
 			if (CardPlayers[i].Player)
 			{
+				reveal = CardPlayers[i].Player == plr || Stage >= Stage_EndRound && !CardPlayers[i].HasFolded || CardPlayers[i].Bust || plr != spectator;
 				for (int j = 0; j < CardPlayers[i].HoleCards.Size(); ++j)
 				{
-					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(CardPlayers[i].Player == plr || Stage >= Stage_EndRound && !CardPlayers[i].HasFolded || CardPlayers[i].Bust, cardBackIndex), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
+					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(reveal, cardBackIndex), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
 					if (CardPlayers[i].Winner)
 					{
 						sb.DrawImage("CARDGLOW", (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
@@ -511,7 +517,7 @@ extend class MerchantHandler
 				sb.DrawString(sb.pNewSmallFont, "FOLDED", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_RED);
 			}
 
-			if (CardPlayers[i].HoleCards.Size() > 0 && (CardPlayers[i].Bust || Stage > Stage_DealHoles && CardPlayers[i].Player == plr || Stage >= Stage_EndRound && !CardPlayers[i].HasFolded))
+			if (CardPlayers[i].HoleCards.Size() > 0 && reveal)
 			{
 				sb.DrawString(mConFont, PokerPlayerInfo.RankToString(CardPlayers[i].HighestRank), (pos.x, top ? -234 : 225), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GOLD);
 			}
@@ -521,9 +527,9 @@ extend class MerchantHandler
 		// I BET YOU CAN'T GO ALL IN
 		// ------------------------------------------------------------
 
-		if (CardPlayers[PlayerIndex].Player == plr && (Stage == Stage_InitialBet || Stage == Stage_BetFlop || Stage == Stage_BetTurn || Stage == Stage_BetRiver))
+		if (plr == spectator && CardPlayers[PlayerIndex].Player == plr && (Stage == Stage_InitialBet || Stage == Stage_BetFlop || Stage == Stage_BetTurn || Stage == Stage_BetRiver))
 		{
-			int chipIndex = UiData[consoleplayer].SelectedChipIndex;
+			int chipIndex = UiData[plr.PlayerNumber()].SelectedChipIndex;
 			sb.DrawImage("PKCHIP"..chipIndex, (220, 0), gzflags, box: (53, 53));
 			if (chipIndex < ChipAmounts.Size() - 1)
 			{
@@ -536,7 +542,7 @@ extend class MerchantHandler
 
 			int highestBet = GetHighestBet();
 			int curBet = CardPlayers[PlayerIndex].Bet;
-			int chipAmount = ChipAmounts[UiData[consoleplayer].SelectedChipIndex];
+			int chipAmount = ChipAmounts[UiData[plr.PlayerNumber()].SelectedChipIndex];
 			int money = CardPlayers[PlayerIndex].Player.CountInv('MercenaryBucks');
 
 			string actionStr = "Bet";
