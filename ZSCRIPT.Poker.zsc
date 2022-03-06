@@ -30,7 +30,7 @@ class PokerPlayerInfo
 
 	clearscope bool IsAi() const
 	{
-		return Player && !Player.player;
+		return !Player.player;
 	}
 
 	clearscope string GetName() const
@@ -732,7 +732,6 @@ extend class MerchantHandler
 	private void PokerTick()
 	{
 		int totalPlayers = CardPlayers.Size();
-		int humanPlayersCount = GetHumanPlayersCount();
 
 		if (PokerGameTics > 0)
 		{
@@ -791,8 +790,15 @@ extend class MerchantHandler
 					}
 					else
 					{
-						humanPlayersCount--;
 						Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
+					}
+					if (CardPlayers[DealerIndex] == CardPlayers[i])
+					{
+						RotateDealer();
+					}
+					if (CardPlayers[PlayerIndex] == CardPlayers[i])
+					{
+						RotatePlayer();
 					}
 					CardPlayers[i].Player = null;
 					break;
@@ -810,7 +816,7 @@ extend class MerchantHandler
 			}
 			newSpot += p.pos;
 		}
-		CenterSpot = newSpot / totalPlayers;
+		CenterSpot = newSpot / GetRealPlayerCount();
 
 		if (Stage < Stage_EndGame && CheckGameEnd(2))
 		{
@@ -1363,14 +1369,19 @@ extend class MerchantHandler
 		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].HasFolded || CardPlayers[PlayerIndex].Bust);
 	}
 
+	private void RotateDealer()
+	{
+		do
+		{
+			++DealerIndex %= CardPlayers.Size();
+		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].Bust);
+	}
+
 	private void RotateRound()
 	{
 		int size = CardPlayers.Size();
-		do
-		{
-			++DealerIndex %= size;
-			PlayerIndex = DealerIndex;
-		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].Bust);
+		RotateDealer();
+		PlayerIndex = DealerIndex;
 		
 		CollectAndShuffle();
 		CardPlayers[DealerIndex].Player.A_StartSound("Poker/DeckShuffle", 10, CHANF_UI | CHANF_OVERLAP, attenuation: 1.5);
@@ -1441,7 +1452,7 @@ extend class MerchantHandler
 		int total = 0;
 		for (int i = 0; i < CardPlayers.Size(); ++i)
 		{
-			if (!CardPlayers[i].IsAi())
+			if (CardPlayers[i].Player && !CardPlayers[i].IsAi())
 			{
 				total++;
 			}
