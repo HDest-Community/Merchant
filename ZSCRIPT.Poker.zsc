@@ -971,7 +971,7 @@ extend class MerchantHandler
 						// [Ace] Get rid of broke players.
 						for (int i = totalPlayers - 1; i >= 0; --i)
 						{
-							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') == 0)
+							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') == 0 && !CardPlayers[i].Bust)
 							{
 								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
 								CardPlayers[i].Bust = true;
