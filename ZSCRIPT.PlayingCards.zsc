@@ -60,11 +60,11 @@ class PlayingCard
 		return card;
 	}
 
-	clearscope string GetIcon(bool reveal = false)
+	clearscope string GetIcon(bool reveal = false, int backIndex = 0)
 	{
 		if (!reveal)
 		{
-			return "CARDBACK";
+			return "CARDBAK"..backIndex;
 		}
 
 		static const string suitLabels[] = { "SPD", "HRT", "CLB", "DMD" };

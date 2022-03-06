@@ -297,6 +297,7 @@ extend class MerchantHandler
 	private int PokerGameTics;
 
 	private transient ui HUDFont mConFont;
+	private transient ui CVar CardBack[MAXPLAYERS];
 
 	// ----------------------------------------------------------
 	// UI
@@ -316,6 +317,10 @@ extend class MerchantHandler
 		StatusBar.SetSize(StatusBar.RelTop, 480, 320);
 
 		let plr = players[consoleplayer].mo;
+		if (!CardBack[consoleplayer])
+		{
+			CardBack[consoleplayer] = CVar.GetCVar('hdm_cardback', plr.player);
+		}
 
 		if (GameInProgress && !AutomapActive && GameState == GS_LEVEL && ActorIsInPokerGame(plr))
 		{
@@ -417,6 +422,8 @@ extend class MerchantHandler
 
 	private ui void DrawGame(HDStatusBar sb, PlayerPawn plr, int gzflags)
 	{
+		int cardBackIndex = CardBack[consoleplayer].GetInt();
+
 		int totalPlayers = CardPlayers.Size();
 		for (int i = 0; i < totalPlayers; ++i)
 		{
@@ -466,7 +473,7 @@ extend class MerchantHandler
 			{
 				for (int j = 0; j < CardPlayers[i].HoleCards.Size(); ++j)
 				{
-					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(CardPlayers[i].Player == plr || Stage >= Stage_EndRound && !CardPlayers[i].HasFolded || CardPlayers[i].Bust), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
+					sb.DrawImage(CardPlayers[i].HoleCards[j].GetIcon(CardPlayers[i].Player == plr || Stage >= Stage_EndRound && !CardPlayers[i].HasFolded || CardPlayers[i].Bust, cardBackIndex), (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
 					if (CardPlayers[i].Winner)
 					{
 						sb.DrawImage("CARDGLOW", (pos.x - 15 + 30 * j, top ? -180 : 180), gzflags);
@@ -588,12 +595,12 @@ extend class MerchantHandler
 
 		for (int i = 0; i < CommunityCards.Size(); ++i)
 		{
-			sb.DrawImage(CommunityCards[i].GetIcon(true), (-140 + 70 * i, 0), gzflags);
+			sb.DrawImage(CommunityCards[i].GetIcon(true, cardBackIndex), (-140 + 70 * i, 0), gzflags);
 		}
 
 		for (int i = 0; i < BurnedCards.Size(); ++i)
 		{
-			sb.DrawImage(BurnedCards[i].GetIcon(), (-220 + 5 * i, 0), gzflags);
+			sb.DrawImage(BurnedCards[i].GetIcon(backIndex: cardBackIndex), (-220 + 5 * i, 0), gzflags);
 		}
 
 		// ------------------------------------------------------------
