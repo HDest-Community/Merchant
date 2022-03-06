@@ -1187,6 +1187,10 @@ extend class MerchantHandler
 			{
 				chance -= (diff - money) >> 3;
 			}
+			else
+			{
+				chance += min(50, money / 20);
+			}
 			chance += int(1.58 ** ai.HighestRank);
 			if (chance > 100)
 			{
