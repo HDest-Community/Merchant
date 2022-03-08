@@ -525,7 +525,7 @@ extend class MerchantHandler
 				}
 			}
 
-			if (CardPlayers[i].HoleCards.Size() > 0 && reveal)
+			if (CardPlayers[i].HoleCards.Size() > 1 && reveal)
 			{
 				sb.DrawString(mConFont, PokerPlayerInfo.RankToString(CardPlayers[i].HighestRank), (pos.x, top ? -234 : 225), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GOLD);
 			}
@@ -616,10 +616,10 @@ extend class MerchantHandler
 			{
 				if (CardPlayers[i].Winner)
 				{
-					winnerNames.Push(CardPlayers[i].GetName());
+					winnerNames.Push("\c[White]"..CardPlayers[i].GetName().."\c-");
 				}
 			}
-			sb.DrawString(sb.pNewSmallFont, String.Format("\c[White]%s\c- win%s the "..(Stage == Stage_EndGame ? "game" : "round"), AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
+			sb.DrawString(sb.pNewSmallFont, String.Format("%s win%s the "..(Stage == Stage_EndGame ? "game" : "round"), AceCore.MakeOxfordComma(winnerNames), winnerNames.Size() == 1 ? "s" : ""), (0, -80), gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
 		}
 
 		// ------------------------------------------------------------
@@ -1037,6 +1037,9 @@ extend class MerchantHandler
 						PrintToPlayers(String.Format("The pot containing $%i was split between the remaining players.", pot));
 					}
 				}
+				// [Ace] Don't remove this again you fucking retard. This is what checks if the merchants are currently in the game or not.
+				// If you remove it, they won't get excluded until they bust and are manually removed from the game.
+				CardPlayers.Clear();
 			}
 			return true;
 		}

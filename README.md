@@ -1,8 +1,9 @@
 ### Important
 ---
+- This mod requires [AceCoreLib](https://gitlab.com/accensi/hd-addons/acecorelib).
 - There are three merchants, one for each type of item: weapons, ammo, and items.
 - Up to three merchants can spawn on a map. They have a different inventory each time, meaning some items may be missing.
-- Escorting the merchants to the exit will give you a 20% boost per merchant to whatever money you have earned, but will also remove them from the map, meaning they will no longer be there in the case of hubs. They can still spawn on the next map, however. In multiplayer games, the distance to the arbitrator (usually team leader) is taken into account, and not whoever exited the level. To escort all merchants in multiplayer, have all of them near the arbitrator, then exit the level.
+- Escorting the merchants to the exit will give you a 20% boost per merchant to whatever money you have earned, but will also remove them from the map, meaning they will no longer be there in the case of hubs. They can still spawn on the next map, however. In multiplayer games, the distance to the arbitrator (host) is taken into account, and not whoever exited the level. To escort all merchants in multiplayer, have all of them near the arbitrator, then exit the level.
 - You can carry the merchant by using Sprinting + Use. Put them down by crouching and holding the sprint key for half a second. You can only carry one merchant at a time.
 
 ### Notes
