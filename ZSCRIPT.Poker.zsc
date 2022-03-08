@@ -1037,7 +1037,7 @@ extend class MerchantHandler
 						PrintToPlayers(String.Format("The pot containing $%i was split between the remaining players.", pot));
 					}
 				}
-				// [Ace] Don't remove this again you fucking retard. This is what checks if the merchants are currently in the game or not.
+				// [Ace] Don't remove this again you fucking retard. This is what's checked if the merchants are currently in the game or not.
 				// If you remove it, they won't get excluded until they bust and are manually removed from the game.
 				CardPlayers.Clear();
 			}
@@ -1182,7 +1182,7 @@ extend class MerchantHandler
 				chance += min(50, money / 20);
 			}
 			chance += int(1.58 ** ai.HighestRank);
-			if (chance > 100 && diff > GetBlindsAmount()) // [Ace] Don't do $1 raises for Christ's sake.
+			if (chance > 130 && diff > GetBlindsAmount()) // [Ace] Don't do $1 raises for Christ's sake.
 			{
 				PlaceBet(ai, min(money, int(diff * frandom(1.00, 1.50) * (chance / 100.0))));
 				ai.HasChecked = true;
