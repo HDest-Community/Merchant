@@ -280,8 +280,15 @@ extend class MerchantHandler
 		Stage_EndGame
 	}
 
+	enum GameEndType
+	{
+		GEType_Check,
+		GEType_EndAny,
+		GEType_EndPremature
+	}
+
 	static const int ChipAmounts[] = { 1, 2, 5, 10, 20, 50, 100, 250, 500, 1000, 2000, 5000 };
-	const AssembleDistance = HDCONST_ONEMETRE * 3;
+	const AssembleDistance = HDCONST_ONEMETRE * 2;
 
 	private Array<PokerPlayerInfo> CardPlayers;
 	private CardDeck Deck;
@@ -295,8 +302,9 @@ extend class MerchantHandler
 	private int ActionTimer;
 	private int PlayerIndex;
 	private int DealerIndex;
-	private vector3 CenterSpot;
 	private int PokerGameTics;
+
+	private MerchantGameTable Table;
 
 	private transient ui HUDFont mConFont;
 	private transient ui CVar CardBack[MAXPLAYERS];
@@ -506,15 +514,15 @@ extend class MerchantHandler
 				}
 				sb.DrawString(mConFont, moneyStr, pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
 				pos.y += top ? 12 : -19;
-			}
 
-			if (CardPlayers[i].Bust)
-			{
-				sb.DrawString(sb.pNewSmallFont, "BUST", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_FIRE);
-			}
-			else if (CardPlayers[i].HasFolded)
-			{
-				sb.DrawString(sb.pNewSmallFont, "FOLDED", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_RED);
+				if (CardPlayers[i].Bust)
+				{
+					sb.DrawString(sb.pNewSmallFont, "BUST", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_FIRE);
+				}
+				else if (CardPlayers[i].HasFolded)
+				{
+					sb.DrawString(sb.pNewSmallFont, "FOLDED", pos, gzflags | StatusBar.DI_TEXT_ALIGN_CENTER, Font.CR_RED);
+				}
 			}
 
 			if (CardPlayers[i].HoleCards.Size() > 0 && reveal)
@@ -718,100 +726,78 @@ extend class MerchantHandler
 
 	private void PokerTick()
 	{
-		int totalPlayers = CardPlayers.Size();
-
-		if (PokerGameTics > 0)
-		{
-			Actor farthestPlayer = null;
-			double farthestDistance = 0;
-
-			for (int j = 0; j < totalPlayers; ++j)
-			{
-				Actor p = CardPlayers[j].Player;
-				if (!p)
-				{
-					continue;
-				}
-
-				double diffLength = level.Vec3Diff(p.pos, CenterSpot).Length();
-				if (farthestDistance < diffLength)
-				{
-					farthestDistance = diffLength;
-					farthestPlayer = p;
-				}
-			}
-
-			for (int i = totalPlayers - 1; i >= 0; --i)
-			{
-				Actor p = CardPlayers[i].Player;
-				if (!p)
-				{
-					continue;
-				}
-
-				if (level.Vec3Diff(p.pos, CenterSpot).Length() > AssembleDistance * 1.25 && farthestPlayer == p)
-				{
-					// [Ace] If the AI ragequits, that means you cheated somehow. Either you pushed the actor off a cliff or another player pulled them.
-					// In that case, spawn revenge. If you survive it, fuck it, keep the money. You earned it.
-					if (CardPlayers[i].IsAi())
-					{
-						for (int j = 0; j < totalPlayers; ++j)
-						{
-							Actor p = CardPlayers[j].Player;
-							if (!p || CardPlayers[j] == CardPlayers[i])
-							{
-								continue;
-							}
-
-							SpawnMonster(p, 'SatanRobo', 50, 1, 0); // [Ace] Extra get fucked.
-							SpawnMonster(p, 'Necromancer', 100, 5, 50);
-							SpawnMonster(p, 'PainLord', 100, 5, 40);
-							SpawnMonster(p, 'PainBringer', 100, 10, 25);
-							p.A_AlertMonsters();
-						}
-						if (CardPlayers[i].Player is 'HDMerchant')
-						{
-							HDMerchant(CardPlayers[i].Player).Pissed = true;
-						}
-						Console.Printf("%s was dragged out of the poker game. Now face their anger.", CardPlayers[i].GetName());
-					}
-					else
-					{
-						Console.Printf("%s has ragequit the poker game.", CardPlayers[i].GetName());
-					}
-					if (CardPlayers[DealerIndex] == CardPlayers[i])
-					{
-						RotateDealer();
-					}
-					if (CardPlayers[PlayerIndex] == CardPlayers[i])
-					{
-						RotatePlayer();
-					}
-					CardPlayers[i].Player = null;
-					break;
-				}
-			}
-		}
-
-		vector3 newSpot = (0, 0, 0);
-		for (int j = 0; j < totalPlayers; ++j)
-		{
-			Actor p = CardPlayers[j].Player;
-			if (!p)
-			{
-				continue;
-			}
-			newSpot += p.pos;
-		}
-		CenterSpot = newSpot / GetRealPlayerCount();
-
-		if (Stage < Stage_EndGame && CheckGameEnd(2))
+		if (Stage < Stage_EndGame && CheckGameEnd(GEType_EndPremature))
 		{
 			return;
+		}
+
+		int totalPlayers = CardPlayers.Size();
+
+		Array<PokerPlayerInfo> quittingPlayers;
+
+		// [Ace] Handles quitting.
+		for (int i = totalPlayers - 1; i >= 0; --i)
+		{
+			Actor p = CardPlayers[i].Player;
+			if (p && level.Vec3Diff(p.pos, Table.pos).length() > Table.QuitDistance)
+			{
+				quittingPlayers.Push(CardPlayers[i]);
+			}
+		}
+
+		// [Ace] Something's very wrong.
+		if (quittingPlayers.Size() == GetRealPlayerCount())
+		{
+			Table.TableState = Table.TState_Stolen;
+		}
+
+		for (int i = quittingPlayers.Size() - 1; i >= 0; --i)
+		{
+			string quitStr = quittingPlayers[i].GetName().." has left the poker game.";
+
+			// [Ace] If the AI leaves the game, that means you cheated somehow. Either you pushed the actor off a cliff or another player pulled them. Or someone stole the table.
+			// In that case, spawn revenge. If you survive it, fuck it, keep the money. You earned it.
+			if (quittingPlayers[i].IsAi() && !quittingPlayers[i].Bust && quittingPlayers[i].Bet > 0)
+			{
+				for (int j = 0; j < totalPlayers; ++j)
+				{
+					Actor trgt = CardPlayers[j].Player;
+					if (!trgt || CardPlayers[j] == quittingPlayers[i])
+					{
+						continue;
+					}
+
+					SpawnMonster(trgt, 'SatanRobo', 50, 1, 0); // [Ace] Extra get fucked.
+					SpawnMonster(trgt, 'Necromancer', 100, 5, 50);
+					SpawnMonster(trgt, 'PainLord', 100, 5, 40);
+					SpawnMonster(trgt, 'PainBringer', 100, 10, 25);
+					trgt.A_AlertMonsters();
+					break;
+				}
+				if (quittingPlayers[i].Player is 'HDMerchant')
+				{
+					HDMerchant(quittingPlayers[i].Player).Pissed = true;
+				}
+				quitStr = quitStr..String.Format(" They had $%i in bet that was swindled from them. Now face their wrath.", quittingPlayers[i].Bet);
+			}
+			PrintToPlayers(quitStr);
+
+			if (CardPlayers[DealerIndex] == quittingPlayers[i])
+			{
+				RotateDealer();
+			}
+			if (CardPlayers[PlayerIndex] == quittingPlayers[i])
+			{
+				RotatePlayer();
+			}
+
+			quittingPlayers[i].Player = null;
 		}
 		
 		if (--ActionTimer <= 0)
 		{
+			int bigBlind, smallBlind;
+			[bigBlind, smallBlind] = GetBlindsAmount();
 			switch (Stage)
 			{
 				case Stage_BeginRound:
@@ -823,7 +809,7 @@ extend class MerchantHandler
 				case Stage_SmallBlind:
 				{
 					RotatePlayer();
-					PlaceBet(CardPlayers[PlayerIndex], ChipAmounts[3]);
+					PlaceBet(CardPlayers[PlayerIndex], smallBlind);
 					CardPlayers[PlayerIndex].HasChecked = true;
 					ActionTimer = 30;
 					Stage = Stage_BigBlind;
@@ -832,7 +818,7 @@ extend class MerchantHandler
 				case Stage_BigBlind:
 				{
 					RotatePlayer();
-					PlaceBet(CardPlayers[PlayerIndex], ChipAmounts[4]);
+					PlaceBet(CardPlayers[PlayerIndex], bigBlind);
 					CardPlayers[PlayerIndex].HasChecked = true;
 					ActionTimer = 30;
 					PlayerIndex = DealerIndex;
@@ -966,12 +952,12 @@ extend class MerchantHandler
 						{
 							if (CardPlayers[i].Player && CardPlayers[i].Player.CountInv('MercenaryBucks') == 0 && !CardPlayers[i].Bust)
 							{
-								Console.Printf("%s has left the poker game. No money to bet with.", CardPlayers[i].GetName());
+								PrintToPlayers(CardPlayers[i].GetName().." has dropped out of the poker game. No money to bet with.");
 								CardPlayers[i].Bust = true;
 							}
 						}
 
-						if (CheckGameEnd(0))
+						if (CheckGameEnd(GEType_Check))
 						{
 							ActionTimer = 35 * 5;
 							Stage = Stage_EndGame;
@@ -994,7 +980,7 @@ extend class MerchantHandler
 
 				case Stage_EndGame:
 				{
-					CheckGameEnd(1);
+					CheckGameEnd(GEType_EndAny);
 					break;
 				}
 			}
@@ -1004,32 +990,41 @@ extend class MerchantHandler
 
 	bool CheckGameEnd(int type)
 	{
+		if (!Table || Table.TableState == Table.TState_Stolen)
+		{
+			GameInProgress = false;
+			Console.Printf("The poker game was disbanded. Somebody stole the game table and all the money on it.");
+			return true;
+		}
+
 		int totalPlayers = CardPlayers.Size();
 		int humanPlayersCount = GetHumanPlayersCount();
 		int realPlayers = GetRealPlayerCount();
 
-		if (realPlayers == 1 || humanPlayersCount == 0) // [Ace] You don't need to hold up the game if you're gonna be playing with yourself. Also you win.
+		if (realPlayers == 1 || humanPlayersCount == 0)
 		{
-			if (type > 0)
+			if (type >= GEType_EndAny)
 			{
-				Console.Printf("The poker game was disbanded. %s", humanPlayersCount == 0 ? "No human players left." : "Not enough players.");
 				GameInProgress = false;
-				if (type > 1)
+				Table.TableState = Table.TState_GameOver;
+				
+				Console.Printf("The poker game was disbanded. %s", humanPlayersCount == 0 ? "No human players left." : "Not enough players.");
+				if (type == GEType_EndPremature)
 				{
 					int pot = GetPotAmount();
-					if (realPlayers == 1 && humanPlayersCount == 1)
+					if (realPlayers == 1)
 					{
 						for (int i = 0; i < totalPlayers; ++i)
 						{
 							if (CardPlayers[i].Player)
 							{
-								Console.Printf("The pot containing %i bucks goes to %s", pot, CardPlayers[i].GetName());
+								PrintToPlayers(String.Format("The pot containing $%i goes to %s", pot, CardPlayers[i].GetName()));
 								CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', pot);
 								break;
 							}
 						}
 					}
-					else if (realPlayers >= 1 && humanPlayersCount == 0)
+					else if (realPlayers > 1)
 					{
 						int splitPot = pot / realPlayers;
 						for (int i = 0; i < totalPlayers; ++i)
@@ -1039,10 +1034,9 @@ extend class MerchantHandler
 								CardPlayers[i].Player.A_GiveInventory('MercenaryBucks', splitPot);
 							}
 						}
-						Console.Printf("The pot containing %i bucks was split between the remaining players.", pot);
+						PrintToPlayers(String.Format("The pot containing $%i was split between the remaining players.", pot));
 					}
 				}
-				CardPlayers.Clear();
 			}
 			return true;
 		}
@@ -1185,7 +1179,7 @@ extend class MerchantHandler
 				chance += min(50, money / 20);
 			}
 			chance += int(1.58 ** ai.HighestRank);
-			if (chance > 100)
+			if (chance > 100 && diff > GetBlindsAmount()) // [Ace] Don't do $1 raises for Christ's sake.
 			{
 				PlaceBet(ai, min(money, int(diff * frandom(1.00, 1.50) * (chance / 100.0))));
 				ai.HasChecked = true;
@@ -1251,7 +1245,7 @@ extend class MerchantHandler
 			return;
 		}
 
-		if (caller.CountInv('MercenaryBucks') < ChipAmounts[4])
+		if (caller.CountInv('MercenaryBucks') < GetBlindsAmount())
 		{
 			Console.Printf("%s is broke but nevertheless tried to assemble a poker game. And failed, miserably.", caller.player.GetUserName());
 			return;
@@ -1266,7 +1260,7 @@ extend class MerchantHandler
 		BlockThingsIterator it = BlockThingsIterator.Create(caller, HDCONST_ONEMETRE * 3);
 		while (it.Next())
 		{
-			if (caller.Distance3D(it.thing) > HDCONST_ONEMETRE * 3 || it.thing.CountInv('MercenaryBucks') < ChipAmounts[4] || it.thing.Health <= 0)
+			if (caller.Distance3D(it.thing) > HDCONST_ONEMETRE * 3 || it.thing.CountInv('MercenaryBucks') < GetBlindsAmount() || it.thing.Health <= 0)
 			{
 				continue;
 			}
@@ -1324,10 +1318,24 @@ extend class MerchantHandler
 			Deck.GenerateDeck(1);
 			CommunityCards.Clear();
 			BurnedCards.Clear();
+
+			vector3 centerSpot = (0, 0, 0);
+			for (int i = 0; i < CardPlayers.Size(); ++i)
+			{
+				Actor p = CardPlayers[i].Player;
+				if (!p)
+				{
+					continue;
+				}
+				centerSpot += p.pos;
+			}
+			centerSpot = centerSpot / CardPlayers.Size();
+			Table = MerchantGameTable(Actor.Spawn('MerchantGameTable', centerSpot));
+			Table.Handler = self;
 		}
 		else
 		{
-			Console.Printf("Not enough players nearby to assemble a poker game with.");
+			caller.A_Log("Not enough players nearby to assemble a poker game with.", true);
 		}
 	}
 
@@ -1353,7 +1361,7 @@ extend class MerchantHandler
 		do
 		{
 			++PlayerIndex %= CardPlayers.Size();
-		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].HasFolded || CardPlayers[PlayerIndex].Bust);
+		} while ((!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].HasFolded || CardPlayers[PlayerIndex].Bust) && GetRealPlayerCount(false) > 1);
 	}
 
 	private void RotateDealer()
@@ -1361,7 +1369,7 @@ extend class MerchantHandler
 		do
 		{
 			++DealerIndex %= CardPlayers.Size();
-		} while (!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].Bust);
+		} while ((!CardPlayers[PlayerIndex].Player || CardPlayers[PlayerIndex].Bust) && GetRealPlayerCount(false) > 1);
 	}
 
 	private void RotateRound()
@@ -1418,6 +1426,17 @@ extend class MerchantHandler
 		}
 	}
 
+	private void PrintToPlayers(string msg)
+	{
+		for (int i = 0; i < CardPlayers.Size(); ++i)
+		{
+			if (CardPlayers[i].Player && !CardPlayers[i].IsAi())
+			{
+				CardPlayers[i].Player.A_Log(msg, true);
+			}
+		}
+	}
+
 	// ----------------------------------------------------------
 	// INFORMATION
 	// ----------------------------------------------------------
@@ -1439,7 +1458,7 @@ extend class MerchantHandler
 		int total = 0;
 		for (int i = 0; i < CardPlayers.Size(); ++i)
 		{
-			if (CardPlayers[i].Player && !CardPlayers[i].IsAi())
+			if (CardPlayers[i].Player && !CardPlayers[i].IsAi() && CardPlayers[i].Health > 0)
 			{
 				total++;
 			}
@@ -1452,7 +1471,7 @@ extend class MerchantHandler
 		int total = 0;
 		for (int i = 0; i < CardPlayers.Size(); ++i)
 		{
-			if (CardPlayers[i].Player && !CardPlayers[i].Bust && (ignoreFolds || !CardPlayers[i].HasFolded))
+			if (CardPlayers[i].Player && !CardPlayers[i].Bust && (ignoreFolds || !CardPlayers[i].HasFolded) && CardPlayers[i].Health > 0)
 			{
 				total++;
 			}
@@ -1460,7 +1479,7 @@ extend class MerchantHandler
 		return total;
 	}
 
-	private clearscope int GetPotAmount()
+	clearscope int GetPotAmount()
 	{
 		int total = 0;
 		for (int i = 0; i < CardPlayers.Size(); ++i)
@@ -1505,5 +1524,63 @@ extend class MerchantHandler
 			}
 		}
 		return 1;
+	}
+
+	private int, int GetBlindsAmount()
+	{
+		return ChipAmounts[4], ChipAmounts[3];
+	}
+}
+
+class MerchantGameTable : Actor
+{
+	enum TableStates
+	{
+		TState_None,
+		TState_GameOver,
+		TState_Stolen,
+	}
+
+	private bool TookAllTheMoney;
+	MerchantHandler Handler;
+	int TableState;
+
+	const QuitDistance = MerchantHandler.AssembleDistance * 2.0;
+
+	Default
+	{
+		Radius 18;
+		Height 38;
+		+SOLID
+		+DONTTHRUST
+		Mass 800;
+	}
+
+	States
+	{
+		Spawn:
+			GMTB L 1
+			{
+				if (TableState > TState_None)
+				{
+					if (TableState == TState_Stolen && !TookAllTheMoney && tracer)
+					{
+						TookAllTheMoney = true;
+
+						int potAmount = Handler.GetPotAmount();
+						tracer.A_GiveInventory('MercenaryBucks', potAmount);
+						tracer.A_Log(String.Format("You plundered $%i from the table.", potAmount), true);
+					}
+					A_FadeOut(0.05);
+				}
+				else
+				{
+					for (double i = 0; i < 360; ++i)
+					{
+						A_SpawnParticle(0xAAAAAA, SPF_RELPOS | SPF_FULLBRIGHT, 1, 24, i, QuitDistance, 0, -(pos.z - floorz), startalphaf: 0.25);
+					}
+				}
+			}
+			Loop;
 	}
 }

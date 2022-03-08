@@ -6,3 +6,10 @@ Model MerchantSlotMachine
 	Model 2 "SlotMachineBC.obj" FrameIndex SLMC B 0 0
 	Model 2 "SlotMachineCC.obj" FrameIndex SLMC C 0 0
 }
+
+Model MerchantGameTable
+{
+	Path "Models" DONTCULLBACKFACES Scale 1.0 1.0 1.3
+	Model 0 "GameTable.obj"
+	FrameIndex GMTB L 0 0
+}
