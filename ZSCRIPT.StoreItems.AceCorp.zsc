@@ -299,6 +299,17 @@ class HDPortableZRadarStore : StoreItem
 	override string GetFlavorText() { return "They're coming out of the god damn walls!"; }
 }
 
+class HDSecretFinderStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "AceCorp (Miscellaneous)"; }
+	override Name GetItem() { return 'HDSecretFinder'; }
+	override string GetIcon() { return "FNDRA0"; }
+	override string GetDisplayName() { return "Secret Finder"; }
+	override int GetBasePrice() { return 400; }
+	override string GetFlavorText() { return "Do you hear that? It's the sound of a hidden BFG."; }
+}
+
 class HDDespicytoStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
