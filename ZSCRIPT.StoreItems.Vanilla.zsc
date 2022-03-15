@@ -28,7 +28,29 @@ class HDSMGStore : StoreItem
 	override string GetIcon() { return "SMGNA0"; }
 	override string GetDisplayName() { return "SMG"; }
 	override int GetBasePrice() { return 200; }
-	override string GetFlavorText() { return "Silent, but deadly... If you shoot for long enough."; }
+	override string GetFlavorText() { return "Silent, but deadly... If you shoot for long enough, that is."; }
+}
+
+class HDHunterStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Vanilla"; }
+	override Name GetItem() { return 'Hunter'; }
+	override string GetIcon() { return "HUNTA0"; }
+	override string GetDisplayName() { return "Hunter"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "Come on, baby, just pump it."; }
+}
+
+class HDSlayerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Vanilla"; }
+	override Name GetItem() { return 'Slayer'; }
+	override string GetIcon() { return "SLAYA0"; }
+	override string GetDisplayName() { return "Slayer"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "The barrel grew back."; }
 }
 
 class HDVulcanetteStore : StoreItem
