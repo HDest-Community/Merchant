@@ -726,6 +726,11 @@ extend class MerchantHandler
 
 	private void PokerTick()
 	{
+		if (!Table || Table.TableState >= Table.TState_GameOver)
+		{
+			return;
+		}
+
 		int totalPlayers = CardPlayers.Size();
 
 		Array<PokerPlayerInfo> quittingPlayers;
