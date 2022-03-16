@@ -1466,7 +1466,7 @@ extend class MerchantHandler
 		int total = 0;
 		for (int i = 0; i < CardPlayers.Size(); ++i)
 		{
-			if (CardPlayers[i].Player && !CardPlayers[i].IsAi() && CardPlayers[i].Player.Health > 0)
+			if (CardPlayers[i].Player && !CardPlayers[i].IsAi() && CardPlayers[i].Player.Health > 0 && !CardPlayers[i].Bust)
 			{
 				total++;
 			}
