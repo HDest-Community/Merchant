@@ -1,0 +1,25 @@
+FlickerLight TiberiumGlow
+{
+	Color 0.1 1.0 0.0
+	Size 24
+	Chance 0.4
+	SecondarySize 20
+}
+
+FlickerLight TiberiumGlowSmall
+{
+	Color 0.1 1.0 0.0
+	Size 8
+	Chance 0.4
+	SecondarySize 6
+}
+
+Object TiberiumCrystal
+{
+	Frame TBCR { Light TiberiumGlow }
+}
+
+Object TiberiumChunk
+{
+	Frame TBCH { Light TiberiumGlowSmall }
+}

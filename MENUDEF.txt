@@ -4,18 +4,8 @@ OptionMenu "MerchantMenu"
 
 	Slider "Max Merchants Per Map", "hdm_maxmerchants", 1, 3, 1, 0
 	StaticText ""
-	FlagOption "Marines Drop Cards", "hdm_enablebucks", "YesNo", 0
-	StaticText ""
-	FlagOption "Bucks From Escort", "hdm_enablebucks", "YesNo", 1
-	StaticText "Escorting merchants to the end rewards you with a flat amount of cash.", "White"
-	StaticText ""
-	FlagOption "Bucks From Secrets", "hdm_enablebucks", "YesNo", 2
-	StaticText "This gets an additive bonus from the number of merchants escorted.", "White"
-	StaticText ""
 	Option "Enable Slot Machines", "hdm_enableslots", "YesNo"
 	Slider "Min Bet", "hdm_slots_bet", 5, 100, 5, 0
-	StaticText ""
-	Slider "Card Scale", "hdm_cardscale", 0.1, 3.0, 0.1, 1
 	StaticText ""
 	StaticText "---------- WEAPON MERCHANTS ----------", "Teal"
 	Slider "Weapon Chance", "hdm_chance_weapon", 0.05, 1.0, 0.05, 2

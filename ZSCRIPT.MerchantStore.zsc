@@ -1,0 +1,71 @@
+// [Ace] Should have been a struct. Damn it.
+class MerchantStore play
+{
+	Array<StoreItem> StoreItems;
+	Array<string> Categories;
+}
+
+extend class MerchantHandler
+{
+	Array<StoreCurrency> StoreCurrencies;
+	MerchantStore Stores[3];
+	int OpenedStoreIndex[MAXPLAYERS]; // [Ace] This is multiplayer bullshit.
+	
+	private void InitStore(int type)
+	{
+		if (!Stores[type])
+		{
+			Stores[type] = new('MerchantStore');
+		}
+		
+		Stores[type].StoreItems.Clear();
+		Stores[type].Categories.Clear();
+		
+		for (int i = 0; i < AllClasses.Size(); ++i)
+		{
+			if (AllClasses[i] is "StoreItem" && AllClasses[i] != 'StoreItem')
+			{
+				StoreItem Item = StoreItem(new(AllClasses[i]));
+				class<Actor> a = Item.GetItem();
+
+				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
+
+				static const Name CVarNames[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
+				if (a && Item.GetType() == type && (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat()))
+				{
+					Item.StoreAmount = Item.GetStoreAmount();
+					if (inReloadingRoom)
+					{
+						Item.StoreAmount *= random[merchrand](25, 150);
+					}
+					Stores[type].StoreItems.Push(Item);
+				}
+			}
+		}
+
+		for (int i = 0; i < Stores[type].StoreItems.Size(); ++i)
+		{
+			// [Ace] Don't duplicate categories.
+			if (Stores[type].Categories.Find(Stores[type].StoreItems[i].GetCategory()) == Stores[type].Categories.Size())
+			{
+				Stores[type].Categories.Push(Stores[type].StoreItems[i].GetCategory());
+			}
+		}
+	}
+
+	private void InitCurrencies()
+	{
+		for (int i = 0; i < AllClasses.Size(); ++i)
+		{
+			if (AllClasses[i] is "StoreCurrency" && AllClasses[i] != 'StoreCurrency')
+			{
+				StoreCurrency Currency = StoreCurrency(new(AllClasses[i]));
+				class<Actor> a = Currency.GetCurrencyClass();
+				if (a)
+				{
+					StoreCurrencies.Push(Currency);
+				}
+			}
+		}
+	}
+}

@@ -2,11 +2,13 @@ version "4.5"
 
 #include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 #include "ZSCRIPT.MerchantMenu.zsc"
+#include "ZSCRIPT.MerchantStore.zsc"
 #include "ZSCRIPT.StoreItems.zsc"
 #include "ZSCRIPT.MerchantSkins.zsc"
 #include "ZSCRIPT.SlotMachine.zsc"
 #include "ZSCRIPT.PlayingCards.zsc"
 #include "ZSCRIPT.Poker.zsc"
+#include "ZSCRIPT.Crystals.zsc"
 
 class MerchantRewardStorage : Thinker
 {
@@ -28,20 +30,9 @@ class MerchantRewardStorage : Thinker
 	}
 }
 
-class MerchantStore play
-{
-	Array<StoreItem> StoreItems;
-	Array<string> Categories;
-}
-
 class MerchantHandler : EventHandler
 {
-	Array<StoreCurrency> StoreCurrencies;
-	MerchantStore Stores[3];
-	int OpenedStoreIndex[MAXPLAYERS]; // [Ace] This is multiplayer bullshit.
-
 	private MerchantRewardStorage RewardStorage;
-	private int LastSecret;
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
@@ -82,24 +73,23 @@ class MerchantHandler : EventHandler
 		{
 			for (int i = 0; i < Stores.Size(); ++i)
 			{
-				MerchantStore Store = Stores[i];
-				StoreItem Item;
-				for (int i = 0; i < Store.StoreItems.Size(); ++i)
+				StoreItem item;
+				for (int j = 0; j < Stores[i].StoreItems.Size(); ++j)
 				{
-					if (Store.StoreItems[i].GetClass() == ParsedName[1])
+					if (Stores[i].StoreItems[j].GetClass() == ParsedName[1])
 					{
-						Item = Store.StoreItems[i];
+						item = Stores[i].StoreItems[j];
 						break;
 					}
 				}
 
-				if (Item && plr)
+				if (item && plr)
 				{
-					class<Actor> ItemClass = Item.GetItem();
-					int Amount = Item.GetAmount();
+					class<Actor> ItemClass = item.GetItem();
+					int Amount = item.GetAmount();
 
 					StoreCurrency Currency = StoreCurrencies[e.Args[0]];
-					int Price = StoreItem.GetAdjustedPrice(Item, Currency);
+					int Price = StoreItem.GetAdjustedPrice(item, Currency);
 
 					if (Price > plr.CountInv(Currency.GetCurrencyClass()))
 					{
@@ -139,79 +129,13 @@ class MerchantHandler : EventHandler
 					plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
 					plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
 
-					Item.StoreAmount--;
-					if (Item.StoreAmount == 0)
+					item.StoreAmount--;
+					if (item.StoreAmount == 0)
 					{
-						Store.StoreItems.Delete(Store.StoreItems.Find(Item));
-						Item.Destroy();
+						Stores[i].StoreItems.Delete(Stores[i].StoreItems.Find(item));
+						item.Destroy();
 					}
 					break;
-				}
-			}
-		}
-	}
-
-	override void WorldThingDied(WorldEvent e)
-	{
-		if (!random(0, 12) && hdm_enablebucks & 1 && e.Thing is 'HDOperator' && !e.Thing.bFRIENDLY)
-		{
-			e.Thing.A_SpawnItemEx('MercenaryCard', 0, 0, 0, frandom(0.5, 2.0), 0, frandom(1.0, 4.0), random(0, 359), SXF_NOCHECKPOSITION);
-		}
-	}
-
-	void InitStore(int type)
-	{
-		if (!Stores[type])
-		{
-			Stores[type] = new('MerchantStore');
-		}
-
-		Stores[type].StoreItems.Clear();
-		Stores[type].Categories.Clear();
-		
-		for (int i = 0; i < AllClasses.Size(); ++i)
-		{
-			if (AllClasses[i] is "StoreItem" && AllClasses[i] != 'StoreItem')
-			{
-				StoreItem Item = StoreItem(new(AllClasses[i]));
-				class<Actor> a = Item.GetItem();
-
-				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
-
-				static const Name CVarNames[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-				if (a && Item.GetType() == type && (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat()))
-				{
-					Item.StoreAmount = Item.GetStoreAmount();
-					if (inReloadingRoom)
-					{
-						Item.StoreAmount *= random[merchrand](25, 150);
-					}
-					Stores[type].StoreItems.Push(Item);
-				}
-			}
-		}
-
-		for (int i = 0; i < Stores[type].StoreItems.Size(); ++i)
-		{
-			// [Ace] Don't duplicate categories.
-			if (Stores[type].Categories.Find(Stores[type].StoreItems[i].GetCategory()) == Stores[type].Categories.Size())
-			{
-				Stores[type].Categories.Push(Stores[type].StoreItems[i].GetCategory());
-			}
-		}
-	}
-
-	void InitCurrencies()
-	{
-		for (int i = 0; i < AllClasses.Size(); ++i)
-		{
-			if (AllClasses[i] is "StoreCurrency" && AllClasses[i] != 'StoreCurrency')
-			{
-				StoreCurrency Currency = StoreCurrency(new(AllClasses[i]));
-				class<Actor> a = Currency.GetCurrencyClass();
-				if (a)
-				{
-					StoreCurrencies.Push(Currency);
 				}
 			}
 		}
@@ -240,53 +164,100 @@ class MerchantHandler : EventHandler
 		int mCount = AvailableMerchants.Size();
 		int MerchantsLeft = min(mCount, level.MapName ~== "LOTSAGUN" ? mCount : CVar.GetCVar('hdm_maxmerchants').GetInt());
 
-		bool spawnedMachine = false;
-
-		Array<Sector> validSecs;
+		Array<Sector> dedicatedMerchantSectors;
+		Array<Sector> dedicatedSlotSectors;
+		Array<Sector> secretSectors;
 
 		for (int i = 0; i < level.Sectors.Size(); ++i)
 		{
 			Sector sec = level.Sectors[i];
-			if (!level.IsPointInLevel((sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot))))
+			if (sec.GetUDMFInt('user_merchantsector') == 1)
 			{
+				dedicatedMerchantSectors.Push(sec);
 				continue;
 			}
-			if (sec.IsSecret() && random[merchrand](1, 100) <= max(15, 60 - 5 * (level.total_secrets - 1)) || sec.GetUDMFInt('user_merchantsector') == 1)
+
+			if (sec.GetUDMFInt('user_slotmachinesector') == 1)
 			{
-				validSecs.Push(sec);
+				dedicatedSlotSectors.Push(sec);
+				continue;
 			}
-			else if (!spawnedMachine && sec.IsSecret() && random[merchrand](1, 100) <= max(15, 50 - 5 * (level.total_secrets - 1)) && hdm_enableslots || sec.GetUDMFInt('user_slotmachinesector') == 1)
+
+			// [Ace] Secret sectors that are already dedicated don't count.
+			if (sec.IsSecret() && dedicatedMerchantSectors.Find(sec) == dedicatedMerchantSectors.Size() && dedicatedSlotSectors.Find(sec) == dedicatedSlotSectors.Size())
 			{
-				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
-				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
-				a.angle = sec.GetUDMFInt('user_slotmachineangle');
-				spawnedMachine = true;
+				secretSectors.Push(sec);
+				continue;
 			}
 		}
 
-		Array<int> iteratedIndices;
-		int vsize = validSecs.Size();
-		while (vsize > 0 && iteratedIndices.Size() < vsize)
+		// [Ace] Merchant spawning. Some boilerplate because I can't make local functions and the workaround is ironically worse.
+		for (int i = 0; i < dedicatedMerchantSectors.Size(); ++i)
 		{
-			int i = random[merchrand](0, vsize - 1);
-			if (iteratedIndices.Size() > 0 && iteratedIndices.Find(i) != iteratedIndices.Size())
+			vector3 spawnPos = (dedicatedMerchantSectors[i].centerspot, dedicatedMerchantSectors[i].floorplane.ZAtPoint(dedicatedMerchantSectors[i].centerspot));
+			int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+			Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
+			a.angle = dedicatedMerchantSectors[i].GetUDMFInt('user_merchantangle');
+			AvailableMerchants.Delete(spawnIndex);
+			if (--MerchantsLeft == 0)
 			{
-				continue;
+				break;
 			}
-			iteratedIndices.Push(i);
+		}
 
-			Sector sec = validSecs[i];
-			if (MerchantsLeft > 0)
+		if (MerchantsLeft > 0)
+		{
+			for (int i = 0; i < secretSectors.Size(); ++i)
 			{
-				vector3 spawnPos = (sec.centerspot.x, sec.centerspot.y, sec.floorplane.ZAtPoint(sec.centerspot));
-				int SpawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
-				Actor a = Actor.Spawn(AvailableMerchants[SpawnIndex], spawnPos);
-				a.angle = sec.GetUDMFInt('user_merchantangle');
-				AvailableMerchants.Delete(SpawnIndex);
-				MerchantsLeft--;
+				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 60 - 5 * (level.total_secrets - 1)))
+				{
+					continue;
+				}
+				int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+				Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
+				a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
+				AvailableMerchants.Delete(spawnIndex);
+				secretSectors.Delete(i);
+				if (--MerchantsLeft == 0)
+				{
+					break;
+				}
 			}
-			else
+		}
+
+		// [Ace] Slot machine spawning.
+		bool spawnedMachine = false;
+		for (int i = 0; i < dedicatedSlotSectors.Size(); ++i)
+		{
+			vector3 spawnPos = (dedicatedSlotSectors[i].centerspot, dedicatedSlotSectors[i].floorplane.ZAtPoint(dedicatedSlotSectors[i].centerspot));
+			Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
+			a.angle = dedicatedSlotSectors[i].GetUDMFInt('user_slotmachineangle');
+			spawnedMachine = true;
+		}
+
+		if (!spawnedMachine && hdm_enableslots)
+		{
+			for (int i = 0; i < secretSectors.Size(); ++i)
 			{
+				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 50 - 5 * (level.total_secrets - 1)))
+				{
+					continue;
+				}
+				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
+				a.angle = secretSectors[i].GetUDMFInt('user_slotmachineangle');
+				secretSectors.Delete(i);
+				break;
+			}
+		}
+
+		// [Ace] Bitches don't know 'bout my tiberium deposits.
+		for (int i = 0; i < secretSectors.Size(); ++i)
+		{
+			if (random[merchrand](1, 100) <= max(5, 40 - 2 * (level.total_secrets - 1)))
+			{
+				SpawnCrystals(secretSectors[i]);
 				break;
 			}
 		}
@@ -320,25 +291,22 @@ class MerchantHandler : EventHandler
 			EscortedMerchants.Push(HDMerchant(it.thing));
 		}
 
-		RewardStorage = MerchantRewardStorage.Get();
-		if (RewardStorage.Money > 0 && hdm_enablebucks & 4)
-		{
-			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
-		}
-
-		for (int i = 0; i < EscortedMerchants.Size(); ++i)
-		{
-			EscortedMerchants[i].Destroy(); // [Ace] You have escorted the merchant(s) to the exit. They won't be there if you return. Only affects hubs.
-			if (hdm_enablebucks & 2)
-			{
-				RewardStorage.Money += 100;
-			}
-		}
-
 		// [Ace] The process of rewarding players for their intense suffering.
+		RewardStorage = MerchantRewardStorage.Get();
 		if (RewardStorage.Money > 0)
 		{
-			int moneyPerPlayer = int(RewardStorage.Money / GetPlayersInGame());
+			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
+
+			int totalPlayers = 0;
+			for (int i = 0; i < MAXPLAYERS; ++i)
+			{
+				if (playeringame[i])
+				{
+					totalPlayers++;
+				}
+			}
+
+			int moneyPerPlayer = int(RewardStorage.Money / totalPlayers);
 			for (int i = 0; i < MAXPLAYERS; ++i)
 			{
 				if (players[i].mo && MoneyPerPlayer > 0)
@@ -348,36 +316,15 @@ class MerchantHandler : EventHandler
 			}
 			RewardStorage.Money = 0;
 		}
-	}
 
-	private int GetPlayersInGame()
-	{
-		int TotalPlayers = 0;
-		for (int i = 0; i < MAXPLAYERS; ++i)
+		for (int i = 0; i < EscortedMerchants.Size(); ++i)
 		{
-			if (playeringame[i])
-			{
-				TotalPlayers++;
-			}
+			EscortedMerchants[i].Destroy(); // [Ace] You have escorted the merchant(s) to the exit. They won't be there if you return. Only affects hubs.
 		}
-		return TotalPlayers;
 	}
 
 	override void WorldTick()
 	{
-		if (!RewardStorage)
-		{
-			RewardStorage = MerchantRewardStorage.Get();
-		}
-		if (level.found_secrets != LastSecret)
-		{
-			LastSecret = level.found_secrets;
-			if (hdm_enablebucks & 4)
-			{
-				RewardStorage.Money += 20;
-			}
-		}
-
 		if (GameInProgress)
 		{
 			PokerTick();
@@ -725,38 +672,6 @@ class MercenaryBucks : HDAmmo
 	{
 		Spawn:
 			MBCK A -1;
-			Stop;
-	}
-}
-
-class MercenaryCard : HDUPK
-{
-	override void PostBeginPlay()
-	{
-		Super.PostBeginPlay();
-
-		Amount = int(Amount * frandom(0.60, 1.20) * hdm_cardscale);
-	}
-
-	override void A_HDUPKGive()
-	{
-		let storage = MerchantRewardStorage.Get();
-		storage.Money += Amount;
-		Amount = 0;
-		Super.A_HDUPKGive();
-	}
-
-	Default
-	{
-		HDUPK.PickupMessage "You picked up a debit card loaded with cash! Looks like the previous owner won't need it anymore.";
-		HDUPK.Amount 100;
-		Scale 0.25;
-	}
-
-	States
-	{
-		Spawn:
-			MCRD A -1;
 			Stop;
 	}
 }
