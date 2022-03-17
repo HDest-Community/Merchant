@@ -41,6 +41,12 @@ class TiberiumRadiationThinker : Thinker
 				if (random(1, 100) <= damChance)
 				{
 					players[i].mo.DamageMobj(null, null, hasRadsuit ? random(2, 4) : random(8, 12), 'Tiberium');
+
+					let hdplr = HDPlayerPawn(players[i].mo);
+					if (hdplr && random(1, 100) <= damChance / (hasRadsuit ? 2 : 1))
+					{
+						hdplr.burncount += randompick(1, 1, 1, 1, 2);
+					}
 				}
 			}
 		}
