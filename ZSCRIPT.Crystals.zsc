@@ -43,9 +43,16 @@ class TiberiumRadiationThinker : Thinker
 					players[i].mo.DamageMobj(null, null, hasRadsuit ? random(2, 4) : random(8, 12), 'Tiberium');
 
 					let hdplr = HDPlayerPawn(players[i].mo);
-					if (hdplr && random(1, 100) <= damChance / (hasRadsuit ? 2 : 1))
+					if (hdplr)
 					{
-						hdplr.burncount += randompick(1, 1, 1, 1, 2);
+						if (random(1, 100) <= damChance / (hasRadsuit ? 2 : 1))
+						{
+							hdplr.burncount += randompick(1, 1, 1, 1, 2);
+						}
+						if (!hasRadsuit)
+						{
+							hdplr.woundcount++;
+						}
 					}
 				}
 			}
@@ -171,9 +178,29 @@ class TiberiumChunk : HDUPK
 	{
 		let storage = MerchantRewardStorage.Get();
 		storage.Money += Amount;
+		
 		picktarget.A_StartSound(pickupsound, 5);
 		HDPickup.LogPickupMessage(picktarget, pickupmessage);
-		picktarget.DamageMobj(self, self, picktarget.FindInventory('WornRadsuit') ? random(3, 6) : random(8, 14), 'Balefire');
+		
+		bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
+		picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Balefire');
+		let hdplr = HDPlayerPawn(picktarget);
+		if (hdplr)
+		{
+			if (hasRadsuit)
+			{
+				if (random(1, 100) <= 50)
+				{
+					hdplr.burncount++;
+				}
+			}
+			else
+			{
+				hdplr.burncount += randompick(2, 2, 2, 2, 3, 3, 4, 5);
+				hdplr.woundcount += randompick(1, 1, 1, 2, 2, 2, 3);
+			}
+		}
+
 		Destroy();
 		return;
 	}
