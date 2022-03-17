@@ -53,7 +53,8 @@ extend class MerchantHandler
 	private void SpawnCrystals(Sector s)
 	{
 		double size = AceCore.GetSectorSize(s);
-		int crystalsToSpawn = int(max(randompick(3, 4, 4, 4), size / random(256, 384)));
+		int sizeDiv = random(256, 384);
+		int crystalsToSpawn = int(max(randompick(3, 4, 4, 4), size / sizeDiv));
 
 		int allCrystals = crystalsToSpawn; // [Ace] Used for debugging.
 
@@ -63,7 +64,7 @@ extend class MerchantHandler
 		while (crystalsToSpawn > 0 && tries < 2000) // [Ace] If it takes more than 2000 tries, something's really fucked.
 		{
 			double angle = random(0, 359);
-			double dist = frandom(0, size * 2);
+			double dist = frandom(0, size);
 			vector3 adjPos = (s.centerspot + (dist * cos(angle), dist * sin(angle)), s.floorplane.ZAtPoint(s.centerspot));
 			if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
 			{
@@ -82,13 +83,13 @@ extend class MerchantHandler
 			tries++;
 		}
 
-		if (tries >= 2000)
+		if (hdm_debug || tries >= 2000)
 		{
-			Console.Printf("Crystal generation took over 2000 tries and failed. Something is very wrong. Report to Ace with map name.");
-		}
-		if (hdm_debug)
-		{
-			Console.Printf("Spawned %i/%i crystals. Sector size is %i. Took %i tries.", tibThonk ? tibThonk.Crystals.Size() : 0, allCrystals, size, tries);
+			Console.Printf("Spawned %i/%i crystals. Sector (@%i, %i) size is %i (div %i). Took %i tries.", (tibThonk ? tibThonk.Crystals.Size() : 0), allCrystals, s.centerspot.x, s.centerspot.y, size, sizeDiv, tries);
+			if (tries >= 2000)
+			{
+				Console.Printf("Crystal generation took over 2000 tries. Something is very wrong. Screenshot this message and report to Ace with map name.");
+			}
 		}
 	}
 }
