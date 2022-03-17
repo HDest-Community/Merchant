@@ -364,7 +364,7 @@ extend class MerchantHandler
 			// [Ace] This check is here to make sure you only ever pass a valid-sized array to EvaluateHand().
 			if (holeSize < 2 || Stage > Stage_InitialBet && communitySize < 3)
 			{
-				break;
+				continue;
 			}
 
 			HandRank rank = HighCard;
@@ -402,6 +402,7 @@ extend class MerchantHandler
 						[rank, kicker] = PokerPlayerInfo.EvaluateHand(tempHand);
 						if (CardPlayers[pIndex].HighestRank < rank) { CardPlayers[pIndex].HighestRank = rank; }
 						if (CardPlayers[pIndex].HighestKicker < kicker) { CardPlayers[pIndex].HighestKicker = kicker; }
+						//PokerPlayerInfo.PrintCardRanks(CardPlayers[pIndex].GetName(), String.Format("%s, %i", PokerPlayerInfo.RankToString(rank), kicker), tempHand);
 					}
 					break;
 				}
