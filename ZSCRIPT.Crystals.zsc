@@ -40,7 +40,7 @@ class TiberiumRadiationThinker : Thinker
 				DamageTicker = 0;
 				if (random(1, 100) <= damChance)
 				{
-					players[i].mo.DamageMobj(null, null, hasRadsuit ? random(2, 4) : random(8, 12), 'Tiberium');
+					players[i].mo.DamageMobj(null, null, hasRadsuit ? random(2, 4) : random(8, 12), 'Tiberium', DMG_NO_FACTOR);
 
 					let hdplr = HDPlayerPawn(players[i].mo);
 					if (hdplr)
@@ -183,7 +183,7 @@ class TiberiumChunk : HDUPK
 		HDPickup.LogPickupMessage(picktarget, pickupmessage);
 		
 		bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
-		picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Balefire');
+		picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Tiberium', DMG_NO_FACTOR);
 		let hdplr = HDPlayerPawn(picktarget);
 		if (hdplr)
 		{
