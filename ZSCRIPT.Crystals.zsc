@@ -65,16 +65,19 @@ extend class MerchantHandler
 	// [Ace] These are the opposite of healing crystals, so keep soccer moms away.
 	private void SpawnCrystals(Sector s)
 	{
-		double size = AceCore.GetSectorSize(s);
-		int sizeDiv = random(256, 384);
-		int crystalsToSpawn = int(max(randompick(3, 4, 4, 4), size / sizeDiv));
+		double size, avgSize;
+		[size, avgSize] = AceCore.GetSectorSize(s);
 
-		int allCrystals = crystalsToSpawn; // [Ace] Used for debugging.
+		double scaleFac = max(1.0, frandom[merchrand](-2.0, 3.0));
+		int totalCrystalHealth = int(size * scaleFac);
+		int originalTotal = totalCrystalHealth;
 
 		// [Ace] I'm not using a for loop because it can potentially result in fewer than the real number of crystals to spawn.
 		int tries = 0;
 		TiberiumRadiationThinker tibThonk = null;
-		while (crystalsToSpawn > 0 && tries < 2000) // [Ace] If it takes more than 2000 tries, something's really fucked.
+
+		int lowest = int.max, average = 0, highest = 0;
+		while (totalCrystalHealth > 0 && tries < 5000) // [Ace] If 5000 tries dont't do it, it's likely a super tiny sector OR it's a control sector. Fringe cases probably can't be handled too well.
 		{
 			double angle = random(0, 359);
 			double dist = frandom(0, size);
@@ -82,60 +85,94 @@ extend class MerchantHandler
 			if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
 			{
 				Actor a = Actor.Spawn('TiberiumCrystal', adjPos);
-				a.Health = random[merchrand](100, 700);
-				a.roll = random(-5, 5);
-				a.frame = random(0, 1);
+				a.Health = min(totalCrystalHealth, random[merchrand](50, 300));
 				if (!tibThonk)
 				{
 					tibThonk = new('TiberiumRadiationThinker');
 					tibThonk.ActiveSec = s;
 				}
 				tibThonk.Crystals.Push(TiberiumCrystal(a));
-				crystalsToSpawn--;
+				totalCrystalHealth -= a.Health;
+
+				if (a.Health < lowest)
+				{
+					lowest = a.Health;
+				}
+				if (highest < a.Health)
+				{
+					highest = a.Health;
+				}
+				average += a.Health;
 			}
 			tries++;
 		}
 
-		if (hdm_debug || tries >= 2000)
+		int crystalCount = tibThonk ? tibThonk.Crystals.Size() : 0;
+		if (crystalCount > 0)
 		{
-			Console.Printf("Spawned %i/%i crystals. Sector (@%i, %i) size is %i (div %i). Took %i tries.", (tibThonk ? tibThonk.Crystals.Size() : 0), allCrystals, s.centerspot.x, s.centerspot.y, size, sizeDiv, tries);
-			if (tries >= 2000)
-			{
-				Console.Printf("Crystal generation took over 2000 tries. Something is very wrong. Screenshot this message and report to Ace with map name.");
-			}
+			average /= crystalCount;
+		}
+
+		if (hdm_debug)
+		{
+			Console.Printf("--------------------\nSpawned \c[Green]%i\c- crystals. Remaining health: \c[Red]%i\c- out of \c[Red]%i\c- (x \c[Red]%.2f\c-). Low/avg/high: \c[Red]%i\c-/\c[Red]%i\c-/\c[Red]%i\c-.\nSector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c- size/avg is \c[Brick]%i\c-/\c[Brick]%i\c-. Took \c[Gold]%i\c- tries.",
+				crystalCount, totalCrystalHealth, originalTotal, scaleFac, lowest, average, highest, s.centerspot.x, s.centerspot.y, size, avgSize, tries);
 		}
 	}
 }
 
 class TiberiumCrystal : Actor
 {
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		NextDropAmount = NextDropAt = min(Health, random(20, 100));
+	}
+
+	private void DropChunk()
+	{
+		HDUPK a = HDUPK(Spawn('TiberiumChunk', pos));
+		a.Amount = NextDropAmount;
+		a.angle = random(0, 359);
+		//a.frame = random(0, 1);
+		a.A_ChangeVelocity(frandom(0.5, 2.0), 0, frandom(1.0, 3.0), CVF_RELATIVE | CVF_REPLACE);
+
+		int leftover = abs(NextDropAt);
+		NextDropAmount = NextDropAt = min(Health, random(35, 100)) - leftover;
+	}
+
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
 	{
 		if (mod == 'Chainsaw')
 		{
-			if (random[merchrand](1, 100) <= damage - 10)
+			int dmg = Super.DamageMobj(inflictor, source, damage / 5, mod, flags, angle);
+
+			NextDropAt -= dmg;
+			if (NextDropAt <= 0)
 			{
-				HDUPK a = HDUPK(Spawn('TiberiumChunk', pos));
-				a.Amount = random[merchrand](20, 60);
-				a.angle = random(0, 359);
-				//a.frame = random(0, 1);
-				a.A_ChangeVelocity(frandom(0.5, 2.0), 0, frandom(1.0, 3.0), CVF_RELATIVE | CVF_REPLACE);
+				DropChunk();
 			}
-			for (int i = 0; i < 10; ++i)
-			{
-				double pitch = frandom(-85.0, 85.0);
-				A_SpawnParticle(0x22FF00, SPF_RELATIVE | SPF_FULLBRIGHT, random(6, 10), random(4, 6), random(0, 359), frandom(-radius, radius), 0, frandom(0, height), random(6, 12) * cos(pitch), 0, random(6, 12) * sin(pitch), 0, 0, -1);
-			}
-			return Super.DamageMobj(inflictor, source, damage / 4, mod, flags, angle);
+
+			double pitch = frandom(-85.0, 85.0);
+			bool success; Actor a;
+			[success, a] = A_SpawnItemEx('HDSmoke', frandom(0, radius), 0,  frandom(0, height), frandom(1, 3) * cos(pitch), 0, frandom(1, 3) * sin(pitch), random(0, 359), SXF_NOCHECKPOSITION);
+			a.scale = (0.6, 0.6) * frandom(0.75, 1.2);
+			a.A_SetRenderStyle(1.25, STYLE_AddShaded);
+			a.SetShade(0x22FF00);
+
+			return dmg;
 		}
 		return 0;
 	}
+
+	private int NextDropAt;
+	private int NextDropAmount;
 
 	Default
 	{
 		Radius 14;
 		Height 40;
-		Health 500;
+		Health 300;
 		Mass 50000;
 		Renderstyle "Add";
 		Alpha 1.2;
@@ -155,16 +192,16 @@ class TiberiumCrystal : Actor
 				{
 					for (int i = 0; i < 10; ++i)
 					{
-						A_SpawnParticle(0x22FF00, SPF_RELATIVE | SPF_FULLBRIGHT, random(25, 50), frandom(8, 16) * scale.x, random(0, 359), radius - 8, 0, random(0, 8), frandom(0.1, 1.0));
+						A_SpawnParticle(0x77FF55, SPF_RELATIVE | SPF_FULLBRIGHT, random(25, 50), frandom(8, 16) * scale.x, random(0, 359), radius - 8, 0, random(0, 8), frandom(0.1, 1.0));
 					}
 				}
 				alpha = default.alpha * frandom(0.75, 1.5);
-				scale = default.scale * ((4 + Health / 150) / 10.0); // [Ace] Intentionally done like that to round to increments of 0.1
+				scale = default.scale * ((2 + Health / 50) / 10.0); // [Ace] Intentionally done like that to round to increments of 0.1
 				height = default.height * scale.y;
 			}
 			Loop;
 		Death:
-			TNT1 A 0
+			TNT1 A 1
 			{
 				CurSector.damageamount--;
 			}
@@ -180,7 +217,7 @@ class TiberiumChunk : HDUPK
 		storage.Money += Amount;
 		
 		picktarget.A_StartSound(pickupsound, 5);
-		HDPickup.LogPickupMessage(picktarget, pickupmessage);
+		HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth $"..Amount..".");
 		
 		bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
 		picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Tiberium', DMG_NO_FACTOR);
@@ -189,15 +226,15 @@ class TiberiumChunk : HDUPK
 		{
 			if (hasRadsuit)
 			{
-				if (random(1, 100) <= 50)
+				if (random(1, 100) <= Amount / 2)
 				{
 					hdplr.burncount++;
 				}
 			}
 			else
 			{
-				hdplr.burncount += randompick(2, 2, 2, 2, 3, 3, 4, 5);
-				hdplr.woundcount += randompick(1, 1, 1, 2, 2, 2, 3);
+				hdplr.burncount += max(2, Amount / 10);
+				hdplr.woundcount += max(1, Amount / 20);
 			}
 		}
 
@@ -209,8 +246,7 @@ class TiberiumChunk : HDUPK
 	{
 		BounceType "Hexen";
 		BounceFactor 0.6;
-		BounceCount 8;
-		HDUPK.PickupMessage "Picked up a chunk of tiberium.";
+		BounceCount 16;
 		HDUPK.Amount 100;
 		Renderstyle "Add";
 		Alpha 0.8;
@@ -222,7 +258,7 @@ class TiberiumChunk : HDUPK
 		Spawn:
 			TBCH A -1 NoDelay
 			{
-				scale = default.scale * (0.20 + Amount / 400.0);
+				scale = default.scale * (0.10 + Amount / 150.0);
 			}
 			Stop;
 		Death:
@@ -233,7 +269,7 @@ class TiberiumChunk : HDUPK
 				{
 					for (int i = 0; i < 10; ++i)
 					{
-						A_SpawnParticle(0x22FF00, SPF_RELATIVE | SPF_FULLBRIGHT, random(10, 30), frandom(8, 12) * scale.x, random(0, 359), 0, 0, frandom(0, 4), frandom(0.05, 0.7));
+						A_SpawnParticle(0x77FF55, SPF_RELATIVE | SPF_FULLBRIGHT, random(10, 30), frandom(8, 12) * scale.x, random(0, 359), 0, 0, frandom(0, 4), frandom(0.05, 0.7));
 					}
 				}
 			}
