@@ -251,6 +251,7 @@ class TiberiumChunk : HDUPK
 		Renderstyle "Add";
 		Alpha 0.8;
 		+MISSILE
+		Scale 0.3;
 	}
 
 	States
@@ -258,7 +259,7 @@ class TiberiumChunk : HDUPK
 		Spawn:
 			TBCH A -1 NoDelay
 			{
-				scale = default.scale * (0.15 + Amount / 200.0);
+				scale = default.scale * max(0.4, (Amount / 100.0));
 			}
 			Stop;
 		Death:
@@ -269,7 +270,7 @@ class TiberiumChunk : HDUPK
 				{
 					for (int i = 0; i < 10; ++i)
 					{
-						A_SpawnParticle(0x66FF44, SPF_RELATIVE | SPF_FULLBRIGHT, random(10, 30), frandom(6, 10) * scale.x, random(0, 359), 0, 0, frandom(0, 4) * scale.y, frandom(0.05, 0.7));
+						A_SpawnParticle(0x66FF44, SPF_RELATIVE | SPF_FULLBRIGHT, random(10, 30), frandom(6, 10) * scale.x, random(0, 359), 5 * scale.x, 0, frandom(0, 4) * scale.y, frandom(0.05, 0.7) * scale.x);
 					}
 				}
 			}

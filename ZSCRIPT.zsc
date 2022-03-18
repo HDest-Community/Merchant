@@ -295,7 +295,7 @@ class MerchantHandler : EventHandler
 		RewardStorage = MerchantRewardStorage.Get();
 		if (RewardStorage.Money > 0)
 		{
-			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.2 * EscortedMerchants.Size()));
+			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.1 * EscortedMerchants.Size()));
 
 			int totalPlayers = 0;
 			for (int i = 0; i < MAXPLAYERS; ++i)
