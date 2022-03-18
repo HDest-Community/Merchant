@@ -196,7 +196,7 @@ class TiberiumCrystal : Actor
 					}
 				}
 				alpha = default.alpha * frandom(0.75, 1.5);
-				scale = default.scale * ((2 + Health / 50) / 10.0); // [Ace] Intentionally done like that to round to increments of 0.1
+				scale = default.scale * ((3 + Health / 50) / 10.0); // [Ace] Intentionally done like that to round to increments of 0.1
 				height = default.height * scale.y;
 			}
 			Loop;
@@ -258,7 +258,7 @@ class TiberiumChunk : HDUPK
 		Spawn:
 			TBCH A -1 NoDelay
 			{
-				scale = default.scale * (0.10 + Amount / 150.0);
+				scale = default.scale * (0.10 + Amount / 200.0);
 			}
 			Stop;
 		Death:
