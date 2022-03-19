@@ -41,7 +41,7 @@ class TiberiumRadiationThinker : Thinker
 				DamageTicker = 0;
 				if (random(1, 100) <= damChance)
 				{
-					players[i].mo.DamageMobj(null, null, (hasRadsuit ? random(2, 4) : random(8, 12)) * (IsBlue ? 1.5 : 1.0), 'Tiberium', DMG_NO_FACTOR);
+					players[i].mo.DamageMobj(null, null, int((hasRadsuit ? random(2, 4) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR);
 
 					let hdplr = HDPlayerPawn(players[i].mo);
 					if (hdplr)
@@ -89,7 +89,7 @@ extend class MerchantHandler
 			{
 				TiberiumCrystal tib = TiberiumCrystal(Actor.Spawn('TiberiumCrystal', adjPos));
 				tib.IsBlue = isBlue;
-				tib.Health = min(totalCrystalHealth, random[merchrand](50, tib.default.health) * (isBlue ? tib.BlueScale : 1));
+				tib.Health = int(min(totalCrystalHealth, random[merchrand](50, tib.default.health) * (isBlue ? tib.BlueScale : 1)));
 				if (!tibThonk)
 				{
 					tibThonk = new('TiberiumRadiationThinker');
@@ -131,7 +131,7 @@ class TiberiumCrystal : Actor
 	override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
-		NextDropAmount = NextDropAt = min(Health, random(35, 100) * (IsBlue ? BlueScale : 1));
+		NextDropAmount = NextDropAt = int(min(Health, random(35, 100) * (IsBlue ? BlueScale : 1)));
 		if (IsBlue)
 		{
 			SetShade(0x3388FF);
@@ -147,7 +147,7 @@ class TiberiumCrystal : Actor
 		chonk.IsBlue = IsBlue;
 
 		int leftover = abs(NextDropAt);
-		NextDropAmount = NextDropAt = min(Health, random(35, 100) * (IsBlue ? BlueScale : 1)) - leftover;
+		NextDropAmount = NextDropAt = int(min(Health, random(35, 100) * (IsBlue ? BlueScale : 1))) - leftover;
 	}
 
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
@@ -233,7 +233,7 @@ class TiberiumChunk : HDUPK
 		if (IsBlue)
 		{
 			SetShade(0x3388FF);
-			MaxUnitAmount *= TiberiumCrystal.BlueScale;
+			MaxUnitAmount = int(MaxUnitAmount * TiberiumCrystal.BlueScale);
 		}
 		Super.PostBeginPlay();
 	}
@@ -249,7 +249,7 @@ class TiberiumChunk : HDUPK
 			Amount -= toGive;
 
 			picktarget.A_StartSound(pickupsound, 5);
-			HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth "..(IsBlue ? "\c[Blue]" : "\c[Green]".."$"..toGive.."\c-.");
+			HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth "..(IsBlue ? "\c[Blue]" : "\c[Green]").."$"..toGive.."\c-.");
 			
 			bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
 			picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Tiberium', DMG_NO_FACTOR);
