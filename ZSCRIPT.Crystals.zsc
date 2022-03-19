@@ -136,6 +136,7 @@ class TiberiumCrystal : Actor
 		{
 			SetShade(0x3388FF);
 		}
+		bXFLIP = true;
 	}
 
 	private void DropChunk()
@@ -186,7 +187,6 @@ class TiberiumCrystal : Actor
 		Health 300;
 		Mass 50000;
 		+SOLID
-		+ROLLSPRITE
 		+SHOOTABLE
 		+DONTTHRUST
 		+NOBLOOD
