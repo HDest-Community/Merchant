@@ -213,44 +213,53 @@ class TiberiumChunk : HDUPK
 {
 	override void A_HDUPKGive()
 	{
-		let storage = MerchantRewardStorage.Get();
-		storage.Money += Amount;
-		
-		picktarget.A_StartSound(pickupsound, 5);
-		HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth $"..Amount..".");
-		
-		bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
-		picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Tiberium', DMG_NO_FACTOR);
-		let hdplr = HDPlayerPawn(picktarget);
-		if (hdplr)
+		int maxAmt = GetDefaultByType('MercenaryBucks').MaxAmount;
+		int toGive = min(Amount, maxAmt - picktarget.CountInv('MercenaryBucks'));
+
+		if (toGive > 0)
 		{
-			if (hasRadsuit)
+			picktarget.A_GiveInventory('MercenaryBucks', toGive);
+			Amount -= toGive;
+
+			picktarget.A_StartSound(pickupsound, 5);
+			HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth \c[Green]$"..toGive.."\c-.");
+			
+			bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
+			picktarget.DamageMobj(self, self, hasRadsuit ? random(2, 5) : random(10, 16), 'Tiberium', DMG_NO_FACTOR);
+			let hdplr = HDPlayerPawn(picktarget);
+			if (hdplr)
 			{
-				if (random(1, 100) <= Amount / 2)
+				if (hasRadsuit)
 				{
-					hdplr.burncount++;
+					if (random(1, 100) <= Amount / 2)
+					{
+						hdplr.burncount++;
+					}
 				}
-			}
-			else
-			{
-				hdplr.burncount += max(2, Amount / 10);
-				hdplr.woundcount += max(1, Amount / 20);
+				else
+				{
+					hdplr.burncount += max(2, Amount / 10);
+					hdplr.woundcount += max(1, Amount / 20);
+				}
 			}
 		}
 
-		Destroy();
-		return;
+		if (Amount <= 0)
+		{
+			Destroy();
+		}
 	}
 
 	Default
 	{
-		BounceType "Hexen";
+		BounceType "Doom";
 		BounceFactor 0.6;
-		BounceCount 16;
+		BounceCount 8;
 		HDUPK.Amount 100;
 		Renderstyle "Add";
 		Alpha 0.8;
 		+MISSILE
+		+EXPLODEONWATER
 		Scale 0.3;
 	}
 

@@ -1,4 +1,3 @@
-// [Ace] Should have been a struct. Damn it.
 class MerchantStore play
 {
 	Array<StoreItem> StoreItems;

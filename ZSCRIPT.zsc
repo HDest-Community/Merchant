@@ -10,30 +10,8 @@ version "4.5"
 #include "ZSCRIPT.Poker.zsc"
 #include "ZSCRIPT.Crystals.zsc"
 
-class MerchantRewardStorage : Thinker
-{
-	int Money;
-
-	static MerchantRewardStorage Get()
-	{
-		ThinkerIterator it = ThinkerIterator.Create('MerchantRewardStorage', STAT_STATIC);
-		MerchantRewardStorage Storage;
-		while ((Storage = MerchantRewardStorage(it.Next())))
-		{
-			return Storage;
-		}
-
-		// [Ace] Create a new one if none exist.
-		Storage = new('MerchantRewardStorage');
-		Storage.ChangeStatNum(Thinker.STAT_STATIC);
-		return Storage;
-	}
-}
-
 class MerchantHandler : EventHandler
 {
-	private MerchantRewardStorage RewardStorage;
-
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let plr = players[e.Player].mo;
@@ -147,9 +125,7 @@ class MerchantHandler : EventHandler
 		{
 			return;
 		}
-
-		RewardStorage = MerchantRewardStorage.Get();
-
+		
 		InitCurrencies();
 		for (int i = 0; i < Stores.Size(); ++i)
 		{
@@ -277,49 +253,6 @@ class MerchantHandler : EventHandler
 			{
 				players[i].mo.A_TakeInventory("HDMerchantBody");
 			}
-		}
-
-		Array<HDMerchant> EscortedMerchants;
-		BlockThingsIterator it = BlockThingsIterator.Create(plr, HDCONST_ONEMETRE * 10);
-		while (it.Next())
-		{
-			if (!(it.thing is 'HDMerchant') || plr.Distance3D(it.thing) > HDCONST_ONEMETRE * 10 || !plr.CheckSight(it.thing))
-			{
-				continue;
-			}
-
-			EscortedMerchants.Push(HDMerchant(it.thing));
-		}
-
-		// [Ace] The process of rewarding players for their intense suffering.
-		RewardStorage = MerchantRewardStorage.Get();
-		if (RewardStorage.Money > 0)
-		{
-			RewardStorage.Money = int(RewardStorage.Money * (1.0 + 0.1 * EscortedMerchants.Size()));
-
-			int totalPlayers = 0;
-			for (int i = 0; i < MAXPLAYERS; ++i)
-			{
-				if (playeringame[i])
-				{
-					totalPlayers++;
-				}
-			}
-
-			int moneyPerPlayer = int(RewardStorage.Money / totalPlayers);
-			for (int i = 0; i < MAXPLAYERS; ++i)
-			{
-				if (players[i].mo && MoneyPerPlayer > 0)
-				{
-					players[i].mo.A_GiveInventory("MercenaryBucks", moneyPerPlayer);
-				}
-			}
-			RewardStorage.Money = 0;
-		}
-
-		for (int i = 0; i < EscortedMerchants.Size(); ++i)
-		{
-			EscortedMerchants[i].Destroy(); // [Ace] You have escorted the merchant(s) to the exit. They won't be there if you return. Only affects hubs.
 		}
 	}
 
