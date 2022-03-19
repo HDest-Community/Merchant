@@ -1,4 +1,8 @@
+Tiberium/Bounce TIBCHBNC
+$pitchset Tiberium/Bounce 1.0 1.2
+
 $alias SlotMachine/WinRegular skeleton/sight
+$alias SlotMachine/Lose vile/pain
 SlotMachine/WinJackpot SLOTJPT1
 
 SlotMachine/Rolling SLOTSPIN

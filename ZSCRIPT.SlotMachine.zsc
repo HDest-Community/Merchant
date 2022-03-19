@@ -131,7 +131,7 @@ class MerchantSlotMachine : Actor
 			}
 			else
 			{
-				A_StartSound("vile/pain");
+				A_StartSound("SlotMachine/Lose");
 				SetStateLabel('Spawn');
 			}
 		}
