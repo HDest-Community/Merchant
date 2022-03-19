@@ -1,3 +1,14 @@
+class HDImpactGrenadeStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Melonades"; }
+	override Name GetItem() { return 'HDImpactGrenadeAmmo'; }
+	override string GetIcon() { return "IMPGA0"; }
+	override string GetDisplayName() { return "Impact Grenade"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "Whatever you do, don't drop this."; }
+}
+
 class HDThunderGrenadeStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
@@ -5,7 +16,7 @@ class HDThunderGrenadeStore : StoreItem
 	override Name GetItem() { return 'HDThunderGrenadeAmmo'; }
 	override string GetIcon() { return "TFRGA0"; }
 	override string GetDisplayName() { return "Thunder Grenade"; }
-	override int GetBasePrice() { return 30; }
+	override int GetBasePrice() { return 40; }
 	override string GetFlavorText() { return "Shockingly fun to use."; }
 }
 
