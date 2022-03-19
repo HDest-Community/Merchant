@@ -1,25 +1,43 @@
-FlickerLight TiberiumGlow
+FlickerLight TiberiumGlowGreen
 {
 	Color 0.1 1.0 0.0
-	Size 24
+	Size 48
 	Chance 0.4
-	SecondarySize 20
+	SecondarySize 44
 }
 
-FlickerLight TiberiumGlowSmall
+FlickerLight TiberiumGlowSmallGreen
 {
 	Color 0.1 1.0 0.0
-	Size 8
+	Size 12
 	Chance 0.4
-	SecondarySize 6
+	SecondarySize 10
+}
+
+FlickerLight TiberiumGlowBlue
+{
+	Color 0.1 0.3 1.0
+	Size 48
+	Chance 0.4
+	SecondarySize 44
+}
+
+FlickerLight TiberiumGlowSmallBlue
+{
+	Color 0.1 0.3 1.0
+	Size 12
+	Chance 0.4
+	SecondarySize 10
 }
 
 Object TiberiumCrystal
 {
-	Frame TBCR { Light TiberiumGlow }
+	Frame TIBG { Light TiberiumGlowGreen }
+	Frame TIBB { Light TiberiumGlowBlue }
 }
 
 Object TiberiumChunk
 {
-	Frame TBCH { Light TiberiumGlowSmall }
+	Frame TBCG { Light TiberiumGlowSmallGreen }
+	Frame TBCB { Light TiberiumGlowSmallBlue }
 }
