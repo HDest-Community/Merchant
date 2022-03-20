@@ -131,7 +131,7 @@ class TiberiumCrystal : Actor
 	override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
-		NextDropAmount = NextDropAt = int(min(Health, random(35, 100 * IsBlue ? BlueScale : 1)));
+		NextDropAmount = NextDropAt = int(min(Health, frandom(35, 100 * IsBlue ? BlueScale : 1)));
 		if (IsBlue)
 		{
 			SetShade(0x3388FF);
@@ -148,7 +148,7 @@ class TiberiumCrystal : Actor
 		chonk.IsBlue = IsBlue;
 
 		int leftover = abs(NextDropAt);
-		NextDropAmount = NextDropAt = int(min(Health, random(35, 100 * IsBlue ? BlueScale : 1))) - leftover;
+		NextDropAmount = NextDropAt = int(min(Health, frandom(35, 100 * IsBlue ? BlueScale : 1))) - leftover;
 	}
 
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
