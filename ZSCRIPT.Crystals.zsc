@@ -131,7 +131,7 @@ class TiberiumCrystal : Actor
 	override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
-		NextDropAmount = NextDropAt = int(min(Health, frandom(35, 100 * (IsBlue ? BlueScale : 1))));
+		NextDropAmount = NextDropAt = int(min(Health, frandom(20, 100) * (IsBlue ? BlueScale : 1)));
 		if (IsBlue)
 		{
 			SetShade(0x3388FF);
@@ -148,7 +148,7 @@ class TiberiumCrystal : Actor
 		chonk.IsBlue = IsBlue;
 
 		int leftover = abs(NextDropAt);
-		NextDropAmount = NextDropAt = int(min(Health, frandom(35, 100 * (IsBlue ? BlueScale : 1)))) - leftover;
+		NextDropAmount = NextDropAt = int(min(Health, frandom(20, 100) * (IsBlue ? BlueScale : 1))) - leftover;
 	}
 
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
@@ -207,16 +207,18 @@ class TiberiumCrystal : Actor
 					sprite = GetSpriteIndex("TIBB");
 				}
 
-				double healthFac = max(0.4, Health / double(default.Health * (IsBlue ? BlueScale : 1)));
+				double healthFac = Health / double(default.Health * (IsBlue ? BlueScale : 1));
+				if (healthFac < 0.75) { frame++; height = 30; }
+				if (healthFac < 0.33) { frame++; height = 20; }
+
 				if (random(1, 100) <= 40)
 				{
-					for (int i = 0; i < 10; ++i)
+					double mult = 3 - frame;
+					for (int i = 0; i < 8; ++i)
 					{
-						A_SpawnParticle(fillcolor, SPF_RELATIVE | SPF_FULLBRIGHT, random(25, 50), frandom(8, 16) * healthFac, random(0, 359), radius * healthFac, 0, frandom(10, height), frandom(0.15, 1.25) * healthFac, accelz: -0.02 * healthFac);
+						A_SpawnParticle(fillcolor, SPF_RELATIVE | SPF_FULLBRIGHT, random(20, 45), frandom(3, 5) * mult, random(0, 359), 10 + 2  * mult, 0, frandom(10, height), frandom(0.05, 0.4) * mult, accelz: -0.0075 * mult);
 					}
 				}
-				if (healthFac < 0.75) { frame++; height = 30; }
-				if (healthFac < 0.25) { frame++; height = 20; }
 			}
 			Loop;
 		Death:
@@ -265,8 +267,8 @@ class TiberiumChunk : HDUPK
 				}
 				else
 				{
-					hdplr.burncount += max(2, Amount / 10);
-					hdplr.woundcount += max(1, Amount / 20);
+					hdplr.burncount += max(2, Amount / (IsBlue ? 6 : 10));
+					hdplr.woundcount += max(1, Amount / (IsBlue ? 10 : 20));
 				}
 			}
 		}
@@ -309,9 +311,9 @@ class TiberiumChunk : HDUPK
 				}
 				roll += 30 * RollDirection;
 
-				double amtFac = max(0.3, Amount / double(MaxUnitAmount));
+				double amtFac = Amount / double(MaxUnitAmount);
 				if (amtFac < 0.75) { frame++; }
-				if (amtFac < 0.25) { frame++; }
+				if (amtFac < 0.33) { frame++; }
 			}
 			Loop;
 		Death:
@@ -325,10 +327,10 @@ class TiberiumChunk : HDUPK
 			{
 				if (random(1, 100) <= 40)
 				{
-					double amtFac = max(0.3, Amount / double(MaxUnitAmount));
-					for (int i = 0; i < 10; ++i)
+					double mult = 3 - frame;
+					for (int i = 0; i < 5; ++i)
 					{
-						A_SpawnParticle(fillcolor, SPF_RELATIVE | SPF_FULLBRIGHT, random(10, 30), frandom(6, 10) * amtFac, random(0, 359), 4 * amtFac, 0, frandom(0, 12) * amtFac, frandom(0.05, 1.0) * amtFac);
+						A_SpawnParticle(fillcolor, SPF_RELATIVE | SPF_FULLBRIGHT, random(10, 30), frandom(1.5, 2.5) * mult, random(0, 359), 2 * mult, 0, frandom(0.0, 2.0 * mult), frandom(0.05, 0.25) * mult);
 					}
 				}
 			}
