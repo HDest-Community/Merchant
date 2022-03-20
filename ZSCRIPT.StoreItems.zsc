@@ -98,7 +98,7 @@ class StoreItem abstract
 				{
 					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3) * hdm_stock_item;
 				}
-				return 1;
+				return 1 * hdm_stock_item;
 			}
 		}
 
