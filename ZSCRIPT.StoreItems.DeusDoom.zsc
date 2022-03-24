@@ -28,6 +28,6 @@ class DDBioCellStore : StoreItem
 	override string GetIcon() { return "BCELA0"; }
 	override string GetDisplayName() { return "Augmentation Canister"; }
 	override int GetBasePrice() { return 40; }
-	override int GetStoreAmount() { return random[merchrand](1, 3); }
+	override int GetStoreAmount() { return random[merchrand](1, 3) * hdm_stock_item; }
 	override string GetFlavorText() { return "Running low on juice?"; }
 }

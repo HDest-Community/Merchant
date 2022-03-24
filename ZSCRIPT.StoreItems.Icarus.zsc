@@ -94,7 +94,7 @@ class HDGasTankStore : StoreItem
 	override string GetIcon() { return "AGASA0"; }
 	override string GetDisplayName() { return "Fuel Tank"; }
 	override int GetBasePrice() { return 35; }
-	override int GetStoreAmount() { return random[merchrand](1, 4); }
+	override int GetStoreAmount() { return random[merchrand](1, 4) * hdm_stock_ammo; }
 	override string GetFlavorText() { return "Fire up the BBQ!"; }
 }
 

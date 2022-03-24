@@ -28,6 +28,6 @@ class HDMG13Store : StoreItem
 	override string GetIcon() { return "MG13A0"; }
 	override string GetDisplayName() { return "MG13 Grenade"; }
 	override int GetBasePrice() { return 70; }
-	override int GetStoreAmount() { return random[merchrand](1, 2); }
+	override int GetStoreAmount() { return random[merchrand](1, 2) * hdm_stock_ammo; }
 	override string GetFlavorText() { return "Dome of death."; }
 }

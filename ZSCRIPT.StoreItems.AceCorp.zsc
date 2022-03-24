@@ -266,7 +266,6 @@ class HDDeployableBarricadeStore : StoreItem
 	override string GetIcon() { return "DABRB0"; }
 	override string GetDisplayName() { return "Deployable Barricade"; }
 	override int GetBasePrice() { return 700; }
-	override int GetStoreAmount() { return 1; }
 	override string GetFlavorText() { return "Enjoy your safe space."; }
 }
 
@@ -278,7 +277,6 @@ class HDPersonalShieldGeneratorStore : StoreItem
 	override string GetIcon() { return "PSG0A0"; }
 	override string GetDisplayName() { return "Personal Shield Generator"; }
 	override int GetBasePrice() { return 800; }
-	override int GetStoreAmount() { return 1; }
 	override string GetFlavorText() { return "Guaranteed to make rocket marines sad."; }
 }
 
@@ -380,7 +378,6 @@ class HDDespicytoFilterStore : StoreItem
 	override string GetIcon() { return "DSPFA0"; }
 	override string GetDisplayName() { return "Air Filter"; }
 	override int GetBasePrice() { return 50; }
-	override int GetStoreAmount() { return random[merchrand](1, 3); }
 	override string GetFlavorText() { return "It won't make the air smell any better, but at least it won't kill you."; }
 }
 
