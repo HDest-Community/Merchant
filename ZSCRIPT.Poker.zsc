@@ -329,7 +329,7 @@ extend class MerchantHandler
 		// [Ace] Spectator is the real player. This may be the actual player if spectator == plr, or it may be someone else in the event of coop spy.
 		// if A is playing and B is spying on A, plr is A, spectator is B. From A's perspective, A is both.
 		let spectator = players[consoleplayer].mo;
-		let plr = players[e.Camera.PlayerNumber()].mo;
+		let plr = PlayerPawn(e.Camera);
 
 		if (!CardBack[plr.PlayerNumber()])
 		{
