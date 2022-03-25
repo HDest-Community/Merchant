@@ -87,6 +87,9 @@ extend class MerchantHandler
 			vector3 adjPos = (s.centerspot + (dist * cos(angle), dist * sin(angle)), s.floorplane.ZAtPoint(s.centerspot));
 			if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
 			{
+				// [Ace] If the crystal is in the sector, force move it towards the center a little so it doesn't spawn right inside the wall.
+				adjPos -= (14 * cos(angle), 14 * sin(angle));
+
 				TiberiumCrystal tib = TiberiumCrystal(Actor.Spawn('TiberiumCrystal', adjPos));
 				tib.IsBlue = isBlue;
 				tib.Health = int(min(totalCrystalHealth, random[merchrand](50, tib.default.health) * (isBlue ? tib.BlueScale : 1)));
