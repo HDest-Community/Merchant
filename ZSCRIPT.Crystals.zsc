@@ -71,7 +71,7 @@ extend class MerchantHandler
 		double size, avgSize;
 		[size, avgSize] = AceCore.GetSectorSize(s);
 
-		double scaleFac = max(1.0, isBlue ? TiberiumCrystal.BlueScale : frandom[merchrand](-2.0, 3.0));
+		double scaleFac = max(1.0, isBlue ? TiberiumCrystal.BlueScale : frandom[merchrand](-2.0, 2.5));
 		int totalCrystalHealth = int(size * scaleFac);
 		int originalTotal = totalCrystalHealth;
 
