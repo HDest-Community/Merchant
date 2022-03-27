@@ -71,7 +71,7 @@ extend class MerchantHandler
 		double size, avgSize;
 		[size, avgSize] = AceCore.GetSectorSize(s);
 
-		double scaleFac = max(1.0, isBlue ? TiberiumCrystal.BlueScale : frandom[merchrand](-2.0, 2.5));
+		double scaleFac = max(1.0, isBlue ? TiberiumCrystal.BlueScale : frandom[merchrand](-1.0, 2.0));
 		int totalCrystalHealth = int(size * scaleFac);
 		int originalTotal = totalCrystalHealth;
 
@@ -92,7 +92,7 @@ extend class MerchantHandler
 
 				TiberiumCrystal tib = TiberiumCrystal(Actor.Spawn('TiberiumCrystal', adjPos));
 				tib.IsBlue = isBlue;
-				tib.Health = int(min(totalCrystalHealth, random[merchrand](50, tib.default.health) * (isBlue ? tib.BlueScale : 1)));
+				tib.Health = int(min(totalCrystalHealth, min(tib.default.health, random[merchrand](50, tib.default.health * 2)) * (isBlue ? tib.BlueScale : 1)));
 				if (!tibThonk)
 				{
 					tibThonk = new('TiberiumRadiationThinker');
