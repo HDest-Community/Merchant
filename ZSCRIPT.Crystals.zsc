@@ -26,7 +26,7 @@ class TiberiumRadiationThinker : Thinker
 
 		for (int i = 0; i < MAXPLAYERS; ++i)
 		{
-			if (!players[i].mo || players[i].mo.CurSector != ActiveSec)
+			if (!players[i].mo || players[i].mo.CurSector != ActiveSec || players[i].mo.Health <= 0)
 			{
 				continue;
 			}
