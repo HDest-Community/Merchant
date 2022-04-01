@@ -321,7 +321,7 @@ class HDMerchant : Actor abstract
 
 			Scale.Y = default.Scale.Y * PiggyBack.player.crouchfactor;
 
-			if (PiggyBack.player.crouchfactor < 0.6 && PiggyBack.player.cmd.buttons & BT_SPEED || PiggyBack.incapacitated > 0 || PiggyBack.fallroll > 0)
+			if (PiggyBack.player.crouchfactor < 0.6 && PiggyBack.player.cmd.buttons & BT_SPEED || PiggyBack.incapacitated > 0 || PiggyBack.fallroll > 0 || PiggyBack.Health <= 0)
 			{
 				if (DropHoldTimer++ == 16 || PiggyBack.incapacitated > 0)
 				{
