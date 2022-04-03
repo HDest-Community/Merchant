@@ -331,6 +331,11 @@ extend class MerchantHandler
 		let spectator = players[consoleplayer].mo;
 		let plr = PlayerPawn(e.Camera);
 
+		if (!plr || !spectator)
+		{
+			return;
+		}
+
 		if (!CardBack[plr.PlayerNumber()])
 		{
 			CardBack[plr.PlayerNumber()] = CVar.GetCVar('hdm_cardback', plr.player);
