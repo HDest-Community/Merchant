@@ -66,7 +66,7 @@ extend class MerchantHandler
 	// [Ace] These are the opposite of healing crystals, so keep soccer moms away.
 	private void SpawnCrystals(Sector s)
 	{
-		bool isBlue = !random(0, 10); // [Ace] Holy crystal batman, we're rich!
+		bool isBlue = !random(0, 6); // [Ace] Holy crystal batman, we're rich!
 
 		double size, avgSize;
 		[size, avgSize] = AceCore.GetSectorSize(s);
