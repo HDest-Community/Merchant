@@ -32,28 +32,26 @@ class TiberiumRadiationThinker : Thinker
 			}
 
 			bool hasRadsuit = players[i].mo.FindInventory('WornRadsuit') != null;
-			int damChance = hasRadsuit ? (IsBlue ? 10 : 5) : 100;
-			int damFreq = max(10, 35 - crystalCount);
-			damChance += crystalCount / 4;
+			int damFreq = int(max(20, 60 - crystalCount * (IsBlue ? 1.5 : 1)));
 
 			if (++DamageTicker >= damFreq)
 			{
 				DamageTicker = 0;
-				if (random(1, 100) <= damChance)
-				{
-					players[i].mo.DamageMobj(null, null, int((hasRadsuit ? random(2, 4) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
 
-					let hdplr = HDPlayerPawn(players[i].mo);
-					if (hdplr)
+				// [Ace] This will occasionally cause bleeding.
+				players[i].mo.DamageMobj(null, null, int((hasRadsuit ? random(1, 3) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
+
+				let hdplr = HDPlayerPawn(players[i].mo);
+				if (hdplr)
+				{
+					if (hasRadsuit)
 					{
-						if (!hasRadsuit || random(1, 100) <= damChance)
-						{
-							hdplr.burncount += IsBlue ? randompick(1, 1, 2, 2, 2, 3) : randompick(1, 1, 1, 2);
-						}
-						if (!hasRadsuit)
-						{
-							hdplr.woundcount += IsBlue ? 3 : 2;
-						}
+						hdplr.burncount += IsBlue ? randompick(0, 0, 1, 1, 1, 1, 2, 2, 3) : randompick(0, 0, 0, 0, 1, 1, 1, 2);
+					}
+					else
+					{
+						hdplr.burncount += IsBlue ? randompick(2, 2, 2, 3, 3, 4) : randompick(1, 1, 1, 2, 2, 3);
+						hdplr.woundcount += IsBlue ? 4 : 2;
 					}
 				}
 			}
@@ -87,30 +85,32 @@ extend class MerchantHandler
 			vector3 adjPos = (s.centerspot + (dist * cos(angle), dist * sin(angle)), s.floorplane.ZAtPoint(s.centerspot));
 			if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
 			{
-				// [Ace] If the crystal is in the sector, force move it towards the center a little so it doesn't spawn right inside the wall.
+				// [Ace] If the crystal is in the sector, force move it towards the center a little so it doesn't spawn right inside the wall. Then check again after adjustment.
 				adjPos -= (14 * cos(angle), 14 * sin(angle));
+				if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
+				{
+					TiberiumCrystal tib = TiberiumCrystal(Actor.Spawn('TiberiumCrystal', adjPos));
+					tib.IsBlue = isBlue;
+					tib.Health = int(min(totalCrystalHealth, min(tib.default.health, random[merchrand](50, tib.default.health * 2)) * (isBlue ? tib.BlueScale : 1)));
+					if (!tibThonk)
+					{
+						tibThonk = new('TiberiumRadiationThinker');
+						tibThonk.ActiveSec = s;
+						tibThonk.IsBlue = isBlue;
+					}
+					tibThonk.Crystals.Push(tib);
+					totalCrystalHealth -= tib.Health;
 
-				TiberiumCrystal tib = TiberiumCrystal(Actor.Spawn('TiberiumCrystal', adjPos));
-				tib.IsBlue = isBlue;
-				tib.Health = int(min(totalCrystalHealth, min(tib.default.health, random[merchrand](50, tib.default.health * 2)) * (isBlue ? tib.BlueScale : 1)));
-				if (!tibThonk)
-				{
-					tibThonk = new('TiberiumRadiationThinker');
-					tibThonk.ActiveSec = s;
-					tibThonk.IsBlue = isBlue;
+					if (tib.Health < lowest)
+					{
+						lowest = tib.Health;
+					}
+					if (highest < tib.Health)
+					{
+						highest = tib.Health;
+					}
+					average += tib.Health;
 				}
-				tibThonk.Crystals.Push(tib);
-				totalCrystalHealth -= tib.Health;
-
-				if (tib.Health < lowest)
-				{
-					lowest = tib.Health;
-				}
-				if (highest < tib.Health)
-				{
-					highest = tib.Health;
-				}
-				average += tib.Health;
 			}
 			tries++;
 		}
