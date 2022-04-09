@@ -33,7 +33,7 @@ class TiberiumRadiationThinker : Thinker
 
 			bool hasRadsuit = players[i].mo.FindInventory('WornRadsuit') != null;
 			int damChance = hasRadsuit ? (IsBlue ? 10 : 5) : 100;
-			int damFreq = max(10, 35 - crystalCount / 2);
+			int damFreq = max(10, 35 - crystalCount);
 			damChance += crystalCount / 4;
 
 			if (++DamageTicker >= damFreq)
@@ -46,7 +46,7 @@ class TiberiumRadiationThinker : Thinker
 					let hdplr = HDPlayerPawn(players[i].mo);
 					if (hdplr)
 					{
-						if (!hasRadsuit || random(1, 100) <= damChance / 2)
+						if (!hasRadsuit || random(1, 100) <= damChance)
 						{
 							hdplr.burncount += IsBlue ? randompick(1, 1, 2, 2, 2, 3) : randompick(1, 1, 1, 2);
 						}
@@ -251,19 +251,18 @@ class TiberiumChunk : HDUPK
 		if (toGive > 0)
 		{
 			picktarget.A_GiveInventory('MercenaryBucks', toGive);
-			Amount -= toGive;
 
 			picktarget.A_StartSound(pickupsound, 5);
 			HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth "..(IsBlue ? "\c[Blue]" : "\c[Green]").."$"..toGive.."\c-.");
 			
 			bool hasRadsuit = picktarget.FindInventory('WornRadsuit') != null;
-			picktarget.DamageMobj(self, self, int((hasRadsuit ? random(2, 5) : random(14, 22)) & IsBlue ? 2.0 : 1.0), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
+			picktarget.DamageMobj(self, self, int((hasRadsuit ? random(2, 5) : random(14, 22)) * (IsBlue ? 2 : 1)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
 			let hdplr = HDPlayerPawn(picktarget);
 			if (hdplr)
 			{
 				if (hasRadsuit)
 				{
-					if (random(1, 100) <= Amount / 2)
+					if (random(1, 100) <= Amount)
 					{
 						hdplr.burncount++;
 					}
@@ -274,6 +273,7 @@ class TiberiumChunk : HDUPK
 					hdplr.woundcount += max(1, Amount / (IsBlue ? 8 : 16));
 				}
 			}
+			Amount -= toGive;
 		}
 
 		if (Amount <= 0)
