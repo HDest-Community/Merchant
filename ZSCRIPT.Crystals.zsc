@@ -33,8 +33,8 @@ class TiberiumRadiationThinker : Thinker
 
 			bool hasRadsuit = players[i].mo.FindInventory('WornRadsuit') != null;
 			int damChance = hasRadsuit ? (IsBlue ? 10 : 5) : 100;
-			int damFreq = max(5, 30 - crystalCount);
-			damChance += crystalCount / 3;
+			int damFreq = max(10, 35 - crystalCount / 2);
+			damChance += crystalCount / 4;
 
 			if (++DamageTicker >= damFreq)
 			{
@@ -46,7 +46,7 @@ class TiberiumRadiationThinker : Thinker
 					let hdplr = HDPlayerPawn(players[i].mo);
 					if (hdplr)
 					{
-						if (random(1, 100) <= damChance / (hasRadsuit ? 2 : 1))
+						if (!hasRadsuit || random(1, 100) <= damChance / 2)
 						{
 							hdplr.burncount += IsBlue ? randompick(1, 1, 2, 2, 2, 3) : randompick(1, 1, 1, 2);
 						}
