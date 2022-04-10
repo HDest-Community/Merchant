@@ -26,7 +26,7 @@ class TiberiumRadiationThinker : Thinker
 
 		for (int i = 0; i < MAXPLAYERS; ++i)
 		{
-			if (!players[i].mo || players[i].mo.CurSector != ActiveSec || players[i].mo.Health <= 0)
+			if (!players[i].mo || players[i].mo.CurSector != ActiveSec || players[i].mo.Health <= 0 || players[i].mo.pos.z > players[i].mo.floorz + 64)
 			{
 				continue;
 			}
@@ -69,7 +69,7 @@ extend class MerchantHandler
 		double size, avgSize;
 		[size, avgSize] = AceCore.GetSectorSize(s);
 
-		double scaleFac = max(1.0, isBlue ? TiberiumCrystal.BlueScale : frandom[merchrand](-1.0, 2.0));
+		double scaleFac = max(1.0, isBlue ? TiberiumCrystal.BlueScale : frandom[merchrand](0, 2.0));
 		int totalCrystalHealth = int(size * scaleFac);
 		int originalTotal = totalCrystalHealth;
 
@@ -86,7 +86,7 @@ extend class MerchantHandler
 			if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
 			{
 				// [Ace] If the crystal is in the sector, force move it towards the center a little so it doesn't spawn right inside the wall. Then check again after adjustment.
-				adjPos -= (14 * cos(angle), 14 * sin(angle));
+				adjPos.xy -= (14 * cos(angle), 14 * sin(angle));
 				if (level.IsPointInLevel(adjPos) && level.PointInSector(adjPos.xy) == s)
 				{
 					TiberiumCrystal tib = TiberiumCrystal(Actor.Spawn('TiberiumCrystal', adjPos));
@@ -121,7 +121,7 @@ extend class MerchantHandler
 			average /= crystalCount;
 		}
 
-		if (hdm_debug)
+		if (hdm_debug > 0)
 		{
 			Console.Printf("--------------------\nSpawned "..(isBlue ? "\c[Blue]" : "\c[Green]").."%i\c- crystals. Remaining health: \c[Red]%i\c- out of \c[Red]%i\c- (x \c[Red]%.2f\c-). Low/avg/high: \c[Red]%i\c-/\c[Red]%i\c-/\c[Red]%i\c-.\nSector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c- size/avg is \c[Brick]%i\c-/\c[Brick]%i\c-. Took \c[Gold]%i\c- tries.",
 				crystalCount, totalCrystalHealth, originalTotal, scaleFac, lowest, average, highest, s.centerspot.x, s.centerspot.y, size, avgSize, tries);
@@ -156,10 +156,10 @@ class TiberiumCrystal : Actor
 
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
 	{
+		int dmg = 0;
 		if (mod == 'Chainsaw')
 		{
-			int dmg = Super.DamageMobj(inflictor, source, damage / 5, mod, flags, angle);
-
+			dmg = Super.DamageMobj(inflictor, source, damage / 5, mod, flags, angle);
 			NextDropAt -= dmg;
 			if (NextDropAt <= 0)
 			{
@@ -172,10 +172,19 @@ class TiberiumCrystal : Actor
 			a.scale = (0.6, 0.6) * frandom(0.75, 1.2);
 			a.A_SetRenderStyle(1.25, STYLE_AddShaded);
 			a.SetShade(IsBlue ? 0x3388FF : 0x22FF00);
-
-			return dmg;
 		}
-		return 0;
+		else
+		{
+			dmg = Super.DamageMobj(inflictor, source, damage / 6, mod, flags, angle);
+			NextDropAt -= dmg / 2; // [Ace] This essentially guarantees that the crystal will be destroyed before it can spawn its full worth in chunks.
+		}
+
+		if (NextDropAt <= 0)
+		{
+			DropChunk();
+		}
+
+		return dmg;
 	}
 
 	const BlueScale = 3.0;

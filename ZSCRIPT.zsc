@@ -160,11 +160,25 @@ class MerchantHandler : EventHandler
 			}
 
 			// [Ace] Secret sectors that are already dedicated don't count.
+			
+			// NOTE I: Don't spawn stuff in low sectors to prevent softlocking. You can climb crystals, but not if you slam your head into the ceiling doing so.
 			if (sec.IsSecret() && dedicatedMerchantSectors.Find(sec) == dedicatedMerchantSectors.Size() && dedicatedSlotSectors.Find(sec) == dedicatedSlotSectors.Size())
 			{
+				vector2 center = sec.centerspot;
+				double secHeight = abs(sec.floorplane.ZAtPoint(center) - sec.ceilingplane.ZAtPoint(center));
+				if (secHeight < 96)
+				{
+					continue;
+				}
+
 				secretSectors.Push(sec);
-				continue;
 			}
+		}
+
+		int validSectorCount = secretSectors.Size();
+		if (validSectorCount == 0)
+		{
+			return;
 		}
 
 		// [Ace] Sort sectors by size in ascending order. Spawn merchants in smaller sectors first. Tiberium is the opposite - it prioritizes bigger sectors first.
@@ -185,11 +199,14 @@ class MerchantHandler : EventHandler
 		// Spawn the crystals first, and only then bother with the merchants.
 		for (int i = secretSectors.Size() - 1; i >= 0; --i)
 		{
-			if (random[merchrand](1, 100) <= max(5, 30 - 1.5 * (level.total_secrets - 1)))
+			if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 50 - 1.5 * (validSectorCount - 1)))
 			{
 				SpawnCrystals(secretSectors[i]);
 				secretSectors.Delete(i);
-				break;
+				if (hdm_debug < 2)
+				{
+					break;
+				}
 			}
 		}
 
@@ -212,7 +229,7 @@ class MerchantHandler : EventHandler
 			for (int i = 0; i < secretSectors.Size(); ++i)
 			{
 				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 60 - 5 * (level.total_secrets - 1)))
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 60 - 5 * (validSectorCount - 1)))
 				{
 					continue;
 				}
@@ -243,7 +260,7 @@ class MerchantHandler : EventHandler
 			for (int i = 0; i < secretSectors.Size(); ++i)
 			{
 				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 50 - 5 * (level.total_secrets - 1)))
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 60 - 5 * (validSectorCount - 1)))
 				{
 					continue;
 				}

@@ -47,3 +47,4 @@ Payouts are as follows:
 ### Known Issues
 ---
 - Merchants can block some paths sometimes. Grab them or pick them up to move them out of the way.
+- Tiberium crystals can block some paths. Either shoot a path through them or climb them.
