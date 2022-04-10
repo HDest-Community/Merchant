@@ -195,11 +195,16 @@ class MerchantHandler : EventHandler
 			}
 		}
 
-		// [Ace] Bitches don't know 'bout my tiberium deposits.
-		// Spawn the crystals first, and only then bother with the merchants.
+		// ------------------------------------------------------------------------------------------------------------------------
+		//
+		// BITCHES DON'T KNOW 'BOUT MY TIBERIUM DEPOSITS.
+		// 
+		// ------------------------------------------------------------------------------------------------------------------------
+
+		// [Ace] Spawn the crystals first, and only then bother with the merchants.
 		for (int i = secretSectors.Size() - 1; i >= 0; --i)
 		{
-			if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 50 - 1.5 * (validSectorCount - 1)))
+			if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 40 - 3 * (validSectorCount - 1)))
 			{
 				SpawnCrystals(secretSectors[i]);
 				secretSectors.Delete(i);
@@ -210,7 +215,13 @@ class MerchantHandler : EventHandler
 			}
 		}
 
-		// [Ace] Merchant spawning. Some boilerplate because I can't make local functions and the workaround is ironically worse.
+		// ------------------------------------------------------------------------------------------------------------------------
+		//
+		//	MERCHANT SPAWNING
+		// 
+		// ------------------------------------------------------------------------------------------------------------------------
+
+		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
 		for (int i = 0; i < dedicatedMerchantSectors.Size(); ++i)
 		{
 			vector3 spawnPos = (dedicatedMerchantSectors[i].centerspot, dedicatedMerchantSectors[i].floorplane.ZAtPoint(dedicatedMerchantSectors[i].centerspot));
@@ -218,6 +229,12 @@ class MerchantHandler : EventHandler
 			Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
 			a.angle = dedicatedMerchantSectors[i].GetUDMFInt('user_merchantangle');
 			AvailableMerchants.Delete(spawnIndex);
+
+			if (hdm_debug > 0)
+			{
+				Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+			}
+
 			if (--MerchantsLeft == 0)
 			{
 				break;
@@ -229,7 +246,7 @@ class MerchantHandler : EventHandler
 			for (int i = 0; i < secretSectors.Size(); ++i)
 			{
 				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 60 - 5 * (validSectorCount - 1)))
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 45 - 5 * (validSectorCount - 1)))
 				{
 					continue;
 				}
@@ -238,6 +255,12 @@ class MerchantHandler : EventHandler
 				a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
 				AvailableMerchants.Delete(spawnIndex);
 				secretSectors.Delete(i--);
+
+				if (hdm_debug > 0)
+				{
+					Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+				}
+
 				if (--MerchantsLeft == 0)
 				{
 					break;
@@ -245,7 +268,12 @@ class MerchantHandler : EventHandler
 			}
 		}
 
-		// [Ace] Slot machine spawning.
+		// ------------------------------------------------------------------------------------------------------------------------
+		//
+		// SLOT MACHINE SPAWNING
+		// 
+		// ------------------------------------------------------------------------------------------------------------------------
+
 		bool spawnedMachine = false;
 		for (int i = 0; i < dedicatedSlotSectors.Size(); ++i)
 		{
@@ -253,6 +281,11 @@ class MerchantHandler : EventHandler
 			Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
 			a.angle = dedicatedSlotSectors[i].GetUDMFInt('user_slotmachineangle');
 			spawnedMachine = true;
+
+			if (hdm_debug > 0)
+			{
+				Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+			}
 		}
 
 		if (!spawnedMachine && hdm_enableslots)
@@ -260,13 +293,18 @@ class MerchantHandler : EventHandler
 			for (int i = 0; i < secretSectors.Size(); ++i)
 			{
 				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 60 - 5 * (validSectorCount - 1)))
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) > max(15, 45 - 5 * (validSectorCount - 1)))
 				{
 					continue;
 				}
 				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
 				a.angle = secretSectors[i].GetUDMFInt('user_slotmachineangle');
 				secretSectors.Delete(i--);
+
+				if (hdm_debug > 0)
+				{
+					Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+				}
 				break;
 			}
 		}
