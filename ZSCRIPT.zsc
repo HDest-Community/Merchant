@@ -595,7 +595,7 @@ class MercenaryBucks : HDAmmo
 
 	override void ActualPickup(actor other, bool silent)
 	{
-		if(!other)
+		if (!other)
 		{
 			other = picktarget;
 		}

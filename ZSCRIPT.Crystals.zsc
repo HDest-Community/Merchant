@@ -252,6 +252,7 @@ class TiberiumChunk : HDUPK
 		Super.PostBeginPlay();
 	}
 
+	// [Ace] Not being able to backpack crystals directly is completely intentional.
 	override void A_HDUPKGive()
 	{
 		int maxAmt = GetDefaultByType('MercenaryBucks').MaxAmount;
