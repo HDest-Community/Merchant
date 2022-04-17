@@ -204,7 +204,7 @@ class MerchantHandler : EventHandler
 		// [Ace] Spawn the crystals first, and only then bother with the merchants.
 		for (int i = secretSectors.Size() - 1; i >= 0; --i)
 		{
-			if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 40 - 3 * (validSectorCount - 1)))
+			if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 30 - 3 * (validSectorCount - 1)))
 			{
 				SpawnCrystals(secretSectors[i]);
 				secretSectors.Delete(i);
