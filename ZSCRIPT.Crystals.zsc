@@ -32,14 +32,14 @@ class TiberiumRadiationThinker : Thinker
 			}
 
 			bool hasRadsuit = players[i].mo.FindInventory('WornRadsuit') != null;
-			int damFreq = int(max(20, 60 - crystalCount * (IsBlue ? 1.5 : 1)));
+			int damFreq = int(max(20, 70 - crystalCount * (IsBlue ? 1.5 : 1)));
 
-			if (++DamageTicker >= damFreq)
+			if (++DamageTicker >= damFreq * (hasRadsuit ? 2 : 1))
 			{
 				DamageTicker = 0;
 
 				// [Ace] This will occasionally cause bleeding.
-				players[i].mo.DamageMobj(null, null, int((hasRadsuit ? random(1, 3) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
+				players[i].mo.DamageMobj(null, null, int((hasRadsuit ? randompick(1, 1, 1, 2, 2, 3) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
 
 				let hdplr = HDPlayerPawn(players[i].mo);
 				if (hdplr)
