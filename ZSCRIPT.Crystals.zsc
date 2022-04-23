@@ -176,7 +176,7 @@ class TiberiumCrystal : Actor
 		else
 		{
 			dmg = Super.DamageMobj(inflictor, source, damage / 6, mod, flags, angle);
-			NextDropAt -= dmg / 2; // [Ace] This essentially guarantees that the crystal will be destroyed before it can spawn its full worth in chunks.
+			NextDropAt -= dmg / 3; // [Ace] This essentially guarantees that the crystal will be destroyed before it can spawn its full worth in chunks.
 		}
 
 		if (NextDropAt <= 0)
