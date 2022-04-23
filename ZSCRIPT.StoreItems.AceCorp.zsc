@@ -119,7 +119,7 @@ class HDExecutionerStore : StoreItem
 	override string GetFlavorText() { return "Just get it the fuck away from me. This thing is fucking cursed."; }
 }
 
-class HDExecutionerStore : StoreItem
+class HDBlackhawkStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "AceCorp"; }
