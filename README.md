@@ -4,8 +4,8 @@
 - There are three merchants, one for each type of item: weapons, ammo, and items.
 - Up to three merchants can spawn on a map. They have a different inventory each time, meaning some items may be missing.
 - You can carry the merchant by using Sprinting + Use. Put them down by crouching and holding the sprint key for half a second. You can only carry one merchant at a time.
-- Tiberium crystals can spawn in secret sectors and can only be "mined" with a chainsaw. Collected chunks will be converted to cash upon level exit.
-- Sectors with tiberium crystals will be toxic. Don't attempt to mine without a radsuit, you will die.
+- Tiberium crystals can spawn in secret sectors and can only be "mined" with a chainsaw. You can also shoot them to clear out a path but don't expect them to drop much.
+- Sectors with tiberium crystals will be toxic. Don't attempt to mine without a radsuit, you will die. Chunks will also be toxic.
 
 ### Notes
 ---
