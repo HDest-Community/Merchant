@@ -119,6 +119,17 @@ class HDExecutionerStore : StoreItem
 	override string GetFlavorText() { return "Just get it the fuck away from me. This thing is fucking cursed."; }
 }
 
+class HDExecutionerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBlackhawk'; }
+	override string GetIcon() { return "BHKGZ0"; }
+	override string GetDisplayName() { return "Blackhawk"; }
+	override int GetBasePrice() { return 600; }
+	override string GetFlavorText() { return "Shhhhh... we're hunting demons"; }
+}
+
 // ------------------------------------------------------------------------------------------
 // 
 //
@@ -204,7 +215,7 @@ class HDSupplyBeaconStore : StoreItem
 	override Name GetItem() { return 'HDSupplyBeacon'; }
 	override string GetIcon() { return "SPBCZ0"; }
 	override string GetDisplayName() { return "Supply Beacon"; }
-	override int GetBasePrice() { return 250; }
+	override int GetBasePrice() { return 400; }
 	override string GetFlavorText() { return "Intergalactic resupply."; }
 }
 
