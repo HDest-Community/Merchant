@@ -9,9 +9,9 @@ class MerchantSlotMachine : Actor
 		Super.Tick();
 	}
 
-	override void PostBeginPlay()
+	override void BeginPlay()
 	{
-		Super.PostBeginPlay();
+		Super.BeginPlay();
 		for (int i = 0; i < Slots.Size(); ++i)
 		{
 			let slot = SlotMachineSlot(Spawn("SlotMachineSlot", pos));
@@ -19,13 +19,20 @@ class MerchantSlotMachine : Actor
 			slot.PlaceIndex = i;
 			Slots[i] = slot;
 		}
+
+		Weights.Push(5);
+		Weights.Push(5);
+		Weights.Push(4);
+		Weights.Push(3);
+		Weights.Push(2);
+		Weights.Push(1);
 	}
 
 	private void RollSlots()
 	{
 		for (int i = StartSlot; i < Slots.Size(); ++i)
 		{
-			++Slots[i].RollIndex %= SlotMachineSlot.Weights.Size();
+			++Slots[i].RollIndex %= Weights.Size();
 		}
 
 		if (LockTicker++ > CurrentLock && Slots[StartSlot].RollIndex == ChosenSlots[StartSlot])
@@ -47,7 +54,7 @@ class MerchantSlotMachine : Actor
 
 	private int GetFullRowIndex()
 	{
-		for (int i = 1; i < SlotMachineSlot.Weights.Size(); ++i)
+		for (int i = 1; i < Weights.Size(); ++i)
 		{
 			int num = 0;
 			for (int j = 0; j < Slots.Size(); ++j)
@@ -143,17 +150,7 @@ class MerchantSlotMachine : Actor
 	{
 		for (int i = 0; i < Slots.Size(); ++i)
 		{
-			int sum = SlotMachineSlot.GetWeightSum();
-			int rng = random[smsrand](0, sum);
-			for (int j = 0; j < SlotMachineSlot.Weights.Size(); ++j)
-			{
-				if (rng < SlotMachineSlot.Weights[j])
-				{
-					ChosenSlots[i] = j;
-					break;
-				}
-				rng -= SlotMachineSlot.Weights[j];
-			}
+			ChosenSlots[i] = AceCore.GetWeightedResult(Weights);
 		}
 	}
 
@@ -196,6 +193,7 @@ class MerchantSlotMachine : Actor
 
 	private int ChosenSlots[3];
 	private SlotMachineSlot Slots[3];
+	private Array<int> Weights;
 
 	Default
 	{
@@ -263,17 +261,7 @@ class SlotMachineSlot : Actor
 		Warp(master, -5, 7 - 9 * PlaceIndex, master.height - 10, flags: WARPF_NOCHECKPOSITION);
 	}
 
-	static int GetWeightSum()
-	{
-		int sum = 0;
-		for (int i = 0; i < SlotMachineSlot.Weights.Size(); ++i)
-		{
-			sum += SlotMachineSlot.Weights[i];
-		}
-		return sum;
-	}
-
-	static const int Weights[] = { 5, 5, 4, 3, 2, 1 };
+	
 	int PlaceIndex;
 	int RollIndex;
 

@@ -176,7 +176,7 @@ class MerchantHandler : EventHandler
 		}
 
 		int validSectorCount = secretSectors.Size();
-		if (validSectorCount == 0)
+		if (validSectorCount == 0 && dedicatedMerchantSectors.Size() == 0 && dedicatedSlotSectors.Size() == 0)
 		{
 			return;
 		}
