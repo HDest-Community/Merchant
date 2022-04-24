@@ -6,7 +6,7 @@ class HD50AEStore : StoreItem
 	override int GetAmount() { return 50; }
 	override string GetIcon() { return "50AEX0"; }
 	override string GetDisplayName() { return ".50 Action Express"; }
-	override int GetBasePrice() { return 50; }
+	override int GetBasePrice() { return 60; }
 	override string GetFlavorText() { return "Ought to kill something in a single shot. If it doesn't, shoot again."; }
 }
 
@@ -18,7 +18,7 @@ class HD500HeavyStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "5HBXA0"; }
 	override string GetDisplayName() { return ".500 S&W Handloads"; }
-	override int GetBasePrice() { return 30; }
+	override int GetBasePrice() { return 40; }
 	override string GetFlavorText() { return "These ought to punch a hole."; }
 }
 
@@ -30,7 +30,7 @@ class HD500LightStore : StoreItem
 	override int GetAmount() { return 40; }
 	override string GetIcon() { return "5LBXA0"; }
 	override string GetDisplayName() { return ".500 S&W"; }
-	override int GetBasePrice() { return 40; }
+	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return "Much better than the peashooter .355, isn't it?"; }
 }
 
@@ -42,7 +42,7 @@ class HD50OMGStore : StoreItem
 	override int GetAmount() { return 20; }
 	override string GetIcon() { return "OGBXA0"; }
 	override string GetDisplayName() { return ".50 OMG"; }
-	override int GetBasePrice() { return 60; }
+	override int GetBasePrice() { return 70; }
 	override string GetFlavorText() { return "The one round that guarantees nothing will wallbang back at you."; }
 }
 
