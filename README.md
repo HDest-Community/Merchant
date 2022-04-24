@@ -4,8 +4,6 @@
 - There are three merchants, one for each type of item: weapons, ammo, and items.
 - Up to three merchants can spawn on a map. They have a different inventory each time, meaning some items may be missing.
 - You can carry the merchant by using Sprinting + Use. Put them down by crouching and holding the sprint key for half a second. You can only carry one merchant at a time.
-- Tiberium crystals can spawn in secret sectors and can only be "mined" with a chainsaw. You can also shoot them to clear out a path but don't expect them to drop much.
-- Sectors with tiberium crystals will be toxic. Don't attempt to mine without a radsuit, you will die. Chunks will also be toxic.
 
 ### Notes
 ---
@@ -14,6 +12,13 @@
 - Loadout code for the mercenary bucks is `bux`.
 - CVars are:
 	`hdm_cardback [0-1]`: Card back graphic.
+
+### Tiberium
+---
+- Crystals can spawn in secret sectors and can only be "mined" with a chainsaw. You can also shoot them to clear out a path but don't expect them to drop much.
+- Sectors with tiberium crystals will be toxic. Don't attempt to mine without a radsuit, you will die. Chunks will also be toxic.
+- Blue crystals are much rarer and also much more dangerous.
+- There is no guarantee you'd be able to mine a field if it's too large. That's a severe case of "working as intended". If you are clever enough, you might be able to do it with some strategic planning. But don't expect to always succeed.
 
 ### Slot Machines
 ---

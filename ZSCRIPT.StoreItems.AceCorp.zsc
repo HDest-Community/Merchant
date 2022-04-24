@@ -402,3 +402,51 @@ class HDAssemblyCoreStore : StoreItem
 	override int GetBasePrice() { return 200; }
 	override string GetFlavorText() { return "Avengers not included."; }
 }
+
+class HDBlackhawkBoltRegularStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBlackhawkBoltRegular'; }
+	override int GetAmount() { return 24; }
+	override string GetIcon() { return "BHBLA0"; }
+	override string GetDisplayName() { return "Bolts - Regular"; }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return "El cheapo bolts for everyday use. Nothing special about these."; }
+}
+
+class HDBlackhawkBoltIncendiaryStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBlackhawkBoltIncendiary'; }
+	override int GetAmount() { return 6; }
+	override string GetIcon() { return "BHBLB0"; }
+	override string GetDisplayName() { return "Bolts - Incendiary"; }
+	override int GetBasePrice() { return 80; }
+	override string GetFlavorText() { return "Do not use at home."; }
+}
+
+class HDBlackhawkBoltElectricStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBlackhawkBoltElectric'; }
+	override int GetAmount() { return 6; }
+	override string GetIcon() { return "BHBLC0"; }
+	override string GetDisplayName() { return "Bolts - Electric"; }
+	override int GetBasePrice() { return 80; }
+	override string GetFlavorText() { return "No shields - no problem."; }
+}
+
+class HDBlackhawkBoltNuclearStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDBlackhawkBoltNuclear'; }
+	override int GetAmount() { return 2; }
+	override string GetIcon() { return "BHBLD0"; }
+	override string GetDisplayName() { return "Bolts - Nuclear"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "To whom it may concern."; }
+}

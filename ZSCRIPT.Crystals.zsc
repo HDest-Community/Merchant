@@ -39,7 +39,7 @@ class TiberiumRadiationThinker : Thinker
 				DamageTicker = 0;
 
 				// [Ace] This will occasionally cause bleeding.
-				players[i].mo.DamageMobj(null, null, int((hasRadsuit ? randompick(1, 1, 1, 1, 2) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
+				players[i].mo.DamageMobj(null, null, int((hasRadsuit ? randompick(1, 1, 1, 2) : random(8, 12)) * (IsBlue ? 1.5 : 1.0)), 'Tiberium', DMG_NO_FACTOR | DMG_NO_ARMOR);
 
 				let hdplr = HDPlayerPawn(players[i].mo);
 				if (hdplr)
