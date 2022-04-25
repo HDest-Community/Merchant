@@ -140,6 +140,7 @@ class TiberiumCrystal : Actor
 			SetShade(0x3388FF);
 		}
 		bXFLIP = true;
+		A_GiveInventory('ImmunityToFire');
 	}
 
 	private void DropChunk()
