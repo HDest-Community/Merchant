@@ -127,7 +127,18 @@ class HDBlackhawkStore : StoreItem
 	override string GetIcon() { return "BHKGZ0"; }
 	override string GetDisplayName() { return "Blackhawk"; }
 	override int GetBasePrice() { return 600; }
-	override string GetFlavorText() { return "Shhhhh... we're hunting demons"; }
+	override string GetFlavorText() { return "Shhhhh... we're hunting demons."; }
+}
+
+class HDHammerheadStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "AceCorp"; }
+	override Name GetItem() { return 'HDHammerhead'; }
+	override string GetIcon() { return "BLNGZ0"; }
+	override string GetDisplayName() { return "Hammerhead"; }
+	override int GetBasePrice() { return 700; }
+	override string GetFlavorText() { return "Do you hate batteries? Do you hate imps more? This gun lets you get rid of both!"; }
 }
 
 // ------------------------------------------------------------------------------------------
