@@ -60,7 +60,7 @@ class BountyEffectStandard : BountyEffect
 		let sld = HDMagicShield(target.FindInventory('HDMagicShield'));
 		if (sld)
 		{
-			sld.MaxAmount = sld.Amount = sld.MaxAmount << 3;
+			sld.MaxAmount = sld.Amount = sld.MaxAmount << 2;
 		}
 		else
 		{
@@ -202,7 +202,7 @@ class BountyThinker_Necromancer : BountyThinker
 
 class BountyThinker_SatanRobo : BountyThinker
 {
-	override int GetBounty() { return 2000; }
+	override int GetBounty() { return 200; }
 }
 
 class BountyThinker_Technorantula : BountyThinker
