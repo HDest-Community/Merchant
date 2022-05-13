@@ -28,12 +28,11 @@
 - Monsters that can currently be a target of bounty:
 	- Healer Imps
 	- Marines
-	- Hell Knights
-	- Hell Barons
+	- Hell Knights/Barons
 	- Cacodemons
 	- Archviles
-	- Cyberdemons
-	- Masterminds
+	- Cybers/Masterminds
+	- Melodica's Cabal Cultists
 
 ### Slot Machines
 ---
