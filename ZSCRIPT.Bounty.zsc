@@ -56,19 +56,19 @@ class BountyEffect abstract play
 	{
 		if (DynLight)
 		{
-			DynLight.SetOrigin(TrackedActor.pos + (0, 0, TrackedActor.height / 2), true);
+			DynLight.SetOrigin(Target.pos + (0, 0, Target.height / 2), true);
 		}
 	}
 
 	void CreateDynamicLight(class<PointLight> cls, int r, int g, int b, int size1, int size2)
 	{
-		DynLight = PointLight(Actor.Spawn("PointLight", TrackedActor.pos + (0, 0, TrackedActor.height / 2)));
+		DynLight = PointLight(Actor.Spawn("PointLight", Target.pos + (0, 0, Target.height / 2)));
 		DynLight.Args[0] = r;
 		DynLight.Args[1] = g;
 		DynLight.Args[2] = b;
 		DynLight.Args[3] = size1;
 		DynLight.Args[4] = size2;
-		DynLight.target = TrackedActor;
+		DynLight.target = Target;
 		DynLight.bATTENUATE = true;
 	}
 
@@ -81,7 +81,7 @@ class BountyEffect abstract play
 	}
 
 	private PointLight DynLight;
-	Actor TrackedActor;
+	Actor Target;
 }
 
 // ----------------------------------------------------------------------
@@ -92,34 +92,34 @@ class BountyEffectStandard : BountyEffect
 {
 	override void Init()
 	{
-		let sld = HDMagicShield(TrackedActor.FindInventory('HDMagicShield'));
+		let sld = HDMagicShield(Target.FindInventory('HDMagicShield'));
 		if (sld)
 		{
 			sld.MaxAmount = sld.Amount = sld.MaxAmount << 2;
 		}
 		else
 		{
-			sld = HDMagicShield(TrackedActor.GiveInventoryType('HDMagicShield'));
+			sld = HDMagicShield(Target.GiveInventoryType('HDMagicShield'));
 			sld.MaxAmount = sld.Amount = 3000;
 			sld.bSTANDSTILL = true;
 			sld.bQUICKTORETALIATE = false;
 		}
 
 		// [Ace] Changing StartHealth will change the return of subsequent SpawnHealth calls.
-		TrackedActor.StartHealth = TrackedActor.Health = TrackedActor.SpawnHealth() << 2;
-		TrackedActor.bMISSILEMORE = true;
-		TrackedActor.bMISSILEEVENMORE = true;
+		Target.StartHealth = Target.Health = Target.SpawnHealth() << 2;
+		Target.bMISSILEMORE = true;
+		Target.bMISSILEEVENMORE = true;
 
 		CreateDynamicLight('PointLight', 0xFF, 0xEE, 0x11, 48, 52);
 	}
 
 	override void Tick()
 	{
-		BountyBodyTrail trail = BountyBodyTrail(TrackedActor.Spawn('BountyBodyTrail', TrackedActor.Vec3Angle(-1, TrackedActor.angle)));
-		trail.angle = TrackedActor.angle;
-		trail.sprite = TrackedActor.sprite;
-		trail.frame = TrackedActor.frame;
-		trail.scale = TrackedActor.scale;
+		BountyBodyTrail trail = BountyBodyTrail(Target.Spawn('BountyBodyTrail', Target.Vec3Angle(-1, Target.angle)));
+		trail.angle = Target.angle;
+		trail.sprite = Target.sprite;
+		trail.frame = Target.frame;
+		trail.scale = Target.scale;
 		UpdateDynamicLight();
 	}
 }
@@ -155,14 +155,14 @@ class BountyBodyTrail : Actor
 
 class BountyThinker : Thinker abstract
 {
-	private Actor TrackedActor;
+	private Actor Target;
 	private BountyEffect Effect;
 	protected abstract int GetBounty();
 
 	static BountyThinker Create(class<BountyThinker> cls, Actor other, class<BountyEffect> effect = null)
 	{
 		let thk = BountyThinker(new(cls));
-		thk.TrackedActor = other;
+		thk.Target = other;
 
 		if (effect)
 		{
@@ -180,23 +180,23 @@ class BountyThinker : Thinker abstract
 			}
 			thk.Effect = BountyEffect(new(effects[random(0, effects.Size() - 1)]));
 		}
-		thk.Effect.TrackedActor = other;
+		thk.Effect.Target = other;
 		thk.Effect.Init();
 		return thk;
 	}
 
 	override void Tick()
 	{
-		if (!TrackedActor || !Effect)
+		if (!Target || !Effect)
 		{
 			Destroy();
 			return;
 		}
 
-		if (TrackedActor.Health <= 0)
+		if (Target.Health <= 0)
 		{
-			TrackedActor.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.75);
-			let bucks = MercenaryBucks(Actor.Spawn('MercenaryBucks', TrackedActor.pos + (0, 0, TrackedActor.height / 2)));
+			Target.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.75);
+			let bucks = MercenaryBucks(Actor.Spawn('MercenaryBucks', Target.pos + (0, 0, Target.height / 2)));
 			bucks.A_ChangeVelocity(frandom(-2.0, 2.0), frandom(-2.0, 2.0), frandom(2.0, 5.0));
 			bucks.Amount = GetBounty();
 			Destroy();
