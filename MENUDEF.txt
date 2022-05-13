@@ -69,6 +69,7 @@ OptionValue "MoneyMode"
 {
 	0, "Tiberium"
 	1, "Bounty"
+	2, "Random"
 }
 
 AddOptionMenu "OptionsMenu"

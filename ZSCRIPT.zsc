@@ -13,6 +13,8 @@ version "4.5"
 
 class MerchantHandler : EventHandler
 {
+	private int MoneyMode;
+
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let plr = players[e.Player].mo;
@@ -126,6 +128,8 @@ class MerchantHandler : EventHandler
 		{
 			return;
 		}
+
+		MoneyMode = hdm_moneymode == 2 ? random(0, 1) : hdm_moneymode;
 		
 		InitCurrencies();
 		for (int i = 0; i < Stores.Size(); ++i)
@@ -203,7 +207,7 @@ class MerchantHandler : EventHandler
 		// ------------------------------------------------------------------------------------------------------------------------
 
 		// [Ace] Spawn the crystals first, and only then bother with the merchants.
-		if (hdm_moneymode == 0)
+		if (MoneyMode == 0)
 		{
 			for (int i = secretSectors.Size() - 1; i >= 0; --i)
 			{
@@ -338,7 +342,7 @@ class MerchantHandler : EventHandler
 			PokerTick();
 		}
 
-		if (level.time == 35 && hdm_moneymode == 1)
+		if (level.time == 35 && MoneyMode == 1)
 		{
 			InitBounty();
 		}
