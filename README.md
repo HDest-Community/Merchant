@@ -49,9 +49,9 @@ Payouts are as follows:
 
 ### Poker
 ---
-- A game of Texas Hold'em can be assembled with up to 8 nearby players (3m radius) using the `HDM_AssemblePokerGame` command. The players can be either AI-controlled (merchants) or other human players.
+- A game of Texas Hold'em can be assembled with up to 8 nearby players (2m radius) using the `HDM_AssemblePokerGame` command. The players can be either AI-controlled (merchants) or other human players.
 - Each player needs to have the amount of the big blind ($20) in mercenary bucks in order to join the game.
-- If you walk away from the game, your bet is forfeit. You can shoot enemies if they show up, but do not go farther than 4m away from the spot you occupied when the game started.
+- If you walk away from the game, your bet is forfeit. You can shoot enemies if they show up, but do not go outside of the table's marked area.
 - No idea how to play? See this: https://www.youtube.com/watch?v=b9HYxquQt-M
 - The only way to quit is to walk away. Yes, you will lose what's in the pot. Yes that is intentional. Consider it a tax for getting to leave early.
 
