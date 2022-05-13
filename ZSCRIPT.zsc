@@ -9,6 +9,7 @@ version "4.5"
 #include "ZSCRIPT.PlayingCards.zsc"
 #include "ZSCRIPT.Poker.zsc"
 #include "ZSCRIPT.Crystals.zsc"
+#include "ZSCRIPT.Bounty.zsc"
 
 class MerchantHandler : EventHandler
 {
@@ -202,15 +203,18 @@ class MerchantHandler : EventHandler
 		// ------------------------------------------------------------------------------------------------------------------------
 
 		// [Ace] Spawn the crystals first, and only then bother with the merchants.
-		for (int i = secretSectors.Size() - 1; i >= 0; --i)
+		if (hdm_moneymode == 0)
 		{
-			if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 30 - 3 * (validSectorCount - 1)))
+			for (int i = secretSectors.Size() - 1; i >= 0; --i)
 			{
-				SpawnCrystals(secretSectors[i]);
-				secretSectors.Delete(i);
-				if (hdm_debug < 2)
+				if (hdm_debug >= 2 || random[merchrand](1, 100) <= max(5, 30 - 3 * (validSectorCount - 1)))
 				{
-					break;
+					SpawnCrystals(secretSectors[i]);
+					secretSectors.Delete(i);
+					if (hdm_debug < 2)
+					{
+						break;
+					}
 				}
 			}
 		}
@@ -332,6 +336,11 @@ class MerchantHandler : EventHandler
 		if (GameInProgress)
 		{
 			PokerTick();
+		}
+
+		if (level.time == 35 && hdm_moneymode == 1)
+		{
+			InitBounty();
 		}
 	}
 }

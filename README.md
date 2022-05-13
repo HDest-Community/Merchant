@@ -20,6 +20,21 @@
 - Blue crystals are much rarer and also much more dangerous.
 - There is no guarantee you'd be able to mine a field if it's too large. That's a severe case of "working as intended". If you are clever enough, you might be able to do it with some strategic planning. But don't expect to always succeed.
 
+### Bounty
+---
+- One of the enemies on the map, out of those valid, will have a bounty on their head. They can be recognized by the special effect other monsters do not have (if any).
+- The standard effect is added or increased shield and increased health, along with increased aggressiveness. These enemies will be much deadlier and harder to kill.
+- More valid targets for bounty and more effects (chosen at random) may be added by additional addons.
+- Monsters that can currently be a target of bounty:
+	- Healer Imps
+	- Marines
+	- Hell Knights
+	- Hell Barons
+	- Cacodemons
+	- Archviles
+	- Cyberdemons
+	- Masterminds
+
 ### Slot Machines
 ---
 Why play when you can gamble? Machines spawn in secret sectors, much like merchants, and cost 10 7mm rounds to roll. Hold Sprint when pressing Use to insert another min bet worth of rounds for a higher reward.

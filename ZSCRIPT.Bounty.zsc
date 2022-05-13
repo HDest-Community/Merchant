@@ -1,0 +1,211 @@
+extend class MerchantHandler
+{
+	private void InitBounty()
+	{
+		Array<class<BountyThinker> > bountyThinkers;
+		for (int i = 0; i < AllClasses.Size(); ++i)
+		{
+			if (AllClasses[i] is 'BountyThinker' && !AllClasses[i].IsAbstract())
+			{
+				bountyThinkers.Push((class<BountyThinker>)(AllClasses[i]));
+			}
+		}
+
+		Array<Actor> chosenActors;
+
+		ThinkerIterator it = ThinkerIterator.Create('Actor', Thinker.STAT_DEFAULT);
+		Actor a = null;
+		while ((a = Actor(it.Next())))
+		{
+			if (!a.bISMONSTER || !a.bSHOOTABLE)
+			{
+				continue;
+			}
+		
+			for (int i = 0; i < bountyThinkers.Size(); ++i)
+			{
+				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
+				if (a.GetClassName() == actorName)
+				{
+					chosenActors.Push(a);
+				}
+			}
+		}
+
+		if (chosenActors.Size() > 0)
+		{
+			Actor randAct = chosenActors[random(0, chosenActors.Size() - 1)];
+			BountyThinker.Create("BountyThinker_"..randAct.GetClassName(), randAct);
+			return;
+		}
+	}
+}
+
+// ----------------------------------------------------------------------
+//
+// EFFECTS - Monster-agnostic
+// 
+// ----------------------------------------------------------------------
+
+class BountyEffect abstract play
+{
+	abstract void Init(Actor target);
+	abstract void Tick(Actor target);
+}
+
+class BountyEffectStandard : BountyEffect
+{
+	override void Init(Actor target)
+	{
+		let sld = HDMagicShield(target.FindInventory('HDMagicShield'));
+		if (sld)
+		{
+			sld.MaxAmount = sld.Amount = sld.MaxAmount << 3;
+		}
+		else
+		{
+			sld = HDMagicShield(target.GiveInventoryType('HDMagicShield'));
+			sld.MaxAmount = sld.Amount = 3000;
+			sld.bSTANDSTILL = true;
+			sld.bQUICKTORETALIATE = false;
+		}
+
+		// [Ace] Changing StartHealth will change the return of subsequent SpawnHealth calls.
+		target.StartHealth = target.Health = target.SpawnHealth() << 2;
+		target.bALWAYSFAST = true;
+	}
+
+	override void Tick(Actor target)
+	{
+		BountyBodyTrail trail = BountyBodyTrail(target.Spawn('BountyBodyTrail', target.Vec3Angle(-1, target.angle)));
+		trail.angle = target.angle;
+		trail.sprite = target.sprite;
+		trail.frame = target.frame;
+		trail.scale = target.scale;
+	}
+}
+
+class BountyBodyTrail : Actor
+{
+	Default
+	{
+		+NOINTERACTION
+		+NOBLOCKMAP
+		+BRIGHT
+		Renderstyle "AddShaded";
+		StencilColor "FFEE11";
+	}
+
+	States
+	{
+		Spawn:
+			#### # 1
+			{
+				scale += (0.02, 0.02);
+				A_FadeOut(0.1);
+			}
+			Loop;
+	}
+}
+
+// ----------------------------------------------------------------------
+//
+// BOUNTIES - Monster-specific
+// 
+// ----------------------------------------------------------------------
+
+class BountyThinker : Thinker abstract
+{
+	private Actor TrackedActor;
+	private BountyEffect Effect;
+	protected abstract int GetBounty();
+
+	static BountyThinker Create(class<BountyThinker> cls, Actor other, class<BountyEffect> effect = null)
+	{
+		let thk = BountyThinker(new(cls));
+		thk.TrackedActor = other;
+
+		if (effect)
+		{
+			thk.Effect = BountyEffect(new(effect));
+		}
+		else
+		{
+			Array<class<BountyEffect> > effects;
+			for (int i = 0; i < AllClasses.Size(); ++i)
+			{
+				if (AllClasses[i] is 'BountyEffect' && !AllClasses[i].IsAbstract())
+				{
+					effects.Push((class<BountyEffect>)(AllClasses[i]));
+				}
+			}
+			thk.Effect = BountyEffect(new(effects[random(0, effects.Size() - 1)]));
+		}
+		thk.Effect.Init(other);
+		return thk;
+	}
+
+	override void Tick()
+	{
+		if (!TrackedActor || !Effect)
+		{
+			Destroy();
+			return;
+		}
+
+		if (TrackedActor.Health <= 0)
+		{
+			TrackedActor.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.75);
+			let bucks = MercenaryBucks(Actor.Spawn('MercenaryBucks', TrackedActor.pos + (0, 0, TrackedActor.height / 2)));
+			bucks.A_ChangeVelocity(frandom(-2.0, 2.0), frandom(-2.0, 2.0), frandom(2.0, 5.0));
+			bucks.Amount = GetBounty();
+			Effect.Destroy();
+			Destroy();
+			return;
+		}
+		else
+		{
+			Effect.Tick(TrackedActor);
+		}
+	}
+}
+
+class BountyThinker_Regentipede : BountyThinker
+{
+	override int GetBounty() { return 100; }
+}
+
+class BountyThinker_UndeadRifleman : BountyThinker
+{
+	override int GetBounty() { return 150; }
+}
+
+class BountyThinker_PainBringer : BountyThinker
+{
+	override int GetBounty() { return 400; }
+}
+
+class BountyThinker_PainLord : BountyThinker
+{
+	override int GetBounty() { return 700; }
+}
+
+class BountyThinker_Trilobite : BountyThinker
+{
+	override int GetBounty() { return 600; }
+}
+
+class BountyThinker_Necromancer : BountyThinker
+{
+	override int GetBounty() { return 1000; }
+}
+
+class BountyThinker_SatanRobo : BountyThinker
+{
+	override int GetBounty() { return 2000; }
+}
+
+class BountyThinker_Technorantula : BountyThinker
+{
+	override int GetBounty() { return 4000; }
+}
