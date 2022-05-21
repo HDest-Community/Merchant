@@ -431,10 +431,10 @@ class HDBlackhawkBoltIncendiaryStore : StoreItem
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "AceCorp"; }
 	override Name GetItem() { return 'HDBlackhawkBoltIncendiary'; }
-	override int GetAmount() { return 6; }
+	override int GetAmount() { return 3; }
 	override string GetIcon() { return "BHBLB0"; }
 	override string GetDisplayName() { return "Bolts - Incendiary"; }
-	override int GetBasePrice() { return 80; }
+	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return "Do not use at home."; }
 }
 
