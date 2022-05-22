@@ -127,7 +127,7 @@ class HDBFGStore : StoreItem
 	override string GetIcon() { return "BFUGA0"; }
 	override string GetDisplayName() { return "BFG 9000"; }
 	override int GetBasePrice() { return 1400; }
-	override string GetFlavorText() { return "Same as above but causes mass disappearance."; }
+	override string GetFlavorText() { return "Same as the Brontornis but casts mass disappearance instead."; }
 }
 
 class HDBossStore : StoreItem
