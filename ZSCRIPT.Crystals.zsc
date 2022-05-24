@@ -146,13 +146,13 @@ class TiberiumCrystal : Actor
 	private void DropChunk(int amt)
 	{
 		// [Ace] Drop what exactly?
-		if (amt == 0 && NextDropAmount == 0)
+		if (amt == 0)
 		{
 			return;
 		}
 
 		TiberiumChunk chonk = TiberiumChunk(Spawn('TiberiumChunk', pos));
-		chonk.Amount = amt > 0 ? amt : NextDropAmount;
+		chonk.Amount = amt;
 		chonk.angle = random(0, 359);
 		chonk.A_ChangeVelocity(frandom(1.5, 4.0), 0, frandom(2.0, 6.0), CVF_RELATIVE | CVF_REPLACE);
 		chonk.IsBlue = IsBlue;
@@ -168,10 +168,6 @@ class TiberiumCrystal : Actor
 		{
 			dmg = Super.DamageMobj(inflictor, source, damage / 5, mod, flags, angle);
 			NextDropAt -= dmg;
-			if (NextDropAt <= 0)
-			{
-				DropChunk(NextDropAmount);
-			}
 
 			double pitch = frandom(-85.0, 85.0);
 			bool success; Actor a;
@@ -191,13 +187,12 @@ class TiberiumCrystal : Actor
 			DropChunk(NextDropAmount);
 		}
 
-		return dmg;
-	}
+		if (Health <= 0)
+		{
+			DropChunk(Leftovers);
+		}
 
-	override void Die(Actor source, Actor inflictor, int dmgflags, Name MeansOfDeath)
-	{
-		DropChunk(Leftovers);
-		Super.Die(source, inflictor, dmgflags, MeansOfDeath);
+		return dmg;
 	}
 
 	const BlueScale = 3.0;
