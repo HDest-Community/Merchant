@@ -156,9 +156,6 @@ class TiberiumCrystal : Actor
 		chonk.angle = random(0, 359);
 		chonk.A_ChangeVelocity(frandom(1.5, 4.0), 0, frandom(2.0, 6.0), CVF_RELATIVE | CVF_REPLACE);
 		chonk.IsBlue = IsBlue;
-
-		Leftovers += abs(NextDropAt);
-		NextDropAmount = NextDropAt = int(min(Health, frandom(20, 100) * (IsBlue ? BlueScale : 1)));
 	}
 
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
@@ -185,6 +182,8 @@ class TiberiumCrystal : Actor
 		if (NextDropAt <= 0)
 		{
 			DropChunk(NextDropAmount);
+			Leftovers += abs(NextDropAt);
+			NextDropAmount = NextDropAt = int(min(Health, frandom(20, 100) * (IsBlue ? BlueScale : 1)));
 		}
 
 		if (Health <= 0)
