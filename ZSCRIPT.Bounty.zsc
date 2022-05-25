@@ -122,10 +122,10 @@ class BountyEffectStandard : BountyEffect
 		trail.scale = Target.scale;
 		UpdateDynamicLight();
 
-		let mob = HDMobBase(master);
+		let mob = HDMobBase(Target);
 		if (mob)
 		{
-			mob.bloodloss = max(0, mob.bloodloss - 3);
+			mob.bloodloss = max(0, mob.bloodloss - 2);
 		}
 	}
 }
