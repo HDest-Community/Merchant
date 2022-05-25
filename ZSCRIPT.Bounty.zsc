@@ -100,7 +100,7 @@ class BountyEffectStandard : BountyEffect
 		else
 		{
 			sld = HDMagicShield(Target.GiveInventoryType('HDMagicShield'));
-			sld.MaxAmount = sld.Amount = 3000;
+			sld.MaxAmount = sld.Amount = 4000;
 			sld.bSTANDSTILL = true;
 			sld.bQUICKTORETALIATE = false;
 		}
@@ -121,6 +121,12 @@ class BountyEffectStandard : BountyEffect
 		trail.frame = Target.frame;
 		trail.scale = Target.scale;
 		UpdateDynamicLight();
+
+		let mob = HDMobBase(master);
+		if (mob)
+		{
+			mob.bloodloss = max(0, mob.bloodloss - 3);
+		}
 	}
 }
 
