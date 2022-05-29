@@ -95,7 +95,7 @@ class BountyEffectStandard : BountyEffect
 		let sld = HDMagicShield(Target.FindInventory('HDMagicShield'));
 		if (sld)
 		{
-			sld.MaxAmount = sld.Amount = sld.MaxAmount << 2;
+			sld.MaxAmount = sld.Amount = max(4000, sld.MaxAmount << 2);
 		}
 		else
 		{
