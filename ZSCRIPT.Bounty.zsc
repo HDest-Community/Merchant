@@ -95,12 +95,12 @@ class BountyEffectStandard : BountyEffect
 		let sld = HDMagicShield(Target.FindInventory('HDMagicShield'));
 		if (sld)
 		{
-			sld.MaxAmount = sld.Amount = max(4000, sld.MaxAmount << 2);
+			sld.MaxAmount = sld.Amount = max(2000, sld.MaxAmount << 1);
 		}
 		else
 		{
 			sld = HDMagicShield(Target.GiveInventoryType('HDMagicShield'));
-			sld.MaxAmount = sld.Amount = 4000;
+			sld.MaxAmount = sld.Amount = 2000;
 			sld.bSTANDSTILL = true;
 			sld.bQUICKTORETALIATE = false;
 		}
@@ -125,7 +125,7 @@ class BountyEffectStandard : BountyEffect
 		let mob = HDMobBase(Target);
 		if (mob)
 		{
-			mob.bloodloss = max(0, mob.bloodloss - 2);
+			mob.bloodloss = max(0, mob.bloodloss - 4);
 		}
 	}
 }
