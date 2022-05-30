@@ -227,8 +227,8 @@ class BountyThinker : Thinker abstract
 // 
 // ----------------------------------------------------------------------
 
-class BountyThinker_Regentipede : BountyThinker { override int GetBounty() { return 250; } }
-class BountyThinker_UndeadRifleman : BountyThinker { override int GetBounty() { return 300; } }
+class BountyThinker_Regentipede : BountyThinker { override int GetBounty() { return 300; } }
+class BountyThinker_UndeadRifleman : BountyThinker { override int GetBounty() { return 500; } }
 class BountyThinker_PainBringer : BountyThinker { override int GetBounty() { return 800; } }
 class BountyThinker_PainLord : BountyThinker { override int GetBounty() { return 1000; } }
 class BountyThinker_TechnoSpider : BountyThinker { override int GetBounty() { return 1000; } }
