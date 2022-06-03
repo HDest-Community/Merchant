@@ -27,7 +27,7 @@ class HDPD42Store : StoreItem
 	override Name GetItem() { return 'HDPDFour'; }
 	override string GetIcon() { return "PDWGY0"; }
 	override string GetDisplayName() { return "PD-42"; }
-	override int GetBasePrice() { return 280; }
+	override int GetBasePrice() { return 400; }
 	override string GetFlavorText() { return "Silent and deadlier."; }
 }
 
@@ -53,15 +53,26 @@ class HDFenrisStore : StoreItem
 	override string GetFlavorText() { return "It's a cold day in hell."; }
 }
 
-class HDDEagleStore : StoreItem
+class HDUSPStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDDeagle'; }
-	override string GetIcon() { return "DBFTA0"; }
-	override string GetDisplayName() { return "Desert Eagle Mk. XIX"; }
-	override int GetBasePrice() { return 210; }
-	override string GetFlavorText() { return "For the Economical Action 'Hero'."; }
+	override Name GetItem() { return 'HDUSP'; }
+	override string GetIcon() { return "USPGY0"; }
+	override string GetDisplayName() { return "USP-45"; }
+	override int GetBasePrice() { return 350; }
+	override string GetFlavorText() { return "When you want modern performance and MUH TWO WORLD WARS."; }
+}
+
+class HDUMPStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDUMP'; }
+	override string GetIcon() { return "UMPGZ0"; }
+	override string GetDisplayName() { return "UMP-45"; }
+	override int GetBasePrice() { return 475; }
+	override string GetFlavorText() { return "Doesn't sit at home plate all day."; }
 }
 
 class HDNyxtore : StoreItem
@@ -69,7 +80,7 @@ class HDNyxtore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Icarus Innovations"; }
 	override Name GetItem() { return 'HDNyx'; }
-	override string GetIcon() { return "NYXCM0"; }
+	override string GetIcon() { return "NYXPC0"; }
 	override string GetDisplayName() { return "CM-3 'Nyx'"; }
 	override int GetBasePrice() { return 325; }
 	override string GetFlavorText() { return "The Queen of Thicc."; }
