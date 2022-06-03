@@ -1,6 +1,6 @@
 extend class MerchantHandler
 {
-	private void InitBounty()
+	private void InitBounty(int count)
 	{
 		Array<class<BountyThinker> > bountyThinkers;
 		for (int i = 0; i < AllClasses.Size(); ++i)
@@ -32,11 +32,13 @@ extend class MerchantHandler
 			}
 		}
 
-		if (chosenActors.Size() > 0)
+		while (chosenActors.Size() > 0 && count > 0)
 		{
-			Actor randAct = chosenActors[random(0, chosenActors.Size() - 1)];
+			int index = random(0, chosenActors.Size() - 1);
+			Actor randAct = chosenActors[index];
 			BountyThinker.Create("BountyThinker_"..randAct.GetClassName(), randAct);
-			return;
+			chosenActors.Delete(index);
+			count--;
 		}
 	}
 }

@@ -344,7 +344,19 @@ class MerchantHandler : EventHandler
 
 		if (level.time == 35 && MoneyMode == 1)
 		{
-			InitBounty();
+			int count = 1;
+			for (int i = 0; i < 3; ++i)
+			{
+				if (random() <= AceCore.GetScaledChance(0, 128, 5, 10 + 5 * i))
+				{
+					count++;
+				}
+				else
+				{
+					break;
+				}
+			}
+			InitBounty(count);
 		}
 	}
 }
