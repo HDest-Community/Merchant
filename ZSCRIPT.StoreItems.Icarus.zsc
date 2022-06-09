@@ -120,6 +120,17 @@ class HDFlamethrowerStore : StoreItem
 	override string GetFlavorText() { return "It werfs flammen."; }
 }
 
+class HDFoGStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDFoG'; }
+	override string GetIcon() { return "FOGPA0"; }
+	override string GetDisplayName() { return "Finger of God"; }
+	override int GetBasePrice() { return 1200; }
+	override string GetFlavorText() { return "Now go and touch some Viles."; }
+}
+
 class HDGasTankStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
@@ -130,16 +141,6 @@ class HDGasTankStore : StoreItem
 	override int GetBasePrice() { return 35; }
 	override int GetStoreAmount() { return random[merchrand](1, 4) * hdm_stock_ammo; }
 	override string GetFlavorText() { return "Fire up the BBQ!"; }
-}
-class HDFoGStore : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDFoG'; }
-	override string GetIcon() { return "FOGPA0"; }
-	override string GetDisplayName() { return "Finger of God"; }
-	override int GetBasePrice() { return 1200; }
-	override string GetFlavorText() { return "Now go and touch some Viles."; }
 }
 
 class HDWalletStore : StoreItem
