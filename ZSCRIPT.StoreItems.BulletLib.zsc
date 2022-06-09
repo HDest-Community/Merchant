@@ -63,7 +63,7 @@ class HD45ACPStore : StoreItem
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "Joint Task Force"; }
 	override Name GetItem() { return 'HD45ACPAmmo'; }
-	override int GetAmount() { return 40; }
+	override int GetAmount() { return 50; }
 	override string GetIcon() { return "45BXA0"; }
 	override string GetDisplayName() { return ".45 ACP"; }
 	override int GetBasePrice() { return 50; }
