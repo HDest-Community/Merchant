@@ -9,6 +9,28 @@ class HDGFSBtore : StoreItem
 	override string GetFlavorText() { return "For when all else fails."; }
 }
 
+class HDNyxStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDNyx'; }
+	override string GetIcon() { return "NYXPC0"; }
+	override string GetDisplayName() { return "CM-3 'Nyx'"; }
+	override int GetBasePrice() { return 325; }
+	override string GetFlavorText() { return "The Queen of Thicc."; }
+}
+
+class HDUSPStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDUSP'; }
+	override string GetIcon() { return "USPGY0"; }
+	override string GetDisplayName() { return "USP-45"; }
+	override int GetBasePrice() { return 350; }
+	override string GetFlavorText() { return "When you want modern performance and MUH TWO WORLD WARS."; }
+}
+
 class HDSix12Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
@@ -20,6 +42,17 @@ class HDSix12Store : StoreItem
 	override string GetFlavorText() { return "The magazine! It spins!"; }
 }
 
+class HDBarracudaStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDBarracuda'; }
+	override string GetIcon() { return "BSABA0"; }
+	override string GetDisplayName() { return "Barracuda"; }
+	override int GetBasePrice() { return 750; }
+	override string GetFlavorText() { return "The time for vengeance is now."; }
+}
+
 class HDPD42Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
@@ -29,6 +62,17 @@ class HDPD42Store : StoreItem
 	override string GetDisplayName() { return "PD-42"; }
 	override int GetBasePrice() { return 400; }
 	override string GetFlavorText() { return "Silent and deadlier."; }
+}
+
+class HDUMPStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDUMP'; }
+	override string GetIcon() { return "UMPGZ0"; }
+	override string GetDisplayName() { return "UMP-45"; }
+	override int GetBasePrice() { return 475; }
+	override string GetFlavorText() { return "Doesn't sit at home plate all day."; }
 }
 
 class HDBitchStore : StoreItem
@@ -53,38 +97,17 @@ class HDFenrisStore : StoreItem
 	override string GetFlavorText() { return "It's a cold day in hell."; }
 }
 
-class HDUSPStore : StoreItem
+class HDMBRStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDUSP'; }
-	override string GetIcon() { return "USPGY0"; }
-	override string GetDisplayName() { return "USP-45"; }
-	override int GetBasePrice() { return 350; }
-	override string GetFlavorText() { return "When you want modern performance and MUH TWO WORLD WARS."; }
+	override Name GetItem() { return 'HDMBR'; }
+	override string GetIcon() { return "MBR5A0"; }
+	override string GetDisplayName() { return "Modular Battle Rifle"; }
+	override int GetBasePrice() { return 750; }
+	override string GetFlavorText() { return "The Liberator's lesser known cousin."; }
 }
 
-class HDUMPStore : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDUMP'; }
-	override string GetIcon() { return "UMPGZ0"; }
-	override string GetDisplayName() { return "UMP-45"; }
-	override int GetBasePrice() { return 475; }
-	override string GetFlavorText() { return "Doesn't sit at home plate all day."; }
-}
-
-class HDNyxtore : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDNyx'; }
-	override string GetIcon() { return "NYXPC0"; }
-	override string GetDisplayName() { return "CM-3 'Nyx'"; }
-	override int GetBasePrice() { return 325; }
-	override string GetFlavorText() { return "The Queen of Thicc."; }
-}
 
 class HDFlamethrowerStore : StoreItem
 {
@@ -108,29 +131,6 @@ class HDGasTankStore : StoreItem
 	override int GetStoreAmount() { return random[merchrand](1, 4) * hdm_stock_ammo; }
 	override string GetFlavorText() { return "Fire up the BBQ!"; }
 }
-
-class HDBarracudaStore : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDBarracuda'; }
-	override string GetIcon() { return "BSABA0"; }
-	override string GetDisplayName() { return "Barracuda"; }
-	override int GetBasePrice() { return 750; }
-	override string GetFlavorText() { return "The time for vengeance is now."; }
-}
-
-class HDMBRStore : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
-	override Name GetItem() { return 'HDMBR'; }
-	override string GetIcon() { return "MBR5A0"; }
-	override string GetDisplayName() { return "Modular Battle Rifle"; }
-	override int GetBasePrice() { return 750; }
-	override string GetFlavorText() { return "The Liberator's lesser known cousin."; }
-}
-
 class HDFoGStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
@@ -140,6 +140,17 @@ class HDFoGStore : StoreItem
 	override string GetDisplayName() { return "Finger of God"; }
 	override int GetBasePrice() { return 1200; }
 	override string GetFlavorText() { return "Now go and touch some Viles."; }
+}
+
+class HDWalletStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDWallet'; }
+	override string GetIcon() { return "WLLTA0"; }
+	override string GetDisplayName() { return "A Wallet"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Look at this broke bitch thinking they got money."; }
 }
 
 class HDWD40Store : StoreItem
