@@ -105,7 +105,7 @@ class HDMBRStore : StoreItem
 	override string GetIcon() { return "MBR5A0"; }
 	override string GetDisplayName() { return "Modular Battle Rifle"; }
 	override int GetBasePrice() { return 750; }
-	override string GetFlavorText() { return "The Liberator's lesser known cousin."; }
+	override string GetFlavorText() { return "The Liberator's better, bigger brother."; }
 }
 
 
@@ -148,7 +148,7 @@ class HDWalletStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return "Icarus Innovations"; }
 	override Name GetItem() { return 'HDWallet'; }
-	override string GetIcon() { return "WLLTA0"; }
+	override string GetIcon() { return "WLLTB0"; }
 	override string GetDisplayName() { return "A Wallet"; }
 	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return "Look at this broke bitch thinking they got money."; }
