@@ -128,6 +128,7 @@ class BountyEffectStandard : BountyEffect
 		if (mob)
 		{
 			mob.bloodloss = max(0, mob.bloodloss - 4);
+			mob.stunned = max(0, mob.stunned - 10);
 		}
 	}
 }
