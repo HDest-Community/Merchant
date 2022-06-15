@@ -94,6 +94,7 @@ class BountyEffectStandard : BountyEffect
 {
 	override void Init()
 	{
+		Necromancer necro = Necromancer(Target);
 		let sld = HDMagicShield(Target.FindInventory('HDMagicShield'));
 		if (sld)
 		{
@@ -104,13 +105,22 @@ class BountyEffectStandard : BountyEffect
 			sld = HDMagicShield(Target.GiveInventoryType('HDMagicShield'));
 			sld.MaxAmount = sld.Amount = 2000;
 			sld.bSTANDSTILL = true;
-			sld.bQUICKTORETALIATE = false;
+			sld.bQUICKTORETALIATE = necro != null;
 		}
 
-		// [Ace] Changing StartHealth will change the return of subsequent SpawnHealth calls.
-		Target.StartHealth = Target.Health = Target.SpawnHealth() << 2;
+		if (!necro)
+		{
+			// [Ace] Changing StartHealth will change the return of subsequent SpawnHealth calls.
+			Target.StartHealth = Target.Health = Target.SpawnHealth() << 2;
+		}
+		else
+		{
+			necro.hitsleft += 2;
+		}
+		
 		Target.bMISSILEMORE = true;
 		Target.bMISSILEEVENMORE = true;
+		
 
 		CreateDynamicLight('PointLight', 0xFF, 0xEE, 0x11, 48, 52);
 	}
