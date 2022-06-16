@@ -111,7 +111,7 @@ class BountyEffectStandard : BountyEffect
 		if (!necro)
 		{
 			// [Ace] Changing StartHealth will change the return of subsequent SpawnHealth calls.
-			Target.StartHealth = Target.Health = Target.SpawnHealth() << 2;
+			Target.StartHealth = Target.Health = Target.SpawnHealth() << 1;
 		}
 		else
 		{
