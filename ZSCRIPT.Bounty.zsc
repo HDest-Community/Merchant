@@ -214,10 +214,8 @@ class BountyThinker : Thinker abstract
 
 		if (Target.Health <= 0)
 		{
-			Target.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.75);
-			let bucks = MercenaryBucks(Actor.Spawn('MercenaryBucks', Target.pos + (0, 0, Target.height / 2)));
-			bucks.A_ChangeVelocity(frandom(-2.0, 2.0), frandom(-2.0, 2.0), frandom(2.0, 5.0));
-			bucks.Amount = GetBounty();
+			Target.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.5);
+			AceCore.GiveToPlayers('MercenaryBucks', GetBounty());
 			Destroy();
 			return;
 		}

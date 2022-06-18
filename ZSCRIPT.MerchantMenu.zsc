@@ -116,7 +116,7 @@ class ShopFrame : MerchMenuFrame
 		vector2 CurIconPos = (box.size.x - CurrencyWidth / 2 - CurIconSize.x / 2, 8 - CurIconSize.y / 2);
 		DrawImage(CurIconPos, CurIconString, true, (IconScale, IconScale));
 
-		string CurrencyAmount = String.Format("%i", players[consoleplayer].mo.CountInv(Currency.GetCurrencyClass()));
+		string CurrencyAmount = BaseStatusBar.FormatNumber(players[consoleplayer].mo.CountInv(Currency.GetCurrencyClass()), 1, 4);
 		vector2 CurrencyTextPos = (box.size.x - CurrencyWidth / 2 - (SmallFont.StringWidth(CurrencyAmount) / 2) * MerchantShopMenu.TextScale, box.size.y - SmallFont.GetHeight() * MerchantShopMenu.TextScale - 1);
 		DrawText(CurrencyTextPos, SmallFont, CurrencyAmount, Font.CR_GOLD, MerchantShopMenu.TextScale);
 	}

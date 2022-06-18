@@ -211,7 +211,7 @@ class MerchantHandler : EventHandler
 		{
 			for (int i = secretSectors.Size() - 1; i >= 0; --i)
 			{
-				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetScaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max))
+				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max))
 				{
 					SpawnCrystals(secretSectors[i]);
 					secretSectors.Delete(i);
@@ -347,7 +347,7 @@ class MerchantHandler : EventHandler
 			int count = 1;
 			for (int i = 0; i < 2; ++i)
 			{
-				if (random() <= AceCore.GetScaledChance(0, 64, 5, 15 + 5 * i))
+				if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + 5 * i))
 				{
 					count++;
 				}
@@ -399,7 +399,7 @@ class HDMerchant : Actor abstract
 			bTHRUACTORS = true;
 			bSOLID = false;
 
-			Scale.Y = default.Scale.Y * PiggyBack.player.crouchfactor;
+			scale.Y = default.scale.Y * PiggyBack.player.crouchfactor;
 
 			if (PiggyBack.player.crouchfactor < 0.6 && PiggyBack.player.cmd.buttons & BT_SPEED || PiggyBack.incapacitated > 0 || PiggyBack.fallroll > 0 || PiggyBack.Health <= 0)
 			{
@@ -411,7 +411,7 @@ class HDMerchant : Actor abstract
 					bFORCEYBILLBOARD = false;
 					PiggyBack.A_TakeInventory("HDMerchantBody");
 					PiggyBack = null;
-					Scale.Y = default.Scale.Y;
+					scale.Y = default.scale.Y;
 					DropHoldTimer = 0;
 				}
 			}
@@ -500,7 +500,7 @@ class HDMerchant : Actor abstract
 
 		if (BreatheIndex < BreatheStepsHalf)
 		{
-			A_SetScale(Scale.X, Scale.Y + BreatheScaleStep);
+			A_Setscale(scale.X, scale.Y + BreathescaleStep);
 			BreatheStepHold = BreatheStepDelay;
 			if (++BreatheIndex == BreatheStepsHalf)
 			{
@@ -509,7 +509,7 @@ class HDMerchant : Actor abstract
 		}
 		else if (BreatheIndex >= BreatheStepsHalf)
 		{
-			A_SetScale(Scale.X, Scale.Y - BreatheScaleStep);
+			A_Setscale(scale.X, scale.Y - BreathescaleStep);
 			BreatheStepHold = BreatheStepDelay;
 			if (++BreatheIndex == BreatheSteps)
 			{
@@ -531,13 +531,13 @@ class HDMerchant : Actor abstract
 
 	const BreatheInOutDelay = 30;
 	const BreatheStepDelay = 4;
-	const BreatheMaxScale = 0.03;
+	const BreatheMaxscale = 0.03;
 
 	// [Ace] Always go for even values. Never, ever go for odd values. Only villains do that. Higher values mean smoother animation.
 	// This number is the number of frames from completely exhaled to completely inhaled, to exhaling.
 	const BreatheSteps = 4;
 
-	const BreatheScaleStep = BreatheMaxScale / BreatheSteps;
+	const BreathescaleStep = BreatheMaxscale / BreatheSteps;
 	const BreatheStepsHalf = BreatheSteps / 2;
 	private int BreatheIndex;
 	private int BreatheHold;
@@ -563,7 +563,7 @@ class HDMerchant : Actor abstract
 		Mass 400;
 		Height 58;
 		Radius 8;
-		Scale 1.0;
+		scale 1.0;
 		+SOLID
 		+NOBLOCKMONST
 	}
@@ -596,107 +596,23 @@ class ItemMerchant : HDMerchant
 	}
 }
 
-class MercenaryBucks : HDAmmo
+class MercenaryBucks : HDPickup
 {
-	override void SplitPickup()
-	{
-		int splitAmt = min(Amount, random(100, 500));
-		while (Amount > splitAmt)
-		{
-			Actor a = Spawn("MercenaryBucks", pos);
-			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
-			Scale.X *= randompick(-1, 1);
-			Inventory(a).Amount = splitAmt;
-			Amount -= splitAmt;
-			splitAmt = min(Amount, splitAmt);
-		}
-
-		if (Amount < 1)
-		{
-			Destroy();
-			return;
-		}
-	}
-
-	override void ActualPickup(actor other, bool silent)
-	{
-		if (!other)
-		{
-			other = picktarget;
-		}
-
-		if (!other)
-		{
-			return;
-		}
-
-		if (heat.GetAmount(self) > 50)
-		{
-			return;
-		}
-
-		if (bALWAYSPICKUP)
-		{
-			Inventory.Touch(other);
-			return;
-		}
-
-		Name gcn = GetClassName();
-		int maxTake = min(Amount, HDPickup.MaxGive(other, gcn, getbulk()) * 100);
-		if (maxTake < 1)
-		{
-			return;
-		}
-
-		if (!silent)
-		{
-			other.A_StartSound(pickupsound, CHAN_AUTO);
-			HDPickup.LogPickupMessage(other, PickupMessage());
-		}
-
-		if (maxTake < Amount)
-		{
-			HDF.Give(other, gcn, maxtake);
-			Amount -= maxTake;
-			SplitPickup();
-		}
-		else
-		{
-			if (!other.FindInventory(GetClass()))
-			{
-				AttachToOwner(other);
-			}
-			else
-			{
-				HDF.Give(other, gcn, maxtake);
-				Destroy();
-			}
-		}
-	}
-
-	override bool IsUsed()
-	{
-		return true;
-	}
-
-	private int BuckFrame;
-
 	Default
 	{
-		+FORCEXYBILLBOARD
-		Tag "Bucks";
 		Inventory.Icon "MBCKA0";
 		+HDPICKUP.CHEATNOGIVE
-		+HDPICKUP.MULTIPICKUP
-		+HDPICKUP.FITSINBACKPACK
+		-HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION
-		HDPickup.Bulk 0.07;
+		+INVENTORY.UNDROPPABLE
+		-INVENTORY.INVBAR
+		HDPickup.Bulk 0;
 		HDPickup.RefID "bux";
-		Inventory.MaxAmount 20000;
-		Inventory.PickupMessage "Picked up some bucks.";
-		Scale 0.4;
+		Inventory.MaxAmount 100000;
+		scale 0.4;
 	}
 
+	// [Ace] No longer valid.
 	States
 	{
 		Spawn:
