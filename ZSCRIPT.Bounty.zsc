@@ -103,9 +103,10 @@ class BountyEffectStandard : BountyEffect
 		else
 		{
 			sld = HDMagicShield(Target.GiveInventoryType('HDMagicShield'));
-			sld.MaxAmount = sld.Amount = 2000;
+			sld.MaxAmount = sld.Amount = necro ? 500 : 2000;
 			sld.bSTANDSTILL = true;
 			sld.bQUICKTORETALIATE = necro != null;
+			sld.bSOLID = necro != null;
 		}
 
 		if (!necro)
