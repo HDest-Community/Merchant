@@ -107,6 +107,10 @@ class BountyEffectStandard : BountyEffect
 			sld.bSTANDSTILL = true;
 			sld.bQUICKTORETALIATE = necro != null;
 			sld.bSOLID = necro != null;
+			if (necro)
+			{
+				sld.Speed = 5;
+			}
 		}
 
 		if (!necro)
