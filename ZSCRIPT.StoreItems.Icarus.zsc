@@ -53,6 +53,17 @@ class HDBarracudaStore : StoreItem
 	override string GetFlavorText() { return "The time for vengeance is now."; }
 }
 
+class HDFrontiersmanStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Icarus Innovations"; }
+	override Name GetItem() { return 'HDFrontier'; }
+	override string GetIcon() { return "FRMZA0"; }
+	override string GetDisplayName() { return "Frontiersman"; }
+	override int GetBasePrice() { return 450; }
+	override string GetFlavorText() { return "A bare-bones gun for a bare-bones man."; }
+}
+
 class HDPD42Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
