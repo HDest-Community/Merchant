@@ -14,6 +14,7 @@ version "4.5"
 class MerchantHandler : EventHandler
 {
 	private int MoneyMode;
+	private bool SpawnedTiberium;
 
 	override void NetworkProcess(ConsoleEvent e)
 	{
@@ -129,7 +130,7 @@ class MerchantHandler : EventHandler
 			return;
 		}
 
-		MoneyMode = hdm_moneymode == 2 ? random(0, 1) : hdm_moneymode;
+		MoneyMode = hdm_moneymode == 3 ? random(0, 1) : hdm_moneymode;
 		
 		InitCurrencies();
 		for (int i = 0; i < Stores.Size(); ++i)
@@ -207,12 +208,13 @@ class MerchantHandler : EventHandler
 		// ------------------------------------------------------------------------------------------------------------------------
 
 		// [Ace] Spawn the crystals first, and only then bother with the merchants.
-		if (MoneyMode == 0)
+		if (MoneyMode == 0 || MoneyMode == 2)
 		{
 			for (int i = secretSectors.Size() - 1; i >= 0; --i)
 			{
 				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max))
 				{
+					SpawnedTiberium = true;
 					SpawnCrystals(secretSectors[i]);
 					secretSectors.Delete(i);
 					if (hdm_debug < 2)
@@ -342,7 +344,7 @@ class MerchantHandler : EventHandler
 			PokerTick();
 		}
 
-		if (level.time == 35 && MoneyMode == 1)
+		if (level.time == 35 && (MoneyMode == 1 || MoneyMode == 2 && !SpawnedTiberium))
 		{
 			int count = 1;
 			for (int i = 0; i < 2; ++i)

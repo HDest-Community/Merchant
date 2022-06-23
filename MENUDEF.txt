@@ -69,7 +69,8 @@ OptionValue "MoneyMode"
 {
 	0, "Tiberium"
 	1, "Bounty"
-	2, "Random"
+	2, "Tiberium & Bounty (if no Tiberium spawns)"
+	3, "Random"
 }
 
 AddOptionMenu "OptionsMenu"
