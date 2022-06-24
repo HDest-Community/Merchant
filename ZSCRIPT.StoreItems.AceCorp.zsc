@@ -298,7 +298,7 @@ class HDPersonalShieldGeneratorStore : StoreItem
 	override Name GetItem() { return 'HDPersonalShieldGenerator'; }
 	override string GetIcon() { return "PSG0A0"; }
 	override string GetDisplayName() { return "Personal Shield Generator"; }
-	override int GetBasePrice() { return 800; }
+	override int GetBasePrice() { return 1200; }
 	override string GetFlavorText() { return "Guaranteed to make rocket marines sad."; }
 }
 
