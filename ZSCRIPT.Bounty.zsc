@@ -220,7 +220,14 @@ class BountyThinker : Thinker abstract
 		if (Target.Health <= 0)
 		{
 			Target.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.5);
-			Target.A_Log("\c[Red]!!! BOUNTY TARGET EXECUTED !!!\c-\n\c[Green]$"..AceCore.GiveToPlayers('MercenaryBucks', GetBounty()).."\c- have been deposited into your account.");
+
+			int amt = AceCore.GiveToPlayers('MercenaryBucks', GetBounty());
+			string amtMsg = "\c[Green]$"..amt.."\c- have been deposited into your account.";
+			if (!random(0, 12))
+			{
+				amtMsg = "\c[Gold]"..amt.."\c- golds have been deposited into your Swiss bank account.";
+			}
+			Target.A_Log("\c[Red]!!! BOUNTY TARGET EXECUTED !!!\c-\n"..amtMsg);
 			Destroy();
 			return;
 		}
