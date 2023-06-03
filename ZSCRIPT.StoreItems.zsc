@@ -10,6 +10,7 @@
 #include "ZSCRIPT.StoreItems.DeusDoom.zsc"
 #include "ZSCRIPT.StoreItems.Bryan.zsc"
 #include "ZSCRIPT.StoreItems.Dastrukar.zsc"
+#include "ZSCRIPT.StoreItems.PBWeaponPack.zsc"
 
 class StoreCurrency abstract
 {

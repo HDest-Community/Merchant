@@ -158,11 +158,23 @@ class HDShellsStore : StoreItem
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return "Vanilla"; }
 	override Name GetItem() { return 'HDShellAmmo'; }
-	override int GetAmount() { return 20; }
+	override int GetAmount() { return 30; }
 	override string GetIcon() { return "SBOXA0"; }
 	override string GetDisplayName() { return "Shotgun Shells"; }
 	override int GetBasePrice() { return 25; }
 	override string GetFlavorText() { return "Point away from self."; }
+}
+
+class HD4mMagStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Vanilla"; }
+	override Name GetItem() { return 'HD4mMag'; }
+	override int GetAmount() { return 5; }
+	override string GetIcon() { return "ZMAGA0"; }
+	override string GetDisplayName() { return "4.26mm UAC Standard Magazines"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "Luckily for you, these magazines come with the DRM intact."; }
 }
 
 class HD355Store : StoreItem

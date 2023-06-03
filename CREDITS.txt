@@ -24,3 +24,6 @@ ZForms:
 Card backs:
 - Default: same as the rest of the cards.
 - Classic: arooкas.
+
+Additional:
+- Kat, additional store items

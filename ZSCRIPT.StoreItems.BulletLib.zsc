@@ -69,3 +69,63 @@ class HD45ACPStore : StoreItem
 	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return "The stopping power on these is really incredible."; }
 }
+
+class HDAurochsAmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HDAurochsAmmo'; }
+	override int GetAmount() { return 42; }
+	override string GetIcon() { return "420AA0"; }
+	override string GetDisplayName() { return ".420 Frei"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "An antique cartridge. They seem a bit strange, don't they?"; }
+}
+
+class HD069BoreAmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD069BoreAmmo'; }
+	override int GetAmount() { return 36; }
+	override string GetIcon() { return "42BXA0"; }
+	override string GetDisplayName() { return ".069 Bore Shell"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "These shotgun shells have undergone a strict weight-loss program!"; }
+}
+
+class HD5mm_AmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD5mm_Ammo'; }
+	override int GetAmount() { return 160; }
+	override string GetIcon() { return "5MBXA0"; }
+	override string GetDisplayName() { return "5x16mm Bumblebee Rimfire"; }
+	override int GetBasePrice() { return 45; }
+	override string GetFlavorText() { return "Oh no, not the bees... Not the bees! AAAAAHHHH!"; }
+}
+
+class HD50AM_AmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD50AM_Ammo'; }
+	override int GetAmount() { return 60; }
+	override string GetIcon() { return "50AMX0"; }
+	override string GetDisplayName() { return ".50 Action Mega"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Not to be confused with the similarly-named .50 Action Express."; }
+}
+
+class HD6mmFlechetteAmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "Joint Task Force"; }
+	override Name GetItem() { return 'HD6mmFlechetteAmmo'; }
+	override int GetAmount() { return 42; }
+	override string GetIcon() { return "ACRPK0"; }
+	override string GetDisplayName() { return "6x42mm SCF Flechette"; }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return "These flechettes are almost as dangerous as lawn darts!"; }
+}

@@ -1,0 +1,401 @@
+class HDGasGrenadeAmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "PB's Weapon Pack"; }
+	override Name GetItem() { return 'HDGasGrenadeAmmo'; }
+	override int GetAmount() { return 1; }
+	override string GetIcon() { return "GGR2A0"; }
+	override string GetDisplayName() { return "'Roller' Toxic Gas Grenade"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "Smell that air! Couldn't you just drink it like booze?!"; }
+}
+
+class HDWilliePeteGrenadeAmmoStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "PB's Weapon Pack"; }
+	override Name GetItem() { return 'HDWilliePeteGrenadeAmmo'; }
+	override int GetAmount() { return 1; }
+	override string GetIcon() { return "WPG0Z0"; }
+	override string GetDisplayName() { return "'Willie Pete' White Phosphorus Grenade"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Enjoy in moderation!"; }
+}
+
+class HDNapalmTankStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "PB's Weapon Pack"; }
+	override Name GetItem() { return 'HDNapalmTank'; }
+	override int GetAmount() { return 1; }
+	override string GetIcon() { return "GSTKA0"; }
+	override string GetDisplayName() { return "Napalm Tank"; }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return "Burns hotter than the Tyrant's asshole."; }
+}
+
+class HD8mmElectroMagneticStore : StoreItem
+{
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return "PB's Weapon Pack"; }
+	override Name GetItem() { return 'HD8mmElectroMagnetic'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "RLGSZ0"; }
+	override string GetDisplayName() { return "8x35mm Electromagnetic Cartridges"; }
+	override int GetBasePrice() { return 80; }
+	override string GetFlavorText() { return "Fuckin' magnets, how do they work?"; }
+}
+
+class HDFireExtinguisherAmmoStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return "PB's Weapon Pack"; }
+	override Name GetItem() { return 'HDFireExtinguisher'; }
+	override string GetIcon() { return "FXTPA0"; }
+	override string GetDisplayName() { return "Fire Extinguisher"; }
+	override int GetBasePrice() { return 90; }
+	override string GetFlavorText() { return "This might just save your bacon."; }
+}
+
+class HD_AutoMagStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Pistols"; }
+	override Name GetItem() { return 'HD_AutoMag'; }
+	override string GetIcon() { return "5MCPC0"; }
+	override string GetDisplayName() { return "SP-50 Magnum"; }
+	override int GetBasePrice() { return 220; }
+	override string GetFlavorText() { return "Now you too can be a Bleedin' Action Man!"; }
+}
+
+class HDUragan5Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Pistols"; }
+	override Name GetItem() { return 'HDUragan5'; }
+	override string GetIcon() { return "URA5Z0"; }
+	override string GetDisplayName() { return "Arkoudi M12/5 Shotgun"; }
+	override int GetBasePrice() { return 240; }
+	override string GetFlavorText() { return "An itty-bitty shotgun that'll fit in your purse."; }
+}
+
+class HDMK23SOCOMStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Pistols"; }
+	override Name GetItem() { return 'HDMK23SOCOM'; }
+	override string GetIcon() { return "M2SPA0"; }
+	override string GetDisplayName() { return "Mk.45 Combat Handgun"; }
+	override int GetBasePrice() { return 250; }
+	override string GetFlavorText() { return "They won't even hear you coming."; }
+}
+
+class HDMAC10Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Pistols"; }
+	override Name GetItem() { return 'HDMAC10'; }
+	override string GetIcon() { return "MC1PA0"; }
+	override string GetDisplayName() { return "RAC-10/45 Machine Pistol"; }
+	override int GetBasePrice() { return 290; }
+	override string GetFlavorText() { return "Ferocious little box that spits hot lead and anger. Don't lose your grip."; }
+}
+
+class HDPS20Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Disposables"; }
+	override Name GetItem() { return 'HDPS20'; }
+	override string GetIcon() { return "P20PA0"; }
+	override string GetDisplayName() { return "Denton Light Arms and Munitions PS-451"; }
+	override int GetBasePrice() { return 20; }
+	override string GetFlavorText() { return "A deceivingly effective package for the marine you just can't kill."; }
+}
+
+class HDCGM25_WEPStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Disposables"; }
+	override Name GetItem() { return 'HDCGM25_WEP'; }
+	override string GetIcon() { return "CGMPA0"; }
+	override string GetDisplayName() { return "ATCM-35 Tracking Cluster Missile Launcher"; }
+	override int GetBasePrice() { return 170; }
+	override string GetFlavorText() { return "The operator casuality rate for these are... well, I'll leave it to imagination."; }
+}
+
+class HDAT4_WEPStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Disposables"; }
+	override Name GetItem() { return 'HDAT4_WEP'; }
+	override string GetIcon() { return "AT4PA0"; }
+	override string GetDisplayName() { return "RAT-84 HEAT Rocket Launcher"; }
+	override int GetBasePrice() { return 180; }
+	override string GetFlavorText() { return "Mind the backblast."; }
+}
+
+/*
+the OTRU92 isnt actually used in PBWeaponPack. uncomment when it is (kat)
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Disposables"; }
+	override Name GetItem() { return 'HDRPOA_WEP'; }
+	override string GetIcon() { return "RPOPA0"; }
+	override string GetDisplayName() { return "OTRU-92 Incendiary Rocket Launcher"; }
+	override int GetBasePrice() { return 190; }
+	override string GetFlavorText() { return "Cook delicious meals from 100 meters away!"; }
+}
+*/
+
+class HD_Ruger1022Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HD_Ruger1022'; }
+	override string GetIcon() { return "R10PW0"; }
+	override string GetDisplayName() { return "Buger M22 Target Rifle"; }
+	override int GetBasePrice() { return 80; }
+	override string GetFlavorText() { return "Gone from plinkin' beer cans to plinkin' babuins."; }
+}
+
+class HD_M5165Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HD_M5165'; }
+	override string GetIcon() { return "A18PA0"; }
+	override string GetDisplayName() { return "Arkoudi M5/165c SMG"; }
+	override int GetBasePrice() { return 165; }
+	override string GetFlavorText() { return "It really does hold 165 rounds. Very tiny rounds."; }
+}
+
+class HDStreetSweeperStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HDStreetSweeper'; }
+	override string GetIcon() { return "SWPPA0"; }
+	override string GetDisplayName() { return "Raycob Urban Destroyer"; }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return "All fun and games until you need to reload."; }
+}
+
+class HDColt355Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HDColt355'; }
+	override string GetIcon() { return "C9MPA0"; }
+	override string GetDisplayName() { return "Volt M35A1 HPC SMG"; }
+	override int GetBasePrice() { return 220; }
+	override string GetFlavorText() { return "Armored marines got you down? No problem!"; }
+}
+
+class HDLeverGunStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HDLeverGun'; }
+	override string GetIcon() { return "LVGPZ0"; }
+	override string GetDisplayName() { return "LR37 'Big Boy' Hunting Carbine"; }
+	override int GetBasePrice() { return 260; }
+	override string GetFlavorText() { return "Contrary to what its name suggests, you don't HAVE to use it against 'big boys'."; }
+}
+
+class HDG11RifleStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HDG11Rifle'; }
+	override string GetIcon() { return "G11PA0"; }
+	override string GetDisplayName() { return "H&M G26A1 Assault Rifle"; }
+	override int GetBasePrice() { return 310; }
+	override string GetFlavorText() { return "Kraut Space Magic!"; }
+}
+
+class HDG11Rifle_ScopedStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HDG11Rifle_Scoped'; }
+	override string GetIcon() { return "G12PA0"; }
+	override string GetDisplayName() { return "H&M G26SD Service Rifle"; }
+	override int GetBasePrice() { return 330; }
+	override string GetFlavorText() { return "A very sneaky G26A1 capable of 'hyperburst'."; }
+}
+
+class HD_CAWSGUNStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HD_CAWSGUN'; }
+	override string GetIcon() { return "CWSPA0"; }
+	override string GetDisplayName() { return "H&M CROWS ''Presslufthammer'' Shotgun"; }
+	override int GetBasePrice() { return 350; }
+	override string GetFlavorText() { return "Just don't expect your shells to chamber reliably."; }
+}
+
+class HD_SteyrACRStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HD_SteyrACR'; }
+	override string GetIcon() { return "ACRPA0"; }
+	override string GetDisplayName() { return "Austere M17 Flechette Rifle"; }
+	override int GetBasePrice() { return 400; }
+	override string GetFlavorText() { return "Don't judge this gun by its appearance."; }
+}
+
+class HD_PSG1Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HD_PSG1'; }
+	override string GetIcon() { return "PSGPA0"; }
+	override string GetDisplayName() { return "H&M PSG2A1 Sniper Rifle"; }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return "See that Baron over there? Now you don't."; }
+}
+
+class HD_FNFALStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Rifles"; }
+	override Name GetItem() { return 'HD_FNFAL'; }
+	override string GetIcon() { return "FALPA0"; }
+	override string GetDisplayName() { return "UN-AF L7A1 MG"; }
+	override int GetBasePrice() { return 550; }
+	override string GetFlavorText() { return "Give those abominations a taste of true freedom."; }
+}
+
+class HD_M60Store : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Heavy"; }
+	override Name GetItem() { return 'HD_M60'; }
+	override string GetIcon() { return "M60PA0"; }
+	override string GetDisplayName() { return "USGI M60E1 ''Fat Boar'' GPMG"; }
+	override int GetBasePrice() { return 580; }
+	override string GetFlavorText() { return "Just don't lead them as much."; }
+}
+
+class HD_ATCDevincenziaStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Heavy"; }
+	override Name GetItem() { return 'HD_ATCDevincenzia'; }
+	override string GetIcon() { return "ATCPA0"; }
+	override string GetDisplayName() { return "Berlinghoff XM135 'Devincenzia' Cannon"; }
+	override int GetBasePrice() { return 700; }
+	override string GetFlavorText() { return "Whoa, a new toy!"; }
+}
+
+class HDMicrogunStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Heavy"; }
+	override Name GetItem() { return 'HDMicrogun'; }
+	override string GetIcon() { return "SMP1A0"; }
+	override string GetDisplayName() { return "H&M HS76 Smartgun"; }
+	override int GetBasePrice() { return 600; }
+	override string GetFlavorText() { return "Keep the trigger squeezed down and it'll do the thinking for you."; }
+}
+
+class HD_M2HBStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Heavy"; }
+	override Name GetItem() { return 'HD_M2HB'; }
+	override string GetIcon() { return "M2DRZ0"; }
+	override string GetDisplayName() { return "AM-HMG50 'MKII Stinger' HMG"; }
+	override int GetBasePrice() { return 770; }
+	override string GetFlavorText() { return "This was made for tanks, not infantry. How you'll use this is a mystery to me."; }
+}
+
+class HD_ATCKelenkenStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Heavy"; }
+	override Name GetItem() { return 'HD_ATCKelenken'; }
+	override string GetIcon() { return "HWTPA0"; }
+	override string GetDisplayName() { return "MS-AT 'Kelenken' 35mm Autocannon"; }
+	override int GetBasePrice() { return 830; }
+	override string GetFlavorText() { return "The chances of being surrounded by ten Cyberdemons is low but never zero."; }
+}
+
+class HDMancCannonStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Experimental"; }
+	override Name GetItem() { return 'HDMancCannon'; }
+	override string GetIcon() { return "MCN0Z0"; }
+	override string GetDisplayName() { return "Modified Mancubus Arm Cannon"; }
+	override int GetBasePrice() { return 450; }
+	override string GetFlavorText() { return "I hope you aren't planning to use this for grilling."; }
+}
+
+class HDFortuneRailgunStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Experimental"; }
+	override Name GetItem() { return 'HDFortuneRailgun'; }
+	override string GetIcon() { return "RLGPZ0"; }
+	override string GetDisplayName() { return "XM99 Experimental Railgun"; }
+	override int GetBasePrice() { return 960; }
+	override string GetFlavorText() { return "You've seen the fires of Hell, haven't you?"; }
+}
+
+class HDRailgunDynamoPWStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Experimental"; }
+	override Name GetItem() { return 'HDRailgunDynamoPW'; }
+	override string GetIcon() { return "RLGPY0"; }
+	override string GetDisplayName() { return "XM99 Experimental Railgun"; }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return "A recharging device for the XM99. Required for continued operation of the weapon."; }
+}
+
+class HDCombatKnifeStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Melee"; }
+	override Name GetItem() { return 'HDCombatKnife'; }
+	override string GetIcon() { return "KNFPZ0"; }
+	override string GetDisplayName() { return "Combat Knife"; }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return "A no-frills combat knife, in case you want to keep your hands clean."; }
+}
+
+class HDFireAxeStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Melee"; }
+	override Name GetItem() { return 'HDFireAxe'; }
+	override string GetIcon() { return "FAXPA0"; }
+	override string GetDisplayName() { return "Fire Axe"; }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return "Why is it called a Fire Axe if it's not on fire?"; }
+}
+
+class HDSledgehammerStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Melee"; }
+	override Name GetItem() { return 'HDSledgehammer'; }
+	override string GetIcon() { return "SLH0Z0"; }
+	override string GetDisplayName() { return "Sledgehammer"; }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return "A hefty master key for any locked doors (or demons), doorbuster be damned."; }
+}
+
+class HDKharonStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "PB's Weapon Pack - Melee"; }
+	override Name GetItem() { return 'HDKharon'; }
+	override string GetIcon() { return "KRDRA0"; }
+	override string GetDisplayName() { return "Replica Kharon"; }
+	override int GetBasePrice() { return 170; }
+	override string GetFlavorText() { return "Filled with a history of violence and anguish... except this one's a replica. Still effective."; }
+}
