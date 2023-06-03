@@ -51,7 +51,7 @@ class TiberiumRadiationThinker : Thinker
 					else
 					{
 						hdplr.burncount += IsBlue ? randompick(2, 2, 2, 3, 3, 4) : randompick(1, 1, 1, 2, 2, 3);
-						hdplr.woundcount += IsBlue ? 4 : 2;
+						hdplr.oldwoundcount += IsBlue ? 4 : 2;
 					}
 				}
 			}
@@ -161,7 +161,9 @@ class TiberiumCrystal : Actor
 	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
 	{
 		int dmg = 0;
-		if (mod == 'Chainsaw')
+		if (mod == 'cutting') 
+		//if (mod == 'Chainsaw') 
+		//Lumberjack
 		{
 			dmg = Super.DamageMobj(inflictor, source, damage / 5, mod, flags, angle);
 			NextDropAt -= dmg;
@@ -210,6 +212,8 @@ class TiberiumCrystal : Actor
 		+SHOOTABLE
 		+DONTTHRUST
 		+NOBLOOD
+		//+noblooddecals bloodtype "NotQuiteBloodSplat";
+		//+hdmobbase.headless
 		Scale 0.5;
 		StencilColor "66FF44";
 	}
@@ -283,7 +287,7 @@ class TiberiumChunk : HDUPK
 			else
 			{
 				hdplr.burncount += max(2, Amount / (IsBlue ? 5 : 10));
-				hdplr.woundcount += max(1, Amount / (IsBlue ? 8 : 16));
+				hdplr.oldwoundcount += max(1, Amount / (IsBlue ? 8 : 16));
 			}
 		}
 		Destroy();
