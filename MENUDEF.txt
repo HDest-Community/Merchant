@@ -77,3 +77,8 @@ AddOptionMenu "OptionsMenu"
 {
 	Submenu "Merchant", "MerchantMenu"
 }
+
+AddOptionMenu "HDAddonMenu"
+{
+	Submenu "Merchant", "MerchantMenu"
+}
