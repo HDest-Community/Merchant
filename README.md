@@ -1,6 +1,6 @@
 ### Important
 ---
-- This mod requires [AceCoreLib](https://gitlab.com/accensi/hd-addons/acecorelib).
+- This mod requires [AceCoreLib](https://github.com/HDest-Community/AceCoreLib).
 - There are three merchants, one for each type of item: weapons, ammo, and items.
 - Up to three merchants can spawn on a map. They have a different inventory each time, meaning some items may be missing.
 - You can carry the merchant by using Sprinting + Use. Put them down by crouching and holding the sprint key for half a second. You can only carry one merchant at a time.
