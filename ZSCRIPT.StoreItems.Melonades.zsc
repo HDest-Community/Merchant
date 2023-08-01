@@ -1,33 +1,33 @@
 class HDImpactGrenadeStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Melonades"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_IMPACTGRENADE"); }
 	override Name GetItem() { return 'HDImpactGrenadeAmmo'; }
 	override string GetIcon() { return "IMPGA0"; }
-	override string GetDisplayName() { return "Impact Grenade"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_IMPACTGRENADE"); }
 	override int GetBasePrice() { return 30; }
-	override string GetFlavorText() { return "Whatever you do, don't drop this."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_IMPACTGRENADE"); }
 }
 
 class HDThunderGrenadeStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Melonades"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_THUNDERGRENADE"); }
 	override Name GetItem() { return 'HDThunderGrenadeAmmo'; }
 	override string GetIcon() { return "TFRGA0"; }
-	override string GetDisplayName() { return "Thunder Grenade"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_THUNDERGRENADE"); }
 	override int GetBasePrice() { return 40; }
-	override string GetFlavorText() { return "Shockingly fun to use."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_THUNDERGRENADE"); }
 }
 
 class HDMG13Store : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Melonades"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MG13GRENADE"); }
 	override Name GetItem() { return 'HDMG13GrenadeAmmo'; }
 	override string GetIcon() { return "MG13A0"; }
-	override string GetDisplayName() { return "MG13 Grenade"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MG13GRENADE"); }
 	override int GetBasePrice() { return 70; }
 	override int GetStoreAmount() { return random[merchrand](1, 2) * hdm_stock_ammo; }
-	override string GetFlavorText() { return "Dome of death."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_MG13GRENADE"); }
 }

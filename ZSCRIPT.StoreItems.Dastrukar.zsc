@@ -1,10 +1,10 @@
 class HDHHelmetStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Dastrukar"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_HHELMET"); }
 	override Name GetItem() { return 'HudHelmet'; }
 	override string GetIcon() { return "HELMA0"; }
-	override string GetDisplayName() { return "Helmet"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_HHELMET"); }
 	override int GetBasePrice() { return 80; }
-	override string GetFlavorText() { return "Does not protect from bicycle falls."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_HHELMET"); }
 }

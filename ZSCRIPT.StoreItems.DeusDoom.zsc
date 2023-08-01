@@ -1,33 +1,33 @@
 class DDAugCanStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "UNATCO"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AUGCANISTER"); }
 	override Name GetItem() { return 'DD_AugmentationCanister'; }
 	override string GetIcon() { return "AGCNA0"; }
-	override string GetDisplayName() { return "Augmentation Canister"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_AUGCANISTER"); }
 	override int GetBasePrice() { return 500; }
-	override string GetFlavorText() { return "My vision is augmented."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_AUGCANISTER"); }
 }
 
 class DDAugUpCanStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "UNATCO"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AUGUPGRADE"); }
 	override Name GetItem() { return 'DD_AugmentationUpgradeCanister'; }
 	override string GetIcon() { return "AUCNA0"; }
-	override string GetDisplayName() { return "Augmentation Upgrade Canister"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_AUGUPGRADE"); }
 	override int GetBasePrice() { return 250; }
-	override string GetFlavorText() { return "My special eyes."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_AUGUPGRADE"); }
 }
 
 class DDBioCellStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "UNATCO"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BIOELECTRICCELL"); }
 	override Name GetItem() { return 'DD_BioelectricCell'; }
 	override string GetIcon() { return "BCELA0"; }
-	override string GetDisplayName() { return "Augmentation Canister"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BIOELECTRICCELL"); }
 	override int GetBasePrice() { return 40; }
 	override int GetStoreAmount() { return random[merchrand](1, 3) * hdm_stock_item; }
-	override string GetFlavorText() { return "Running low on juice?"; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BIOELECTRICCELL"); }
 }

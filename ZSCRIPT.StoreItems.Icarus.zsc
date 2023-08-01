@@ -1,188 +1,188 @@
 class HDGFSBtore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GFB9"); }
 	override Name GetItem() { return 'HDGFBlaster'; }
 	override string GetIcon() { return "GFBNZ0"; }
-	override string GetDisplayName() { return "GFB-9 'Backup Plan'"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GFB9"); }
 	override int GetBasePrice() { return 240; }
-	override string GetFlavorText() { return "For when all else fails."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GFB9"); }
 }
 
 class HDNyxStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_NYX"); }
 	override Name GetItem() { return 'HDNyx'; }
 	override string GetIcon() { return "NYXPC0"; }
-	override string GetDisplayName() { return "CM-3 'Nyx'"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_NYX"); }
 	override int GetBasePrice() { return 325; }
-	override string GetFlavorText() { return "The Queen of Thicc."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_NYX"); }
 }
 
 class HDUSPStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_USP45"); }
 	override Name GetItem() { return 'HDUSP'; }
 	override string GetIcon() { return "USPGY0"; }
-	override string GetDisplayName() { return "USP-45"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_USP45"); }
 	override int GetBasePrice() { return 350; }
-	override string GetFlavorText() { return "When you want modern performance and MUH TWO WORLD WARS."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_USP45"); }
 }
 
 class HDSix12Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SIX12"); }
 	override Name GetItem() { return 'HDSix12'; }
 	override string GetIcon() { return "STBFA0"; }
-	override string GetDisplayName() { return "Six-12"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_SIX12"); }
 	override int GetBasePrice() { return 520; }
-	override string GetFlavorText() { return "The magazine! It spins!"; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_SIX12"); }
 }
 
 class HDBarracudaStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BARRACUDA"); }
 	override Name GetItem() { return 'HDBarracuda'; }
 	override string GetIcon() { return "BSABA0"; }
-	override string GetDisplayName() { return "Barracuda"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BARRACUDA"); }
 	override int GetBasePrice() { return 750; }
-	override string GetFlavorText() { return "The time for vengeance is now."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BARRACUDA"); }
 }
 
 class HDFrontiersmanStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_FRONTIERSMAN"); }
 	override Name GetItem() { return 'HDFrontier'; }
 	override string GetIcon() { return "FRMZA0"; }
-	override string GetDisplayName() { return "Frontiersman"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_FRONTIERSMAN"); }
 	override int GetBasePrice() { return 450; }
-	override string GetFlavorText() { return "A bare-bones gun for a bare-bones man."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_FRONTIERSMAN"); }
 }
 
 class HDPD42Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PD42"); }
 	override Name GetItem() { return 'HDPDFour'; }
 	override string GetIcon() { return "PDWGY0"; }
-	override string GetDisplayName() { return "PD-42"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PD42"); }
 	override int GetBasePrice() { return 400; }
-	override string GetFlavorText() { return "Silent and deadlier."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PD42"); }
 }
 
 class HDUMPStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_UMP45"); }
 	override Name GetItem() { return 'HDUMP'; }
 	override string GetIcon() { return "UMPGZ0"; }
-	override string GetDisplayName() { return "UMP-45"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_UMP45"); }
 	override int GetBasePrice() { return 475; }
-	override string GetFlavorText() { return "Doesn't sit at home plate all day."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_UMP45"); }
 }
 
 class HDBitchStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BITCH"); }
 	override Name GetItem() { return 'HDBitch'; }
 	override string GetIcon() { return "BCHGZ0"; }
-	override string GetDisplayName() { return "The Bitch"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BITCH"); }
 	override int GetBasePrice() { return 520; }
-	override string GetFlavorText() { return "Pour Your Little Heart Out."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BITCH"); }
 }
 
 class HDFenrisStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_FENRIS"); }
 	override Name GetItem() { return 'HDFenris'; }
 	override string GetIcon() { return "FWRLDB"; }
-	override string GetDisplayName() { return "Fenris"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_FENRIS"); }
 	override int GetBasePrice() { return 540; }
-	override string GetFlavorText() { return "It's a cold day in hell."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_FENRIS"); }
 }
 
 class HDMBRStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MBR"); }
 	override Name GetItem() { return 'HDMBR'; }
 	override string GetIcon() { return "MBR5A0"; }
-	override string GetDisplayName() { return "Modular Battle Rifle"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MBR"); }
 	override int GetBasePrice() { return 750; }
-	override string GetFlavorText() { return "The Liberator's better, bigger brother."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_MBR"); }
 }
 
 
 class HDFlamethrowerStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_FLAMENWERFER"); }
 	override Name GetItem() { return 'HDFlamethrower'; }
 	override string GetIcon() { return "WFLMA0"; }
-	override string GetDisplayName() { return "Flamenwerfer 77"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_FLAMENWERFER"); }
 	override int GetBasePrice() { return 900; }
-	override string GetFlavorText() { return "It werfs flammen."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_FLAMENWERFER"); }
 }
 
 class HDFoGStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_FOG"); }
 	override Name GetItem() { return 'HDFoG'; }
 	override string GetIcon() { return "FOGPA0"; }
-	override string GetDisplayName() { return "Finger of God"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_FOG"); }
 	override int GetBasePrice() { return 1200; }
-	override string GetFlavorText() { return "Now go and touch some Viles."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_FOG"); }
 }
 
 class HDGasTankStore : StoreItem
 {
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GASTANK"); }
 	override Name GetItem() { return 'HDGasTank'; }
 	override string GetIcon() { return "AGASA0"; }
-	override string GetDisplayName() { return "Fuel Tank"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GASTANK"); }
 	override int GetBasePrice() { return 35; }
 	override int GetStoreAmount() { return random[merchrand](1, 4) * hdm_stock_ammo; }
-	override string GetFlavorText() { return "Fire up the BBQ!"; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GASTANK"); }
 }
 
 class HDWalletStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_WALLET"); }
 	override Name GetItem() { return 'HDWallet'; }
 	override string GetIcon() { return "WLLTB0"; }
-	override string GetDisplayName() { return "A Wallet"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_WALLET"); }
 	override int GetBasePrice() { return 50; }
-	override string GetFlavorText() { return "Look at this broke bitch thinking they got money."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_WALLET"); }
 }
 
 class HDWD40Store : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Icarus Innovations"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_REPAIRSPRAY"); }
 	override Name GetItem() { return 'HDWD40'; }
 	override string GetIcon() { return "SPRAY0"; }
-	override string GetDisplayName() { return "Weapon Repair Spray"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_REPAIRSPRAY"); }
 	override int GetBasePrice() { return 150; }
-	override string GetFlavorText() { return "If this doesn't get it working again, nothing will."; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_REPAIRSPRAY"); }
 }
 
 class HDHEVArmorStore : StoreItem
 {
 	override int GetType() { return SType_Item; }
-	override string GetCategory() { return "Armor"; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_HEVARMOUR"); }
 	override Name GetItem() { return 'HEVArmour'; }
 	override string GetIcon() { return "HEVAA0"; }
-	override string GetDisplayName() { return "Hazardous Environment Armor"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_HEVARMOUR"); }
 	override int GetBasePrice() { return 230; }
-	override string GetFlavorText() { return "Why does it have Greek letters all over it?"; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_HEVARMOUR"); }
 }
