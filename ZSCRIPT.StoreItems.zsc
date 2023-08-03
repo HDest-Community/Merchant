@@ -12,6 +12,7 @@
 #include "ZSCRIPT.StoreItems.Dastrukar.zsc"
 #include "ZSCRIPT.StoreItems.PBWeaponPack.zsc"
 #include "ZSCRIPT.StoreItems.WANIndustries.zsc"
+#include "ZSCRIPT.StoreItems.CorporateArmor.zsc"
 
 class StoreCurrency abstract
 {

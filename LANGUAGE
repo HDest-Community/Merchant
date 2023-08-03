@@ -969,6 +969,11 @@ MERCH_CAT_BATTLEARMOUR            = "Vanilla";
 MERCH_TAG_BATTLEARMOUR            = "Battle Armor";
 MERCH_FLAVOR_BATTLEARMOUR         = "You'll be unstoppable with this.";
 
+// Corporate Armour
+MERCH_CAT_CORPORATEARMOUR         = "HalfBakedCake";
+MERCH_TAG_CORPORATEARMOUR         = "Corporate Armor";
+MERCH_FLAVOR_CORPORATEARMOUR      = "Self-healing. Does not make you invincible.";
+
 // Garrison Armour
 MERCH_CAT_GARRISONARMOUR          = "Vanilla";
 MERCH_TAG_GARRISONARMOUR          = "Garrison Armor";
