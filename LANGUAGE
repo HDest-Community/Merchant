@@ -259,6 +259,16 @@ MERCH_CAT_M60                     = "PB's Weapon Pack (Heavy)";
 MERCH_TAG_M60                     = "USGI M60E1 'Fat Boar' GPMG";
 MERCH_FLAVOR_M60                  = "Just don't load them as much.";
 
+// MA-75B
+MERCH_CAT_MA75B                   = "WAN Industries";
+MERCH_TAG_MA75B                   = "MA-75B Battle Rifle";
+MERCH_FLAVOR_MA75B                = "Don't try to be a marksman with this weapon.";
+
+// MA-76C
+MERCH_CAT_MA76C                   = "WAN Industries";
+MERCH_TAG_MA76C                   = "MA-76C Assault Rifle";
+MERCH_FLAVOR_MA76C                = "It's like the MA-75B but smaller.";
+
 // MAC10
 MERCH_CAT_MAC10                   = "PB's Weapon Pack (Pistols)";
 MERCH_TAG_MAC10                   = "RAC-10/45 Machine Pistol";
@@ -414,6 +424,11 @@ MERCH_CAT_SOULCUBE                = "AceCorp";
 MERCH_TAG_SOULCUBE                = "Soul Cube";
 MERCH_FLAVOR_SOULCUBE             = "I have no idea what this is, but it won't shut up.";
 
+// SPNKR
+MERCH_CAT_SPNKR                   = "WAN Industries";
+MERCH_TAG_SPNKR                   = "SPNKR-XP SSM Launcher";
+MERCH_FLAVOR_SPNKR                = "Sometimes a cigar is just a cigar, this is one expensive cigar.";
+
 // Steyr ACR
 MERCH_CAT_STEYR                   = "PB's Weapon Pack (Rifles)";
 MERCH_TAG_STEYR                   = "Austere M17 Flechette Rifle";
@@ -468,6 +483,11 @@ MERCH_FLAVOR_VULCANETTE           = "I hope you can feed this monster.";
 MERCH_CAT_WISEAU                  = "Peppergrinder (Energy)";
 MERCH_TAG_WISEAU                  = "WF-60 Plasma Magnum";
 MERCH_FLAVOR_WISEAU               = "You're going to tear me apart if you don't buy this.";
+
+// WSTE-M5
+MERCH_CAT_WSTEM5                  = "WAN Industries";
+MERCH_TAG_WSTEM5                  = "WSTE-M5 Combat Shotgun";
+MERCH_FLAVOR_WSTEM5               = "I won't waste my time trying to explain the loading mechanism.";
 
 // Wyvern
 MERCH_CAT_WYVERN                  = "AceCorp";
@@ -958,3 +978,8 @@ MERCH_FLAVOR_GARRISONARMOUR       = "Should last long enough for me to see you a
 MERCH_CAT_HEVARMOUR               = "Icarus Innovations";
 MERCH_TAG_HEVARMOUR               = "Hazardous Environment Armor";
 MERCH_FLAVOR_HEVARMOUR            = "Why does it have Greek letters all over it?";
+
+// Sneaking Suit
+MERCH_CAT_SNEAKINGSUIT            = "WAN Industries";
+MERCH_TAG_SNEAKINGSUIT            = "Sneaking Suit";
+MERCH_FLAVOR_SNEAKINGSUIT         = "Won't even know what him 'em.";

@@ -1,0 +1,55 @@
+class HDMA75BStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MA75B"); }
+	override Name GetItem() { return 'WAN_MA75B'; }
+	override string GetIcon() { return "M75BA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MA75B"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_MA75B"); }
+}
+
+class HDMA76CStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MA76C"); }
+	override Name GetItem() { return 'WAN_MA76C'; }
+	override string GetIcon() { return "M76CA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MA76C"); }
+	override int GetBasePrice() { return 300; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_MA76C"); }
+}
+
+class HDSPNKRStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SPNKR"); }
+	override Name GetItem() { return 'WAN_SPNKR'; }
+	override string GetIcon() { return "SPKRA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_SPNKR"); }
+	override int GetBasePrice() { return 450; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_SPNKR"); }
+}
+
+class HDWSTEStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_WSTEM5"); }
+	override Name GetItem() { return 'Wan_WSTEM5'; }
+	override string GetIcon() { return "WSTEX0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_WSTEM5"); }
+	override int GetBasePrice() { return 250; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_WSTEM5"); }
+}
+
+
+class HDSneakingSuitStore : StoreItem
+{
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SNEAKINGSUIT"); }
+	override Name GetItem() { return 'WAN_SneakingSuit'; }
+	override string GetIcon() { return "SNKSA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_SNEAKINGSUIT"); }
+	override int GetBasePrice() { return 320; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_SNEAKINGSUIT"); }
+}
