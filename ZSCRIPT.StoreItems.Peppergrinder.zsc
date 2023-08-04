@@ -290,12 +290,12 @@ class HDPlasmaPistolStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_plasmapistol; }
 	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PLASTMAPISTOL"); }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PLASMAPISTOL"); }
 	override Name GetItem() { return 'HDPlasmaPistol'; }
 	override string GetIcon() { return "ZUSPB0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PLASTMAPISTOL"); }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PLASMAPISTOL"); }
 	override int GetBasePrice() { return 240; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PLASTMAPISTOL"); }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PLASMAPISTOL"); }
 }
 
 class HDWiseauStore : StoreItem
