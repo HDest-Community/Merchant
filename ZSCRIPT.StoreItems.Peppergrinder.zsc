@@ -207,6 +207,17 @@ class HDVeraStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_VERA"); }
 }
 
+class HDYureiStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_YUREI"); }
+	override Name GetItem() { return 'HDYureiSMG'; }
+	override string GetIcon() { return "SPTNA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_YUREI"); }
+	override int GetBasePrice() { return 450; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_YUREI"); }
+}
+
 class HDIronsLibStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
