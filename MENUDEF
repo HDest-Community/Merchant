@@ -257,6 +257,17 @@ OptionMenu "MerchStoreFilterHexadoken"
 	Title "Hexadoken's Legacy Continued Filters"
 
 	StaticText "Weapons"
+	Option "$MERCH_TAG_NSB", "hdm_enable_nsb", "OnOff"
+	Option "$MERCH_TAG_9MMBOSS", "hdm_enable_9mmboss", "OnOff"
+	Option "$MERCH_TAG_4MMBOSS", "hdm_enable_4mmboss", "OnOff"
+	Option "$MERCH_TAG_5MMBOSS", "hdm_enable_5mmboss", "OnOff"
+	Option "$MERCH_TAG_12GBOSS", "hdm_enable_12gboss", "OnOff"
+	Option "$MERCH_TAG_OMGBOSS", "hdm_enable_omgboss", "OnOff"
+	Option "$MERCH_TAG_WORSTBOSS", "hdm_enable_worstboss", "OnOff"
+	Option "$MERCH_TAG_M1GARAND", "hdm_enable_m1garand", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
 	Option "$MERCH_TAG_MEDICALSCANNER", "hdm_enable_medicalscanner", "OnOff"
 	StaticText ""
 }

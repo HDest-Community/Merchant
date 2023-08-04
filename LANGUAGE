@@ -84,6 +84,31 @@ MERCH_CAT_BOSS                    = "Vanilla";
 MERCH_TAG_BOSS                    = "Boss Rifle";
 MERCH_FLAVOR_BOSS                 = "Hey, as long as it w- What? It jammed again!?";
 
+// Boss Rifle (9mm)
+MERCH_CAT_9MMBOSS                 = "Hexadoken Industries";
+MERCH_TAG_9MMBOSS                 = "Boss Rifle (9mm)";
+MERCH_FLAVOR_9MMBOSS              = "Why is it greasy?";
+
+// Boss Rifle (4mm)
+MERCH_CAT_4MMBOSS                 = "Hexadoken Industries";
+MERCH_TAG_4MMBOSS                 = "Boss Rifle (4mm)";
+MERCH_FLAVOR_4MMBOSS              = "Feels like cheap plastic.";
+
+// Boss Rifle (5mm)
+MERCH_CAT_5MMBOSS                 = "Hexadoken Industries";
+MERCH_TAG_5MMBOSS                 = "Boss Rifle (5mm)";
+MERCH_FLAVOR_5MMBOSS              = "IT'S PINK!";
+
+// Boss Rifle (.50 OMG)
+MERCH_CAT_OMGBOSS                 = "Hexadoken Industries";
+MERCH_TAG_OMGBOSS                 = "Boss Rifle (.50 OMG)";
+MERCH_FLAVOR_OMGBOSS              = "A bit of oomph to go with that.";
+
+// Bossmerg
+MERCH_CAT_12GBOSS                 = "Hexadoken Industries";
+MERCH_TAG_12GBOSS                 = "Bossmerg 12 gauge Shotgun";
+MERCH_FLAVOR_12GBOSS              = "It's the best of all three!";
+
 // Box Cannon
 MERCH_CAT_BOXCANNON               = "Peppergrinder (Handguns)";
 MERCH_TAG_BOXCANNON               = "Box Cannon";
@@ -249,6 +274,11 @@ MERCH_CAT_LOTUS                   = "Peppergrinder (Rifles)";
 MERCH_TAG_LOTUS                   = "Lotus Rifle";
 MERCH_FLAVOR_LOTUS                = "Rifle, but it's really a revolver. Why?";
 
+// M1 Garand
+MERCH_CAT_M1GARAND                = "Hexadoken Industries";
+MERCH_TAG_M1GARAND                = "M1 Garand";
+MERCH_FLAVOR_M1GARAND             = "PING! PING!";
+
 // M2HB
 MERCH_CAT_M2HB                    = "PB's Weapon Pack (Heavy)";
 MERCH_TAG_M2HB                    = "AM-HMG50 'MKII Stinger' HMG";
@@ -308,6 +338,11 @@ MERCH_FLAVOR_MK23SOCOM            = "They won't even hear you coming.";
 MERCH_CAT_MBR                     = "Icarus Innovations";
 MERCH_TAG_MBR                     = "Modular Battle Rifle";
 MERCH_FLAVOR_MBR                  = "The Liberator's better, bigger brother.";
+
+// No-Scope Boss
+MERCH_CAT_NSB                     = "Hexadoken Industries";
+MERCH_TAG_NSB                     = "Scopeless Boss Rifle";
+MERCH_FLAVOR_NSB                  = "Who needs a scope when you've got a BOLT-ACTION!";
 
 // NS3-Cr.Kt
 MERCH_CAT_NCT                     = "Icarus Innovations";
@@ -498,6 +533,11 @@ MERCH_FLAVOR_VULCANETTE           = "I hope you can feed this monster.";
 MERCH_CAT_WISEAU                  = "Peppergrinder (Energy)";
 MERCH_TAG_WISEAU                  = "WF-60 Plasma Magnum";
 MERCH_FLAVOR_WISEAU               = "You're going to tear me apart if you don't buy this.";
+
+// Worst Boss
+MERCH_CAT_WORSTBOSS               = "Hexadoken Industries";
+MERCH_TAG_WORSTBOSS               = "Boss Rifle but It's the Worst";
+MERCH_FLAVOR_WORSTBOSS            = "Seriously, do not fire this thing. You've been warned.";
 
 // WSTE-M5
 MERCH_CAT_WSTEM5                  = "WAN Industries";
