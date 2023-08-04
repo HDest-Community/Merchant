@@ -1,4 +1,4 @@
-version "4.5"
+version "4.10"
 
 #include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
 #include "ZSCRIPT.MerchantMenu.zsc"
