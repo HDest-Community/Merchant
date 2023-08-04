@@ -285,9 +285,9 @@ MERCH_TAG_MAJESTIC                = "Majestic";
 MERCH_FLAVOR_MAJESTIC             = "Aliens may or may not have been involved in the production of this.";
 
 // Mancubus Cannon
-MERCH_CAT_MACCANNON               = "PB's Weapon Pack (Experimental)";
-MERCH_TAG_MACCANNON               = "Modified Mancubus Arm Cannon";
-MERCH_FLAVOR_MACCANNON            = "I hope you aren't planning to use this for grilling.";
+MERCH_CAT_MANCCANNON              = "PB's Weapon Pack (Experimental)";
+MERCH_TAG_MANCCANNON              = "Modified Mancubus Arm Cannon";
+MERCH_FLAVOR_MANCCANNON           = "I hope you aren't planning to use this for grilling.";
 
 // Mauler
 MERCH_CAT_MAULER                  = "Peppergrinder (Energy)";
@@ -345,9 +345,9 @@ MERCH_TAG_PD42                    = "PD-42";
 MERCH_FLAVOR_PD42                 = "Silent and deadlier.";
 
 // Plasma Pistol
-MERCH_CAT_PLASTMAPISTOL           = "Peppergrinder (Energy)";
-MERCH_TAG_PLASTMAPISTOL           = "Plasma Pistol";
-MERCH_FLAVOR_PLASTMAPISTOL        = "Don't overcharge it, this baby gets hot!";
+MERCH_CAT_PLASMAPISTOL            = "Peppergrinder (Energy)";
+MERCH_TAG_PLASMAPISTOL            = "Plasma Pistol";
+MERCH_FLAVOR_PLASMAPISTOL         = "Don't overcharge it, this baby gets hot!";
 
 // PS20
 MERCH_CAT_PS20                    = "PB's Weapon Pack (Disposables)";
@@ -730,9 +730,9 @@ MERCH_TAG_RESPIRATOR              = "Respirator";
 MERCH_FLAVOR_RESPIRATOR           = "Blub blub blub.";
 
 // Rocket Assembler
-MERCH_CAT_RL                      = "Bryan's Armory";
-MERCH_TAG_RL                      = "Rocket Assembler";
-MERCH_FLAVOR_RL                   = "Warning: Do not try at home.";
+MERCH_CAT_ROCKETASSEMBLER         = "Bryan's Armory";
+MERCH_TAG_ROCKETASSEMBLER         = "Rocket Assembler";
+MERCH_FLAVOR_ROCKETASSEMBLER      = "Warning: Do not try at home.";
 
 // Roomba
 MERCH_CAT_ROOMBA                  = "AceCorp (Miscellaneous)";
