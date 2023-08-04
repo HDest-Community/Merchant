@@ -64,6 +64,11 @@ MERCH_CAT_BITCH                   = "Icarus Innovations";
 MERCH_TAG_BITCH                   = "The Bitch";
 MERCH_FLAVOR_BITCH                = "Pour Your Little Heart Out.";
 
+// Blackhawk
+MERCH_CAT_BLACKHAWK               = "AceCorp";
+MERCH_TAG_BLACKHAWK               = "Blackhawk";
+MERCH_FLAVOR_BLACKHAWK            = "Shhhhh... we're hunting demons.";
+
 // Blackjack
 MERCH_CAT_BLACKJACK               = "AceCorp";
 MERCH_TAG_BLACKJACK               = "'Blackjack' .355 Rifle";
