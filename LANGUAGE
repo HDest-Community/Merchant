@@ -927,7 +927,7 @@ MERCH_FLAVOR_9MM                  = "It's like candy but inedible.";
 // 9mm NDM
 MERCH_CAT_NDM                     = "Peppergrinder";
 MERCH_TAG_NDM                     = "9mm Nail Driver Maximum";
-MERCH_FLAVOR_NDM                  = "Looks like 9mm, but it's not.";
+MERCH_FLAVOR_NDM                  = "You can only get these at nunneries for some reason.";
 
 // Air Filter
 MERCH_CAT_DESPFILTER              = "AceCorp";
