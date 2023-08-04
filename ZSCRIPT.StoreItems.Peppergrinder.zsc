@@ -262,6 +262,17 @@ class ZM94RifleStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ZM94"); }
 }
 
+class HDPlasmaPistolStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PLASTMAPISTOL"); }
+	override Name GetItem() { return 'HDPlasmaPistol'; }
+	override string GetIcon() { return "ZUSPB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PLASTMAPISTOL"); }
+	override int GetBasePrice() { return 240; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PLASTMAPISTOL"); }
+}
+
 class HDWiseauStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }

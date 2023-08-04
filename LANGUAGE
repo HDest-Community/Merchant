@@ -334,6 +334,11 @@ MERCH_CAT_PD42                    = "Icarus Innovations";
 MERCH_TAG_PD42                    = "PD-42";
 MERCH_FLAVOR_PD42                 = "Silent and deadlier.";
 
+// Plasma Pistol
+MERCH_CAT_PLASTMAPISTOL           = "Peppergrinder (Energy)";
+MERCH_TAG_PLASTMAPISTOL           = "Plasma Pistol";
+MERCH_FLAVOR_PLASTMAPISTOL        = "Don't overcharge it, this baby gets hot!";
+
 // PS20
 MERCH_CAT_PS20                    = "PB's Weapon Pack (Disposables)";
 MERCH_TAG_PS20                    = "Denton Light Arms and Munitions PS-451";
