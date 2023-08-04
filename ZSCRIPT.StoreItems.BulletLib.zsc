@@ -11,17 +11,17 @@ class HD50AEStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_50AE"); }
 }
 
-class HD500HeavyStore : StoreItem
+class HD12gSlugsStore : StoreItem
 {
-	override bool IsEnabled() { return hdm_enable_500swh; }
+	override bool IsEnabled() { return hdm_enable_12gslug; }
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_500SWH"); }
-	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GSLUG"); }
+	override Name GetItem() { return 'HDSlugAmmo'; }
 	override int GetAmount() { return 20; }
-	override string GetIcon() { return "5HBXA0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_500SWH"); }
+	override string GetIcon() { return "SLBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_12GSLUG"); }
 	override int GetBasePrice() { return 40; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_500SWH"); }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_12GSLUG"); }
 }
 
 class HD500LightStore : StoreItem
@@ -37,6 +37,19 @@ class HD500LightStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_500SWL"); }
 }
 
+class HD500HeavyStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_500swh; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_500SWH"); }
+	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "5HBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_500SWH"); }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_500SWH"); }
+}
+
 class HD50OMGStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_50omg; }
@@ -50,19 +63,6 @@ class HD50OMGStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_50OMG"); }
 }
 
-class HDPepperSlugsStore : StoreItem
-{
-	override bool IsEnabled() { return hdm_enable_12gslug; }
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GSLUG"); }
-	override Name GetItem() { return 'HDSlugAmmo'; }
-	override int GetAmount() { return 20; }
-	override string GetIcon() { return "SLBXA0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_12GSLUG"); }
-	override int GetBasePrice() { return 40; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_12GSLUG"); }
-}
-
 class HD45ACPStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_45acp; }
@@ -74,6 +74,149 @@ class HD45ACPStore : StoreItem
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_45ACP"); }
 	override int GetBasePrice() { return 50; }
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_45ACP"); }
+}
+
+class HD10mmAmmo_Store : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_10mm; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_10MM"); }
+	override Name GetItem() { return 'HD10mAmmo'; }
+	override int GetAmount() { return 100; }
+	override string GetIcon() { return "BX10A0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_10MM"); }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_10MM"); }
+}
+
+class HD45LCAmmo_Store : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_45lc; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_45LC"); }
+	override Name GetItem() { return 'HD45LCAmmo'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "45LBA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_45LC"); }
+	override int GetBasePrice() { return 45; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_45LC"); }
+}
+
+class HDLessLethalShotgunAmmo_Store : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_llshell; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_LLSHELL"); }
+	override Name GetItem() { return 'LLShellPickup'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "LLBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_LLSHELL"); }
+	override int GetBasePrice() { return 35; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_LLSHELL"); }
+}
+
+class HDMoreLethalShotgunAmmo_Store : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_xshell; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_XSHELL"); }
+	override Name GetItem() { return 'HDExplosiveShellAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "XLBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_XSHELL"); }
+	override int GetBasePrice() { return 45; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_XSHELL"); }
+}
+
+class HDGold45LCAmmo_Store : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_g45lc; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_G45LC"); }
+	override Name GetItem() { return 'HD45LCAmmo'; }
+	override int GetAmount() { return 12; }
+	override string GetIcon() { return "GLBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_G45LC"); }
+	override int GetBasePrice() { return 15; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_G45LC"); }
+}
+
+class HDFlareGunAmmo_Store : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_12gflare; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GFLARE"); }
+	override Name GetItem() { return 'HDFlareAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "FLBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_12GFLARE"); }
+	override int GetBasePrice() { return 25; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_12GFLARE"); }
+}
+
+class HDLeadBallStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_leadball; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_LEADBALL"); }
+	override Name GetItem() { return 'HDBallAmmo'; }
+	override int GetAmount() { return 10; }
+	override string GetIcon() { return "BALLA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_LEADBALL"); }
+	override int GetBasePrice() { return 15; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_LEADBALL"); }
+}
+
+class HD4gSlugStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_4gslug; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_4GSLUG"); }
+	override Name GetItem() { return 'HD4GSAmmo'; }
+	override int GetAmount() { return 1; }
+	override string GetIcon() { return "4GS1A0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_4GSLUG"); }
+	override int GetBasePrice() { return 20; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_4GSLUG"); }
+}
+
+class HD5mm_AmmoStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_5mmbr; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_5MMBR"); }
+	override Name GetItem() { return 'HD5mm_Ammo'; }
+	override int GetAmount() { return 160; }
+	override string GetIcon() { return "5MBXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_5MMBR"); }
+	override int GetBasePrice() { return 45; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_5MMBR"); }
+}
+
+class HD6mmFlechetteAmmoStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_6mmflechette; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_6MMFLECHETTE"); }
+	override Name GetItem() { return 'HD6mmFlechetteAmmo'; }
+	override int GetAmount() { return 42; }
+	override string GetIcon() { return "ACRPK0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_6MMFLECHETTE"); }
+	override int GetBasePrice() { return 60; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_6MMFLECHETTE"); }
+}
+
+class HD50AM_AmmoStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_50am; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AM"); }
+	override Name GetItem() { return 'HD50AM_Ammo'; }
+	override int GetAmount() { return 60; }
+	override string GetIcon() { return "50AMX0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_50AM"); }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_50AM"); }
 }
 
 class HDAurochsAmmoStore : StoreItem
@@ -102,41 +245,104 @@ class HD069BoreAmmoStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_069BORE"); }
 }
 
-class HD5mm_AmmoStore : StoreItem
+class HDThunderRocketStore : StoreItem
 {
-	override bool IsEnabled() { return hdm_enable_5mmbr; }
+	override bool IsEnabled() { return hdm_enable_thunderrocket; }
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_5MMBR"); }
-	override Name GetItem() { return 'HD5mm_Ammo'; }
-	override int GetAmount() { return 160; }
-	override string GetIcon() { return "5MBXA0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_5MMBR"); }
-	override int GetBasePrice() { return 45; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_5MMBR"); }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_THUNDERROCKET"); }
+	override Name GetItem() { return 'Wan_ThuRKTAmmo'; }
+	override string GetIcon() { return "THRKB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_THUNDERROCKET"); }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_THUNDERROCKET"); }
 }
 
-class HD50AM_AmmoStore : StoreItem
+class HDTortoiseRocketStore : StoreItem
 {
-	override bool IsEnabled() { return hdm_enable_50am; }
+	override bool IsEnabled() { return hdm_enable_tortoiserocket; }
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AM"); }
-	override Name GetItem() { return 'HD50AM_Ammo'; }
-	override int GetAmount() { return 60; }
-	override string GetIcon() { return "50AMX0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_50AM"); }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_TORTOISEROCKET"); }
+	override Name GetItem() { return 'Wan_TortRKTAmmo'; }
+	override string GetIcon() { return "TRTRB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_TORTOISEROCKET"); }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_TORTOISEROCKET"); }
+}
+
+class HD20mmGrenadeStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_20mmgrenade; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_20MMGRENADE"); }
+	override Name GetItem() { return 'WAN_20mmGrenadeAmmo'; }
+	override int GetAmount() { return 6; }
+	override string GetIcon() { return "MA7GB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_20MMGRENADE"); }
 	override int GetBasePrice() { return 50; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_50AM"); }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_20MMGRENADE"); }
 }
 
-class HD6mmFlechetteAmmoStore : StoreItem
+class H3006Store : StoreItem
 {
-	override bool IsEnabled() { return hdm_enable_6mmflechette; }
+	override bool IsEnabled() { return hdm_enable_3006; }
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_6MMFLECHETTE"); }
-	override Name GetItem() { return 'HD6mmFlechetteAmmo'; }
-	override int GetAmount() { return 42; }
-	override string GetIcon() { return "ACRPK0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_6MMFLECHETTE"); }
-	override int GetBasePrice() { return 60; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_6MMFLECHETTE"); }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_3006"); }
+	override Name GetItem() { return 'ThirtyAughtSixAmmo'; }
+	override int GetAmount() { return 40; }
+	override string GetIcon() { return "M1A1Y0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_3006"); }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_3006"); }
+}
+
+class HD4gShellStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_4gshell; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_4GSHELL"); }
+	override Name GetItem() { return 'HD4GBAmmo'; }
+	override int GetAmount() { return 1; }
+	override string GetIcon() { return "4GS1A0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_4GSHELL"); }
+	override int GetBasePrice() { return 20; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_4GSHELL"); }
+}
+
+class HDBirdshotStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_birdshot; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BIRDSHOT"); }
+	override Name GetItem() { return 'HDBirdshotShellAmmo'; }
+	override int GetAmount() { return 20; }
+	override string GetIcon() { return "BBOXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BIRDSHOT"); }
+	override int GetBasePrice() { return 15; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BIRDSHOT"); }
+}
+
+class HD300SavageStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_300savage; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_300SAVAGE"); }
+	override Name GetItem() { return 'Savage300Ammo'; }
+	override int GetAmount() { return 48; }
+	override string GetIcon() { return "S3BXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_300SAVAGE"); }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_300SAVAGE"); }
+}
+
+class HD762TokarevStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_762tokarev; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_762TOKAREV"); }
+	override Name GetItem() { return 'HD762TokarevAmmo'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "T7BXA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_762TOKAREV"); }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_762TOKAREV"); }
 }

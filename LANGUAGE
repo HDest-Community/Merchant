@@ -844,6 +844,16 @@ MERCH_CAT_069BORE                 = "Joint Task Force";
 MERCH_TAG_069BORE                 = ".066 Bore Shell";
 MERCH_FLAVOR_069BORE              = "These shotgun shells have undergone a strict weight-loss program!";
 
+// .300 Savage
+MERCH_CAT_300SAVAGE               = "Joint Task Force";
+MERCH_TAG_300SAVAGE               = ".300 Savage Rounds";
+MERCH_FLAVOR_300SAVAGE            = "Like when that dude kicked the other dude into the pit.";
+
+// .30-06
+MERCH_CAT_3006                    = "Joint Task Force";
+MERCH_TAG_3006                    = ".30-06 Rounds";
+MERCH_FLAVOR_3006                 = "For when you wanna ping ping.";
+
 // .355
 MERCH_CAT_355                     = "Vanilla";
 MERCH_TAG_355                     = ".355 Rounds";
@@ -858,6 +868,16 @@ MERCH_FLAVOR_420FREI              = "An antique cartridge. They seem a bit stran
 MERCH_CAT_45ACP                   = "Joint Task Force";
 MERCH_TAG_45ACP                   = ".45 ACP";
 MERCH_FLAVOR_45ACP                = "The stopping power on these is really incredible.";
+
+// .45 LC
+MERCH_CAT_45LC                    = "Joint Task Force";
+MERCH_TAG_45LC                    = ".45 Long Colt Ammo";
+MERCH_FLAVOR_45LC                 = "Known as 'America's round'. They sure are a long way from home, though.";
+
+// .45 LC (Golden)
+MERCH_CAT_G45LC                    = "Joint Task Force";
+MERCH_TAG_G45LC                    = "Golden .45 Long Colt Ammo";
+MERCH_FLAVOR_G45LC                 = "It's not about the money, it's about sending a message.";
 
 // .50 AE
 MERCH_CAT_50AE                    = "Joint Task Force";
@@ -884,6 +904,16 @@ MERCH_CAT_500SWL                  = "Joint Task Force";
 MERCH_TAG_500SWL                  = ".500 S&W";
 MERCH_FLAVOR_500SWL               = "Much better than the peashooter .355, isn't it?";
 
+// 10mm
+MERCH_CAT_10MM                    = "Joint Task Force";
+MERCH_TAG_10MM                    = "10mm Ammo";
+MERCH_FLAVOR_10MM                 = "Because 10 is better than 9.";
+
+// 12ga Flares
+MERCH_CAT_12GFLARE                = "Joint Task Force";
+MERCH_TAG_12GFLARE                = "Flare Gun Ammo";
+MERCH_FLAVOR_12GFLARE             = "You're gonna paint the town red with these.";
+
 // 12ga Shell
 MERCH_CAT_12GSHELL                = "Vanilla";
 MERCH_TAG_12GSHELL                = "Shotgun Shells";
@@ -894,10 +924,25 @@ MERCH_CAT_12GSLUG                 = "Joint Task Force";
 MERCH_TAG_12GSLUG                 = "Shotgun Slug";
 MERCH_FLAVOR_12GSLUG              = "These aren't slimy like the others.";
 
+// 20mm Grenade
+MERCH_CAT_20MMGRENADE             = "Joint Task Force";
+MERCH_TAG_20MMGRENADE             = "20mm Grenade";
+MERCH_FLAVOR_20MMGRENADE          = "Smaller payload, just as big-uh boom.";
+
 // 4.26mm UAC Standard Mag
 MERCH_CAT_4MMMAG                  = "Vanilla";
 MERCH_TAG_4MMMAG                  = "4.26mm UAC Standard Magazines";
 MERCH_FLAVOR_4MMMAG               = "Luckily for you, these magazines come with the DRM intact.";
+
+// 4ga Shell
+MERCH_CAT_4GSHELL                 = "Joint Task Force";
+MERCH_TAG_4GSHELL                 = "4 gauge 00 buckshot";
+MERCH_FLAVOR_4GSHELL              = "That's a lotta shot fer yer buck, err shot.";
+
+// 4ga Slug
+MERCH_CAT_4GSLUG                  = "Joint Task Force";
+MERCH_TAG_4GSLUG                  = "4 gauge saboted slug";
+MERCH_FLAVOR_4GSLUG               = "That's a lotta slug fer yer, sabot-ed, slug? Nah that's not it.";
 
 // 5mm BR
 MERCH_CAT_5MMBR                   = "Joint Task Force";
@@ -908,6 +953,11 @@ MERCH_FLAVOR_5MMBR                = "Oh no, not the bees... Not the bees! AAAAAH
 MERCH_CAT_6MMFLECHETTE            = "Joint Task Force";
 MERCH_TAG_6MMFLECHETTE            = "6x42mm SCF Flechette";
 MERCH_FLAVOR_6MMFLECHETTE         = "These flechettes are almost as dangerous as lawn darts!";
+
+// 7.62mm Tokarev
+MERCH_CAT_762TOKAREV              = "Joint Task Force";
+MERCH_TAG_762TOKAREV              = "7.62 Tokarev Rounds";
+MERCH_FLAVOR_762TOKAREV           = "I can't tell if this is for a handgun or a rifle...";
 
 // 7.76mm
 MERCH_CAT_7MM                     = "Vanilla";
@@ -944,6 +994,11 @@ MERCH_CAT_BATTERY                 = "Vanilla";
 MERCH_TAG_BATTERY                 = "Battery";
 MERCH_FLAVOR_BATTERY              = "Positively charged.";
 
+// Birdshot
+MERCH_CAT_BIRDSHOT                = "Joint Task Force";
+MERCH_TAG_BIRDSHOT                = "Birdshot Shells";
+MERCH_FLAVOR_BIRDSHOT             = "Mind the retrievers.";
+
 // Blackhawk Bolt (Regular)
 MERCH_CAT_BLACKHAWKBOLTREG        = "AceCorp";
 MERCH_TAG_BLACKHAWKBOLTREG        = "Bolts - Regular";
@@ -968,6 +1023,11 @@ MERCH_FLAVOR_BLACKHAWKBOLTNUCLEAR = "To whom it may concern.";
 MERCH_CAT_BRONTOROUND             = "Vanilla";
 MERCH_TAG_BRONTOROUND             = "Brontornis Round";
 MERCH_FLAVOR_BRONTOROUND          = "Overcompensating, aren't we?";
+
+// Explosive Shells
+MERCH_CAT_XSHELL                  = "Joint Task Force";
+MERCH_TAG_XSHELL                  = "Explosive Shells";
+MERCH_FLAVOR_XSHELL               = "You wanna stay alive? Buy these from me.";
 
 // Frag Grenade
 MERCH_CAT_FRAGGRENADE             = "Vanilla";
@@ -994,6 +1054,16 @@ MERCH_CAT_IMPACTGRENADE           = "Melonades";
 MERCH_TAG_IMPACTGRENADE           = "Impact Grenade";
 MERCH_FLAVOR_IMPACTGRENADE        = "whatever you do, don't drop this.";
 
+// Lead Ball
+MERCH_CAT_LEADBALL                = "Joint Task Force";
+MERCH_TAG_LEADBALL                = "Lead Ball";
+MERCH_FLAVOR_LEADBALL             = "Make sure you pack it in good.";
+
+// Less-Lethal Shell
+MERCH_CAT_LLSHELL                 = "Joint Task Force";
+MERCH_TAG_LLSHELL                 = "Less-Lethal Shells";
+MERCH_FLAVOR_LLSHELL              = "I have no idea why anyone would want these, but I'll sell them if you're buying.";
+
 // MG13 Grenade
 MERCH_CAT_MG13GRENADE             = "Melonades";
 MERCH_TAG_MG13GRENADE             = "MG13 Grenade";
@@ -1013,6 +1083,16 @@ MERCH_FLAVOR_ROCKETGRENADE        = "Krognar's favorite.";
 MERCH_CAT_THUNDERGRENADE          = "Melonades";
 MERCH_TAG_THUNDERGRENADE          = "Thunder Grenade";
 MERCH_FLAVOR_THUNDERGRENADE       = "Shockingly fun to use.";
+
+// Thunder Rocket
+MERCH_CAT_THUNDERROCKET           = "Joint Task Force";
+MERCH_TAG_THUNDERROCKET           = "Thunder Rocket";
+MERCH_FLAVOR_THUNDERROCKET        = "Sparky sparky boom, man!";
+
+// Tortoise Rocket
+MERCH_CAT_TORTOISEROCKET          = "Joint Task Force";
+MERCH_TAG_TORTOISEROCKET          = "Tortoise Rocket";
+MERCH_FLAVOR_TORTOISEROCKET       = "It'll boom ya, it's the boomiest!";
 
 // White Phosphorus Grenade
 MERCH_CAT_WPGRENADE               = "Bangers & Mash";
