@@ -620,7 +620,7 @@ MERCH_TAG_YEYUZE                  = "Yeyuze Grenade Launcher";
 MERCH_FLAVOR_YEYUZE               = "Yes, you CAN slam-fire this one!";
 
 // Yurei
-MERCH_CAT_YUREI                   = "Peppergrinder (Hanguns)";
+MERCH_CAT_YUREI                   = "Peppergrinder (Handguns)";
 MERCH_TAG_YUREI                   = "Yurei High-Capacity SMG";
 MERCH_FLAVOR_YUREI                = "When 30 rounds isn't enough.";
 
