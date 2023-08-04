@@ -284,7 +284,7 @@ class HDMedikitStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MEDIKIT"); }
 	override Name GetItem() { return 'PortableMedikit'; }
-	override string GetIcon() { return "PMEDA0"; }
+	override string GetIcon() { return "MEDIA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MEDIKIT"); }
 	override int GetBasePrice() { return 20; }
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_MEDIKIT"); }
