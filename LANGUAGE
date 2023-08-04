@@ -955,9 +955,9 @@ MERCH_TAG_45LC                    = ".45 Long Colt Ammo";
 MERCH_FLAVOR_45LC                 = "Known as 'America's round'. They sure are a long way from home, though.";
 
 // .45 LC (Golden)
-MERCH_CAT_G45LC                    = "Joint Task Force";
-MERCH_TAG_G45LC                    = "Golden .45 Long Colt Ammo";
-MERCH_FLAVOR_G45LC                 = "It's not about the money, it's about sending a message.";
+MERCH_CAT_G45LC                   = "Joint Task Force";
+MERCH_TAG_G45LC                   = "Golden .45 Long Colt Ammo";
+MERCH_FLAVOR_G45LC                = "It's not about the money, it's about sending a message.";
 
 // .50 AE
 MERCH_CAT_50AE                    = "Joint Task Force";
