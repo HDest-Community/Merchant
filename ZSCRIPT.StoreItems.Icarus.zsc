@@ -64,6 +64,17 @@ class HDFrontiersmanStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_FRONTIERSMAN"); }
 }
 
+class HDNCTStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_NCT"); }
+	override Name GetItem() { return 'HDNCT'; }
+	override string GetIcon() { return "NCTPA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_NCT"); }
+	override int GetBasePrice() { return 420; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_NCT"); }
+}
+
 class HDPD42Store : StoreItem
 {
 	override int GetType() { return SType_Weapon; }

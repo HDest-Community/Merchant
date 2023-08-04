@@ -309,6 +309,11 @@ MERCH_CAT_MBR                     = "Icarus Innovations";
 MERCH_TAG_MBR                     = "Modular Battle Rifle";
 MERCH_FLAVOR_MBR                  = "The Liberator's better, bigger brother.";
 
+// NS3-Cr.Kt
+MERCH_CAT_NYX                     = "Icarus Innovations";
+MERCH_TAG_NYX                     = "NS3-Cr.Kt";
+MERCH_FLAVOR_NYX                  = "It's some sort of weird tiny... gun? thing?";
+
 // Nyx
 MERCH_CAT_NYX                     = "Icarus Innovations";
 MERCH_TAG_NYX                     = "CM-3 'Nyx'";
