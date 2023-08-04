@@ -1,5 +1,6 @@
 class HDAmmoPouchStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_ammopouch; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AMMOPOUCH"); }
 	override Name GetItem() { return 'UaS_AmmoPouch'; }
@@ -11,6 +12,7 @@ class HDAmmoPouchStore : StoreItem
 
 class HDRespiratorStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_respirator; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RESPIRATOR"); }
 	override Name GetItem() { return 'UaS_Respirator'; }
@@ -22,6 +24,7 @@ class HDRespiratorStore : StoreItem
 
 class HDMessKitStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_messkit; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MESSKIT"); }
 	override Name GetItem() { return 'UaS_MessKit'; }
@@ -33,6 +36,7 @@ class HDMessKitStore : StoreItem
 
 class HDFoodRationStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_foodration; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_FOODRATION"); }
 	override Name GetItem() { return 'UaS_FoodRation'; }
@@ -44,6 +48,7 @@ class HDFoodRationStore : StoreItem
 
 class HDWaterRationStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_waterration; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_WATERRATION"); }
 	override Name GetItem() { return 'UaS_WaterRation'; }

@@ -1,5 +1,6 @@
 class HDHHelmetStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_hhelmet; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_HHELMET"); }
 	override Name GetItem() { return 'HudHelmet'; }

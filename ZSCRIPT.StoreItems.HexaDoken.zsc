@@ -1,5 +1,6 @@
 class HDMedicalScannerStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_medicalscanner; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MEDICALSCANNER"); }
 	override Name GetItem() { return 'HDScanner'; }

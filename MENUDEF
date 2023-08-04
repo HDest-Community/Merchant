@@ -1,0 +1,457 @@
+OptionMenu "MerchantMenu"
+{
+	Title "Merchant Options"
+
+	Slider "Max Merchants Per Map", "hdm_maxmerchants", 1, 3, 1, 0
+	Option "Money Mode", "hdm_moneymode", "MoneyMode"
+	Submenu "Store Filters", "MerchStoreFilters"
+	StaticText ""
+	Option "Enable Slot Machines", "hdm_enableslots", "YesNo"
+	Slider "Min Bet", "hdm_slots_bet", 5, 100, 5, 0
+	StaticText ""
+	StaticText "---------- WEAPON MERCHANTS ----------", "Teal"
+	Slider "Weapon Chance", "hdm_chance_weapon", 0.05, 1.0, 0.05, 2
+	StaticText "Chance a weapon will be sold by the merchant.", "White"
+	StaticText ""
+	FlagOption "Resident Evil", "hdm_skin_weapon", "OnOff", 0
+	FlagOption "Hobo", "hdm_skin_weapon", "OnOff", 1
+	FlagOption "Succubus", "hdm_skin_weapon", "OnOff", 2
+	FlagOption "Morshu", "hdm_skin_weapon", "OnOff", 3
+	FlagOption "Wandering Trader", "hdm_skin_weapon", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_weapon", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_weapon", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_weapon", "OnOff", 7
+	FlagOption "Daina (Labcoat)", "hdm_skin_weapon", "OnOff", 8
+	FlagOption "Nari (Succubus)", "hdm_skin_weapon", "OnOff", 9
+	StaticText ""
+	StaticText "---------- AMMO MERCHANTS ----------", "Teal"
+	Option "Ammo Amounts", "hdm_stock_ammo", "StockMult"
+	Slider "Ammo Chance", "hdm_chance_ammo", 0.05, 1.0, 0.05, 2
+	StaticText "Chance an ammo type will be sold by the merchant.", "White"
+	StaticText ""
+	FlagOption "Resident Evil", "hdm_skin_ammo", "OnOff", 0
+	FlagOption "Hobo", "hdm_skin_ammo", "OnOff", 1
+	FlagOption "Succubus", "hdm_skin_ammo", "OnOff", 2
+	FlagOption "Morshu", "hdm_skin_ammo", "OnOff", 3
+	FlagOption "Wandering Trader", "hdm_skin_ammo", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_ammo", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_ammo", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_ammo", "OnOff", 7
+	FlagOption "Daina (Labcoat)", "hdm_skin_ammo", "OnOff", 8
+	FlagOption "Nari (Succubus)", "hdm_skin_ammo", "OnOff", 9
+	StaticText ""
+	StaticText "---------- ITEM MERCHANTS ----------", "Teal"
+	Option "Item Amounts", "hdm_stock_item", "StockMult"
+	Slider "Item Chance", "hdm_chance_item", 0.05, 1.0, 0.05, 2
+	StaticText "Chance an item will be sold by the merchant.", "White"
+	StaticText ""
+	FlagOption "Resident Evil", "hdm_skin_item", "OnOff", 0
+	FlagOption "Hobo", "hdm_skin_item", "OnOff", 1
+	FlagOption "Succubus", "hdm_skin_item", "OnOff", 2
+	FlagOption "Morshu", "hdm_skin_item", "OnOff", 3
+	FlagOption "Wandering Trader", "hdm_skin_item", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_item", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_item", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_item", "OnOff", 7
+	FlagOption "Daina (Labcoat)", "hdm_skin_item", "OnOff", 8
+	FlagOption "Nari (Succubus)", "hdm_skin_item", "OnOff", 9
+}
+
+OptionMenu "MerchStoreFilters"
+{
+	Title "Merchant Store Filters"
+
+	StaticText "Configure which things you'd like"
+	StaticText "to allow the Merchants to sell"
+	StaticText ""
+
+	Submenu "Vanilla", "MerchStoreFilterVanilla"
+	StaticText ""
+
+	Submenu "HDBulletLib", "MerchStoreFilterHDBulletLib"
+	StaticText ""
+
+	Submenu "AceCorp: Engineering Dept.", "MerchStoreFilterAceCorp"
+	Submenu "Bryan's Armory", "MerchStoreFilterBryan"
+	Submenu "Corporate Armor", "MerchStoreFilterCorporateArmour"
+	Submenu "Dastrukar", "MerchStoreFilterDastrukar"
+	Submenu "DeusDoom", "MerchStoreFilterDeusDoom"
+	Submenu "Hexadoken's Legacy Continued", "MerchStoreFilterHexadoken"
+	Submenu "HoagieTech", "MerchStoreFilterHoagieTech"
+	Submenu "Icarus Innovations, Improved", "MerchStoreFilterIcarus"
+	Submenu "Melonades", "MerchStoreFilterMelonades"
+	Submenu "Bangers & Mash", "MerchStoreFilterPotetobloke"
+	Submenu "Peppergrinder", "MerchStoreFilterPeppergrinder"
+	Submenu "Ugly as Sin", "MerchStoreFilterUaS"
+	Submenu "WAN Industries", "MerchStoreFilterWAN"
+}
+
+OptionMenu "MerchStoreFilterVanilla"
+{
+	Title "Vanilla Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_CHAINSAW", "hdm_enable_chainsaw", "OnOff"
+	Option "$MERCH_TAG_REVOLVER", "hdm_enable_revolver", "OnOff"
+	Option "$MERCH_TAG_SMG", "hdm_enable_smg", "OnOff"
+	Option "$MERCH_TAG_HUNTER", "hdm_enable_hunter", "OnOff"
+	Option "$MERCH_TAG_SLAYER", "hdm_enable_slayer", "OnOff"
+	Option "$MERCH_TAG_VULCANETTE", "hdm_enable_vulcanette", "OnOff"
+	Option "$MERCH_TAG_BLOOPER", "hdm_enable_blooper", "OnOff"
+	Option "$MERCH_TAG_ROCKETLAUNCHER", "hdm_enable_rocketlauncher", "OnOff"
+	Option "$MERCH_TAG_LIBERATOR", "hdm_enable_liberator", "OnOff"
+	Option "$MERCH_TAG_THUNDERBUSTER", "hdm_enable_thunderbuster", "OnOff"
+	Option "$MERCH_TAG_BRONTO", "hdm_enable_bronto", "OnOff"
+	Option "$MERCH_TAG_BFG", "hdm_enable_bfg", "OnOff"
+	Option "$MERCH_TAG_BOSS", "hdm_enable_boss", "OnOff"
+	StaticText ""
+
+	StaticText "Ammunition"
+	Option "$MERCH_TAG_9MM", "hdm_enable_9mm", "OnOff"
+	Option "$MERCH_TAG_12GSHELL", "hdm_enable_12gshell", "OnOff"
+	Option "$MERCH_TAG_4MMMAG", "hdm_enable_4mmmag", "OnOff"
+	Option "$MERCH_TAG_355", "hdm_enable_355", "OnOff"
+	Option "$MERCH_TAG_ROCKETGRENADE", "hdm_enable_rocketgrenade", "OnOff"
+	Option "$MERCH_TAG_HEATROCKET", "hdm_enable_heatrocket", "OnOff"
+	Option "$MERCH_TAG_7MM", "hdm_enable_7mm", "OnOff"
+	Option "$MERCH_TAG_BATTERY", "hdm_enable_battery", "OnOff"
+	Option "$MERCH_TAG_BRONTOROUND", "hdm_enable_brontoround", "OnOff"
+	Option "$MERCH_TAG_FRAGGRENADE", "hdm_enable_fraggrenade", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_STIMPACK", "hdm_enable_stimpack", "OnOff"
+	Option "$MERCH_TAG_BLOODBAG", "hdm_enable_bloodbag", "OnOff"
+	Option "$MERCH_TAG_MEDIKIT", "hdm_enable_medikit", "OnOff"
+	Option "$MERCH_TAG_BLUEPOTION", "hdm_enable_bluepotion", "OnOff"
+	Option "$MERCH_TAG_BERSERK", "hdm_enable_berserk", "OnOff"
+	Option "$MERCH_TAG_DOORBUSTER", "hdm_enable_doorbuster", "OnOff"
+	Option "$MERCH_TAG_LADDER", "hdm_enable_ladder", "OnOff"
+	Option "$MERCH_TAG_RADSUIT", "hdm_enable_radsuit", "OnOff"
+	Option "$MERCH_TAG_JETPACK", "hdm_enable_jetpack", "OnOff"
+	Option "$MERCH_TAG_SUMMONINGTALISMAN", "hdm_enable_summoningtalisman", "OnOff"
+	Option "$MERCH_TAG_AMMOBOX", "hdm_enable_ammobox", "OnOff"
+	Option "$MERCH_TAG_7MMRELOADER", "hdm_enable_7mmreloader", "OnOff"
+	Option "$MERCH_TAG_BACKPACK", "hdm_enable_backpack", "OnOff"
+	StaticText ""
+
+	StaticText "Armor"
+	Option "$MERCH_TAG_GARRISONARMOUR", "hdm_enable_garrisonarmour", "OnOff"
+	Option "$MERCH_TAG_BATTLEARMOUR", "hdm_enable_battlearmour", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterHDBulletLib"
+{
+	Title "HDBulletLib Filters"
+
+	StaticText "Ammunition"
+	Option "$MERCH_TAG_50AE", "hdm_enable_50AE", "OnOff"
+	Option "$MERCH_TAG_500SWH", "hdm_enable_500SWH", "OnOff"
+	Option "$MERCH_TAG_500SWL", "hdm_enable_500SWL", "OnOff"
+	Option "$MERCH_TAG_50OMG", "hdm_enable_50OMG", "OnOff"
+	Option "$MERCH_TAG_12GSLUG", "hdm_enable_12GSLUG", "OnOff"
+	Option "$MERCH_TAG_45ACP", "hdm_enable_45ACP", "OnOff"
+	Option "$MERCH_TAG_420FREI", "hdm_enable_420FREI", "OnOff"
+	Option "$MERCH_TAG_069BORE", "hdm_enable_069BORE", "OnOff"
+	Option "$MERCH_TAG_5MMBR", "hdm_enable_5MMBR", "OnOff"
+	Option "$MERCH_TAG_50AM", "hdm_enable_50AM", "OnOff"
+	Option "$MERCH_TAG_6MMFLECHETTE", "hdm_enable_6MMFLECHETTE", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterAceCorp"
+{
+	Title "Vanilla Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_SOULCUBE", "hdm_enable_soulcube", "OnOff"
+	Option "$MERCH_TAG_ARCANUM", "hdm_enable_arcanum", "OnOff"
+	Option "$MERCH_TAG_VIPER", "hdm_enable_viper", "OnOff"
+	Option "$MERCH_TAG_JACKDAW", "hdm_enable_jackdaw", "OnOff"
+	Option "$MERCH_TAG_REDLINE", "hdm_enable_redline", "OnOff"
+	Option "$MERCH_TAG_SCORPION", "hdm_enable_scorpion", "OnOff"
+	Option "$MERCH_TAG_GUNGNIR", "hdm_enable_gungnir", "OnOff"
+	Option "$MERCH_TAG_BLACKJACK", "hdm_enable_blackjack", "OnOff"
+	Option "$MERCH_TAG_WYVERN", "hdm_enable_wyvern", "OnOff"
+	Option "$MERCH_TAG_MAJESTIC", "hdm_enable_majestic", "OnOff"
+	Option "$MERCH_TAG_EXECUTIONER", "hdm_enable_executioner", "OnOff"
+	Option "$MERCH_TAG_BLACKHAWK", "hdm_enable_blackhawk", "OnOff"
+	Option "$MERCH_TAG_HAMMERHEAD", "hdm_enable_hammerhead", "OnOff"
+	StaticText ""
+
+	StaticText "Ammunition"
+	Option "$MERCH_TAG_DESPFILTER", "hdm_enable_despfilter", "OnOff"
+	Option "$MERCH_TAG_ASSEMBLYCORE", "hdm_enable_assemblycore", "OnOff"
+	Option "$MERCH_TAG_BLACKHAWKBOLTREG", "hdm_enable_blackhawkboltreg", "OnOff"
+	Option "$MERCH_TAG_BLACKHAWKBOLTINCEN", "hdm_enable_blackhawkboltincen", "OnOff"
+	Option "$MERCH_TAG_BLACKHAWKBOLTELEC", "hdm_enable_blackhawkboltelec", "OnOff"
+	Option "$MERCH_TAG_BLACKHAWKBOLTNUCLEAR", "hdm_enable_blackhawkboltnuclear", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_SUPERSTIM", "hdm_enable_superstim", "OnOff"
+	Option "$MERCH_TAG_BOOSTERJETS", "hdm_enable_boosterjets", "OnOff"
+	Option "$MERCH_TAG_LADDERLAUNCHER", "hdm_enable_ladderlauncher", "OnOff"
+	Option "$MERCH_TAG_HACKED7MMRELOADER", "hdm_enable_hacked7MMRELOADER", "OnOff"
+	Option "$MERCH_TAG_URL", "hdm_enable_url", "OnOff"
+	Option "$MERCH_TAG_MRL", "hdm_enable_mrl", "OnOff"
+	Option "$MERCH_TAG_SUPPLYBEACON", "hdm_enable_supplybeacon", "OnOff"
+	Option "$MERCH_TAG_WEAPONCRATE", "hdm_enable_weaponcrate", "OnOff"
+	Option "$MERCH_TAG_PORTABLETELEPORTER", "hdm_enable_portableteleporter", "OnOff"
+	Option "$MERCH_TAG_FAK", "hdm_enable_fak", "OnOff"
+	Option "$MERCH_TAG_DSD", "hdm_enable_dsd", "OnOff"
+	Option "$MERCH_TAG_BARRICADE", "hdm_enable_barricade", "OnOff"
+	Option "$MERCH_TAG_PERSONALSHIELDGEN", "hdm_enable_personalshieldgen", "OnOff"
+	Option "$MERCH_TAG_ZRADAR", "hdm_enable_zradar", "OnOff"
+	Option "$MERCH_TAG_SECRETFINDER", "hdm_enable_secretfinder", "OnOff"
+	Option "$MERCH_TAG_GASMASK", "hdm_enable_gasmask", "OnOff"
+	Option "$MERCH_TAG_REARVIEWMIRROR", "hdm_enable_rearviewmirror", "OnOff"
+	Option "$MERCH_TAG_ROOMBA", "hdm_enable_roomba", "OnOff"
+	Option "$MERCH_TAG_DDZFLASHLIGHT", "hdm_enable_ddzflashlight", "OnOff"
+	Option "$MERCH_TAG_SUICIDEVEST", "hdm_enable_suicidevest", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterBryan"
+{
+	Title "Bryan's Armory Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_BALLCRAFTER", "hdm_enable_ballcrafter", "OnOff"
+	Option "$MERCH_TAG_CASECRAFTER", "hdm_enable_casecrafter", "OnOff"
+	Option "$MERCH_TAG_BULLETASSEMBLER", "hdm_enable_bulletassembler", "OnOff"
+	Option "$MERCH_TAG_ROCKETASSEMBLER", "hdm_enable_rocketassembler", "OnOff"
+	Option "$MERCH_TAG_M249RELOADER", "hdm_enable_m249RELOADER", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterCorporateArmour"
+{
+	Title "UAC Corporate Armor Filters"
+
+	StaticText "Armor"
+	Option "$MERCH_TAG_CORPORATEARMOUR", "hdm_enable_corporatearmour", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterDastrukar"
+{
+	Title "Dastrukar Filters"
+
+	StaticText "Armor"
+	Option "$MERCH_TAG_HHELMET", "hdm_enable_hhelmet", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterDeusDoom"
+{
+	Title "DeusDoom Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_AUGCANISTER", "hdm_enable_augcanister", "OnOff"
+	Option "$MERCH_TAG_AUGUPGRADE", "hdm_enable_augupgrade", "OnOff"
+	Option "$MERCH_TAG_BIOELECTRICCELL", "hdm_enable_bioelectriccell", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterHexadoken"
+{
+	Title "Hexadoken's Legacy Continued Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_MEDICALSCANNER", "hdm_enable_medicalscanner", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterHoagieTech"
+{
+	Title "HoagieTech Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_ZM69", "hdm_enable_zm69", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterIcarus"
+{
+	Title "Icarus Innovations, Improved Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_GFB9", "hdm_enable_gfb9", "OnOff"
+	Option "$MERCH_TAG_NYX", "hdm_enable_nyx", "OnOff"
+	Option "$MERCH_TAG_USP45", "hdm_enable_usp45", "OnOff"
+	Option "$MERCH_TAG_SIX12", "hdm_enable_six12", "OnOff"
+	Option "$MERCH_TAG_BARRACUDA", "hdm_enable_barracuda", "OnOff"
+	Option "$MERCH_TAG_FRONTIERSMAN", "hdm_enable_frontiersman", "OnOff"
+	Option "$MERCH_TAG_NCT", "hdm_enable_nct", "OnOff"
+	Option "$MERCH_TAG_PD42", "hdm_enable_pd42", "OnOff"
+	Option "$MERCH_TAG_UMP45", "hdm_enable_ump45", "OnOff"
+	Option "$MERCH_TAG_BITCH", "hdm_enable_bitch", "OnOff"
+	Option "$MERCH_TAG_FENRIS", "hdm_enable_fenris", "OnOff"
+	Option "$MERCH_TAG_MBR", "hdm_enable_mbr", "OnOff"
+	Option "$MERCH_TAG_FLAMENWERFER", "hdm_enable_flamenwerfer", "OnOff"
+	Option "$MERCH_TAG_FOG", "hdm_enable_fog", "OnOff"
+	StaticText ""
+
+	StaticText "Ammunition"
+	Option "$MERCH_TAG_GASTANK", "hdm_enable_gastank", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_WALLET", "hdm_enable_wallet", "OnOff"
+	Option "$MERCH_TAG_REPAIRSPRAY", "hdm_enable_repairspray", "OnOff"
+	StaticText ""
+
+	StaticText "Armor"
+	Option "$MERCH_TAG_HEVARMOUR", "hdm_enable_hevarmour", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterMelonades"
+{
+	Title "Melonades Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_impactgrenade", "hdm_enable_impactgrenade", "OnOff"
+	Option "$MERCH_TAG_THUNDERGRENADE", "hdm_enable_thundergrenade", "OnOff"
+	Option "$MERCH_TAG_MG13GRENADE", "hdm_enable_mg13grenade", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterPotetobloke"
+{
+	Title "Bangers & Mash Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_GASGRENADE", "hdm_enable_gasgrenade", "OnOff"
+	Option "$MERCH_TAG_WPGRENADE", "hdm_enable_wpgrenade", "OnOff"
+	Option "$MERCH_TAG_NAPALMTANK", "hdm_enable_napalmtank", "OnOff"
+	Option "$MERCH_TAG_8MMEC", "hdm_enable_8mmec", "OnOff"
+	Option "$MERCH_TAG_FIREEXTINGUISHER", "hdm_enable_fireextinguisher", "OnOff"
+	Option "$MERCH_TAG_AUTOMAG", "hdm_enable_automag", "OnOff"
+	Option "$MERCH_TAG_URAGAN", "hdm_enable_uragan", "OnOff"
+	Option "$MERCH_TAG_MK23SOCOM", "hdm_enable_mk23socom", "OnOff"
+	Option "$MERCH_TAG_MAC10", "hdm_enable_mac10", "OnOff"
+	Option "$MERCH_TAG_PS20", "hdm_enable_ps20", "OnOff"
+	Option "$MERCH_TAG_ATCM35", "hdm_enable_atcm35", "OnOff"
+	Option "$MERCH_TAG_AT4", "hdm_enable_at4", "OnOff"
+	Option "$MERCH_TAG_RUGER1022", "hdm_enable_ruger1022", "OnOff"
+	Option "$MERCH_TAG_M5165", "hdm_enable_m5165", "OnOff"
+	Option "$MERCH_TAG_STREETSWEEPER", "hdm_enable_streetsweeper", "OnOff"
+	Option "$MERCH_TAG_355SMG", "hdm_enable_355smg", "OnOff"
+	Option "$MERCH_TAG_LEVERGUN", "hdm_enable_levergun", "OnOff"
+	Option "$MERCH_TAG_G11", "hdm_enable_g11", "OnOff"
+	Option "$MERCH_TAG_G11SCOPED", "hdm_enable_g11scoped", "OnOff"
+	Option "$MERCH_TAG_CAWSGUN", "hdm_enable_cawsgun", "OnOff"
+	Option "$MERCH_TAG_STEYR", "hdm_enable_steyr", "OnOff"
+	Option "$MERCH_TAG_PSG1", "hdm_enable_psg1", "OnOff"
+	Option "$MERCH_TAG_FNFAL", "hdm_enable_fnfal", "OnOff"
+	Option "$MERCH_TAG_M60", "hdm_enable_m60", "OnOff"
+	Option "$MERCH_TAG_DEVINCENZIA", "hdm_enable_devincenzia", "OnOff"
+	Option "$MERCH_TAG_MICROGUN", "hdm_enable_microgun", "OnOff"
+	Option "$MERCH_TAG_M2HB", "hdm_enable_m2hb", "OnOff"
+	Option "$MERCH_TAG_KELENKEN", "hdm_enable_kelenken", "OnOff"
+	Option "$MERCH_TAG_MANCCANNON", "hdm_enable_manccannon", "OnOff"
+	Option "$MERCH_TAG_RAILGUN", "hdm_enable_railgun", "OnOff"
+	Option "$MERCH_TAG_RAILGUNDYNAMO", "hdm_enable_railgundynamo", "OnOff"
+	Option "$MERCH_TAG_KNIFE", "hdm_enable_knife", "OnOff"
+	Option "$MERCH_TAG_FIREAXE", "hdm_enable_fireaxe", "OnOff"
+	Option "$MERCH_TAG_SLEDGEHAMMER", "hdm_enable_sledgehammer", "OnOff"
+	Option "$MERCH_TAG_KHARON", "hdm_enable_kharon", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterPeppergrinder"
+{
+	Title "Peppergrinder Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_OTIS5", "hdm_enable_otis5", "OnOff"
+	Option "$MERCH_TAG_BOXCANNON", "hdm_enable_boxcannon", "OnOff"
+	Option "$MERCH_TAG_SCOPEDREVOLVER", "hdm_enable_scopedrevolver", "OnOff"
+	Option "$MERCH_TAG_GUILLOTINE", "hdm_enable_guillotine", "OnOff"
+	Option "$MERCH_TAG_ODDBALL", "hdm_enable_oddball", "OnOff"
+	Option "$MERCH_TAG_AUROCHS", "hdm_enable_aurochs", "OnOff"
+	Option "$MERCH_TAG_HELZING", "hdm_enable_helzing", "OnOff"
+	Option "$MERCH_TAG_GREELY", "hdm_enable_greely", "OnOff"
+	Option "$MERCH_TAG_SAWEDOFFSLAYER", "hdm_enable_sawedoffslayer", "OnOff"
+	Option "$MERCH_TAG_SCOPEDSLAYER", "hdm_enable_scopedslayer", "OnOff"
+	Option "$MERCH_TAG_AUTO5", "hdm_enable_auto5", "OnOff"
+	Option "$MERCH_TAG_BPX", "hdm_enable_bpx", "OnOff"
+	Option "$MERCH_TAG_DMR", "hdm_enable_dmr", "OnOff"
+	Option "$MERCH_TAG_HLAR", "hdm_enable_hlar", "OnOff"
+	Option "$MERCH_TAG_P90", "hdm_enable_p90", "OnOff"
+	Option "$MERCH_TAG_P90PRINCESS", "hdm_enable_p90princess", "OnOff"
+	Option "$MERCH_TAG_TROG", "hdm_enable_trog", "OnOff"
+	Option "$MERCH_TAG_BASTARDRIFLE", "hdm_enable_bastardrifle", "OnOff"
+	Option "$MERCH_TAG_VERA", "hdm_enable_vera", "OnOff"
+	Option "$MERCH_TAG_YUREI", "hdm_enable_yurei", "OnOff"
+	Option "$MERCH_TAG_ILIB", "hdm_enable_ilib", "OnOff"
+	Option "$MERCH_TAG_LOTUS", "hdm_enable_lotus", "OnOff"
+	Option "$MERCH_TAG_YEYUZE", "hdm_enable_yeyuze", "OnOff"
+	Option "$MERCH_TAG_ZM94", "hdm_enable_zm94", "OnOff"
+	Option "$MERCH_TAG_PLASMAPISTOL", "hdm_enable_plasmapistol", "OnOff"
+	Option "$MERCH_TAG_WISEAU", "hdm_enable_wiseau", "OnOff"
+	Option "$MERCH_TAG_LISA", "hdm_enable_lisa", "OnOff"
+	Option "$MERCH_TAG_RUBYMASER", "hdm_enable_rubymaser", "OnOff"
+	Option "$MERCH_TAG_FULGUR", "hdm_enable_fulgur", "OnOff"
+	Option "$MERCH_TAG_MAULER", "hdm_enable_mauler", "OnOff"
+	Option "$MERCH_TAG_ZORCHER", "hdm_enable_zorcher", "OnOff"
+	StaticText ""
+
+	StaticText "Ammunition"
+	Option "$MERCH_TAG_NDM", "hdm_enable_ndm", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterUaS"
+{
+	Title "Ugly as Sin Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_AMMOPOUCH", "hdm_enable_ammopouch", "OnOff"
+	Option "$MERCH_TAG_RESPIRATOR", "hdm_enable_respirator", "OnOff"
+	Option "$MERCH_TAG_MESSKIT", "hdm_enable_messkit", "OnOff"
+	Option "$MERCH_TAG_FOODRATION", "hdm_enable_foodration", "OnOff"
+	Option "$MERCH_TAG_WATERRATION", "hdm_enable_waterration", "OnOff"
+	StaticText ""
+}
+
+OptionMenu "MerchStoreFilterWAN"
+{
+	Title "WAN Industries Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_MA75B", "hdm_enable_ma75b", "OnOff"
+	Option "$MERCH_TAG_MA76C", "hdm_enable_ma76c", "OnOff"
+	Option "$MERCH_TAG_SPNKR", "hdm_enable_spnkr", "OnOff"
+	Option "$MERCH_TAG_WSTEM5", "hdm_enable_wstem5", "OnOff"
+	StaticText ""
+	
+	Option "$MERCH_TAG_SNEAKINGSUIT", "hdm_enable_sneakingsuit", "OnOff"
+}
+
+OptionValue "StockMult"
+{
+	1, "Standard"
+	2, "Double the fun"
+	5, "Black Friday"
+	10, "I won the jackpot"
+	25, "Intergalactic resupply"
+}
+
+OptionValue "MoneyMode"
+{
+	0, "Tiberium"
+	1, "Bounty"
+	2, "Tiberium & Bounty (if no Tiberium spawns)"
+	3, "Random"
+}
+
+AddOptionMenu "OptionsMenu"
+{
+	Submenu "Merchant", "MerchantMenu"
+}
+
+AddOptionMenu "HDAddonMenu"
+{
+	Submenu "Merchant", "MerchantMenu"
+}

@@ -1,5 +1,6 @@
 class HDImpactGrenadeStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_impactgrenade; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_IMPACTGRENADE"); }
 	override Name GetItem() { return 'HDImpactGrenadeAmmo'; }
@@ -11,6 +12,7 @@ class HDImpactGrenadeStore : StoreItem
 
 class HDThunderGrenadeStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_thundergrenade; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_THUNDERGRENADE"); }
 	override Name GetItem() { return 'HDThunderGrenadeAmmo'; }
@@ -22,6 +24,7 @@ class HDThunderGrenadeStore : StoreItem
 
 class HDMG13Store : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_mg13grenade; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MG13GRENADE"); }
 	override Name GetItem() { return 'HDMG13GrenadeAmmo'; }

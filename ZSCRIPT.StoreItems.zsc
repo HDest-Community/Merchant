@@ -68,6 +68,7 @@ class StoreItem abstract
 	abstract string GetIcon();
 	abstract Name GetItem();
 	abstract int GetType();
+	abstract bool IsEnabled();
 
 	virtual int GetAmount() { return 1; }
 	virtual string GetFlavorText() { return ""; }

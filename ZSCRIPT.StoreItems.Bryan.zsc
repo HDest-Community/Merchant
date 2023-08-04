@@ -1,5 +1,6 @@
 class HDBallCrafterStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_ballcrafter; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BALLCRAFTER"); }
 	override Name GetItem() { return 'B_BallCrafter'; }
@@ -11,6 +12,7 @@ class HDBallCrafterStore : StoreItem
 
 class HDCaseCrafterStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_casecrafter; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_CASECRAFTER"); }
 	override Name GetItem() { return 'B_CaseCrafter'; }
@@ -22,6 +24,7 @@ class HDCaseCrafterStore : StoreItem
 
 class HDBulletAssemblerStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_bulletassembler; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BULLETASSEMBLER"); }
 	override Name GetItem() { return 'B_BulletAssembler'; }
@@ -33,6 +36,7 @@ class HDBulletAssemblerStore : StoreItem
 
 class HDRocketAssemblerStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_rocketassembler; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ROCKETASSEMBLER"); }
 	override Name GetItem() { return 'B_RocketAssembler'; }
@@ -44,6 +48,7 @@ class HDRocketAssemblerStore : StoreItem
 
 class HDM249ReloaderStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_m249reloader; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_M249RELOADER"); }
 	override Name GetItem() { return 'B_M249_Reloader'; }

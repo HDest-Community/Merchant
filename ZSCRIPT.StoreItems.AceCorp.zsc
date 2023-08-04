@@ -1,5 +1,6 @@
 class HDSoulCubeStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_soulcube; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SOULCUBE"); }
 	override Name GetItem() { return 'HDSoulCube'; }
@@ -11,6 +12,7 @@ class HDSoulCubeStore : StoreItem
 
 class HDArcanumStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_arcanum; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ARCANUM"); }
 	override Name GetItem() { return 'HDArcanumTome'; }
@@ -22,6 +24,7 @@ class HDArcanumStore : StoreItem
 
 class HDViperStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_viper; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_VIPER"); }
 	override Name GetItem() { return 'HDViper'; }
@@ -33,6 +36,7 @@ class HDViperStore : StoreItem
 
 class HDJackdawStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_jackdaw; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_JACKDAW"); }
 	override Name GetItem() { return 'HDJackdaw'; }
@@ -44,6 +48,7 @@ class HDJackdawStore : StoreItem
 
 class HDRedlineStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_redline; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_REDLINE"); }
 	override Name GetItem() { return 'HDRedline'; }
@@ -55,6 +60,7 @@ class HDRedlineStore : StoreItem
 
 class HDScorpionStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_scorpion; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SCORPION"); }
 	override Name GetItem() { return 'HDScorpion'; }
@@ -66,6 +72,7 @@ class HDScorpionStore : StoreItem
 
 class HDGungnirStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_gungnir; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GUNGNIR"); }
 	override Name GetItem() { return 'HDGungnir'; }
@@ -77,6 +84,7 @@ class HDGungnirStore : StoreItem
 
 class HDBlackjackStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_blackjack; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLACKJACK"); }
 	override Name GetItem() { return 'HDBlackjack'; }
@@ -88,6 +96,7 @@ class HDBlackjackStore : StoreItem
 
 class HDWyvernStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_wyvern; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_WYVERN"); }
 	override Name GetItem() { return 'HDWyvern'; }
@@ -99,6 +108,7 @@ class HDWyvernStore : StoreItem
 
 class HDMajesticStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_majestic; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MAJESTIC"); }
 	override Name GetItem() { return 'HDMajestic'; }
@@ -110,6 +120,7 @@ class HDMajesticStore : StoreItem
 
 class HDExecutionerStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_executioner; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_EXECUTIONER"); }
 	override Name GetItem() { return 'HDExecutioner'; }
@@ -121,6 +132,7 @@ class HDExecutionerStore : StoreItem
 
 class HDBlackhawkStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_blackhawk; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLACKHAWK"); }
 	override Name GetItem() { return 'HDBlackhawk'; }
@@ -132,6 +144,7 @@ class HDBlackhawkStore : StoreItem
 
 class HDHammerheadStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_hammerhead; }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_HAMMERHEAD"); }
 	override Name GetItem() { return 'HDHammerhead'; }
@@ -149,6 +162,7 @@ class HDHammerheadStore : StoreItem
 
 class HDSuperStimpackStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_superstim; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SUPERSTIM"); }
 	override Name GetItem() { return 'PortableSuperStimpack'; }
@@ -160,6 +174,7 @@ class HDSuperStimpackStore : StoreItem
 
 class HDBoosterJetsStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_boosterjets; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BOOSTERJETS"); }
 	override Name GetItem() { return 'HDBoosterJets'; }
@@ -171,6 +186,7 @@ class HDBoosterJetsStore : StoreItem
 
 class HDLadderLauncherStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_ladderlauncher; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_LADDERLAUNCHER"); }
 	override Name GetItem() { return 'HDLadderLauncher'; }
@@ -188,6 +204,7 @@ class HDLadderLauncherStore : StoreItem
 
 class HDHackedReloaderStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_hacked7mmreloader; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_HACKED7MMRELOADER"); }
 	override Name GetItem() { return 'HackedReloader'; }
@@ -199,6 +216,7 @@ class HDHackedReloaderStore : StoreItem
 
 class HDUniversalReloaderStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_url; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_URL"); }
 	override Name GetItem() { return 'HDUniversalReloader'; }
@@ -210,6 +228,7 @@ class HDUniversalReloaderStore : StoreItem
 
 class HDMagazineReloaderStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_mrl; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MRL"); }
 	override Name GetItem() { return 'HDMagazineReloader'; }
@@ -221,6 +240,7 @@ class HDMagazineReloaderStore : StoreItem
 
 class HDSupplyBeaconStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_supplybeacon; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SUPPLYBEACON"); }
 	override Name GetItem() { return 'HDSupplyBeacon'; }
@@ -232,6 +252,7 @@ class HDSupplyBeaconStore : StoreItem
 
 class HDWeaponCrateStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_weaponcrate; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_WEAPONCRATE"); }
 	override Name GetItem() { return 'HDWeaponCrate'; }
@@ -249,6 +270,7 @@ class HDWeaponCrateStore : StoreItem
 
 class HDTeleporterStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_portableteleporter; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PORTABLETELEPORTER"); }
 	override Name GetItem() { return 'HDTeleporter'; }
@@ -260,6 +282,7 @@ class HDTeleporterStore : StoreItem
 
 class HDFieldAssemblyKitStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_fak; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_FAK"); }
 	override Name GetItem() { return 'HDFieldAssemblyKit'; }
@@ -271,6 +294,7 @@ class HDFieldAssemblyKitStore : StoreItem
 
 class HDDSDStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_dsd; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_DSD"); }
 	override Name GetItem() { return 'DSDInterface'; }
@@ -282,6 +306,7 @@ class HDDSDStore : StoreItem
 
 class HDDeployableBarricadeStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_barricade; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BARRICADE"); }
 	override Name GetItem() { return 'HDDeployableBarricade'; }
@@ -293,6 +318,7 @@ class HDDeployableBarricadeStore : StoreItem
 
 class HDPersonalShieldGeneratorStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_personalshieldgen; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PERSONALSHIELDGEN"); }
 	override Name GetItem() { return 'HDPersonalShieldGenerator'; }
@@ -310,6 +336,7 @@ class HDPersonalShieldGeneratorStore : StoreItem
 
 class HDPortableZRadarStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_zradar; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ZRADAR"); }
 	override Name GetItem() { return 'PortableZRadar'; }
@@ -321,6 +348,7 @@ class HDPortableZRadarStore : StoreItem
 
 class HDSecretFinderStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_secretfinder; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SECRETFINDER"); }
 	override Name GetItem() { return 'HDSecretFinder'; }
@@ -332,6 +360,7 @@ class HDSecretFinderStore : StoreItem
 
 class HDDespicytoStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_gasmask; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GASMASK"); }
 	override Name GetItem() { return 'Despicyto'; }
@@ -343,6 +372,7 @@ class HDDespicytoStore : StoreItem
 
 class HDRearviewMirrorStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_rearviewmirror; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_REARVIEWMIRROR"); }
 	override Name GetItem() { return 'HDRearviewMirror'; }
@@ -354,6 +384,7 @@ class HDRearviewMirrorStore : StoreItem
 
 class HDRoombaStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_roomba; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ROOMBA"); }
 	override Name GetItem() { return 'HDRoomba'; }
@@ -365,6 +396,7 @@ class HDRoombaStore : StoreItem
 
 class HDFlashlightStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_ddzflashlight; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_DDZFLASHLIGHT"); }
 	override Name GetItem() { return 'DarkDoomZ_Flashlight'; }
@@ -376,6 +408,7 @@ class HDFlashlightStore : StoreItem
 
 class HDSuicideVestStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_suicidevest; }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SUICIDEVEST"); }
 	override Name GetItem() { return 'HDSuicideVest'; }
@@ -394,6 +427,7 @@ class HDSuicideVestStore : StoreItem
 
 class HDDespicytoFilterStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_despfilter; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_DESPFILTER"); }
 	override Name GetItem() { return 'DespicytoFilter'; }
@@ -405,6 +439,7 @@ class HDDespicytoFilterStore : StoreItem
 
 class HDAssemblyCoreStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_assemblycore; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ASSEMBLYCORE"); }
 	override Name GetItem() { return 'AssemblyCore'; }
@@ -416,6 +451,7 @@ class HDAssemblyCoreStore : StoreItem
 
 class HDBlackhawkBoltRegularStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_blackhawkboltreg; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLACKHAWKBOLTREG"); }
 	override Name GetItem() { return 'HDBlackhawkBoltRegular'; }
@@ -428,6 +464,7 @@ class HDBlackhawkBoltRegularStore : StoreItem
 
 class HDBlackhawkBoltIncendiaryStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_blackhawkboltincen; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLACKHAWKBOLTINCEN"); }
 	override Name GetItem() { return 'HDBlackhawkBoltIncendiary'; }
@@ -440,6 +477,7 @@ class HDBlackhawkBoltIncendiaryStore : StoreItem
 
 class HDBlackhawkBoltElectricStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_blackhawkboltelec; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLACKHAWKBOLTELEC"); }
 	override Name GetItem() { return 'HDBlackhawkBoltElectric'; }
@@ -452,6 +490,7 @@ class HDBlackhawkBoltElectricStore : StoreItem
 
 class HDBlackhawkBoltNuclearStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_blackhawkboltnuclear; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLACKHAWKBOLTNUCLEAR"); }
 	override Name GetItem() { return 'HDBlackhawkBoltNuclear'; }

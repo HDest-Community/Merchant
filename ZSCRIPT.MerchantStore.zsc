@@ -30,7 +30,7 @@ extend class MerchantHandler
 				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
 
 				static const Name CVarNames[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-				if (a && Item.GetType() == type && (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat()))
+				if (a && Item.GetType() == type && Item.IsEnabled() && (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat()))
 				{
 					Item.StoreAmount = Item.GetStoreAmount();
 					if (inReloadingRoom)

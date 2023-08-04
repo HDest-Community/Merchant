@@ -1,5 +1,6 @@
 class HD50AEStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_50ae; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AE"); }
 	override Name GetItem() { return 'HD50AEAmmo'; }
@@ -12,6 +13,7 @@ class HD50AEStore : StoreItem
 
 class HD500HeavyStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_500swh; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_500SWH"); }
 	override Name GetItem() { return 'HD500SWHeavyAmmo'; }
@@ -24,6 +26,7 @@ class HD500HeavyStore : StoreItem
 
 class HD500LightStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_500swl; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_500SWL"); }
 	override Name GetItem() { return 'HD500SWLightAmmo'; }
@@ -36,6 +39,7 @@ class HD500LightStore : StoreItem
 
 class HD50OMGStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_50omg; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50OMG"); }
 	override Name GetItem() { return 'HD50OMGAmmo'; }
@@ -48,6 +52,7 @@ class HD50OMGStore : StoreItem
 
 class HDPepperSlugsStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_12gslug; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GSLUG"); }
 	override Name GetItem() { return 'HDSlugAmmo'; }
@@ -60,6 +65,7 @@ class HDPepperSlugsStore : StoreItem
 
 class HD45ACPStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_45acp; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_45ACP"); }
 	override Name GetItem() { return 'HD45ACPAmmo'; }
@@ -72,6 +78,7 @@ class HD45ACPStore : StoreItem
 
 class HDAurochsAmmoStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_420frei; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_420FREI"); }
 	override Name GetItem() { return 'HDAurochsAmmo'; }
@@ -84,6 +91,7 @@ class HDAurochsAmmoStore : StoreItem
 
 class HD069BoreAmmoStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_069bore; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_069BORE"); }
 	override Name GetItem() { return 'HD069BoreAmmo'; }
@@ -96,6 +104,7 @@ class HD069BoreAmmoStore : StoreItem
 
 class HD5mm_AmmoStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_5mmbr; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_5MMBR"); }
 	override Name GetItem() { return 'HD5mm_Ammo'; }
@@ -108,6 +117,7 @@ class HD5mm_AmmoStore : StoreItem
 
 class HD50AM_AmmoStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_50am; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AM"); }
 	override Name GetItem() { return 'HD50AM_Ammo'; }
@@ -120,6 +130,7 @@ class HD50AM_AmmoStore : StoreItem
 
 class HD6mmFlechetteAmmoStore : StoreItem
 {
+	override bool IsEnabled() { return hdm_enable_6mmflechette; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_6MMFLECHETTE"); }
 	override Name GetItem() { return 'HD6mmFlechetteAmmo'; }
