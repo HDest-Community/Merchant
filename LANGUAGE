@@ -499,16 +499,6 @@ MERCH_CAT_SCORPION                = "AceCorp";
 MERCH_TAG_SCORPION                = "'Scorpion' 35mm Sniper Cannon";
 MERCH_FLAVOR_SCORPION             = "Deletes just about anything.";
 
-// Slayer
-MERCH_CAT_SLAYER                  = "Vanilla";
-MERCH_TAG_SLAYER                  = "Slayer";
-MERCH_FLAVOR_SLAYER               = "The barrel grew back.";
-
-// Sledgehammer
-MERCH_CAT_SLEDGEHAMMER            = "Bangers & Mash (Melee)";
-MERCH_TAG_SLEDGEHAMMER            = "Sledgehammer";
-MERCH_FLAVOR_SLEDGEHAMMER         = "A hefty master key for any locked doors (or demons), doorbuster be damned.";
-
 // Sig-Cow
 MERCH_CAT_SIGCOW                  = "RadTech Inc.";
 MERCH_TAG_SIGCOW                  = "M-211 Sig-Cow";
@@ -518,6 +508,16 @@ MERCH_FLAVOR_SIGCOW               = "Don't have a Cow, man? Then buy yourself on
 MERCH_CAT_SAREVOLVER              = "RadTech Inc.";
 MERCH_TAG_SAREVOLVER              = "Single Action Revolver";
 MERCH_FLAVOR_SAREVOLVER           = "This thing probably belonged to one of your ancestors. Hope it still shoots well.";
+
+// Slayer
+MERCH_CAT_SLAYER                  = "Vanilla";
+MERCH_TAG_SLAYER                  = "Slayer";
+MERCH_FLAVOR_SLAYER               = "The barrel grew back.";
+
+// Sledgehammer
+MERCH_CAT_SLEDGEHAMMER            = "Bangers & Mash (Melee)";
+MERCH_TAG_SLEDGEHAMMER            = "Sledgehammer";
+MERCH_FLAVOR_SLEDGEHAMMER         = "A hefty master key for any locked doors (or demons), doorbuster be damned.";
 
 // Six-12
 MERCH_CAT_SIX12                   = "Icarus Innovations";
