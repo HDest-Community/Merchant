@@ -10,22 +10,22 @@ MERCH_TAG_ARCANUM                 = "Arcanum Tome";
 MERCH_FLAVOR_ARCANUM              = "I don't understand a damn thing that's written in it.";
 
 // AT-4
-MERCH_CAT_AT4                     = "PB's Weapon Pack (Disposables)";
+MERCH_CAT_AT4                     = "Bangers & Mash (Disposables)";
 MERCH_TAG_AT4                     = "RAT-84 HEAT Rocket Launcher";
 MERCH_FLAVOR_AT4                  = "Mind the backblast.";
 
 // ATC Devincenzia
-MERCH_CAT_DEVINCENZIA             = "PB's Weapon Pack (Heavy)";
+MERCH_CAT_DEVINCENZIA             = "Bangers & Mash (Heavy)";
 MERCH_TAG_DEVINCENZIA             = "Berlinghoff XM135 'Devincenzia' Cannon";
 MERCH_FLAVOR_DEVINCENZIA          = "Whoa, a new toy!.";
 
 // ATC Kelenken
-MERCH_CAT_KELENKEN                = "PB's Weapon Pack (Heavy)";
+MERCH_CAT_KELENKEN                = "Bangers & Mash (Heavy)";
 MERCH_TAG_KELENKEN                = "M5-AT 'Kelenken' 35mm Autocannon";
 MERCH_FLAVOR_KELENKEN             = "The chances of being surrounded by ten Cyberdemons is low but never zero.";
 
 // ATCM-35
-MERCH_CAT_ATCM35                  = "PB's Weapon Pack (Disposables)";
+MERCH_CAT_ATCM35                  = "Bangers & Mash (Disposables)";
 MERCH_TAG_ATCM35                  = "ATCM-35 Tracking Cluster Missile Launcher";
 MERCH_FLAVOR_ATCM35               = "The operator casualty rate for these are... well, I'll leave it to imagination.";
 
@@ -40,7 +40,7 @@ MERCH_TAG_AUTO5                   = "Baileya Repeater Slug Gun";
 MERCH_FLAVOR_AUTO5                = "Old but gold.";
 
 // Automag
-MERCH_CAT_AUTOMAG                 = "PB's Weapon Pack (Pistols)";
+MERCH_CAT_AUTOMAG                 = "Bangers & Mash (Pistols)";
 MERCH_TAG_AUTOMAG                 = "SP-50 Magnum";
 MERCH_FLAVOR_AUTOMAG              = "Now you too can be a Bleedin' Action Man!";
 
@@ -125,7 +125,7 @@ MERCH_TAG_BRONTO                  = "Brontornis";
 MERCH_FLAVOR_BRONTO               = "And now I will show you a magic trick. Watch as this Hell Noble disappears.";
 
 // Cawsgun
-MERCH_CAT_CAWSGUN                 = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_CAWSGUN                 = "Bangers & Mash (Rifles)";
 MERCH_TAG_CAWSGUN                 = "H&M CROWS 'Presslufthammer' Shotgun";
 MERCH_FLAVOR_CAWSGUN              = "Just don't expect your shells to chamber reliably.";
 
@@ -135,12 +135,12 @@ MERCH_TAG_CHAINSAW                = "Lumberjack";
 MERCH_FLAVOR_CHAINSAW             = "VRRRRRRRRRRRRRR!";
 
 // Colt .355
-MERCH_CAT_355SMG                  = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_355SMG                  = "Bangers & Mash (Rifles)";
 MERCH_TAG_355SMG                  = "Volt M35A1 HPC SMG";
 MERCH_FLAVOR_355SMG               = "Armored marines got you down? No problem!";
 
 // Combat Knife
-MERCH_CAT_KNIFE                   = "PB's Weapon Pack (Melee)";
+MERCH_CAT_KNIFE                   = "Bangers & Mash (Melee)";
 MERCH_TAG_KNIFE                   = "Combat Knife";
 MERCH_FLAVOR_KNIFE                = "A no-frills combat knife, in case you want to keep your hands clean.";
 
@@ -165,7 +165,7 @@ MERCH_TAG_FOG                     = "Finger of God";
 MERCH_FLAVOR_FOG                  = "Now go and touch some Viles.";
 
 // Fire Axe
-MERCH_CAT_FIREAXE                 = "PB's Weapon Pack (Melee)";
+MERCH_CAT_FIREAXE                 = "Bangers & Mash (Melee)";
 MERCH_TAG_FIREAXE                 = "Fire Axe";
 MERCH_FLAVOR_FIREAXE              = "Why is it called a Fire Axe if it's not on fire?";
 
@@ -175,7 +175,7 @@ MERCH_TAG_FLAMENWERFER            = "Flamenwerfer 77";
 MERCH_FLAVOR_FLAMENWERFER         = "It werfs flammen.";
 
 // FNFAL
-MERCH_CAT_FNFAL                   = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_FNFAL                   = "Bangers & Mash (Rifles)";
 MERCH_TAG_FNFAL                   = "UN-AF L7A1 MG";
 MERCH_FLAVOR_FNFAL                = "Give those abominations a taste of true freedom.";
 
@@ -190,12 +190,12 @@ MERCH_TAG_FULGUR                  = "Fulgur Laser Machinegun";
 MERCH_FLAVOR_FULGUR               = "This will be DAKKA in 2013!";
 
 // G11
-MERCH_CAT_G11                     = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_G11                     = "Bangers & Mash (Rifles)";
 MERCH_TAG_G11                     = "H&M G26A1 Assault Rifle";
 MERCH_FLAVOR_G11                  = "Kraut Space Magic!";
 
 // G11 (Scoped)
-MERCH_CAT_G11SCOPED               = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_G11SCOPED               = "Bangers & Mash (Rifles)";
 MERCH_TAG_G11SCOPED               = "H&M G26SD Service Rifle";
 MERCH_FLAVOR_G11SCOPED            = "A very sneaky G26A1 capable of 'hyperburst'.";
 
@@ -250,12 +250,12 @@ MERCH_TAG_JACKDAW                 = "'Jackdaw' 9mm SMG";
 MERCH_FLAVOR_JACKDAW              = "It's like five SMGs strapped together, but you can only fire one at a time.";
 
 // Kharon
-MERCH_CAT_KHARON                  = "PB's Weapon Pack (Melee)";
+MERCH_CAT_KHARON                  = "Bangers & Mash (Melee)";
 MERCH_TAG_KHARON                  = "Replica Kharon";
 MERCH_FLAVOR_KHARON               = "Filled with a history of violence and anguish... except this one's a replica. Still effective.";
 
 // Levergun
-MERCH_CAT_LEVERGUN                = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_LEVERGUN                = "Bangers & Mash (Rifles)";
 MERCH_TAG_LEVERGUN                = "LR37 'Big Boy' Hunting Carbine";
 MERCH_FLAVOR_LEVERGUN             = "Contrary to what its name suggests, you don't HAVE to use it against 'big boys'.";
 
@@ -280,17 +280,17 @@ MERCH_TAG_M1GARAND                = "M1 Garand";
 MERCH_FLAVOR_M1GARAND             = "PING! PING!";
 
 // M2HB
-MERCH_CAT_M2HB                    = "PB's Weapon Pack (Heavy)";
+MERCH_CAT_M2HB                    = "Bangers & Mash (Heavy)";
 MERCH_TAG_M2HB                    = "AM-HMG50 'MKII Stinger' HMG";
 MERCH_FLAVOR_M2HB                 = "This was made for tanks, not infantry. How you'll use this is a mystery to me.";
 
 // M5165
-MERCH_CAT_M5165                   = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_M5165                   = "Bangers & Mash (Rifles)";
 MERCH_TAG_M5165                   = "Arkoudi M5/165c SMG";
 MERCH_FLAVOR_M5165                = "It really does hold 165 rounds. Very tiny rounds.";
 
 // M60
-MERCH_CAT_M60                     = "PB's Weapon Pack (Heavy)";
+MERCH_CAT_M60                     = "Bangers & Mash (Heavy)";
 MERCH_TAG_M60                     = "USGI M60E1 'Fat Boar' GPMG";
 MERCH_FLAVOR_M60                  = "Just don't load them as much.";
 
@@ -305,7 +305,7 @@ MERCH_TAG_MA76C                   = "MA-76C Assault Rifle";
 MERCH_FLAVOR_MA76C                = "It's like the MA-75B but smaller.";
 
 // MAC10
-MERCH_CAT_MAC10                   = "PB's Weapon Pack (Pistols)";
+MERCH_CAT_MAC10                   = "Bangers & Mash (Pistols)";
 MERCH_TAG_MAC10                   = "RAC-10/45 Machine Pistol";
 MERCH_FLAVOR_MAC10                = "Ferocious little box that spits hot lead and anger. Don't lose your grip.";
 
@@ -315,7 +315,7 @@ MERCH_TAG_MAJESTIC                = "Majestic";
 MERCH_FLAVOR_MAJESTIC             = "Aliens may or may not have been involved in the production of this.";
 
 // Mancubus Cannon
-MERCH_CAT_MANCCANNON              = "PB's Weapon Pack (Experimental)";
+MERCH_CAT_MANCCANNON              = "Bangers & Mash (Experimental)";
 MERCH_TAG_MANCCANNON              = "Modified Mancubus Arm Cannon";
 MERCH_FLAVOR_MANCCANNON           = "I hope you aren't planning to use this for grilling.";
 
@@ -325,12 +325,12 @@ MERCH_TAG_MAULER                  = "Mauler Frag Cannon";
 MERCH_FLAVOR_MAULER               = "Might turn you into a radioactive corpse over time, but who cares?";
 
 // Microgun
-MERCH_CAT_MICROGUN                = "PB's Weapon Pack (Heavy)";
+MERCH_CAT_MICROGUN                = "Bangers & Mash (Heavy)";
 MERCH_TAG_MICROGUN                = "H*M H576 Smartgun";
 MERCH_FLAVOR_MICROGUN             = "Keep the trigger squeezed down and it'll do the thinking for you.";
 
 // MK23 SOCOM
-MERCH_CAT_MK23SOCOM               = "PB's Weapon Pack (Pistols)";
+MERCH_CAT_MK23SOCOM               = "Bangers & Mash (Pistols)";
 MERCH_TAG_MK23SOCOM               = "Mk.45 Combat Handgun";
 MERCH_FLAVOR_MK23SOCOM            = "They won't even hear you coming.";
 
@@ -385,22 +385,22 @@ MERCH_TAG_PLASMAPISTOL            = "Plasma Pistol";
 MERCH_FLAVOR_PLASMAPISTOL         = "Don't overcharge it, this baby gets hot!";
 
 // PS20
-MERCH_CAT_PS20                    = "PB's Weapon Pack (Disposables)";
+MERCH_CAT_PS20                    = "Bangers & Mash (Disposables)";
 MERCH_TAG_PS20                    = "Denton Light Arms and Munitions PS-451";
 MERCH_FLAVOR_PS20                 = "A deceivingly effective package for the marine you just can't kill.";
 
 // PSG1
-MERCH_CAT_PSG1                    = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_PSG1                    = "Bangers & Mash (Rifles)";
 MERCH_TAG_PSG1                    = "H&M PSG2A1 Sniper Rifle";
 MERCH_FLAVOR_PSG1                 = "See that Baron over there? Now you don't.";
 
 // Railgun
-MERCH_CAT_RAILGUN                 = "PB's Weapon Pack (Experimental)";
+MERCH_CAT_RAILGUN                 = "Bangers & Mash (Experimental)";
 MERCH_TAG_RAILGUN                 = "XM99 Experimental Railgun";
 MERCH_FLAVOR_RAILGUN              = "You've seen the fires of Hell, haven't you?";
 
 // Railgun Dynamo
-MERCH_CAT_RAILGUNDYNAMO           = "PB's Weapon Pack (Experimental)";
+MERCH_CAT_RAILGUNDYNAMO           = "Bangers & Mash (Experimental)";
 MERCH_TAG_RAILGUNDYNAMO           = "XM99 Experimental Railgun Dynamo";
 MERCH_FLAVOR_RAILGUNDYNAMO        = "A recharging device for the XM99. Required for continued operation of the weapon.";
 
@@ -425,7 +425,7 @@ MERCH_TAG_RUBYMASER               = "Ruby Maser";
 MERCH_FLAVOR_RUBYMASER            = "It can even heat up leftover pizza! Once.";
 
 // Ruger1022
-MERCH_CAT_RUGER1022               = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_RUGER1022               = "Bangers & Mash (Rifles)";
 MERCH_TAG_RUGER1022               = "Buger M22 Target Rifle";
 MERCH_FLAVOR_RUGER1022            = "Gone from plinkin' beer cans to plinkin' babuins.";
 
@@ -455,7 +455,7 @@ MERCH_TAG_SLAYER                  = "Slayer";
 MERCH_FLAVOR_SLAYER               = "The barrel grew back.";
 
 // Sledgehammer
-MERCH_CAT_SLEDGEHAMMER            = "PB's Weapon Pack (Melee)";
+MERCH_CAT_SLEDGEHAMMER            = "Bangers & Mash (Melee)";
 MERCH_TAG_SLEDGEHAMMER            = "Sledgehammer";
 MERCH_FLAVOR_SLEDGEHAMMER         = "A hefty master key for any locked doors (or demons), doorbuster be damned.";
 
@@ -480,12 +480,12 @@ MERCH_TAG_SPNKR                   = "SPNKR-XP SSM Launcher";
 MERCH_FLAVOR_SPNKR                = "Sometimes a cigar is just a cigar, this is one expensive cigar.";
 
 // Steyr ACR
-MERCH_CAT_STEYR                   = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_STEYR                   = "Bangers & Mash (Rifles)";
 MERCH_TAG_STEYR                   = "Austere M17 Flechette Rifle";
 MERCH_FLAVOR_STEYR                = "Don't judge this gun by its appearance.";
 
 // Street Sweeper
-MERCH_CAT_STREETSWEEPER           = "PB's Weapon Pack (Rifles)";
+MERCH_CAT_STREETSWEEPER           = "Bangers & Mash (Rifles)";
 MERCH_TAG_STREETSWEEPER           = "Raycob Urban Destroyer";
 MERCH_FLAVOR_STREETSWEEPER        = "All fun and games until you need to reload.";
 
@@ -505,7 +505,7 @@ MERCH_TAG_UMP45                   = "UMP-45";
 MERCH_FLAVOR_UMP45                = "Doesn't sit at home plate all day.";
 
 // Uragan
-MERCH_CAT_URAGAN                  = "PB's Weapon Pack (Pistols)";
+MERCH_CAT_URAGAN                  = "Bangers & Mash (Pistols)";
 MERCH_TAG_URAGAN                  = "Arkoudi M12/5 Shotgun";
 MERCH_FLAVOR_URAGAN               = "An itty-bitty shotgun that'll fit in your purse.";
 
@@ -670,7 +670,7 @@ MERCH_TAG_FAK                     = "Field Assembly Kit";
 MERCH_FLAVOR_FAK                  = "Armor almost gone? Shield generator giving out? Well go FAK yourself.";
 
 // Fire Extinguisher
-MERCH_CAT_FIREEXTINGUISHER        = "PB's Weapon Pack";
+MERCH_CAT_FIREEXTINGUISHER        = "Bangers & Mash";
 MERCH_TAG_FIREEXTINGUISHER        = "Fire Extinguisher";
 MERCH_FLAVOR_FIREEXTINGUISHER     = "This might just save your bacon.";
 
@@ -980,7 +980,7 @@ MERCH_TAG_GASTANK                 = "Fuel Tank";
 MERCH_FLAVOR_GASTANK              = "Fire up the BBQ!";
 
 // Gas Grenade
-MERCH_CAT_GASGRENADE              = "PB's Weapon Pack";
+MERCH_CAT_GASGRENADE              = "Bangers & Mash";
 MERCH_TAG_GASGRENADE              = "'Roller' Toxic Gas Grenade";
 MERCH_FLAVOR_GASGRENADE           = "Smell that air! Couldn't you just drink it like booze?!";
 
@@ -1000,7 +1000,7 @@ MERCH_TAG_MG13GRENADE             = "MG13 Grenade";
 MERCH_FLAVOR_MG13GRENADE          = "Dome of death.";
 
 // Napalm Tank
-MERCH_CAT_NAPALMTANK              = "PB's Weapon Pack";
+MERCH_CAT_NAPALMTANK              = "Bangers & Mash";
 MERCH_TAG_NAPALMTANK              = "Napalm Tank";
 MERCH_FLAVOR_NAPALMTANK           = "Burns hotter than the Tyrant's asshole.";
 
@@ -1015,7 +1015,7 @@ MERCH_TAG_THUNDERGRENADE          = "Thunder Grenade";
 MERCH_FLAVOR_THUNDERGRENADE       = "Shockingly fun to use.";
 
 // White Phosphorus Grenade
-MERCH_CAT_WPGRENADE               = "PB's Weapon Pack";
+MERCH_CAT_WPGRENADE               = "Bangers & Mash";
 MERCH_TAG_WPGRENADE               = "'Willie Pete' White Phosphorus Grenade";
 MERCH_FLAVOR_WPGRENADE            = "Enjoy in moderation!";
 
