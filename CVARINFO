@@ -215,6 +215,24 @@ server bool hdm_enable_mauler               = true;
 server bool hdm_enable_zorcher              = true;
 server bool hdm_enable_ndm                  = true;
 
+// RadTech
+server bool hdm_enable_10mmpistol           = true;
+server bool hdm_enable_sigcow               = true;
+server bool hdm_enable_snubnose             = true;
+server bool hdm_enable_d93                  = true;
+server bool hdm_enable_flaregun             = true;
+server bool hdm_enable_flaregunmetal        = true;
+server bool hdm_enable_hzm                  = true;
+server bool hdm_enable_juan                 = true;
+server bool hdm_enable_minerva              = true;
+server bool hdm_enable_doomhunter           = true;
+server bool hdm_enable_llhunter             = true;
+server bool hdm_enable_xhunter              = true;
+server bool hdm_enable_sarevolver           = true;
+server bool hdm_enable_10mmreloader         = true;
+server bool hdm_enable_cacoplush            = true;
+server bool hdm_enable_radicola             = true;
+
 // Ugly as Sin
 server bool hdm_enable_ammopouch            = true;
 server bool hdm_enable_respirator           = true;
