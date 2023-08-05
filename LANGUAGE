@@ -754,6 +754,11 @@ MERCH_CAT_ANTIRADBOOTS            = "RadTech Inc.";
 MERCH_TAG_ANTIRADBOOTS            = "Anti-Radiation Boots";
 MERCH_FLAVOR_ANTIRADBOOTS         = "When you don't want your feet getting irradiated.";
 
+// Assault Pack
+MERCH_CAT_ASSAULTPACK             = "Ugly as Sin";
+MERCH_TAG_ASSAULTPACK             = "Assault Pack";
+MERCH_FLAVOR_ASSAULTPACK          = "May or may not contain anything useful inside.";
+
 // Augmentation Canister
 MERCH_CAT_AUGCANISTER             = "UNATCO";
 MERCH_TAG_AUGCANISTER             = "Augmentation Canister";

@@ -10,6 +10,18 @@ class HDAmmoPouchStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_AMMOPOUCH"); }
 }
 
+class HDAssaultPackStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_assaultpack; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ASSAULTPACK"); }
+	override Name GetItem() { return 'UaS_WildAssaultPack'; }
+	override string GetIcon() { return "UGSQA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ASSAULTPACK"); }
+	override int GetBasePrice() { return 120; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ASSAULTPACK"); }
+}
+
 class HDRespiratorStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_respirator; }

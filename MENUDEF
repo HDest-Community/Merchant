@@ -484,6 +484,7 @@ OptionMenu "MerchStoreFilterUaS"
 
 	StaticText "Items"
 	Option "$MERCH_TAG_AMMOPOUCH", "hdm_enable_ammopouch", "OnOff"
+	Option "$MERCH_TAG_ASSAULTPACK", "hdm_enable_assaultpack", "OnOff"
 	Option "$MERCH_TAG_RESPIRATOR", "hdm_enable_respirator", "OnOff"
 	Option "$MERCH_TAG_MESSKIT", "hdm_enable_messkit", "OnOff"
 	Option "$MERCH_TAG_FOODRATION", "hdm_enable_foodration", "OnOff"
