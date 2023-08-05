@@ -5,7 +5,7 @@
 // ----------------
 
 // 10mm Pistol
-MERCH_CAT_10MMPISTOL              = "RadTech Inc.";
+MERCH_CAT_10MMPISTOL              = "RadTech Inc. (Handguns)";
 MERCH_TAG_10MMPISTOL              = "10mm Pistol";
 MERCH_FLAVOR_10MMPISTOL           = "Hope your wrists can handle the recoil.";
 
@@ -144,13 +144,23 @@ MERCH_CAT_355SMG                  = "Bangers & Mash (Rifles)";
 MERCH_TAG_355SMG                  = "Volt M35A1 HPC SMG";
 MERCH_FLAVOR_355SMG               = "Armored marines got you down? No problem!";
 
+// Colt 1911
+MERCH_CAT_COLT1911                = "RadTech Inc. (Handguns)";
+MERCH_TAG_COLT1911                = "Colt 1911";
+MERCH_FLAVOR_COLT1911             = "Hoo-ah!";
+
 // Combat Knife
 MERCH_CAT_KNIFE                   = "Bangers & Mash (Melee)";
 MERCH_TAG_KNIFE                   = "Combat Knife";
 MERCH_FLAVOR_KNIFE                = "A no-frills combat knife, in case you want to keep your hands clean.";
 
+// Combat Shotgun
+MERCH_CAT_COMBATSHOTGUN           = "RadTech Inc. (Shotguns)";
+MERCH_TAG_COMBATSHOTGUN           = "Combat Shotgun";
+MERCH_FLAVOR_COMBATSHOTGUN        = "Hasta la vista, baby!";
+
 // DM-93 Plasmabuster
-MERCH_CAT_D93                     = "RadTech Inc.";
+MERCH_CAT_D93                     = "RadTech Inc. (Energy)";
 MERCH_TAG_D93                     = "DM-93 Plasma Rifle";
 MERCH_FLAVOR_D93                  = "Melting demons like it's 1993!";
 
@@ -160,9 +170,14 @@ MERCH_TAG_DMR                     = "PG667 Designated Marksman Rifle";
 MERCH_FLAVOR_DMR                  = "Shoot through that marine's visor from 200 meters away. If it doesn't misfeed.";
 
 // Doomed Hunter
-MERCH_CAT_DOOMHUNTER              = "RadTech Inc.";
+MERCH_CAT_DOOMHUNTER              = "RadTech Inc. (Shotguns)";
 MERCH_TAG_DOOMHUNTER              = "Doomed Shotgun";
 MERCH_FLAVOR_DOOMHUNTER           = "I have a feeling you won't be using this for duck hunting.";
+
+// Duck Hunter
+MERCH_CAT_DUCKHUNTER              = "RadTech Inc. (Shotguns)";
+MERCH_TAG_DUCKHUNTER              = "Duck Hunter";
+MERCH_FLAVOR_DUCKHUNTER           = "Mind the retriever.";
 
 // Executioner
 MERCH_CAT_EXECUTIONER             = "AceCorp";
@@ -170,7 +185,7 @@ MERCH_TAG_EXECUTIONER             = "Executioner";
 MERCH_FLAVOR_EXECUTIONER          = "Just get it the fuck away from me. This thing is fucking cursed.";
 
 // Explosive Hunter
-MERCH_CAT_XHUNTER                 = "RadTech Inc.";
+MERCH_CAT_XHUNTER                 = "RadTech Inc. (Shotguns)";
 MERCH_TAG_XHUNTER                 = "Explosive Shotgun";
 MERCH_FLAVOR_XHUNTER              = "It's like a Hunter and a Blooper had a one night stand.";
 
@@ -195,12 +210,12 @@ MERCH_TAG_FLAMENWERFER            = "Flamenwerfer 77";
 MERCH_FLAVOR_FLAMENWERFER         = "It werfs flammen.";
 
 // Flare Gun (Metal)
-MERCH_CAT_FLAREGUNMETAL           = "RadTech Inc.";
-MERCH_TAG_FLAREGUNMETAL           = "Metal Flare Gun";
+MERCH_CAT_FLAREGUNMETAL           = "RadTech Inc. (Handguns)";
+MERCH_TAG_FLAREGUNMETAL           = "Steel Flare Gun";
 MERCH_FLAVOR_FLAREGUNMETAL        = "Doubles as an emergency survival shotgun.";
 
 // Flare Gun (Plastic)
-MERCH_CAT_FLAREGUN                = "RadTech Inc.";
+MERCH_CAT_FLAREGUN                = "RadTech Inc. (Handguns)";
 MERCH_TAG_FLAREGUN                = "Flare Gun";
 MERCH_FLAVOR_FLAREGUN             = "Useful for finding your way through dark places.";
 
@@ -208,6 +223,16 @@ MERCH_FLAVOR_FLAREGUN             = "Useful for finding your way through dark pl
 MERCH_CAT_FNFAL                   = "Bangers & Mash (Rifles)";
 MERCH_TAG_FNFAL                   = "UN-AF L7A1 MG";
 MERCH_FLAVOR_FNFAL                = "Give those abominations a taste of true freedom.";
+
+// FP-45
+MERCH_CAT_FP45                    = "RadTech Inc. (Handguns)";
+MERCH_TAG_FP45                    = "FP-45 'Liberator' Pistol";
+MERCH_FLAVOR_FP45                 = "Do you even need more than one shot?";
+
+// Frag Cannon
+MERCH_CAT_FRAGCANNON              = "RadTech Inc. (Explosives)";
+MERCH_TAG_FRAGCANNON              = "'Frag Cannon' Frag Grenade Launcher";
+MERCH_FLAVOR_FRAGCANNON           = "Is your arm tired?";
 
 // Frontiersman
 MERCH_CAT_FRONTIERSMAN            = "Icarus Innovations";
@@ -234,6 +259,11 @@ MERCH_CAT_GFB9                    = "Icarus Innovations";
 MERCH_TAG_GFB9                    = "GFB-9 'Backup Plan'";
 MERCH_FLAVOR_GFB9                 = "For when all else fails.";
 
+// Golden Single Action Revolver
+MERCH_CAT_GOLDENSAREVOLVER        = "RadTech Inc. (Handguns)";
+MERCH_TAG_GOLDENSAREVOLVER        = "The Golden Gun";
+MERCH_FLAVOR_GOLDENSAREVOLVER     = "I don't expect these demons to talk, I expect them to die!";
+
 // Greely
 MERCH_CAT_GREELY                  = "Peppergrinder (Shotguns)";
 MERCH_TAG_GREELY                  = "Greely 12";
@@ -250,7 +280,7 @@ MERCH_TAG_GUNGNIR                 = "'Gungnir' Frag beam Rifle";
 MERCH_FLAVOR_GUNGNIR              = "Stole it right out of some deity's closet. I hope they don't need it.";
 
 // Hacked ZM66
-MERCH_CAT_HZM                     = "RadTech Inc.";
+MERCH_CAT_HZM                     = "RadTech Inc. (Rifles)";
 MERCH_TAG_HZM                     = "Hacked ZM66 Rifle";
 MERCH_FLAVOR_HZM                  = "Better hope Volt doesn't find out about these, or we're both screwed.";
 
@@ -274,6 +304,11 @@ MERCH_CAT_HUNTER                  = "Vanilla";
 MERCH_TAG_HUNTER                  = "Hunter";
 MERCH_FLAVOR_HUNTER               = "Come on, baby, just pump it.";
 
+// Hush Puppy
+MERCH_CAT_HUSHPUPPY               = "RadTech Inc. (Handguns)";
+MERCH_TAG_HUSHPUPPY               = "'Hush Puppy' Silenced Pistol";
+MERCH_FLAVOR_HUSHPUPPY            = "It's a shame the slide sticks, though";
+
 // Ironsight Lib
 MERCH_CAT_ILIB                    = "Peppergrinder (Rifles)";
 MERCH_TAG_ILIB                    = "Irons Liberator";
@@ -285,9 +320,9 @@ MERCH_TAG_JACKDAW                 = "'Jackdaw' 9mm SMG";
 MERCH_FLAVOR_JACKDAW              = "It's like five SMGs strapped together, but you can only fire one at a time.";
 
 // Juan Horeshoe Pistol
-MERCH_CAT_JUAN                     = "RadTech Inc.";
-MERCH_TAG_JUAN                     = "Juan";
-MERCH_FLAVOR_JUAN                  = "J u a n .";
+MERCH_CAT_JUAN                    = "RadTech Inc. (Handguns)";
+MERCH_TAG_JUAN                    = "Juan";
+MERCH_FLAVOR_JUAN                 = "J u a n .";
 
 // Kharon
 MERCH_CAT_KHARON                  = "Bangers & Mash (Melee)";
@@ -295,7 +330,7 @@ MERCH_TAG_KHARON                  = "Replica Kharon";
 MERCH_FLAVOR_KHARON               = "Filled with a history of violence and anguish... except this one's a replica. Still effective.";
 
 // Less-Lethal Shotgun
-MERCH_CAT_LLHUNTER                = "RadTech Inc.";
+MERCH_CAT_LLHUNTER                = "RadTech Inc. (Shotguns)";
 MERCH_TAG_LLHUNTER                = "Bernoulli M1053";
 MERCH_FLAVOR_LLHUNTER             = "Whatcha gonna do with this, arrest the demons?";
 
@@ -375,7 +410,7 @@ MERCH_TAG_MICROGUN                = "H*M H576 Smartgun";
 MERCH_FLAVOR_MICROGUN             = "Keep the trigger squeezed down and it'll do the thinking for you.";
 
 // Minerva
-MERCH_CAT_MINERVA                 = "RadTech Inc.";
+MERCH_CAT_MINERVA                 = "RadTech Inc. (Heavy)";
 MERCH_TAG_MINERVA                 = "Minerva";
 MERCH_FLAVOR_MINERVA              = "She ain't no mouse , I'll tell you that much.";
 
@@ -404,6 +439,11 @@ MERCH_CAT_NYX                     = "Icarus Innovations";
 MERCH_TAG_NYX                     = "CM-3 'Nyx'";
 MERCH_FLAVOR_NYX                  = "The Queen of Thicc.";
 
+// Obrozz
+MERCH_CAT_OBROZZ                  = "RadTech Inc. (Handguns)";
+MERCH_TAG_OBROZZ                  = "'Obrozz' Sawn-Off Boss";
+MERCH_FLAVOR_OBROZZ               = "Now yer a real gunslinger.";
+
 // Oddball
 MERCH_CAT_ODDBALL                 = "Peppergrinder (Handguns)";
 MERCH_TAG_ODDBALL                 = "Oddball";
@@ -429,10 +469,20 @@ MERCH_CAT_PD42                    = "Icarus Innovations";
 MERCH_TAG_PD42                    = "PD-42";
 MERCH_FLAVOR_PD42                 = "Silent and deadlier.";
 
+// Phazer
+MERCH_CAT_PHAZER                  = "RadTech Inc. (Energy)";
+MERCH_TAG_PHAZER                  = "'Phazer' Energy Pistol";
+MERCH_FLAVOR_PHAZER               = "Some secret agent dropped this outside some skyscraper.";
+
 // Plasma Pistol
 MERCH_CAT_PLASMAPISTOL            = "Peppergrinder (Energy)";
 MERCH_TAG_PLASMAPISTOL            = "Plasma Pistol";
 MERCH_FLAVOR_PLASMAPISTOL         = "Don't overcharge it, this baby gets hot!";
+
+// PPSh-41
+MERCH_CAT_PPSH41                  = "RadTech Inc. (Rifles)";
+MERCH_TAG_PPSH41                  = "PPSh-41 'Papasha' SMG";
+MERCH_FLAVOR_PPSH41               = "Give 'em some indigestion!";
 
 // PS20
 MERCH_CAT_PS20                    = "Bangers & Mash (Disposables)";
@@ -479,6 +529,11 @@ MERCH_CAT_RUGER1022               = "Bangers & Mash (Rifles)";
 MERCH_TAG_RUGER1022               = "Buger M22 Target Rifle";
 MERCH_FLAVOR_RUGER1022            = "Gone from plinkin' beer cans to plinkin' babuins.";
 
+// Savage 99
+MERCH_CAT_SAVAGE99                = "RadTech Inc. (Rifles)";
+MERCH_TAG_SAVAGE99                = "Savage 99 Lever-Action Rifle";
+MERCH_FLAVOR_SAVAGE99             = "Goin' big game huntin'?";
+
 // Sawed-off Slayer
 MERCH_CAT_SAWEDOFFSLAYER          = "Peppergrinder (Shotguns)";
 MERCH_TAG_SAWEDOFFSLAYER          = "Sawed-off Slayer";
@@ -500,12 +555,12 @@ MERCH_TAG_SCORPION                = "'Scorpion' 35mm Sniper Cannon";
 MERCH_FLAVOR_SCORPION             = "Deletes just about anything.";
 
 // Sig-Cow
-MERCH_CAT_SIGCOW                  = "RadTech Inc.";
+MERCH_CAT_SIGCOW                  = "RadTech Inc. (Rifles)";
 MERCH_TAG_SIGCOW                  = "M-211 Sig-Cow";
 MERCH_FLAVOR_SIGCOW               = "Don't have a Cow, man? Then buy yourself one of these!";
 
 // Single Action Revolver
-MERCH_CAT_SAREVOLVER              = "RadTech Inc.";
+MERCH_CAT_SAREVOLVER              = "RadTech Inc. (Handguns)";
 MERCH_TAG_SAREVOLVER              = "Single Action Revolver";
 MERCH_FLAVOR_SAREVOLVER           = "This thing probably belonged to one of your ancestors. Hope it still shoots well.";
 
@@ -530,7 +585,7 @@ MERCH_TAG_SMG                     = "SMG";
 MERCH_FLAVOR_SMG                  = "Silent, but deadly... If you shoot it for long enough, that is.";
 
 // Snubnose Revolver
-MERCH_CAT_SNUBNOSE                = "RadTech Inc.";
+MERCH_CAT_SNUBNOSE                = "RadTech Inc. (Handguns)";
 MERCH_TAG_SNUBNOSE                = "Detective Special";
 MERCH_FLAVOR_SNUBNOSE             = "Hands up! Grab air, you babies! Or I'll squeeze this thing, and I don't mean maybe!";
 
@@ -544,6 +599,11 @@ MERCH_CAT_SPNKR                   = "WAN Industries";
 MERCH_TAG_SPNKR                   = "SPNKR-XP SSM Launcher";
 MERCH_FLAVOR_SPNKR                = "Sometimes a cigar is just a cigar, this is one expensive cigar.";
 
+// Sten Mk2
+MERCH_CAT_STENMK2                 = "RadTech Inc. (Rifles)";
+MERCH_TAG_STENMK2                 = "Sten Mk.2(S) Silenced SMG";
+MERCH_FLAVOR_STENMK2              = "I thought these things were mass produce...";
+
 // Steyr ACR
 MERCH_CAT_STEYR                   = "Bangers & Mash (Rifles)";
 MERCH_TAG_STEYR                   = "Austere M17 Flechette Rifle";
@@ -554,15 +614,25 @@ MERCH_CAT_STREETSWEEPER           = "Bangers & Mash (Rifles)";
 MERCH_TAG_STREETSWEEPER           = "Raycob Urban Destroyer";
 MERCH_FLAVOR_STREETSWEEPER        = "All fun and games until you need to reload.";
 
-// TRO-G
-MERCH_CAT_TROG                    = "Peppergrinder (Rifles)";
-MERCH_TAG_TROG                    = "TRO-G Rifle";
-MERCH_FLAVOR_TROG                 = "Blast from the past.";
+// Stun Gun
+MERCH_CAT_STUNGUN                 = "RadTech Inc. (Energy)";
+MERCH_TAG_STUNGUN                 = "'ShokStop' Stun Gun";
+MERCH_FLAVOR_STUNGUN              = "Don't taze me, bro!";
 
 // Thunderbuster
 MERCH_CAT_THUNDERBUSTER           = "Vanilla";
 MERCH_TAG_THUNDERBUSTER           = "ThunderBuster";
 MERCH_FLAVOR_THUNDERBUSTER        = "Zap zap BOOM!";
+
+// TRO-G
+MERCH_CAT_TROG                    = "Peppergrinder (Rifles)";
+MERCH_TAG_TROG                    = "TRO-G Rifle";
+MERCH_FLAVOR_TROG                 = "Blast from the past.";
+
+// TT-33
+MERCH_CAT_TT33                    = "RadTech Inc. (Handguns)";
+MERCH_TAG_TT33                    = "TT-33 'Tokarev' Pistol";
+MERCH_FLAVOR_TT33                 = "Make them go blyat.";
 
 // UMP-45
 MERCH_CAT_UMP45                   = "Icarus Innovations";
@@ -646,8 +716,18 @@ MERCH_FLAVOR_ZORCHER              = "These don't come with a cereal box. Sorry."
 
 // 10mm Reloading Device
 MERCH_CAT_10MMRELOADER            = "RadTech Inc.";
-MERCH_TAG_10MMRELOADER            = "10mm Reloading Device";
+MERCH_TAG_10MMRELOADER            = "10mm Auto-Reloader";
 MERCH_FLAVOR_10MMRELOADER         = "Turns pistol ammo into better pistol ammo.";
+
+// .300 Savage Reloading Device
+MERCH_CAT_300SAVAGERELOADER       = "RadTech Inc.";
+MERCH_TAG_300SAVAGERELOADER       = ".300 Savage Auto-Reloader";
+MERCH_FLAVOR_300SAVAGERELOADER    = "Turns rifle ammo into Russian rifle ammo.";
+
+// 7.62 Tokarev Reloading Device
+MERCH_CAT_762TOKAREVRELOADER      = "RadTech Inc.";
+MERCH_TAG_762TOKAREVRELOADER      = "7mm Tokarev Auto-Reloader";
+MERCH_FLAVOR_762TOKAREVRELOADER   = "Turns pistol ammo into Russian pistol ammo.";
 
 // 7mm Reloading Device
 MERCH_CAT_7MMRELOADER             = "Vanilla";
@@ -663,6 +743,16 @@ MERCH_FLAVOR_AMMOBOX              = "I take no responsibility if this explodes. 
 MERCH_CAT_AMMOPOUCH               = "Ugly as Sin";
 MERCH_TAG_AMMOPOUCH               = "Ammo Pouch";
 MERCH_FLAVOR_AMMOPOUCH            = "I swear I had some ammo in here somewhere.";
+
+// Anti-Gravity Boots
+MERCH_CAT_ANTIGRAVBOOTS           = "RadTech Inc.";
+MERCH_TAG_ANTIGRAVBOOTS           = "Anti-Gravity Boots";
+MERCH_FLAVOR_ANTIGRAVBOOTS        = "Powered by radiation! I'm sure they're safe.";
+
+// Anti-Radiation Boots
+MERCH_CAT_ANTIRADBOOTS            = "RadTech Inc.";
+MERCH_TAG_ANTIRADBOOTS            = "Anti-Radiation Boots";
+MERCH_FLAVOR_ANTIRADBOOTS         = "When you don't want your feet getting irradiated.";
 
 // Augmentation Canister
 MERCH_CAT_AUGCANISTER             = "UNATCO";
@@ -744,10 +834,20 @@ MERCH_CAT_FAK                     = "AceCorp (Advanced)";
 MERCH_TAG_FAK                     = "Field Assembly Kit";
 MERCH_FLAVOR_FAK                  = "Armor almost gone? Shield generator giving out? Well go FAK yourself.";
 
+// Field Medic Kit
+MERCH_CAT_FIELDMEDICKIT           = "RadTech Inc.";
+MERCH_TAG_FIELDMEDICKIT           = "Field Medical Kit";
+MERCH_FLAVOR_FIELDMEDICKIT        = "Better than improvising it yourself.";
+
 // Fire Extinguisher
 MERCH_CAT_FIREEXTINGUISHER        = "Bangers & Mash";
 MERCH_TAG_FIREEXTINGUISHER        = "Fire Extinguisher";
 MERCH_FLAVOR_FIREEXTINGUISHER     = "This might just save your bacon.";
+
+// First Aid Spray
+MERCH_CAT_FIRSTAIDSPRAY           = "RadTech Inc.";
+MERCH_TAG_FIRSTAIDSPRAY           = "First Aid Spray";
+MERCH_FLAVOR_FIRSTAIDSPRAY        = "A secret recipe of herbs and spices.";
 
 // Flashlight
 MERCH_CAT_DDZFLASHLIGHT           = "AceCorp (Miscellaneous)";
@@ -768,6 +868,11 @@ MERCH_FLAVOR_GASMASK              = "Found this in an abandoned metro next to so
 MERCH_CAT_HACKED7MMRELOADER       = "AceCorp (Supply)";
 MERCH_TAG_HACKED7MMRELOADER       = "Hacked Reloader";
 MERCH_FLAVOR_HACKED7MMRELOADER    = "BRBRBRBRBRBRBRBR *clack* but faster.";
+
+// Half-Pack
+MERCH_CAT_HALFPACK                = "RadTech Inc.";
+MERCH_TAG_HALFPACK                = "Half-Pack";
+MERCH_FLAVOR_HALFPACK             = "May or may not contain anything useful inside.";
 
 // HUD Helmet
 MERCH_CAT_HHELMET                 = "Dastrukar";
@@ -833,6 +938,11 @@ MERCH_FLAVOR_PORTABLETELEPORTER   = "Ambush, you say?";
 MERCH_CAT_RADICOLA                = "RadTech Inc.";
 MERCH_TAG_RADICOLA                = "Radi-Cola";
 MERCH_FLAVOR_RADICOLA             = "Put some pep in your step with a refreshing energy drink!";
+
+// Radi-Radio
+MERCH_CAT_RADIRADIO               = "RadTech Inc.";
+MERCH_TAG_RADIRADIO               = "UAC Pocket Radio";
+MERCH_FLAVOR_RADIRADIO            = "Not much on the airwaves these days...";
 
 // Radsuit
 MERCH_CAT_RADSUIT                 = "Vanilla";
@@ -1077,7 +1187,7 @@ MERCH_FLAVOR_BATTERY              = "Positively charged.";
 // Birdshot
 MERCH_CAT_BIRDSHOT                = "Joint Task Force";
 MERCH_TAG_BIRDSHOT                = "Birdshot Shells";
-MERCH_FLAVOR_BIRDSHOT             = "Mind the retrievers.";
+MERCH_FLAVOR_BIRDSHOT             = "Goin' skeet shootin'?";
 
 // Blackhawk Bolt (Regular)
 MERCH_CAT_BLACKHAWKBOLTREG        = "AceCorp";
@@ -1103,6 +1213,11 @@ MERCH_FLAVOR_BLACKHAWKBOLTNUCLEAR = "To whom it may concern.";
 MERCH_CAT_BRONTOROUND             = "Vanilla";
 MERCH_TAG_BRONTOROUND             = "Brontornis Round";
 MERCH_FLAVOR_BRONTOROUND          = "Overcompensating, aren't we?";
+
+// Dynamite
+MERCH_CAT_DYNAMITE                = "RadTech Inc.";
+MERCH_TAG_DYNAMITE                = "Dynamite";
+MERCH_FLAVOR_DYNAMITE             = "Do I look like a propsector?";
 
 // Explosive Shells
 MERCH_CAT_XSHELL                  = "Joint Task Force";
@@ -1148,6 +1263,11 @@ MERCH_FLAVOR_LLSHELL              = "I have no idea why anyone would want these,
 MERCH_CAT_MG13GRENADE             = "Melonades";
 MERCH_TAG_MG13GRENADE             = "MG13 Grenade";
 MERCH_FLAVOR_MG13GRENADE          = "Dome of death.";
+
+// Micro-Cell
+MERCH_CAT_MICROCELL               = "RadTech Inc.";
+MERCH_TAG_MICROCELL               = "Micro-Cell";
+MERCH_FLAVOR_MICROCELL            = "For micro-zaps.";
 
 // Napalm Tank
 MERCH_CAT_NAPALMTANK              = "Bangers & Mash";
@@ -1203,6 +1323,11 @@ MERCH_FLAVOR_GARRISONARMOUR       = "Should last long enough for me to see you a
 MERCH_CAT_HEVARMOUR               = "Icarus Innovations";
 MERCH_TAG_HEVARMOUR               = "Hazardous Environment Armor";
 MERCH_FLAVOR_HEVARMOUR            = "Why does it have Greek letters all over it?";
+
+// Leather Armour
+MERCH_CAT_LEATHERARMOUR           = "RadTech Inc.";
+MERCH_TAG_LEATHERARMOUR           = "Leather Armor";
+MERCH_FLAVOR_LEATHERARMOUR        = "Goes over your other armor.";
 
 // Sneaking Suit
 MERCH_CAT_SNEAKINGSUIT            = "WAN Industries";
