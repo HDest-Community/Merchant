@@ -1,15 +1,37 @@
 version "4.10"
 
-#include "ZScript/MerchZForms/Include.zsc" // [Ace] For the menu.
-#include "ZSCRIPT.MerchantMenu.zsc"
-#include "ZSCRIPT.MerchantStore.zsc"
-#include "ZSCRIPT.StoreItems.zsc"
-#include "ZSCRIPT.MerchantSkins.zsc"
-#include "ZSCRIPT.SlotMachine.zsc"
-#include "ZSCRIPT.PlayingCards.zsc"
-#include "ZSCRIPT.Poker.zsc"
-#include "ZSCRIPT.Crystals.zsc"
-#include "ZSCRIPT.Bounty.zsc"
+// [Ace] For the menu.
+#include "zscript/MerchZForms/Include.zsc"
+
+#include "zscript/accensus/merchant/merchantMenu.zsc"
+#include "zscript/accensus/merchant/merchantSkins.zsc"
+
+#include "zscript/accensus/merchant/store/merchantStore.zsc"
+#include "zscript/accensus/merchant/store/storeItems.zsc"
+
+#include "zscript/accensus/merchant/store/items/vanilla.zsc"
+#include "zscript/accensus/merchant/store/items/bulletLib.zsc"
+#include "zscript/accensus/merchant/store/items/aceCorp.zsc"
+#include "zscript/accensus/merchant/store/items/bryan.zsc"
+#include "zscript/accensus/merchant/store/items/corporateArmor.zsc"
+#include "zscript/accensus/merchant/store/items/dastrukar.zsc"
+#include "zscript/accensus/merchant/store/items/deusDoom.zsc"
+#include "zscript/accensus/merchant/store/items/hexadoken.zsc"
+#include "zscript/accensus/merchant/store/items/hoagieTech.zsc"
+#include "zscript/accensus/merchant/store/items/icarus.zsc"
+#include "zscript/accensus/merchant/store/items/melonades.zsc"
+#include "zscript/accensus/merchant/store/items/peppergrinder.zsc"
+#include "zscript/accensus/merchant/store/items/potetobloke.zsc"
+#include "zscript/accensus/merchant/store/items/radtech.zsc"
+#include "zscript/accensus/merchant/store/items/uglyAsSin.zsc"
+#include "zscript/accensus/merchant/store/items/wanIndustries.zsc"
+
+#include "zscript/accensus/merchant/gamble/playingCards.zsc"
+#include "zscript/accensus/merchant/gamble/poker.zsc"
+#include "zscript/accensus/merchant/gamble/slotMachine.zsc"
+
+#include "zscript/accensus/merchant/econ/bounty.zsc"
+#include "zscript/accensus/merchant/econ/tiberium.zsc"
 
 class MerchantHandler : EventHandler
 {

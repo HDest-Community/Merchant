@@ -1,20 +1,3 @@
-#include "ZSCRIPT.StoreItems.Vanilla.zsc"
-#include "ZSCRIPT.StoreItems.BulletLib.zsc"
-#include "ZSCRIPT.StoreItems.AceCorp.zsc"
-#include "ZSCRIPT.StoreItems.Icarus.zsc"
-#include "ZSCRIPT.StoreItems.Peppergrinder.zsc"
-#include "ZSCRIPT.StoreItems.HoagieTech.zsc"
-#include "ZSCRIPT.StoreItems.Melonades.zsc"
-#include "ZSCRIPT.StoreItems.UaS.zsc"
-#include "ZSCRIPT.StoreItems.HexaDoken.zsc"
-#include "ZSCRIPT.StoreItems.DeusDoom.zsc"
-#include "ZSCRIPT.StoreItems.Bryan.zsc"
-#include "ZSCRIPT.StoreItems.Dastrukar.zsc"
-#include "ZSCRIPT.StoreItems.PBWeaponPack.zsc"
-#include "ZSCRIPT.StoreItems.WANIndustries.zsc"
-#include "ZSCRIPT.StoreItems.CorporateArmor.zsc"
-#include "ZSCRIPT.StoreItems.Radtech.zsc"
-
 class StoreCurrency abstract
 {
 	abstract Name GetCurrencyClass() const;
