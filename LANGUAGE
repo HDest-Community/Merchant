@@ -460,9 +460,9 @@ MERCH_TAG_P90                     = "BreakerTek P90";
 MERCH_FLAVOR_P90                  = "A veritable bullet-hose with no apparent downsides.";
 
 // P90 (Princess)
-MERCH_CAT_P90CROWN                = "Peppergrinder (Rifles)";
-MERCH_TAG_P90CROWN                = "BreakerTek Red Crown P90";
-MERCH_FLAVOR_P90CROWN             = "Perfect for rapid-fire exsanguination. And parties.";
+MERCH_CAT_P90PRINCESS             = "Peppergrinder (Rifles)";
+MERCH_TAG_P90PRINCESS             = "BreakerTek Red Crown P90";
+MERCH_FLAVOR_P90PRINCESS          = "Perfect for rapid-fire exsanguination. And parties.";
 
 // PD-42
 MERCH_CAT_PD42                    = "Icarus Innovations";

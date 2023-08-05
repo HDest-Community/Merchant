@@ -338,7 +338,7 @@ OptionMenu "MerchStoreFilterMelonades"
 	Title "Melonades Filters"
 
 	StaticText "Weapons"
-	Option "$MERCH_TAG_impactgrenade", "hdm_enable_impactgrenade", "OnOff"
+	Option "$MERCH_TAG_IMPACTGRENADE", "hdm_enable_impactgrenade", "OnOff"
 	Option "$MERCH_TAG_THUNDERGRENADE", "hdm_enable_thundergrenade", "OnOff"
 	Option "$MERCH_TAG_MG13GRENADE", "hdm_enable_mg13grenade", "OnOff"
 	StaticText ""
