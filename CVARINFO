@@ -258,6 +258,10 @@ server bool hdm_enable_halfpack             = true;
 server bool hdm_enable_radiradio            = true;
 server bool hdm_enable_leatherarmour        = true;
 
+// Sirus
+server bool hdm_enable_adhesive             = true;
+server bool hdm_enable_requisitionkit       = true;
+
 // Ugly as Sin
 server bool hdm_enable_ammopouch            = true;
 server bool hdm_enable_assaultpack          = true;

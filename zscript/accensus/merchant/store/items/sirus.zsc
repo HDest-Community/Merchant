@@ -1,0 +1,24 @@
+class HDAdhesiveStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_requisitionkit; }
+    override int GetType() { return SType_Item; }
+    override string GetCategory() { return Stringtable.localize("$MERCH_CAT_REQUISITIONKIT"); }
+    override Name GetItem() { return 'HDReqKitBox'; }
+    override string GetIcon() { return "REQQA0"; }
+    override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_REQUISITIONKIT"); }
+    override int GetBasePrice() { return 125; }
+    override int GetStoreAmount() { return random[merchrand](2, 5) * hdm_stock_item; }
+    override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_REQUISITIONKIT"); }
+}
+
+class RequisitionKitStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_adhesive; }
+    override int GetType() { return SType_Item; }
+    override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ADHESIVE"); }
+    override Name GetItem() { return 'VelvetAdhesive'; }
+    override string GetIcon() { return "VADHA0"; }
+    override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ADHESIVE"); }
+    override int GetBasePrice() { return 450; }
+    override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ADHESIVE"); }
+}

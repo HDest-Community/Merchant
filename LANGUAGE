@@ -734,6 +734,11 @@ MERCH_CAT_7MMRELOADER             = "Vanilla";
 MERCH_TAG_7MMRELOADER             = "7mm Reloading Device";
 MERCH_FLAVOR_7MMRELOADER          = "BRBRBRBRBRBRBRBR *clack*";
 
+// Adhesive
+MERCH_CAT_ADHESIVE                = "Takemi Medical Clinic";
+MERCH_TAG_ADHESIVE                = "Velvet Adhesive";
+MERCH_FLAVOR_ADHESIVE             = "Hand-made poultice that slowly invigorates you.";
+
 // Ammo Box
 MERCH_CAT_AMMOBOX                 = "Vanilla";
 MERCH_TAG_AMMOBOX                 = "Ammo Box";
@@ -958,6 +963,11 @@ MERCH_FLAVOR_RADSUIT              = "It smells funny inside.";
 MERCH_CAT_REARVIEWMIRROR          = "AceCorp (Miscellaneous)";
 MERCH_TAG_REARVIEWMIRROR          = "Rearview Mirror";
 MERCH_FLAVOR_REARVIEWMIRROR       = "They came from... BEHIND!";
+
+// Requisition Kit
+MERCH_CAT_REQUISITIONKIT          = "Sirus Inc.";
+MERCH_TAG_REQUISITIONKIT          = "Requisition Kit";
+MERCH_FLAVOR_REQUISITIONKIT       = "What's in the box? What's in the booooooooox!?";
 
 // Respirator
 MERCH_CAT_RESPIRATOR              = "Ugly as Sin";

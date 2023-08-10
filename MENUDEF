@@ -83,6 +83,7 @@ OptionMenu "MerchStoreFilters"
 	Submenu "Bangers & Mash", "MerchStoreFilterPotetobloke"
 	Submenu "Peppergrinder", "MerchStoreFilterPeppergrinder"
 	Submenu "Radtech", "MerchStoreFilterRadtech"
+	Submenu "Sirus", "MerchStoreFilterSirus"
 	Submenu "Ugly as Sin", "MerchStoreFilterUaS"
 	Submenu "WAN Industries", "MerchStoreFilterWAN"
 }
@@ -237,7 +238,6 @@ OptionMenu "MerchStoreFilterBryan"
 	Option "$MERCH_TAG_BULLETASSEMBLER", "hdm_enable_bulletassembler", "OnOff"
 	Option "$MERCH_TAG_ROCKETASSEMBLER", "hdm_enable_rocketassembler", "OnOff"
 	Option "$MERCH_TAG_M249RELOADER", "hdm_enable_m249RELOADER", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterCorporateArmour"
@@ -246,7 +246,6 @@ OptionMenu "MerchStoreFilterCorporateArmour"
 
 	StaticText "Armor"
 	Option "$MERCH_TAG_CORPORATEARMOUR", "hdm_enable_corporatearmour", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterDastrukar"
@@ -255,7 +254,6 @@ OptionMenu "MerchStoreFilterDastrukar"
 
 	StaticText "Armor"
 	Option "$MERCH_TAG_HHELMET", "hdm_enable_hhelmet", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterDeusDoom"
@@ -266,7 +264,6 @@ OptionMenu "MerchStoreFilterDeusDoom"
 	Option "$MERCH_TAG_AUGCANISTER", "hdm_enable_augcanister", "OnOff"
 	Option "$MERCH_TAG_AUGUPGRADE", "hdm_enable_augupgrade", "OnOff"
 	Option "$MERCH_TAG_BIOELECTRICCELL", "hdm_enable_bioelectriccell", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterHexadoken"
@@ -286,7 +283,6 @@ OptionMenu "MerchStoreFilterHexadoken"
 
 	StaticText "Items"
 	Option "$MERCH_TAG_MEDICALSCANNER", "hdm_enable_medicalscanner", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterHoagieTech"
@@ -295,7 +291,6 @@ OptionMenu "MerchStoreFilterHoagieTech"
 
 	StaticText "Weapons"
 	Option "$MERCH_TAG_ZM69", "hdm_enable_zm69", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterIcarus"
@@ -330,7 +325,6 @@ OptionMenu "MerchStoreFilterIcarus"
 
 	StaticText "Armor"
 	Option "$MERCH_TAG_HEVARMOUR", "hdm_enable_hevarmour", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterMelonades"
@@ -341,7 +335,6 @@ OptionMenu "MerchStoreFilterMelonades"
 	Option "$MERCH_TAG_IMPACTGRENADE", "hdm_enable_impactgrenade", "OnOff"
 	Option "$MERCH_TAG_THUNDERGRENADE", "hdm_enable_thundergrenade", "OnOff"
 	Option "$MERCH_TAG_MG13GRENADE", "hdm_enable_mg13grenade", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterPotetobloke"
@@ -384,7 +377,6 @@ OptionMenu "MerchStoreFilterPotetobloke"
 	Option "$MERCH_TAG_FIREAXE", "hdm_enable_fireaxe", "OnOff"
 	Option "$MERCH_TAG_SLEDGEHAMMER", "hdm_enable_sledgehammer", "OnOff"
 	Option "$MERCH_TAG_KHARON", "hdm_enable_kharon", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterPeppergrinder"
@@ -427,7 +419,6 @@ OptionMenu "MerchStoreFilterPeppergrinder"
 
 	StaticText "Ammunition"
 	Option "$MERCH_TAG_NDM", "hdm_enable_ndm", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterRadtech"
@@ -478,6 +469,15 @@ OptionMenu "MerchStoreFilterRadtech"
     Option "$MERCH_TAG_LEATHERARMOUR", "hdm_enable_leatherarmour", "OnOff"
 }
 
+OptionMenu "MerchStoreFilterSirus"
+{
+	Title "Sirus Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_ADHESIVE", "hdm_enable_adhesive", "OnOff"
+	Option "$MERCH_TAG_REQUISITIONKIT", "hdm_enable_requisitionkit", "OnOff"
+}
+
 OptionMenu "MerchStoreFilterUaS"
 {
 	Title "Ugly as Sin Filters"
@@ -489,7 +489,6 @@ OptionMenu "MerchStoreFilterUaS"
 	Option "$MERCH_TAG_MESSKIT", "hdm_enable_messkit", "OnOff"
 	Option "$MERCH_TAG_FOODRATION", "hdm_enable_foodration", "OnOff"
 	Option "$MERCH_TAG_WATERRATION", "hdm_enable_waterration", "OnOff"
-	StaticText ""
 }
 
 OptionMenu "MerchStoreFilterWAN"

@@ -23,6 +23,7 @@ version "4.10"
 #include "zscript/accensus/merchant/store/items/peppergrinder.zsc"
 #include "zscript/accensus/merchant/store/items/potetobloke.zsc"
 #include "zscript/accensus/merchant/store/items/radtech.zsc"
+#include "zscript/accensus/merchant/store/items/sirus.zsc"
 #include "zscript/accensus/merchant/store/items/uglyAsSin.zsc"
 #include "zscript/accensus/merchant/store/items/wanIndustries.zsc"
 
