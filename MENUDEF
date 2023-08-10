@@ -84,6 +84,7 @@ OptionMenu "MerchStoreFilters"
 	Submenu "Peppergrinder", "MerchStoreFilterPeppergrinder"
 	Submenu "Radtech", "MerchStoreFilterRadtech"
 	Submenu "Sirus", "MerchStoreFilterSirus"
+	Submenu "Sonoda", "MerchStoreFilterSonoda"
 	Submenu "Ugly as Sin", "MerchStoreFilterUaS"
 	Submenu "WAN Industries", "MerchStoreFilterWAN"
 }
@@ -474,8 +475,15 @@ OptionMenu "MerchStoreFilterSirus"
 	Title "Sirus Filters"
 
 	StaticText "Items"
-	Option "$MERCH_TAG_ADHESIVE", "hdm_enable_adhesive", "OnOff"
 	Option "$MERCH_TAG_REQUISITIONKIT", "hdm_enable_requisitionkit", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterSonoda"
+{
+	Title "Sonoda Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_ADHESIVE", "hdm_enable_adhesive", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterUaS"
