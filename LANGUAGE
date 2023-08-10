@@ -894,6 +894,11 @@ MERCH_CAT_GEARBOX                 = "FDA Approved";
 MERCH_TAG_GEARBOX                 = "Gear Box";
 MERCH_FLAVOR_GEARBOX              = "A hoarder's best friend.";
 
+// Gunsmith Pouch
+MERCH_CAT_GUNSMITHPOUCH           = "AceCorp";
+MERCH_TAG_GUNSMITHPOUCH           = "Gunsmith Pouch";
+MERCH_FLAVOR_GUNSMITHPOUCH        = "For when you just can't hold all of that gunpowder.";
+
 // Hacked Reloader
 MERCH_CAT_HACKED7MMRELOADER       = "AceCorp (Supply)";
 MERCH_TAG_HACKED7MMRELOADER       = "Hacked Reloader";
@@ -1333,6 +1338,36 @@ MERCH_FLAVOR_TORTOISEROCKET       = "It'll boom ya, it's the boomiest!";
 MERCH_CAT_WPGRENADE               = "Bangers & Mash";
 MERCH_TAG_WPGRENADE               = "'Willie Pete' White Phosphorus Grenade";
 MERCH_FLAVOR_WPGRENADE            = "Enjoy in moderation!";
+
+
+// ------------------
+// Crafting Materials
+// ------------------
+
+// Raw Brass
+MERCH_CAT_RAWBRASS                = "AceCorp (Crafting Materials)";
+MERCH_TAG_RAWBRASS                = "Raw Brass";
+MERCH_FLAVOR_RAWBRASS             = "Turn yer casings into other casings!";
+
+// Raw Lead
+MERCH_CAT_RAWLEAD                 = "AceCorp (Crafting Materials)";
+MERCH_TAG_RAWLEAD                 = "Raw Lead";
+MERCH_FLAVOR_RAWLEAD              = "such heavy, very toxic, wow!";
+
+// Raw Plastic
+MERCH_CAT_RAWPLASTIC              = "AceCorp (Crafting Materials)";
+MERCH_TAG_RAWPLASTIC              = "Raw Plastic";
+MERCH_FLAVOR_RAWPLASTIC           = "Choking hazard.";
+
+// Raw Powder
+MERCH_CAT_RAWPOWDER               = "AceCorp (Crafting Materials)";
+MERCH_TAG_RAWPOWDER               = "Raw Powder";
+MERCH_FLAVOR_RAWPOWDER            = "Store away from heat sources.";
+
+// Raw Steel
+MERCH_CAT_RAWSTEEL                = "AceCorp (Crafting Materials)";
+MERCH_TAG_RAWSTEEL                = "Raw Steel";
+MERCH_FLAVOR_RAWSTEEL             = "Tore this one off a Spider demon!";
 
 
 // ------------------

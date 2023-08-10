@@ -36,6 +36,7 @@ server bool hdm_enable_boosterjets          = true;
 server bool hdm_enable_ladderlauncher       = true;
 server bool hdm_enable_hacked7mmreloader    = true;
 server bool hdm_enable_url                  = true;
+server bool hdm_enable_gunsmithpouch        = true;
 server bool hdm_enable_mrl                  = true;
 server bool hdm_enable_supplybeacon         = true;
 server bool hdm_enable_weaponcrate          = true;
@@ -57,6 +58,11 @@ server bool hdm_enable_blackhawkboltreg     = true;
 server bool hdm_enable_blackhawkboltincen   = true;
 server bool hdm_enable_blackhawkboltelec    = true;
 server bool hdm_enable_blackhawkboltnuclear = true;
+server bool hdm_enable_rawbrass             = true;
+server bool hdm_enable_rawlead              = true;
+server bool hdm_enable_rawplastic           = true;
+server bool hdm_enable_rawpowder            = true;
+server bool hdm_enable_rawsteel             = true;
 
 // Bryan's Armory
 server bool hdm_enable_ballcrafter          = true;

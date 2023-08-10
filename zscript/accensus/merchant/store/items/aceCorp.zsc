@@ -226,6 +226,18 @@ class HDUniversalReloaderStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_URL"); }
 }
 
+class HDGunsmithPouchStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_gunsmithpouch; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GUNSMITHPOUCH"); }
+	override Name GetItem() { return 'GunsmithPouch'; }
+	override string GetIcon() { return "GSPPA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GUNSMITHPOUCH"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GUNSMITHPOUCH"); }
+}
+
 class HDMagazineReloaderStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_mrl; }
@@ -447,6 +459,71 @@ class HDAssemblyCoreStore : StoreItem
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ASSEMBLYCORE"); }
 	override int GetBasePrice() { return 200; }
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ASSEMBLYCORE"); }
+}
+
+class HDRelRawBrassStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rawbrass; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RAWBRASS"); }
+	override Name GetItem() { return 'HDRel_RawBrass'; }
+	override int GetAmount() { return 100; }
+	override string GetIcon() { return "BRMTA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RAWBRASS"); }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWBRASS"); }
+}
+
+class HDRelRawLeadStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rawlead; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RAWLEAD"); }
+	override Name GetItem() { return 'HDRel_RawLead'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "LEADA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RAWLEAD"); }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWLEAD"); }
+}
+
+class HDRelRawPlasticStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rawplastic; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RAWPLASTIC"); }
+	override Name GetItem() { return 'HDRel_RawPlastic'; }
+	override int GetAmount() { return 100; }
+	override string GetIcon() { return "PLTCA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RAWPLASTIC"); }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWPLASTIC"); }
+}
+
+class HDRelRawPowderStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rawpowder; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RAWPOWDER"); }
+	override Name GetItem() { return 'HDRel_RawPowder'; }
+	override int GetAmount() { return 50; }
+	override string GetIcon() { return "PWDRA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RAWPOWDER"); }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWPOWDER"); }
+}
+
+class HDRelRawSteelStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rawsteel; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RAWSTEEL"); }
+	override Name GetItem() { return 'HDRel_RawSteel'; }
+	override int GetAmount() { return 10; }
+	override string GetIcon() { return "STMTA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RAWSTEEL"); }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWSTEEL"); }
 }
 
 class HDBlackhawkBoltRegularStore : StoreItem
