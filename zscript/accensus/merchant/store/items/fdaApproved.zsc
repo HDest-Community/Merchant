@@ -1,0 +1,23 @@
+class HDAltisOUShotgunStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_altis; }
+    override int GetType() { return SType_Weapon; }
+    override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ALTIS"); }
+    override Name GetItem() { return 'HDAltis'; }
+    override string GetIcon() { return "GOLLN0"; }
+    override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ALTIS"); }
+    override int GetBasePrice() { return 150; }
+    override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ALTIS"); }
+}
+
+class HDGearboxStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_gearbox; }
+    override int GetType() { return SType_Item; }
+    override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GEARBOX"); }
+    override Name GetItem() { return 'HDGearbox'; }
+    override string GetIcon() { return "GRCRA0"; }
+    override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GEARBOX"); }
+    override int GetBasePrice() { return 200; }
+    override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GEARBOX"); }
+}

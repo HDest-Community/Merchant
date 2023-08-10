@@ -14,6 +14,11 @@ MERCH_CAT_ARCANUM                 = "AceCorp";
 MERCH_TAG_ARCANUM                 = "Arcanum Tome";
 MERCH_FLAVOR_ARCANUM              = "I don't understand a damn thing that's written in it.";
 
+// Altis O/U Shotgun
+MERCH_CAT_ALTIS                   = "FDA Approved";
+MERCH_TAG_ALTIS                   = "Altis Over-and-Under Shotgun";
+MERCH_FLAVOR_ALTIS                = "It's like the Slayer, but vertical.";
+
 // AT-4
 MERCH_CAT_AT4                     = "Bangers & Mash (Disposables)";
 MERCH_TAG_AT4                     = "RAT-84 HEAT Rocket Launcher";
@@ -873,6 +878,11 @@ MERCH_FLAVOR_FOODRATION           = "Crunchy.";
 MERCH_CAT_GASMASK                 = "AceCorp (Miscellaneous)";
 MERCH_TAG_GASMASK                 = "Gas Mask";
 MERCH_FLAVOR_GASMASK              = "Found this in an abandoned metro next to some dead guy.";
+
+// Gearbox Backpack
+MERCH_CAT_GEARBOX                 = "FDA Approved";
+MERCH_TAG_GEARBOX                 = "Gear Box";
+MERCH_FLAVOR_GEARBOX              = "A hoarder's best friend.";
 
 // Hacked Reloader
 MERCH_CAT_HACKED7MMRELOADER       = "AceCorp (Supply)";

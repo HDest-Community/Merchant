@@ -76,6 +76,7 @@ OptionMenu "MerchStoreFilters"
 	Submenu "Corporate Armor", "MerchStoreFilterCorporateArmour"
 	Submenu "Dastrukar", "MerchStoreFilterDastrukar"
 	Submenu "DeusDoom", "MerchStoreFilterDeusDoom"
+	Submenu "FDA Approved", "MerchStoreFilterFDAApproved"
 	Submenu "Hexadoken's Legacy Continued", "MerchStoreFilterHexadoken"
 	Submenu "HoagieTech", "MerchStoreFilterHoagieTech"
 	Submenu "Icarus Innovations, Improved", "MerchStoreFilterIcarus"
@@ -265,6 +266,18 @@ OptionMenu "MerchStoreFilterDeusDoom"
 	Option "$MERCH_TAG_AUGCANISTER", "hdm_enable_augcanister", "OnOff"
 	Option "$MERCH_TAG_AUGUPGRADE", "hdm_enable_augupgrade", "OnOff"
 	Option "$MERCH_TAG_BIOELECTRICCELL", "hdm_enable_bioelectriccell", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterFDAApproved"
+{
+	Title "FDA Approved Filters"
+	
+	StaticText "Weapons"
+	Option "$MERCH_TAG_ALTIS", "hdm_enable_altis", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_GEARBOX", "hdm_enable_gearbox", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterHexadoken"
