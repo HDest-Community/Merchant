@@ -455,7 +455,13 @@ OptionMenu "MerchStoreFilterRadtech"
     Option "$MERCH_TAG_STUNGUN", "hdm_enable_stungun", "OnOff"
     Option "$MERCH_TAG_TT33", "hdm_enable_tt33", "OnOff"
     Option "$MERCH_TAG_DYNAMITE", "hdm_enable_dynamite", "OnOff"
+	StaticText ""
+
+	StaticText "Ammunition"
     Option "$MERCH_TAG_MICROCELL", "hdm_enable_microcell", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
     Option "$MERCH_TAG_10MMRELOADER", "hdm_enable_10mmreloader", "OnOff"
     Option "$MERCH_TAG_300SAVAGERELOADER", "hdm_enable_300savagereloader", "OnOff"
     Option "$MERCH_TAG_762TOKAREVRELOADER", "hdm_enable_762tokarevreloader", "OnOff"
@@ -510,6 +516,7 @@ OptionMenu "MerchStoreFilterWAN"
 	Option "$MERCH_TAG_WSTEM5", "hdm_enable_wstem5", "OnOff"
 	StaticText ""
 	
+	StaticText "Armor"
 	Option "$MERCH_TAG_SNEAKINGSUIT", "hdm_enable_sneakingsuit", "OnOff"
 }
 
