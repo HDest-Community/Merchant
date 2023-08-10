@@ -65,6 +65,10 @@ server bool hdm_enable_bulletassembler      = true;
 server bool hdm_enable_rocketassembler      = true;
 server bool hdm_enable_m249reloader         = true;
 
+// Cozi's Offworld Wares
+server bool hdm_enable_flintlock            = true;
+server bool hdm_enable_musket               = true;
+
 // FDA Approved
 server bool hdm_enable_altis                = true;
 server bool hdm_enable_gearbox              = true;

@@ -73,6 +73,7 @@ OptionMenu "MerchStoreFilters"
 
 	Submenu "AceCorp: Engineering Dept.", "MerchStoreFilterAceCorp"
 	Submenu "Bryan's Armory", "MerchStoreFilterBryan"
+	Submenu "Cozi's Offworld Wares", "MerchStoreFilterCozi"
 	Submenu "Corporate Armor", "MerchStoreFilterCorporateArmour"
 	Submenu "Dastrukar", "MerchStoreFilterDastrukar"
 	Submenu "DeusDoom", "MerchStoreFilterDeusDoom"
@@ -240,6 +241,15 @@ OptionMenu "MerchStoreFilterBryan"
 	Option "$MERCH_TAG_BULLETASSEMBLER", "hdm_enable_bulletassembler", "OnOff"
 	Option "$MERCH_TAG_ROCKETASSEMBLER", "hdm_enable_rocketassembler", "OnOff"
 	Option "$MERCH_TAG_M249RELOADER", "hdm_enable_m249RELOADER", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterCozi"
+{
+	Title "Cozi's Offworld Wares Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_FLINTLOCK", "hdm_enable_flintlock", "OnOff"
+	Option "$MERCH_TAG_MUSKET", "hdm_enable_musket", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterCorporateArmour"

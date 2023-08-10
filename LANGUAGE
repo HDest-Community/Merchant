@@ -224,6 +224,11 @@ MERCH_CAT_FLAREGUN                = "RadTech Inc. (Handguns)";
 MERCH_TAG_FLAREGUN                = "Flare Gun";
 MERCH_FLAVOR_FLAREGUN             = "Useful for finding your way through dark places.";
 
+// Flintlock Pistol
+MERCH_CAT_FLINTLOCK               = "Cozi's Offworld Wares";
+MERCH_TAG_FLINTLOCK               = "Flintlock Pistol";
+MERCH_FLAVOR_FLINTLOCK            = "Gunslingin' like it's 1749!";
+
 // FNFAL
 MERCH_CAT_FNFAL                   = "Bangers & Mash (Rifles)";
 MERCH_TAG_FNFAL                   = "UN-AF L7A1 MG";
@@ -428,6 +433,11 @@ MERCH_FLAVOR_MK23SOCOM            = "They won't even hear you coming.";
 MERCH_CAT_MBR                     = "Icarus Innovations";
 MERCH_TAG_MBR                     = "Modular Battle Rifle";
 MERCH_FLAVOR_MBR                  = "The Liberator's better, bigger brother.";
+
+// Musket
+MERCH_CAT_MUSKET                  = "Cozi's Offworld Wares";
+MERCH_TAG_MUSKET                  = "Musket";
+MERCH_FLAVOR_MUSKET               = "Do demons even have whites in their eyes?";
 
 // No-Scope Boss
 MERCH_CAT_NSB                     = "Hexadoken Industries";
