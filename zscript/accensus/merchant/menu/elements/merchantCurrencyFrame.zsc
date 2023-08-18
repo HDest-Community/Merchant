@@ -1,0 +1,76 @@
+class MerchantCurrencyFrame : MerchZFFrame {
+
+    MerchantShopMenu menu;
+    PlayerPawn plr;
+    StoreCurrency currency;
+
+    MerchZFImage curImg;
+    MerchZFLabel curAmtLabel;
+
+    static MerchantCurrencyFrame create (
+        Vector2 pos,
+        Vector2 size,
+        MerchantShopMenu menu,
+        PlayerPawn plr
+    ) {
+        let ret = new('MerchantCurrencyFrame');
+
+        ret.setBox(pos, size);
+        ret.alpha = 1;
+
+        ret.menu = menu;
+        ret.plr = plr;
+
+        ret.currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+
+        let height = ret.getHeight();
+        let width = 35;
+        
+        ret.curImg = MerchZFImage.create(
+            (ret.getWidth() - width, 0),
+            (width, height - MerchantShopMenu.Spacing),
+            ret.currency.GetIcon(),
+            MerchZFElement.AlignType_Center
+        );
+        ret.curImg.pack(ret);
+
+        ret.curAmtLabel = MerchZFLabel.create(
+            (ret.getWidth() - width, 0),
+            (width, height),
+            BaseStatusBar.FormatNumber(plr.CountInv(ret.currency.GetCurrencyClass()), 1, 4),
+            SmallFont,
+            MerchZFElement.AlignType_BottomCenter,
+            textColor: Font.CR_GOLD
+        );
+        ret.curAmtLabel.pack(ret);
+
+        return ret;
+    }
+
+    override void ticker() {
+        super.ticker();
+
+        let currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+
+        curImg.setImage(currency.GetIcon());
+        curAmtLabel.setText(BaseStatusBar.FormatNumber(plr.CountInv(currency.GetCurrencyClass()), 1, 4));
+    }
+
+    override bool onNavEvent(MerchZFNavEventType type, bool fromController) {
+        switch (type) {
+            case MerchZFNavEventType_PageUp:
+                menu.SelCurrencyIndex--;
+				if (menu.SelCurrencyIndex < 0) menu.SelCurrencyIndex = menu.Handler.StoreCurrencies.Size() - 1;
+                currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+                return true;
+            case MerchZFNavEventType_PageDown:
+                menu.SelCurrencyIndex++;
+				if (menu.SelCurrencyIndex > menu.Handler.StoreCurrencies.Size() - 1) menu.SelCurrencyIndex = 0;
+                currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+                return true;
+            default:
+                console.printf("Unknown NavEvent Type: "..type);
+                return false;
+        }
+    }
+}

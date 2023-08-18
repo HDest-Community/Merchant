@@ -1,10 +1,19 @@
 version "4.10"
 
-// [Ace] For the menu.
 #include "zscript/MerchZForms/Include.zsc"
 
-#include "zscript/accensus/merchant/merchantMenu.zsc"
 #include "zscript/accensus/merchant/merchantSkins.zsc"
+
+#include "zscript/accensus/merchant/menu/merchantMenu.zsc"
+
+#include "zscript/accensus/merchant/menu/elements/merchantCategoryFrame.zsc"
+#include "zscript/accensus/merchant/menu/elements/merchantCategoryHeaderFrame.zsc"
+#include "zscript/accensus/merchant/menu/elements/merchantCategoryToggleButton.zsc"
+#include "zscript/accensus/merchant/menu/elements/merchantCurrencyFrame.zsc"
+#include "zscript/accensus/merchant/menu/elements/merchantItemFrame.zsc"
+#include "zscript/accensus/merchant/menu/elements/merchantItemBtn.zsc"
+
+#include "zscript/accensus/merchant/menu/handlers/merchantMenuHandler.zsc"
 
 #include "zscript/accensus/merchant/store/merchantStore.zsc"
 #include "zscript/accensus/merchant/store/storeItems.zsc"
