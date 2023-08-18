@@ -234,7 +234,7 @@ class HDMoreLethalGun_Store : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_XHUNTER"); }
 	override Name GetItem() { return 'ExplosiveShotgun'; }
-	override string GetIcon() { return "XLSGA0"; }
+	override string GetIcon() { return "XLSPA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_XHUNTER"); }
 	override int GetBasePrice() { return 180; }
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_XHUNTER"); }
