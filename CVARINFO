@@ -279,10 +279,12 @@ server bool hdm_enable_requisitionkit       = true;
 // Ugly as Sin
 server bool hdm_enable_ammopouch            = true;
 server bool hdm_enable_assaultpack          = true;
+server bool hdm_enable_gyrostabilizer       = true;
 server bool hdm_enable_respirator           = true;
 server bool hdm_enable_messkit              = true;
 server bool hdm_enable_foodration           = true;
 server bool hdm_enable_waterration          = true;
+server bool hdm_enable_weaponsling          = true;
 
 // Vanilla
 server bool hdm_enable_chainsaw             = true;

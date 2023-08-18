@@ -902,6 +902,11 @@ MERCH_CAT_GUNSMITHPOUCH           = "AceCorp";
 MERCH_TAG_GUNSMITHPOUCH           = "Gunsmith Pouch";
 MERCH_FLAVOR_GUNSMITHPOUCH        = "For when you just can't hold all of that gunpowder.";
 
+// Gyro Stabilizer
+MERCH_CAT_GYROSTABILIZER          = "Ugly as Sin";
+MERCH_TAG_GYROSTABILIZER          = "Gyroscopic Stabilizer";
+MERCH_FLAVOR_GYROSTABILIZER       = "Be the cybernetic policeman you were born to be.";
+
 // Hacked Reloader
 MERCH_CAT_HACKED7MMRELOADER       = "AceCorp (Supply)";
 MERCH_TAG_HACKED7MMRELOADER       = "Hacked Reloader";
@@ -1061,6 +1066,11 @@ MERCH_FLAVOR_WATERRATION          = "NOTE: Taste depends on temperature.";
 MERCH_CAT_REPAIRSPRAY             = "Icarus Innovations";
 MERCH_TAG_REPAIRSPRAY             = "Weapon Repair Spray";
 MERCH_FLAVOR_REPAIRSPRAY          = "If this doesn't get it working again, nothing will.";
+
+// Weapon Sling
+MERCH_CAT_WEAPONSLING             = "Ugly as Sin";
+MERCH_TAG_WEAPONSLING             = "Weapon Sling";
+MERCH_FLAVOR_WEAPONSLING          = "For when you need that third arm.";
 
 // Weapon Crate
 MERCH_CAT_WEAPONCRATE             = "AceCorp";

@@ -34,6 +34,30 @@ class HDRespiratorStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RESPIRATOR"); }
 }
 
+class HDWeaponSlingStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_weaponsling; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_WEAPONSLING"); }
+	override Name GetItem() { return 'UaS_WeaponSling'; }
+	override string GetIcon() { return "HSCVI0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_WEAPONSLING"); }
+	override int GetBasePrice() { return 80; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_WEAPONSLING"); }
+}
+
+class HDGyroStabilizerStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_gyrostabilizer; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GYROSTABILIZER"); }
+	override Name GetItem() { return 'UaS_GyroStabilizer'; }
+	override string GetIcon() { return "UGSIR0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GYROSTABILIZER"); }
+	override int GetBasePrice() { return 150; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GYROSTABILIZER"); }
+}
+
 class HDMessKitStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_messkit; }
