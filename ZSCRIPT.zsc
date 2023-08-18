@@ -588,7 +588,9 @@ class MercenaryBucks : HDPickup
 {
 	Default
 	{
+		Tag "$TAG_BUX";
 		Inventory.Icon "MBCKA0";
+		Inventory.PickupMessage "$PICKUP_BUX";
 		+HDPICKUP.CHEATNOGIVE
 		-HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION

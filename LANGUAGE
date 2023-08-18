@@ -1,5 +1,8 @@
 [enu default]
 
+TAG_BUX    = "Mercenary Bucks";
+PICKUP_BUX = "You got some paper currency.";
+
 // ----------------
 // WEAPONS
 // ----------------
