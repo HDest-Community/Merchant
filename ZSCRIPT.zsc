@@ -151,18 +151,12 @@ class MerchantHandler : EventHandler
 
 	override void WorldLoaded(WorldEvent e)
 	{
-		if (e.IsReopen)
-		{
-			return;
-		}
+		if (e.IsReopen) return;
 
 		MoneyMode = hdm_moneymode == 3 ? random(0, 1) : hdm_moneymode;
 		
 		InitCurrencies();
-		for (int i = 0; i < Stores.Size(); ++i)
-		{
-			InitStore(i);
-		}
+		for (int i = 0; i < Stores.Size(); ++i) InitStore(i);
 
 		Array<class<HDMerchant> > AvailableMerchants;
 		AvailableMerchants.Push((class<HDMerchant>)('AmmoMerchant'));
@@ -176,17 +170,13 @@ class MerchantHandler : EventHandler
 		Array<Sector> dedicatedSlotSectors;
 		Array<Sector> secretSectors;
 
-		for (int i = 0; i < level.Sectors.Size(); ++i)
-		{
-			Sector sec = level.Sectors[i];
-			if (sec.GetUDMFInt('user_merchantsector') == 1)
-			{
+		foreach (sec : level.sectors) {
+			if (sec.GetUDMFInt('user_merchantsector') == 1) {
 				dedicatedMerchantSectors.Push(sec);
 				continue;
 			}
 
-			if (sec.GetUDMFInt('user_slotmachinesector') == 1)
-			{
+			if (sec.GetUDMFInt('user_slotmachinesector') == 1) {
 				dedicatedSlotSectors.Push(sec);
 				continue;
 			}
@@ -194,32 +184,27 @@ class MerchantHandler : EventHandler
 			// [Ace] Secret sectors that are already dedicated don't count.
 			
 			// NOTE I: Don't spawn stuff in low sectors to prevent softlocking. You can climb crystals, but not if you slam your head into the ceiling doing so.
-			if (sec.IsSecret() && dedicatedMerchantSectors.Find(sec) == dedicatedMerchantSectors.Size() && dedicatedSlotSectors.Find(sec) == dedicatedSlotSectors.Size())
-			{
+			if (
+				sec.IsSecret()
+				&& dedicatedMerchantSectors.Find(sec) == dedicatedMerchantSectors.Size()
+				&& dedicatedSlotSectors.Find(sec) == dedicatedSlotSectors.Size()
+			) {
 				vector2 center = sec.centerspot;
 				double secHeight = abs(sec.floorplane.ZAtPoint(center) - sec.ceilingplane.ZAtPoint(center));
-				if (secHeight < 64)
-				{
-					continue;
-				}
+
+				if (secHeight < 64) continue;
 
 				secretSectors.Push(sec);
 			}
 		}
 
 		int validSectorCount = secretSectors.Size();
-		if (validSectorCount == 0 && dedicatedMerchantSectors.Size() == 0 && dedicatedSlotSectors.Size() == 0)
-		{
-			return;
-		}
+		if (validSectorCount == 0 && dedicatedMerchantSectors.Size() == 0 && dedicatedSlotSectors.Size() == 0) return;
 
 		// [Ace] Sort sectors by size in ascending order. Spawn merchants in smaller sectors first. Tiberium is the opposite - it prioritizes bigger sectors first.
-		for (int i = 0; i < secretSectors.Size() - 1; ++i)
-		{
-			for (int j = i + 1; j < secretSectors.Size(); ++j)
-			{
-				if (AceCore.GetSectorSize(secretSectors[i]) > AceCore.GetSectorSize(secretSectors[j]))
-				{
+		for (int i = 0; i < secretSectors.Size() - 1; ++i) {
+			for (int j = i + 1; j < secretSectors.Size(); ++j) {
+				if (AceCore.GetSectorSize(secretSectors[i]) > AceCore.GetSectorSize(secretSectors[j])) {
 					let swap = secretSectors[i];
 					secretSectors[i] = secretSectors[j];
 					secretSectors[j] = swap;
@@ -234,19 +219,13 @@ class MerchantHandler : EventHandler
 		// ------------------------------------------------------------------------------------------------------------------------
 
 		// [Ace] Spawn the crystals first, and only then bother with the merchants.
-		if (MoneyMode == 0 || MoneyMode == 2)
-		{
-			for (int i = secretSectors.Size() - 1; i >= 0; --i)
-			{
-				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max))
-				{
+		if (MoneyMode == 0 || MoneyMode == 2) {
+			for (int i = secretSectors.Size() - 1; i >= 0; --i) {
+				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
 					SpawnedTiberium = true;
 					SpawnCrystals(secretSectors[i]);
 					secretSectors.Delete(i);
-					if (hdm_debug < 2)
-					{
-						break;
-					}
+					if (hdm_debug < 2) break;
 				}
 			}
 		}
@@ -258,49 +237,31 @@ class MerchantHandler : EventHandler
 		// ------------------------------------------------------------------------------------------------------------------------
 
 		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
-		for (int i = 0; i < dedicatedMerchantSectors.Size(); ++i)
-		{
-			vector3 spawnPos = (dedicatedMerchantSectors[i].centerspot, dedicatedMerchantSectors[i].floorplane.ZAtPoint(dedicatedMerchantSectors[i].centerspot));
+		foreach (sec : dedicatedMerchantSectors) {
+			vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
 			int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
 			Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
-			a.angle = dedicatedMerchantSectors[i].GetUDMFInt('user_merchantangle');
+			a.angle = sec.GetUDMFInt('user_merchantangle');
 			AvailableMerchants.Delete(spawnIndex);
 
-			if (hdm_debug > 0)
-			{
-				Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
-			}
+			if (hdm_debug) Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
 
-			if (--MerchantsLeft == 0)
-			{
-				break;
-			}
+			if (--MerchantsLeft == 0) break;
 		}
 
-		if (MerchantsLeft > 0)
-		{
-			for (int i = 0; i < secretSectors.Size(); ++i)
-			{
+		if (MerchantsLeft) {
+			for (int i = 0; i < secretSectors.Size(); ++i) {
 				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30)
-				{
-					continue;
-				}
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30) continue;
 				int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
 				Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
 				a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
 				AvailableMerchants.Delete(spawnIndex);
 				secretSectors.Delete(i--);
 
-				if (hdm_debug > 0)
-				{
-					Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
-				}
+				if (hdm_debug) Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
 
-				if (--MerchantsLeft == 0)
-				{
-					break;
-				}
+				if (--MerchantsLeft == 0) break;
 			}
 		}
 
@@ -450,8 +411,7 @@ class HDMerchant : Actor abstract
 		}
 		else
 		{
-			PlayerIsNear = CheckProximity("PlayerPawn", HDCONST_ONEMETRE * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
-			if (PlayerIsNear)
+			if (CheckProximity("PlayerPawn", HDCONST_ONEMETRE * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
 			{
 				A_Face(target, 15);
 			}

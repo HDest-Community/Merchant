@@ -8,62 +8,51 @@ extend class MerchantHandler
 {
 	Array<StoreCurrency> StoreCurrencies;
 	MerchantStore Stores[3];
-	int OpenedStoreIndex[MAXPLAYERS]; // [Ace] This is multiplayer bullshit.
+	int OpenedStoreIndex[MAXPLAYERS];
 	
-	private void InitStore(int type)
-	{
-		if (!Stores[type])
-		{
-			Stores[type] = new('MerchantStore');
-		}
+	private void InitStore(int type) {
+		// Ensure Store Exists
+		if (!Stores[type]) Stores[type] = new('MerchantStore');
 		
-		Stores[type].StoreItems.Clear();
+		// Clean current categories & items
 		Stores[type].Categories.Clear();
+		Stores[type].StoreItems.Clear();
 		
-		for (int i = 0; i < AllClasses.Size(); ++i)
-		{
-			if (AllClasses[i] is "StoreItem" && AllClasses[i] != 'StoreItem')
-			{
-				StoreItem Item = StoreItem(new(AllClasses[i]));
-				class<Actor> a = Item.GetItem();
+		foreach (cls : AllClasses) {
+			if (cls is "StoreItem" && cls != 'StoreItem') {
+				let item = StoreItem(new(cls));
 
 				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
 
-				static const Name CVarNames[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-				if (a && Item.GetType() == type && Item.IsEnabled() && (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(CVarNames[type]).GetFloat()))
-				{
-					Item.StoreAmount = Item.GetStoreAmount();
-					if (inReloadingRoom)
-					{
-						Item.StoreAmount *= random[merchrand](25, 150);
-					}
-					Stores[type].StoreItems.Push(Item);
+				static const name merchChances[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
+				if (
+					(Class<Actor>)(item.GetItem())
+					&& item.GetType() == type
+					&& item.IsEnabled()
+					&& (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
+				) {
+					item.StoreAmount = item.GetStoreAmount();
+
+					if (inReloadingRoom) item.StoreAmount *= random[merchrand](25, 150);
+
+					Stores[type].StoreItems.Push(item);
 				}
 			}
 		}
 
-		for (int i = 0; i < Stores[type].StoreItems.Size(); ++i)
-		{
-			// [Ace] Don't duplicate categories.
-			if (Stores[type].Categories.Find(Stores[type].StoreItems[i].GetCategory()) == Stores[type].Categories.Size())
-			{
-				Stores[type].Categories.Push(Stores[type].StoreItems[i].GetCategory());
+		// [Ace] Don't duplicate categories.
+		foreach (currItem : Stores[type].StoreItems) {
+			if (Stores[type].Categories.Find(currItem.GetCategory()) == Stores[type].Categories.Size()) {
+				Stores[type].Categories.Push(currItem.GetCategory());
 			}
 		}
 	}
 
-	private void InitCurrencies()
-	{
-		for (int i = 0; i < AllClasses.Size(); ++i)
-		{
-			if (AllClasses[i] is "StoreCurrency" && AllClasses[i] != 'StoreCurrency')
-			{
-				StoreCurrency Currency = StoreCurrency(new(AllClasses[i]));
-				class<Actor> a = Currency.GetCurrencyClass();
-				if (a)
-				{
-					StoreCurrencies.Push(Currency);
-				}
+	private void InitCurrencies() {
+		foreach (cls : AllClasses) {
+			if (cls is "StoreCurrency" && cls != 'StoreCurrency') {
+				let currency = StoreCurrency(new(cls));
+				if ((Class<Actor>)(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
 			}
 		}
 	}
