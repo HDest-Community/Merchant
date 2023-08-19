@@ -67,3 +67,40 @@ Payouts are as follows:
 ---
 - Merchants can block some paths sometimes. Grab them or pick them up to move them out of the way.
 - Tiberium crystals can block some paths. Either shoot a path through them or climb them.
+
+### Credits
+---
+
+Original Mod Credits are displayed below.
+- Cryomundus, for porting original mod to HDest Community Organization, updating as needed.
+- Undead Zeratul, adding all sorts of Shop Entries & filters.
+
+Code:
+- Accensus
+- arooкas for the hand eval code. If I ever stop praising the guy, assume I died.
+
+Sprites:
+- Merchant (Hobo): Strife (Rogue)
+- Merchant (Resident Evil): Based on above but made by PillowBlaster. Ten points to Gryffindor!
+- Merchant (Daina skins): Hege Cactus. Taken from La Tailor Girl.
+- Merchant (Succubus): YuraoftheHairFan, Espi, Ebola, Vader; greatly edited by Mor'ladim to match my high standards, the absolute madman and legend.
+- Merchant (Morshu): Legend of Zelda by Capcom; rotations edited by HegeCactus.
+- Merchant (Minecraft): Based on the Wandering Trader from Minecraft (Mojang), edited by Craneo.
+- Bucks: Pillowblaster
+- Chips: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=482839ps487in390430 // I didn't actually buy this. I ripped it like an absolute bastard. I wanted to buy it but account registrations are DISTUSTANG.
+- Playing cards: https://www.spriters-resource.com/nec_pc_8801/ginga/sheet/107022/
+- Tiberium: KANE HIMSELF! Nah, Pillowblaster.
+
+Sounds:
+- Poker stuff: https://www.sounds-resource.com/pc_computer/tabletopsimulator/sound/24381/
+- Card deal sound by arookas.
+
+ZForms:
+- Gutawer & phantombeta
+
+Card backs:
+- Default: same as the rest of the cards.
+- Classic: arooкas.
+
+Additional:
+- Kat, additional store items
