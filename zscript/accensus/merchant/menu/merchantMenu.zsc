@@ -24,6 +24,10 @@ class MerchantShopMenu : MerchZFGenericMenu {
 		BuildShopFrame(basePos, sSize);
 	}
 
+	static clearscope double GetBoxedScale(vector2 size, vector2 boxSize) {
+		return max(size.x / boxSize.x, size.y / boxSize.y);
+	}
+
 	ui MerchantStore GetOpenedStore() {
 		return Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
 	}

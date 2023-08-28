@@ -53,11 +53,24 @@ class MerchantItemFrame : MerchZFFrame {
 
 		// ----- ICON -----
 
+		let iIcon = item.getIcon();
+		let iSize = (iconWidth, height) - (MerchantShopMenu.Spacing * 2.0, MerchantShopMenu.Spacing * 2.0);
+		let iconScale = 1.0 / MerchantShopMenu.GetBoxedScale(
+			TexMan.GetScaledSize(
+				TexMan.CheckForTexture(
+					iIcon,
+					TexMan.Type_Any
+				)
+			),
+			iSize
+		);
+
 		ret.itemIcon = MerchZFImage.create(
 			(MerchantShopMenu.Spacing, MerchantShopMenu.Spacing),
-			(iconWidth, height) - (MerchantShopMenu.Spacing, MerchantShopMenu.Spacing),
-			item.getIcon(),
-			MerchZFElement.AlignType_Center
+			iSize,
+			iIcon,
+			MerchZFElement.AlignType_Center,
+			(iconScale, iconScale)
 		);
 		ret.itemIcon.setDontBlockMouse(true);
 		ret.itemIcon.pack(ret);
