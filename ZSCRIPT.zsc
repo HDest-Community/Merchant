@@ -29,6 +29,7 @@ version "4.10"
 #include "zscript/accensus/merchant/store/items/sonoda.zsc"
 #include "zscript/accensus/merchant/store/items/uglyAsSin.zsc"
 #include "zscript/accensus/merchant/store/items/wanIndustries.zsc"
+#include "zscript/accensus/merchant/store/items/zikShadow.zsc"
 
 #include "zscript/accensus/merchant/gamble/playingCards.zsc"
 #include "zscript/accensus/merchant/gamble/poker.zsc"

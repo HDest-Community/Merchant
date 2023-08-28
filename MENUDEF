@@ -553,6 +553,14 @@ OptionMenu "MerchStoreFilterWAN"
 	Option "$MERCH_TAG_SNEAKINGSUIT", "hdm_enable_sneakingsuit", "OnOff"
 }
 
+OptionMenu "MerchStoreFilterZikShadow"
+{
+	Title "ZikShadow Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_UMSAUTOMAG", "hdm_enable_umsautomag", "OnOff"
+}
+
 OptionValue "StockMult"
 {
 	1, "Standard"

@@ -333,3 +333,6 @@ server bool hdm_enable_ma76c                = true;
 server bool hdm_enable_spnkr                = true;
 server bool hdm_enable_wstem5               = true;
 server bool hdm_enable_sneakingsuit         = true;
+
+// ZikShadow
+server bool hdm_enable_umsautomag           = true;

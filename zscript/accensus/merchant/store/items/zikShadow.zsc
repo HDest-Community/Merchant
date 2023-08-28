@@ -1,0 +1,11 @@
+class HDUMSAutomagStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_umsautomag; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_UMSAUTOMAG"); }
+	override Name GetItem() { return 'ZS_UMS_AUTOMAG'; }
+	override string GetIcon() { return "UMSWA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_UMSAUTOMAG"); }
+	override int GetBasePrice() { return 180; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_UMSAUTOMAG"); }
+}

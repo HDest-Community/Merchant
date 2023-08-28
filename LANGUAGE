@@ -662,6 +662,11 @@ MERCH_CAT_UMP45                   = "Icarus Innovations";
 MERCH_TAG_UMP45                   = "UMP-45";
 MERCH_FLAVOR_UMP45                = "Doesn't sit at home plate all day.";
 
+// UMS Automag
+MERCH_CAT_UMSAUTOMAG              = "ZikShadow";
+MERCH_TAG_UMSAUTOMAG              = "UMS Automag";
+MERCH_FLAVOR_UMSAUTOMAG           = "a bit heavy for such light ammunition.";
+
 // Uragan
 MERCH_CAT_URAGAN                  = "Bangers & Mash (Pistols)";
 MERCH_TAG_URAGAN                  = "Arkoudi M12/5 Shotgun";
