@@ -288,6 +288,7 @@ server bool hdm_enable_weaponsling          = true;
 
 // Vanilla
 server bool hdm_enable_chainsaw             = true;
+server bool hdm_enable_pistol               = true;
 server bool hdm_enable_revolver             = true;
 server bool hdm_enable_smg                  = true;
 server bool hdm_enable_hunter               = true;

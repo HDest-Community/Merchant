@@ -10,6 +10,18 @@ class HDLumberjackStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_CHAINSAW"); }
 }
 
+class HDPistolStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_pistol; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PISTOL"); }
+	override Name GetItem() { return 'HDPistol'; }
+	override string GetIcon() { return "PISTA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PISTOL"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PISTOL"); }
+}
+
 class HDRevolverStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_revolver; }

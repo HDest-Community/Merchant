@@ -97,6 +97,7 @@ OptionMenu "MerchStoreFilterVanilla"
 
 	StaticText "Weapons"
 	Option "$MERCH_TAG_CHAINSAW", "hdm_enable_chainsaw", "OnOff"
+	Option "$MERCH_TAG_PISTOL", "hdm_enable_pistol", "OnOff"
 	Option "$MERCH_TAG_REVOLVER", "hdm_enable_revolver", "OnOff"
 	Option "$MERCH_TAG_SMG", "hdm_enable_smg", "OnOff"
 	Option "$MERCH_TAG_HUNTER", "hdm_enable_hunter", "OnOff"
