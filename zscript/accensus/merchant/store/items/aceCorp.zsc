@@ -346,6 +346,18 @@ class HDPersonalShieldGeneratorStore : StoreItem
 //
 // ------------------------------------------------------------------------------------------
 
+class HDArmourPatchKitStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_armourpatchkit; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ARMOURPATCHKIT"); }
+	override Name GetItem() { return 'HDArmorPatchKit'; }
+	override string GetIcon() { return "APKTA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ARMOURPATCHKIT"); }
+	override int GetBasePrice() { return 250; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ARMOURPATCHKIT"); }
+}
+
 class HDPortableZRadarStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_zradar; }
@@ -436,6 +448,30 @@ class HDSuicideVestStore : StoreItem
 //
 // ------------------------------------------------------------------------------------------
 
+
+class HDGarrisonArmourPatchStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_garrisonarmourpatch; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GARRISONARMOURPATCH"); }
+	override Name GetItem() { return 'HDAPK_GarrisonPatch'; }
+	override string GetIcon() { return "APCGA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GARRISONARMOURPATCH"); }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GARRISONARMOURPATCH"); }
+}
+
+class HDBAttleArmourPatchStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_battlearmourpatch; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BATTLEARMOURPATCH"); }
+	override Name GetItem() { return 'HDAPK_BattlePatch'; }
+	override string GetIcon() { return "APCBA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BATTLEARMOURPATCH"); }
+	override int GetBasePrice() { return 25; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BATTLEARMOURPATCH"); }
+}
 
 class HDDespicytoFilterStore : StoreItem
 {

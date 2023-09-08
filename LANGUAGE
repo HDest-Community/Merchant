@@ -787,6 +787,11 @@ MERCH_CAT_ANTIRADBOOTS            = "RadTech Inc.";
 MERCH_TAG_ANTIRADBOOTS            = "Anti-Radiation Boots";
 MERCH_FLAVOR_ANTIRADBOOTS         = "When you don't want your feet getting irradiated.";
 
+// Armour Patch Kit
+MERCH_CAT_ARMOURPATCHKIT          = "AceCorp (Advanced)";
+MERCH_TAG_ARMOURPATCHKIT          = "Armor Patch Kit";
+MERCH_FLAVOR_ARMOURPATCHKIT       = "Patch yerself up, soldier!";
+
 // Assault Pack
 MERCH_CAT_ASSAULTPACK             = "Ugly as Sin";
 MERCH_TAG_ASSAULTPACK             = "Assault Pack";
@@ -1361,6 +1366,21 @@ MERCH_FLAVOR_TORTOISEROCKET       = "It'll boom ya, it's the boomiest!";
 MERCH_CAT_WPGRENADE               = "Bangers & Mash";
 MERCH_TAG_WPGRENADE               = "'Willie Pete' White Phosphorus Grenade";
 MERCH_FLAVOR_WPGRENADE            = "Enjoy in moderation!";
+
+
+// ------------------
+// Armor Patches
+// ------------------
+
+// Garrison Armour Patch
+MERCH_CAT_GARRISONARMOURPATCH     = "AceCorp (Armor Patches)";
+MERCH_TAG_GARRISONARMOURPATCH     = "Garrison Armor Patch";
+MERCH_FLAVOR_GARRISONARMOURPATCH  = "Light and stretchy.";
+
+// Battle Armour Patch
+MERCH_CAT_BATTLEARMOURPATCH       = "AceCorp (Armor Patches)";
+MERCH_TAG_BATTLEARMOURPATCH       = "Battle Armor Patch";
+MERCH_FLAVOR_BATTLEARMOURPATCH    = "Rigid and Sturdy.";
 
 
 // ------------------

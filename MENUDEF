@@ -209,6 +209,11 @@ OptionMenu "MerchStoreFilterAceCorp"
 	Option "$MERCH_TAG_BLACKHAWKBOLTNUCLEAR", "hdm_enable_blackhawkboltnuclear", "OnOff"
 	StaticText ""
 
+	StaticText "Armor Paches"
+	Option "$MERCH_TAG_GARRISONARMOURPATCH", "hdm_enable_garrisonarmourpatch", "OnOff"
+	Option "$MERCH_TAG_BATTLEARMOURPATCH", "hdm_enable_battlearmourpatch", "OnOff"
+	StaticText ""
+
 	StaticText "Crafting Materials"
 	Option "$MERCH_TAG_RAWBRASS", "hdm_enable_rawbrass", "OnOff"
 	Option "$MERCH_TAG_RAWLEAD", "hdm_enable_rawlead", "OnOff"
