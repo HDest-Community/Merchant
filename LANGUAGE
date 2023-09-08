@@ -788,7 +788,7 @@ MERCH_TAG_ANTIRADBOOTS            = "Anti-Radiation Boots";
 MERCH_FLAVOR_ANTIRADBOOTS         = "When you don't want your feet getting irradiated.";
 
 // Armour Patch Kit
-MERCH_CAT_ARMOURPATCHKIT          = "AceCorp (Advanced)";
+MERCH_CAT_ARMOURPATCHKIT          = "AceCorp";
 MERCH_TAG_ARMOURPATCHKIT          = "Armor Patch Kit";
 MERCH_FLAVOR_ARMOURPATCHKIT       = "Patch yerself up, soldier!";
 
@@ -1318,7 +1318,7 @@ MERCH_TAG_IMPACTGRENADE           = "Impact Grenade";
 MERCH_FLAVOR_IMPACTGRENADE        = "whatever you do, don't drop this.";
 
 // Lead Ball
-MERCH_CAT_LEADBALL                = "Joint Task Force (Misc.)";
+MERCH_CAT_LEADBALL                = "Joint Task Force";
 MERCH_TAG_LEADBALL                = "Lead Ball";
 MERCH_FLAVOR_LEADBALL             = "Make sure you pack it in good.";
 
@@ -1373,12 +1373,12 @@ MERCH_FLAVOR_WPGRENADE            = "Enjoy in moderation!";
 // ------------------
 
 // Garrison Armour Patch
-MERCH_CAT_GARRISONARMOURPATCH     = "AceCorp (Armor Patches)";
+MERCH_CAT_GARRISONARMOURPATCH     = "AceCorp";
 MERCH_TAG_GARRISONARMOURPATCH     = "Garrison Armor Patch";
 MERCH_FLAVOR_GARRISONARMOURPATCH  = "Light and stretchy.";
 
 // Battle Armour Patch
-MERCH_CAT_BATTLEARMOURPATCH       = "AceCorp (Armor Patches)";
+MERCH_CAT_BATTLEARMOURPATCH       = "AceCorp";
 MERCH_TAG_BATTLEARMOURPATCH       = "Battle Armor Patch";
 MERCH_FLAVOR_BATTLEARMOURPATCH    = "Rigid and Sturdy.";
 
@@ -1388,32 +1388,32 @@ MERCH_FLAVOR_BATTLEARMOURPATCH    = "Rigid and Sturdy.";
 // ------------------
 
 // Raw Brass
-MERCH_CAT_RAWBRASS                = "AceCorp (Crafting Materials)";
+MERCH_CAT_RAWBRASS                = "AceCorp";
 MERCH_TAG_RAWBRASS                = "Raw Brass";
 MERCH_FLAVOR_RAWBRASS             = "Turn yer casings into other casings!";
 
 // Raw Fuel
-MERCH_CAT_RAWFUEL                 = "AceCorp (Crafting Materials)";
+MERCH_CAT_RAWFUEL                 = "AceCorp";
 MERCH_TAG_RAWFUEL                 = "Raw Fuel";
 MERCH_FLAVOR_RAWFUEL              = "Need a light?";
 
 // Raw Lead
-MERCH_CAT_RAWLEAD                 = "AceCorp (Crafting Materials)";
+MERCH_CAT_RAWLEAD                 = "AceCorp";
 MERCH_TAG_RAWLEAD                 = "Raw Lead";
 MERCH_FLAVOR_RAWLEAD              = "Such heavy, very toxic, wow!";
 
 // Raw Plastic
-MERCH_CAT_RAWPLASTIC              = "AceCorp (Crafting Materials)";
+MERCH_CAT_RAWPLASTIC              = "AceCorp";
 MERCH_TAG_RAWPLASTIC              = "Raw Plastic";
 MERCH_FLAVOR_RAWPLASTIC           = "Choking hazard.";
 
 // Raw Powder
-MERCH_CAT_RAWPOWDER               = "AceCorp (Crafting Materials)";
+MERCH_CAT_RAWPOWDER               = "AceCorp";
 MERCH_TAG_RAWPOWDER               = "Raw Powder";
 MERCH_FLAVOR_RAWPOWDER            = "Store away from heat sources.";
 
 // Raw Steel
-MERCH_CAT_RAWSTEEL                = "AceCorp (Crafting Materials)";
+MERCH_CAT_RAWSTEEL                = "AceCorp";
 MERCH_TAG_RAWSTEEL                = "Raw Steel";
 MERCH_FLAVOR_RAWSTEEL             = "Tore this one off a Spider demon!";
 
