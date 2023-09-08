@@ -62,6 +62,7 @@ server bool hdm_enable_blackhawkboltnuclear = true;
 server bool hdm_enable_garrisonarmourpatch  = true;
 server bool hdm_enable_battlearmourpatch    = true;
 server bool hdm_enable_rawbrass             = true;
+server bool hdm_enable_rawfuel              = true;
 server bool hdm_enable_rawlead              = true;
 server bool hdm_enable_rawplastic           = true;
 server bool hdm_enable_rawpowder            = true;

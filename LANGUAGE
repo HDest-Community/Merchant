@@ -1392,6 +1392,11 @@ MERCH_CAT_RAWBRASS                = "AceCorp (Crafting Materials)";
 MERCH_TAG_RAWBRASS                = "Raw Brass";
 MERCH_FLAVOR_RAWBRASS             = "Turn yer casings into other casings!";
 
+// Raw Fuel
+MERCH_CAT_RAWFUEL                 = "AceCorp (Crafting Materials)";
+MERCH_TAG_RAWFUEL                 = "Raw Fuel";
+MERCH_FLAVOR_RAWFUEL              = "Need a light?";
+
 // Raw Lead
 MERCH_CAT_RAWLEAD                 = "AceCorp (Crafting Materials)";
 MERCH_TAG_RAWLEAD                 = "Raw Lead";

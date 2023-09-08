@@ -510,6 +510,19 @@ class HDRelRawBrassStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWBRASS"); }
 }
 
+class HDRelRawFuelStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rawfuel; }
+	override int GetType() { return SType_Ammo; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RAWFUEL"); }
+	override Name GetItem() { return 'HDRel_RawFuel'; }
+	override int GetAmount() { return 5; }
+	override string GetIcon() { return "FUELA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RAWFUEL"); }
+	override int GetBasePrice() { return 5; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RAWFUEL"); }
+}
+
 class HDRelRawLeadStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_rawlead; }

@@ -216,6 +216,7 @@ OptionMenu "MerchStoreFilterAceCorp"
 
 	StaticText "Crafting Materials"
 	Option "$MERCH_TAG_RAWBRASS", "hdm_enable_rawbrass", "OnOff"
+	Option "$MERCH_TAG_RAWFUEL", "hdm_enable_rawfuel", "OnOff"
 	Option "$MERCH_TAG_RAWLEAD", "hdm_enable_rawlead", "OnOff"
 	Option "$MERCH_TAG_RAWPLASTIC", "hdm_enable_rawplastic", "OnOff"
 	Option "$MERCH_TAG_RAWPOWDER", "hdm_enable_rawpowder", "OnOff"
