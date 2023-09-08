@@ -1400,7 +1400,7 @@ MERCH_FLAVOR_RAWFUEL              = "Need a light?";
 // Raw Lead
 MERCH_CAT_RAWLEAD                 = "AceCorp (Crafting Materials)";
 MERCH_TAG_RAWLEAD                 = "Raw Lead";
-MERCH_FLAVOR_RAWLEAD              = "such heavy, very toxic, wow!";
+MERCH_FLAVOR_RAWLEAD              = "Such heavy, very toxic, wow!";
 
 // Raw Plastic
 MERCH_CAT_RAWPLASTIC              = "AceCorp (Crafting Materials)";
