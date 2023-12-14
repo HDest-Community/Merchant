@@ -91,15 +91,15 @@ class HD10mmAmmo_Store : StoreItem
 
 class HD45LCAmmo_Store : StoreItem
 {
-	override bool IsEnabled() { return hdm_enable_45lc; }
+	override bool IsEnabled() { return hdm_enable_g45lc; }
 	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_45LC"); }
-	override Name GetItem() { return 'HD45LCAmmo'; }
-	override int GetAmount() { return 50; }
-	override string GetIcon() { return "45LBA0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_45LC"); }
-	override int GetBasePrice() { return 45; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_45LC"); }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_G45LC"); }
+	override Name GetItem() { return 'HDGold45LCAmmo'; }
+	override int GetAmount() { return 12; }
+	override string GetIcon() { return "GC45A0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_G45LC"); }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_G45LC"); }
 }
 
 class HDLessLethalShotgunAmmo_Store : StoreItem
