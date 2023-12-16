@@ -25,7 +25,7 @@ extend class MerchantHandler
 			for (int i = 0; i < bountyThinkers.Size(); ++i)
 			{
 				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
-				if (a.GetClassName() == actorName)
+				if (a.GetClassName() == actorName || a is actorName)
 				{
 					chosenActors.Push(a);
 				}
@@ -36,9 +36,17 @@ extend class MerchantHandler
 		{
 			int index = random(0, chosenActors.Size() - 1);
 			Actor randAct = chosenActors[index];
-			BountyThinker.Create("BountyThinker_"..randAct.GetClassName(), randAct);
-			chosenActors.Delete(index);
-			count--;
+		
+			for (int i = 0; i < bountyThinkers.Size(); ++i)
+			{
+				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
+				if (randAct.GetClassName() == actorName || randAct is actorName)
+				{
+					BountyThinker.Create("BountyThinker_"..actorName, randAct);
+					chosenActors.Delete(index);
+					count--;
+				}
+			}
 		}
 	}
 }
