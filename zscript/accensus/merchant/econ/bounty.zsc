@@ -17,7 +17,7 @@ extend class MerchantHandler
 		Actor a = null;
 		while ((a = Actor(it.Next())))
 		{
-			if (!a.bISMONSTER || !a.bSHOOTABLE)
+			if (!a.bISMONSTER || !a.bSHOOTABLE || a.bFRIENDLY || a.health <= 0)
 			{
 				continue;
 			}
@@ -42,6 +42,7 @@ extend class MerchantHandler
 				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
 				if (randAct.GetClassName() == actorName || randAct is actorName)
 				{
+					if (hdm_debug) Console.Printf("--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", randAct.GetTag(), randAct.pos.x, randAct.pos.y);
 					BountyThinker.Create("BountyThinker_"..actorName, randAct);
 					chosenActors.Delete(index);
 					count--;
@@ -258,14 +259,17 @@ class BountyThinker : Thinker abstract
 // 
 // ----------------------------------------------------------------------
 
-class BountyThinker_Regentipede : BountyThinker { override int GetBounty() { return 300; } }
-class BountyThinker_UndeadRifleman : BountyThinker { override int GetBounty() { return 400; } }
-class BountyThinker_PainBringer : BountyThinker { override int GetBounty() { return 600; } }
-class BountyThinker_PainLord : BountyThinker { override int GetBounty() { return 800; } }
-class BountyThinker_TechnoSpider : BountyThinker { override int GetBounty() { return 700; } }
-class BountyThinker_Trilobite : BountyThinker { override int GetBounty() { return 600; } }
+class BountyThinker_Babuin : BountyThinker { override int GetBounty() { return 200; } }
+class BountyThinker_Serpentipede : BountyThinker { override int GetBounty() { return 300; } }
+class BountyThinker_NinjaPirate : BountyThinker { override int GetBounty() { return 350; } }
+class BountyThinker_HDHumanoid : BountyThinker { override int GetBounty() { return 400; } }
 class BountyThinker_CombatSlug : BountyThinker { override int GetBounty() { return 500; } }
-class BountyThinker_Necromancer : BountyThinker { override int GetBounty() { return 600; } }
+class BountyThinker_Boner : BountyThinker { override int GetBounty() { return 550; } }
+class BountyThinker_Trilobite : BountyThinker { override int GetBounty() { return 600; } }
+class BountyThinker_PainBringer : BountyThinker { override int GetBounty() { return 600; } }
+class BountyThinker_Necromancer : BountyThinker { override int GetBounty() { return 666; } }
+class BountyThinker_TechnoSpider : BountyThinker { override int GetBounty() { return 700; } }
+class BountyThinker_PainLord : BountyThinker { override int GetBounty() { return 800; } }
 class BountyThinker_SatanRobo : BountyThinker { override int GetBounty() { return 2500; } }
 class BountyThinker_Technorantula : BountyThinker { override int GetBounty() { return 2500; } }
 
