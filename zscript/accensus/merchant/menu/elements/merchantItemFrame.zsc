@@ -12,6 +12,8 @@ class MerchantItemFrame : MerchZFFrame {
     MerchZFImage curImg;
     MerchZFLabel priceLabel;
 
+    MerchantItemBtn itemBtn;
+
     static MerchantItemFrame create (
         Vector2 pos,
         Vector2 size,
@@ -37,7 +39,7 @@ class MerchantItemFrame : MerchZFFrame {
         let btnHandler = new ('MerchantMenuHandler');
         btnHandler.menu = menu;
 
-        let btn = MerchantItemBtn.create(
+        ret.itemBtn = MerchantItemBtn.create(
             item,
             (0,0),
             size,
@@ -48,7 +50,7 @@ class MerchantItemFrame : MerchZFFrame {
             click: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
             disabled: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true)
         );
-        btn.pack(ret);
+        ret.itemBtn.pack(ret);
 
 
         // ----- ICON -----
@@ -163,20 +165,6 @@ class MerchantItemFrame : MerchZFFrame {
             }
         } else {
             disable();
-        }
-    }
-
-    override bool onNavEvent(MerchZFNavEventType type, bool fromController) {
-        switch (type) {
-            case MerchZFNavEventType_Confirm:
-                if (isFocused() && isEnabled()) {
-                    EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", item.GetClassName()), menu.SelCurrencyIndex);
-                    return true;
-                }
-                return false;
-            default:
-                if (hdm_debug) console.printf("Unknown NavEvent Type: "..type);
-                return super.onNavEvent(type, fromController);
         }
     }
 }

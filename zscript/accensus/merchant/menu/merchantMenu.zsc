@@ -75,15 +75,15 @@ class MerchantShopMenu : MerchZFGenericMenu {
             totalItems += items.size();
         }
 
-        Array<MerchantItemFrame> itemFrames;
-        foreach (catFrame : catFrames) itemFrames.append(catFrame.itemFrames);
+        Array<MerchantItemBtn> itemBtns;
+        foreach (catFrame : catFrames) foreach (itemFrame : catFrame.itemFrames) itemBtns.push(itemFrame.itemBtn);
 
         let focusHelper = MerchZFFocusLinkHelper.create(1, totalItems, false, false);
-        for (let i = 0; i < totalItems; i++) focusHelper.setElement(i, 0, itemFrames[i]);
+        for (let i = 0; i < totalItems; i++) focusHelper.setElement(i, 0, itemBtns[i]);
         focusHelper.setLinks();
 
-        focusDefaults[MerchZFNavEventType_Down] = itemFrames[0];
-        focusDefaults[MerchZFNavEventType_Up] = itemFrames[itemFrames.size() - 1];
+        focusDefaults[MerchZFNavEventType_Down] = itemBtns[0];
+        focusDefaults[MerchZFNavEventType_Up] = itemBtns[itemBtns.size() - 1];
 
         MerchZFScrollContainer.create(
             pos, size + (8, -pos.y),
