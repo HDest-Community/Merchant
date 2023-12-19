@@ -334,7 +334,7 @@ class HDPersonalShieldGeneratorStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PERSONALSHIELDGEN"); }
 	override Name GetItem() { return 'HDPersonalShieldGenerator'; }
-	override string GetIcon() { return "PSG0A0"; }
+	override string GetIcon() { return "PSH0A0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PERSONALSHIELDGEN"); }
 	override int GetBasePrice() { return 1200; }
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PERSONALSHIELDGEN"); }
