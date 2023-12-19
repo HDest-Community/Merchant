@@ -53,7 +53,6 @@ class MerchantShopMenu : MerchZFGenericMenu {
 
         shopContent = MerchZFListFrame.create((0,0), (size.x, 0), Spacing * 2.0);
 
-        let totalItems = 0;
         foreach (category : GetOpenedStore().Categories) {
 
             Array<StoreItem> items;
@@ -72,18 +71,9 @@ class MerchantShopMenu : MerchZFGenericMenu {
             catFrame.pack(shopContent);
 
             shopContent.setHeight(shopContent.getHeight() + catFrame.getHeight() + shopContent.getPadding());
-            totalItems += items.size();
         }
 
-        Array<MerchantItemBtn> itemBtns;
-        foreach (catFrame : catFrames) foreach (itemFrame : catFrame.itemFrames) itemBtns.push(itemFrame.itemBtn);
-
-        let focusHelper = MerchZFFocusLinkHelper.create(1, totalItems, false, false);
-        for (let i = 0; i < totalItems; i++) focusHelper.setElement(i, 0, itemBtns[i]);
-        focusHelper.setLinks();
-
-        focusDefaults[MerchZFNavEventType_Down] = itemBtns[0];
-        focusDefaults[MerchZFNavEventType_Up] = itemBtns[itemBtns.size() - 1];
+        buildFocusableBtns();
 
         MerchZFScrollContainer.create(
             pos, size + (8, -pos.y),
@@ -102,6 +92,25 @@ class MerchantShopMenu : MerchZFGenericMenu {
             self,
             players[consoleplayer].mo
         ).pack(MainFrame);
+    }
+
+    void buildFocusableBtns() {
+        Array<MerchZFButtonBase> focusableBtns;
+        foreach (catFrame : catFrames) {
+            let toggleBtn = catFrame.categoryHeader.toggleBtn;
+            focusableBtns.push(toggleBtn);
+
+            if (!toggleBtn.isOn()) {
+                foreach (itemFrame : catFrame.itemFrames) focusableBtns.push(itemFrame.itemBtn);
+            }
+        }
+
+        let focusHelper = MerchZFFocusLinkHelper.create(1, focusableBtns.size(), false, false);
+        for (let i = 0; i < focusableBtns.size(); i++) focusHelper.setElement(i, 0, focusableBtns[i]);
+        focusHelper.setLinks();
+
+        focusDefaults[MerchZFNavEventType_Down] = focusableBtns[0];
+        focusDefaults[MerchZFNavEventType_Up] = focusableBtns[focusableBtns.size() - 1];
     }
 
     override void ticker() {
