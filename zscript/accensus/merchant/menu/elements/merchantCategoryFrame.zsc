@@ -71,7 +71,7 @@ class MerchantCategoryFrame : MerchZFListFrame {
         super.ticker();
 
         let height = 0;
-        foreach (el : elements) height += (el.isHidden() ? 0 : el.getHeight() + getPadding());
+        foreach (el : elements) height += (el.isHidden() ? 0 : (el.getHeight() + getPadding()));
 
         setHeight(height);
     }
