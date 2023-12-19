@@ -110,13 +110,18 @@ class MerchantItemFrame : MerchZFFrame {
 		string curIconString = currency.GetIcon();
 		TextureID curIcon = TexMan.CheckForTexture(curIconString, TexMan.Type_Any);
 		vector2 curIconSize = TexMan.GetScaledSize(curIcon);
-		let curHeight = curIconSize.y + SmallFont.getHeight();
+		let curHeight = height - (MerchantShopMenu.Spacing * 2.0);
+		let curSize = (currencyWidth - MerchantShopMenu.Spacing, curHeight);
+		let curIconScale = MerchantShopMenu.GetBoxedScale(curIconSize, curSize - (0, MerchantShopMenu.Spacing + SmallFont.getHeight()));
 
 		ret.curImg = MerchZFImage.create(
 			(ret.getWidth() - currencyWidth, (height - curHeight) / 2),
-			(currencyWidth, curHeight),
+			curSize - (0, MerchantShopMenu.Spacing + SmallFont.getHeight()),
 			curIconString,
-			MerchZFElement.AlignType_TopCenter
+			MerchZFElement.AlignType_Center,
+			curIconSize.y > (curHeight - (MerchantShopMenu.Spacing + SmallFont.getHeight()))
+				? (1.0 / curIconScale, 1.0 / curIconScale)
+				: (curIconScale, curIconScale)
 		);
 		ret.curImg.setDontBlockMouse(true);
 		ret.curImg.pack(ret);
@@ -124,7 +129,7 @@ class MerchantItemFrame : MerchZFFrame {
 
 		ret.priceLabel = MerchZFLabel.create(
 			(ret.getWidth() - currencyWidth, (height - curHeight) / 2),
-			(currencyWidth, curHeight),
+			curSize,
 			fnt: SmallFont,
 			alignment: MerchZFElement.AlignType_BottomCenter
 		);
