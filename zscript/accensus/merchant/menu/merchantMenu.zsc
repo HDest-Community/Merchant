@@ -53,6 +53,7 @@ class MerchantShopMenu : MerchZFGenericMenu {
 
         shopContent = MerchZFListFrame.create((0,0), (size.x, 0), Spacing * 2.0);
 
+        let totalItems = 0;
         foreach (category : GetOpenedStore().Categories) {
 
             Array<StoreItem> items;
@@ -71,7 +72,18 @@ class MerchantShopMenu : MerchZFGenericMenu {
             catFrame.pack(shopContent);
 
             shopContent.setHeight(shopContent.getHeight() + catFrame.getHeight() + shopContent.getPadding());
+            totalItems += items.size();
         }
+
+        Array<MerchantItemFrame> itemFrames;
+        foreach (catFrame : catFrames) itemFrames.append(catFrame.itemFrames);
+
+        let focusHelper = MerchZFFocusLinkHelper.create(1, totalItems, false, false);
+        for (let i = 0; i < totalItems; i++) focusHelper.setElement(i, 0, itemFrames[i]);
+        focusHelper.setLinks();
+
+        focusDefaults[MerchZFNavEventType_Down] = itemFrames[0];
+        focusDefaults[MerchZFNavEventType_Up] = itemFrames[itemFrames.size() - 1];
 
         MerchZFScrollContainer.create(
             pos, size + (8, -pos.y),
@@ -99,5 +111,21 @@ class MerchantShopMenu : MerchZFGenericMenu {
         foreach (catFrame : catFrames) height += catFrame.getHeight() + shopContent.getPadding();
 
         shopContent.setHeight(height);
+    }
+
+    override void setupFocusIndicator() {
+        setFocusIndicator(MerchZFBoxImage.create(
+            (0, 0), (0, 0),
+            MerchZFBoxTextures.CreateTexturePixels('Graphics/FocusIndicator.png', (7, 7), (14, 14), true, true)
+        ));
+        setFocusPriority(MerchZFFocusPriority_JustAboveFocused);
+    }
+
+    override void changeFocusIndicator(MerchZFElement oldFocus, MerchZFElement newFocus) {
+        if (newFocus) positionFocusIndicator(newFocus.getPos(), newFocus.getSize());
+    }
+
+    override void positionFocusIndicator(Vector2 pos, Vector2 size) {
+        getFocusIndicator().setBox(pos, size);
     }
 }

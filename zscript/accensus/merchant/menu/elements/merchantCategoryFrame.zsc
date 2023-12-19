@@ -8,6 +8,7 @@ class MerchantCategoryFrame : MerchZFListFrame {
     // MerchantCategoryToggleButton toggleBtn;
     MerchantCategoryHeaderFrame categoryHeader;
     MerchZFListFrame itemsFrame;
+    Array<MerchantItemFrame> itemFrames;
 
     static MerchantCategoryFrame create(
         Vector2 pos,
@@ -43,13 +44,18 @@ class MerchantCategoryFrame : MerchZFListFrame {
         );
         ret.categoryHeader.pack(ret);
 
-        foreach (item : ret.items) MerchantItemFrame.create(
-            (0, 0),
-            (size.x, 30),
-            menu,
-            plr,
-            item
-        ).pack(ret.itemsFrame);
+        foreach (item : ret.items) {
+            let itemFrame = MerchantItemFrame.create(
+                (0, 0),
+                (size.x, 30),
+                menu,
+                plr,
+                item
+            );
+            
+            ret.itemFrames.push(itemFrame);
+            itemFrame.pack(ret.itemsFrame);
+        }
 
         ret.itemsFrame.pack(ret);
 

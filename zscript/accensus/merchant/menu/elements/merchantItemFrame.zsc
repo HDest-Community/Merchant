@@ -165,4 +165,18 @@ class MerchantItemFrame : MerchZFFrame {
             disable();
         }
     }
+
+    override bool onNavEvent(MerchZFNavEventType type, bool fromController) {
+        switch (type) {
+            case MerchZFNavEventType_Confirm:
+                if (isFocused() && isEnabled()) {
+                    EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", item.GetClassName()), menu.SelCurrencyIndex);
+                    return true;
+                }
+                return false;
+            default:
+                if (hdm_debug) console.printf("Unknown NavEvent Type: "..type);
+                return super.onNavEvent(type, fromController);
+        }
+    }
 }
