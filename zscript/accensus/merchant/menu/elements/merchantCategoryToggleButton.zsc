@@ -1,0 +1,56 @@
+class MerchantCategoryToggleButton : MerchZFToggleButton {
+
+    MerchZFElement targetEl;
+
+    private void config(
+        string text = "",
+        MerchZFBoxTextures inactive = NULL,
+        MerchZFBoxTextures hover = NULL,
+        MerchZFBoxTextures click = NULL,
+        MerchZFBoxTextures disabled = NULL,
+        Font fnt = NULL,
+        double textScale = 1,
+        int textColor = Font.CR_WHITE,
+        AlignType alignment = AlignType_Center,
+        MerchZFHandler cmdHandler = NULL,
+        Name command = '',
+        MerchZFElement targetEl = NULL
+    ) {
+        setFont(fnt);
+        setText(text);
+        setTextScale(textScale);
+        setTextures(inactive, hover, click, disabled);
+        setTextColor(textColor);
+        setAlignment(alignment);
+        setAlpha(1.0);
+
+        self.cmdHandler = cmdHandler;
+        self.command = command;
+
+        self.targetEl = targetEl;
+    }
+
+    static MerchantCategoryToggleButton create(
+        Vector2 pos,
+        Vector2 size,
+        string text = "",
+        MerchZFBoxTextures inactive = NULL,
+        MerchZFBoxTextures hover = NULL,
+        MerchZFBoxTextures click = NULL,
+        MerchZFBoxTextures disabled = NULL,
+        Font fnt = NULL,
+        double textScale = 1,
+        int textColor = Font.CR_WHITE,
+        AlignType alignment = AlignType_Center,
+        MerchZFHandler cmdHandler = NULL,
+        Name command = '',
+        MerchZFElement targetEl = NULL
+    ) {
+        let ret = new('MerchantCategoryToggleButton');
+
+        ret.config(text, inactive, hover, click, disabled, fnt, textScale, textColor, alignment, cmdHandler, command, targetEl);
+        ret.setBox(pos, size);
+
+        return ret;
+    }
+}

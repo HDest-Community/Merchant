@@ -73,7 +73,7 @@ Payouts are as follows:
 
 Original Mod Credits are displayed below.
 - Cryomundus, for porting original mod to HDest Community Organization, updating as needed.
-- Undead Zeratul, adding all sorts of Shop Entries & filters.
+- Undead Zeratul, adding all sorts of Shop Entries & filters, updating ZForms, redesigning Shop Menu.
 
 Code:
 - Accensus

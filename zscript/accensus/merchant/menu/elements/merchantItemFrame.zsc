@@ -1,0 +1,168 @@
+class MerchantItemFrame : MerchZFFrame {
+
+	MerchantShopMenu menu;
+	PlayerPawn plr;
+	StoreItem item;
+
+	MerchZFImage itemIcon;
+	
+	MerchZFLabel itemTagLabel;
+	MerchZFLabel itemFlavorLabel;
+
+	MerchZFImage curImg;
+	MerchZFLabel priceLabel;
+
+	static MerchantItemFrame create (
+		Vector2 pos,
+		Vector2 size,
+		MerchantShopMenu menu,
+		PlayerPawn plr,
+		StoreItem item
+	) {
+		let ret = new('MerchantItemFrame');
+
+		ret.setBox(pos, size);
+		ret.alpha = 1;
+
+		ret.menu = menu;
+		ret.plr = plr;
+		ret.item = item;
+
+
+		let height = ret.getHeight();
+
+		let iconWidth = height * 2;
+		let currencyWidth = 35;
+
+		let btnHandler = new ('MerchantMenuHandler');
+		btnHandler.menu = menu;
+
+		let btn = MerchantItemBtn.create(
+			item,
+			(0,0),
+			size,
+			cmdHandler: btnHandler,
+			command: 'buyItem',
+			inactive: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackground.png', (7,7), (14,14), true, true),
+			hover: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundHover.png', (7,7), (14,14), true, true),
+			click: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
+			disabled: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true)
+		);
+		btn.pack(ret);
+
+
+		// ----- ICON -----
+
+		let iIcon = item.getIcon();
+		let iSize = (iconWidth, height) - (MerchantShopMenu.Spacing * 2.0, MerchantShopMenu.Spacing * 2.0);
+		let iconScale = 1.0 / MerchantShopMenu.GetBoxedScale(
+			TexMan.GetScaledSize(
+				TexMan.CheckForTexture(
+					iIcon,
+					TexMan.Type_Any
+				)
+			),
+			iSize
+		);
+
+		ret.itemIcon = MerchZFImage.create(
+			(MerchantShopMenu.Spacing, MerchantShopMenu.Spacing),
+			iSize,
+			iIcon,
+			MerchZFElement.AlignType_Center,
+			(iconScale, iconScale)
+		);
+		ret.itemIcon.setDontBlockMouse(true);
+		ret.itemIcon.pack(ret);
+
+
+		// ----- NAME & FLAVOR TEXT -----
+
+		vector2 contentPos = (iconWidth + MerchantShopMenu.Spacing, MerchantShopMenu.Spacing);
+		let contentWidth = ret.getWidth() - (iconWidth * 2);
+		int amount = item.GetAmount();
+
+		ret.itemTagLabel = MerchZFLabel.create(
+			contentPos,
+			(contentWidth, SmallFont.getHeight()),
+			(amount > 1 ? "\c[White]"..amount.."\c- " : "")..item.GetDisplayName().."\c[Yellow] ("..item.StoreAmount.." remaining)\c-",
+			SmallFont,
+			textColor: Font.CR_GREEN
+		);
+		ret.itemTagLabel.setDontBlockMouse(true);
+		ret.itemTagLabel.pack(ret);
+
+		ret.itemFlavorLabel = MerchZFLabel.create(
+			contentPos + (0, ret.itemTagLabel.getHeight()),
+			(contentWidth, ConFont.getHeight()),
+			item.GetFlavorText(),
+			ConFont,
+			textColor: Font.CR_DARKGRAY
+		);
+		ret.itemFlavorLabel.setDontBlockMouse(true);
+		ret.itemFlavorLabel.pack(ret);
+
+
+		// ----- PRICE -----
+
+		let currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+
+		string curIconString = currency.GetIcon();
+		TextureID curIcon = TexMan.CheckForTexture(curIconString, TexMan.Type_Any);
+		vector2 curIconSize = TexMan.GetScaledSize(curIcon);
+		let curHeight = height - (MerchantShopMenu.Spacing * 2.0);
+		let curSize = (currencyWidth - MerchantShopMenu.Spacing, curHeight);
+		let curIconScale = MerchantShopMenu.GetBoxedScale(curIconSize, curSize - (0, MerchantShopMenu.Spacing + SmallFont.getHeight()));
+
+		ret.curImg = MerchZFImage.create(
+			(ret.getWidth() - currencyWidth, (height - curHeight) / 2),
+			curSize - (0, MerchantShopMenu.Spacing + SmallFont.getHeight()),
+			curIconString,
+			MerchZFElement.AlignType_Center,
+			curIconSize.y > (curHeight - (MerchantShopMenu.Spacing + SmallFont.getHeight()))
+				? (1.0 / curIconScale, 1.0 / curIconScale)
+				: (curIconScale, curIconScale)
+		);
+		ret.curImg.setDontBlockMouse(true);
+		ret.curImg.pack(ret);
+
+
+		ret.priceLabel = MerchZFLabel.create(
+			(ret.getWidth() - currencyWidth, (height - curHeight) / 2),
+			curSize,
+			fnt: SmallFont,
+			alignment: MerchZFElement.AlignType_BottomCenter
+		);
+		ret.priceLabel.setDontBlockMouse(true);
+		ret.priceLabel.pack(ret);
+
+		return ret;
+	}
+
+	override void ticker() {
+        super.ticker();
+
+		if (item) {
+
+			let amount = item.GetAmount();
+
+			itemTagLabel.setText((amount > 1 ? "\c[White]"..amount.."\c- " : "")..item.GetDisplayName().."\c[Yellow] ("..item.StoreAmount.." remaining)\c-");
+
+			if (amount > 0) {
+				enable();
+
+				let currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+				let price = StoreItem.GetAdjustedPrice(item, currency);
+
+				curImg.setImage(currency.getIcon());
+				
+				priceLabel.setText(price.."");
+				priceLabel.setTextColor(price <= plr.CountInv(currency.GetCurrencyClass()) ? Font.CR_WHITE : Font.CR_RED);
+			} else {
+				disable();
+			}
+		} else {
+			disable();
+		}
+	}
+}

@@ -1,0 +1,40 @@
+class MerchantMenuHandler : MerchZFHandler {
+
+    MerchantShopMenu menu;
+
+    override void buttonClickCommand(MerchZFButton btn, Name cmd) {
+        let numCategories = menu.GetOpenedStore().Categories.Size();
+
+        switch (cmd) {
+            case 'buyItem':
+                EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", MerchantItemBtn(btn).item.GetClassName()), menu.SelCurrencyIndex);
+                break;
+            default:
+                if (hdm_debug) console.printf("Unknown Command: "..cmd);
+                break;
+        }
+    }
+
+    override void toggleButtonChanged(MerchZFToggleButton btn, Name cmd, bool on) {
+        switch (cmd) {
+            case 'toggleCategoryCollapse':
+                if (hdm_debug) console.printf("Toggle Category Collapsed...");
+            let toggleBtn = MerchantCategoryToggleButton(btn);
+            if (toggleBtn) {
+                if (hdm_debug) console.printf("Toggle Button Exists");
+                let itemsFrame = toggleBtn.targetEl;
+
+                if (itemsFrame) {
+                    if (hdm_debug) console.printf("Target Element Exists");
+                    itemsFrame.setHidden(on);
+                    
+                    if (hdm_debug) console.printf("Target Element is now "..(itemsFrame.isHidden() ? "hidden" : "visible"));
+                }
+            }
+            break;
+        default:
+            if (hdm_debug) console.printf("Unknown Command: "..cmd);
+            break;
+        }
+    }
+}

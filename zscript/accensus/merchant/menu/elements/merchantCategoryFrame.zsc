@@ -1,0 +1,72 @@
+class MerchantCategoryFrame : MerchZFListFrame {
+
+    MerchantShopMenu menu;
+    PlayerPawn plr;
+    Array<StoreItem> items;
+
+    // MerchZFImage toggleIcon;
+    // MerchantCategoryToggleButton toggleBtn;
+    MerchantCategoryHeaderFrame categoryHeader;
+    MerchZFListFrame itemsFrame;
+
+    static MerchantCategoryFrame create(
+        Vector2 pos,
+        Vector2 size,
+        Double padding,
+        MerchantShopMenu menu,
+        PlayerPawn plr,
+        string category,
+        Array<StoreItem> items
+    ) {
+        let ret = new ('MerchantCategoryFrame');
+
+        ret.setPadding(padding);
+
+        ret.alpha = 1;
+
+        ret.menu = menu;
+        ret.plr = plr;
+        ret.items.copy(items);
+
+        ret.itemsFrame = MerchZFListFrame.create(
+            (0, 0),
+            (size.x, ret.items.size() * (30 + padding)),
+            padding
+        );
+
+        ret.categoryHeader = MerchantCategoryHeaderFrame.create(
+            pos,
+            (size.x, 30),
+            menu,
+            category,
+            ret.itemsFrame
+        );
+        ret.categoryHeader.pack(ret);
+
+        foreach (item : ret.items) MerchantItemFrame.create(
+            (0, 0),
+            (size.x, 30),
+            menu,
+            plr,
+            item
+        ).pack(ret.itemsFrame);
+
+        ret.itemsFrame.pack(ret);
+
+        let height = 0;
+        foreach (el : ret.elements) height += el.getHeight() + padding;
+
+        ret.setBox(pos, (size.x, height));
+
+        return ret;
+    }
+
+    override void ticker() {
+        super.ticker();
+
+        let height = 0;
+        foreach (el : elements) height += (el.isHidden() ? 0 : el.getHeight() + getPadding());
+
+        setHeight(height);
+    }
+}
