@@ -19,25 +19,25 @@ class MerchantMenuHandler : MerchZFHandler {
         switch (cmd) {
             case 'toggleCategoryCollapse':
                 if (hdm_debug) console.printf("Toggle Category Collapsed...");
-            let toggleBtn = MerchantCategoryToggleButton(btn);
-            if (toggleBtn) {
-                if (hdm_debug) console.printf("Toggle Button Exists");
-                let itemsFrame = toggleBtn.targetEl;
+                let toggleBtn = MerchantCategoryToggleButton(btn);
+                if (toggleBtn) {
+                    if (hdm_debug) console.printf("Toggle Button Exists");
+                    let itemsFrame = toggleBtn.targetEl;
 
-                if (itemsFrame) {
-                    if (hdm_debug) console.printf("Target Element Exists");
-                    itemsFrame.setHidden(on);
-                    
-                    if (hdm_debug) console.printf("Target Element is now "..(itemsFrame.isHidden() ? "hidden" : "visible"));
+                    if (itemsFrame) {
+                        if (hdm_debug) console.printf("Target Element Exists");
+                        itemsFrame.setHidden(on);
+                        
+                        if (hdm_debug) console.printf("Target Element is now "..(itemsFrame.isHidden() ? "hidden" : "visible"));
 
                         menu.setScrollHeight();
                         menu.buildFocusableBtns();
+                    }
                 }
-            }
-            break;
-        default:
-            if (hdm_debug) console.printf("Unknown Command: "..cmd);
-            break;
+                break;
+            default:
+                if (hdm_debug) console.printf("Unknown Command: "..cmd);
+                break;
         }
     }
 }
