@@ -69,8 +69,8 @@ class MerchantCurrencyFrame : MerchZFFrame {
                 currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
                 return true;
             default:
-                console.printf("Unknown NavEvent Type: "..type);
-                return false;
+                if (hdm_debug) console.printf("Unknown NavEvent Type: "..type);
+                return super.onNavEvent(type, fromController);
         }
     }
 }
