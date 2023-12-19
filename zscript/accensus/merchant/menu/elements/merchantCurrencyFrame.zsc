@@ -60,12 +60,12 @@ class MerchantCurrencyFrame : MerchZFFrame {
         switch (type) {
             case MerchZFNavEventType_PageUp:
                 menu.SelCurrencyIndex--;
-				if (menu.SelCurrencyIndex < 0) menu.SelCurrencyIndex = menu.Handler.StoreCurrencies.Size() - 1;
+                if (menu.SelCurrencyIndex < 0) menu.SelCurrencyIndex = menu.Handler.StoreCurrencies.Size() - 1;
                 currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
                 return true;
             case MerchZFNavEventType_PageDown:
                 menu.SelCurrencyIndex++;
-				if (menu.SelCurrencyIndex > menu.Handler.StoreCurrencies.Size() - 1) menu.SelCurrencyIndex = 0;
+                if (menu.SelCurrencyIndex > menu.Handler.StoreCurrencies.Size() - 1) menu.SelCurrencyIndex = 0;
                 currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
                 return true;
             default:

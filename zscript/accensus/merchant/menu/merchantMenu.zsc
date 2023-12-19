@@ -1,103 +1,103 @@
 class MerchantShopMenu : MerchZFGenericMenu {
 
-	MerchantHandler Handler;
-	int SelCategoryIndex;
-	int SelCurrencyIndex;
+    MerchantHandler Handler;
+    int SelCategoryIndex;
+    int SelCurrencyIndex;
 
-	const Spacing = 3;
+    const Spacing = 3;
 
-	Array<MerchantCategoryFrame> catFrames;
-	MerchZFListFrame shopContent;
+    Array<MerchantCategoryFrame> catFrames;
+    MerchZFListFrame shopContent;
 
-	override void Init(Menu parent) {
-		Super.Init(parent);
+    override void Init(Menu parent) {
+        Super.Init(parent);
 
-		menuactive = Menu.OnNoPause;
-		Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+        menuactive = Menu.OnNoPause;
+        Handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 
 
-		vector2 virtRes = (640, 480);
-		SetBaseResolution(virtRes);
+        vector2 virtRes = (640, 480);
+        SetBaseResolution(virtRes);
 
-		vector2 basePos = (virtRes.x * 0.1, 10);
-		vector2 sSize = (virtRes.x - basePos.x * 2, virtRes.y - SmallFont.GetHeight() + (Spacing * 2.0));
-		BuildShopFrame(basePos, sSize);
-	}
+        vector2 basePos = (virtRes.x * 0.1, 10);
+        vector2 sSize = (virtRes.x - basePos.x * 2, virtRes.y - SmallFont.GetHeight() + (Spacing * 2.0));
+        BuildShopFrame(basePos, sSize);
+    }
 
-	static clearscope double GetBoxedScale(vector2 size, vector2 boxSize) {
-		return max(size.x / boxSize.x, size.y / boxSize.y);
-	}
+    static clearscope double GetBoxedScale(vector2 size, vector2 boxSize) {
+        return max(size.x / boxSize.x, size.y / boxSize.y);
+    }
 
-	ui MerchantStore GetOpenedStore() {
-		return Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
-	}
+    ui MerchantStore GetOpenedStore() {
+        return Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
+    }
 
-	ui string GetSelectedCategory() {
-		let openedStore = GetOpenedStore();
-		return SelCategoryIndex < openedStore.Categories.Size() ? openedStore.Categories[SelCategoryIndex] : "Unknown Category";
-	}
+    ui string GetSelectedCategory() {
+        let openedStore = GetOpenedStore();
+        return SelCategoryIndex < openedStore.Categories.Size() ? openedStore.Categories[SelCategoryIndex] : "Unknown Category";
+    }
 
-	ui void GetItemsInCategory(out Array<StoreItem> items, string category) {
-		items.Clear();
+    ui void GetItemsInCategory(out Array<StoreItem> items, string category) {
+        items.Clear();
 
-		// Add all items in the current category that aren't the current currency.
-		foreach (storeItem : GetOpenedStore().storeItems) {
-			if (
-				storeItem.GetCategory() == category
-				&& storeItem.GetItem() != Handler.StoreCurrencies[SelCurrencyIndex].GetCurrencyClass()
-			) items.Push(storeItem);
-		}
-	}
+        // Add all items in the current category that aren't the current currency.
+        foreach (storeItem : GetOpenedStore().storeItems) {
+            if (
+                storeItem.GetCategory() == category
+                && storeItem.GetItem() != Handler.StoreCurrencies[SelCurrencyIndex].GetCurrencyClass()
+            ) items.Push(storeItem);
+        }
+    }
 
-	private ui void BuildShopFrame(vector2 pos, vector2 size) {
+    private ui void BuildShopFrame(vector2 pos, vector2 size) {
 
-		shopContent = MerchZFListFrame.create((0,0), (size.x, 0), Spacing * 2.0);
+        shopContent = MerchZFListFrame.create((0,0), (size.x, 0), Spacing * 2.0);
 
-		foreach (category : GetOpenedStore().Categories) {
+        foreach (category : GetOpenedStore().Categories) {
 
-			Array<StoreItem> items;
-			GetItemsInCategory(items, category);
-			
-			let catFrame = MerchantCategoryFrame.create(
-				(0, 0),
-				size - (8, 0),
-				Spacing,
-				self,
-				players[consoleplayer].mo,
-				category,
-				items
-			);
-			catFrames.push(catFrame);
-			catFrame.pack(shopContent);
+            Array<StoreItem> items;
+            GetItemsInCategory(items, category);
+            
+            let catFrame = MerchantCategoryFrame.create(
+                (0, 0),
+                size - (8, 0),
+                Spacing,
+                self,
+                players[consoleplayer].mo,
+                category,
+                items
+            );
+            catFrames.push(catFrame);
+            catFrame.pack(shopContent);
 
-			shopContent.setHeight(shopContent.getHeight() + catFrame.getHeight() + shopContent.getPadding());
-		}
+            shopContent.setHeight(shopContent.getHeight() + catFrame.getHeight() + shopContent.getPadding());
+        }
 
-		MerchZFScrollContainer.create(
-			pos, size + (8, -pos.y),
-			8.0, shopContent.getHeight(), 15.0,
-			MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true),
-			MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundHover.png', (7,7), (14,14), true, true),
-			MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
-			MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackground.png', (7,7), (14,14), true, true),
-			shopContent,
-			Spacing
-		).pack(MainFrame);
+        MerchZFScrollContainer.create(
+            pos, size + (8, -pos.y),
+            8.0, shopContent.getHeight(), 15.0,
+            MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true),
+            MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundHover.png', (7,7), (14,14), true, true),
+            MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
+            MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackground.png', (7,7), (14,14), true, true),
+            shopContent,
+            Spacing
+        ).pack(MainFrame);
 
-		MerchantCurrencyFrame.create(
-			(MainFrame.getWidth() - 35, 0),
-			(35, 35),
-			self,
-			players[consoleplayer].mo
-		).pack(MainFrame);
-	}
+        MerchantCurrencyFrame.create(
+            (MainFrame.getWidth() - 35, 0),
+            (35, 35),
+            self,
+            players[consoleplayer].mo
+        ).pack(MainFrame);
+    }
 
-	override void ticker() {
+    override void ticker() {
         super.ticker();
 
-		let height = 0;
-		foreach (catFrame : catFrames) height += catFrame.getHeight() + shopContent.getPadding();
+        let height = 0;
+        foreach (catFrame : catFrames) height += catFrame.getHeight() + shopContent.getPadding();
 
-		shopContent.setHeight(height);
-	}
+        shopContent.setHeight(height);
+    }
 }

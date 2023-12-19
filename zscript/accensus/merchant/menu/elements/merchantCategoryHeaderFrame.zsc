@@ -15,8 +15,8 @@ class MerchantCategoryHeaderFrame : MerchZFFrame {
         let btnHandler = new ('MerchantMenuHandler');
         btnHandler.menu = menu;
 
-		ret.setBox(pos, size);
-		ret.alpha = 1;
+        ret.setBox(pos, size);
+        ret.alpha = 1;
 
         ret.toggleBtn = MerchantCategoryToggleButton.create(
             pos,
@@ -39,7 +39,7 @@ class MerchantCategoryHeaderFrame : MerchZFFrame {
             "CHIPARDN",
             MerchZFElement.AlignType_CenterRight
         );
-		ret.toggleIcon.setDontBlockMouse(true);
+        ret.toggleIcon.setDontBlockMouse(true);
         ret.toggleIcon.pack(ret);
 
         return ret;

@@ -2,59 +2,59 @@ class MerchantItemBtn : MerchZFButton {
 
     StoreItem item;
 
-	private void config(
+    private void config(
         StoreItem item,
-		string text = "",
+        string text = "",
         MerchantMenuHandler cmdHandler = NULL,
         Name command = '',
-		MerchZFBoxTextures inactive = NULL,
+        MerchZFBoxTextures inactive = NULL,
         MerchZFBoxTextures hover = NULL,
-		MerchZFBoxTextures click = NULL,
+        MerchZFBoxTextures click = NULL,
         MerchZFBoxTextures disabled = NULL,
-		Font fnt = NULL,
+        Font fnt = NULL,
         double textScale = 1,
         int textColor = Font.CR_WHITE,
-		int holdInterval = -1,
+        int holdInterval = -1,
         AlignType alignment = AlignType_Center
-	) {
-		setFont(fnt);
-		setHoldTicInterval(holdInterval);
-		setText(text);
-		setTextScale(textScale);
-		setTextures(inactive, hover, click, disabled);
-		setTextColor(textColor);
-		setAlignment(alignment);
-		setAlpha(1.0);
+    ) {
+        setFont(fnt);
+        setHoldTicInterval(holdInterval);
+        setText(text);
+        setTextScale(textScale);
+        setTextures(inactive, hover, click, disabled);
+        setTextColor(textColor);
+        setAlignment(alignment);
+        setAlpha(1.0);
 
-		self.cmdHandler = cmdHandler;
-		self.command = command;
+        self.cmdHandler = cmdHandler;
+        self.command = command;
 
         self.item = item;
-	}
+    }
 
-	static MerchantItemBtn create(
+    static MerchantItemBtn create(
         StoreItem item,
-		Vector2 pos,
+        Vector2 pos,
         Vector2 size,
         string text = "",
         MerchantMenuHandler cmdHandler = NULL,
         Name command = '',
-		MerchZFBoxTextures inactive = NULL,
+        MerchZFBoxTextures inactive = NULL,
         MerchZFBoxTextures hover = NULL,
         MerchZFBoxTextures click = NULL,
-		MerchZFBoxTextures disabled = NULL,
+        MerchZFBoxTextures disabled = NULL,
         Font fnt = NULL,
         double textScale = 1,
         int textColor = Font.CR_WHITE,
-		int holdInterval = -1,
+        int holdInterval = -1,
         AlignType alignment = AlignType_Center
-	) {
-		let ret = new('MerchantItemBtn');
+    ) {
+        let ret = new('MerchantItemBtn');
 
-		ret.config(item, text, cmdHandler, command, inactive, hover, click, disabled, fnt, textScale, textColor, holdInterval, alignment);
-		ret.setBox(pos, size);
+        ret.config(item, text, cmdHandler, command, inactive, hover, click, disabled, fnt, textScale, textColor, holdInterval, alignment);
+        ret.setBox(pos, size);
 
-		return ret;
-	}
+        return ret;
+    }
 
 }
