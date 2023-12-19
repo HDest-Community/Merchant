@@ -20,7 +20,7 @@ class MerchantShopMenu : MerchZFGenericMenu {
         SetBaseResolution(virtRes);
 
         vector2 basePos = (virtRes.x * 0.1, 10);
-        vector2 sSize = (virtRes.x - basePos.x * 2, virtRes.y - SmallFont.GetHeight() + (Spacing * 2.0));
+        vector2 sSize = (virtRes.x - basePos.x * 2, virtRes.y - SmallFont.GetHeight() - (Spacing * 2.0));
         BuildShopFrame(basePos, sSize);
     }
 
