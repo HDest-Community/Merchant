@@ -69,10 +69,9 @@ class MerchantShopMenu : MerchZFGenericMenu {
             );
             catFrames.push(catFrame);
             catFrame.pack(shopContent);
-
-            shopContent.setHeight(shopContent.getHeight() + catFrame.getHeight() + shopContent.getPadding());
         }
 
+        setScrollHeight();
         buildFocusableBtns();
 
         MerchZFScrollContainer.create(
@@ -92,6 +91,14 @@ class MerchantShopMenu : MerchZFGenericMenu {
             self,
             players[consoleplayer].mo
         ).pack(MainFrame);
+    }
+
+    void setScrollHeight() {
+        let height = 0;
+
+        foreach (catFrame : catFrames) height += catFrame.getHeight() + shopContent.getPadding();
+
+        shopContent.setHeight(height);
     }
 
     void buildFocusableBtns() {

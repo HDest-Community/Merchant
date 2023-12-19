@@ -30,7 +30,8 @@ class MerchantMenuHandler : MerchZFHandler {
                     
                     if (hdm_debug) console.printf("Target Element is now "..(itemsFrame.isHidden() ? "hidden" : "visible"));
 
-                    menu.buildFocusableBtns();
+                        menu.setScrollHeight();
+                        menu.buildFocusableBtns();
                 }
             }
             break;
