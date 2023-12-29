@@ -17,15 +17,16 @@ extend class MerchantHandler
 		Actor a = null;
 		while ((a = Actor(it.Next())))
 		{
-			if (!a.bISMONSTER || !a.bSHOOTABLE || a.bFRIENDLY || a.health <= 0)
-			{
-				continue;
-			}
+			// Only consider non-friendly, alive, shootable monster actors as bounty targets
+			if (!a.bISMONSTER || !a.bSHOOTABLE || a.bFRIENDLY || a.health <= 0) continue;
 		
 			for (int i = 0; i < bountyThinkers.Size(); ++i)
 			{
+				// Find the appropriate BountyThinker,
+				// and if the current actor hasn't been chosen and is an instance of the relevant actor class,
+				// add it to the list of chosen actors.
 				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
-				if (a.GetClassName() == actorName || a is actorName)
+				if (chosenActors.find(a) == chosenActors.size() && a is actorName)
 				{
 					chosenActors.Push(a);
 				}
@@ -34,13 +35,15 @@ extend class MerchantHandler
 
 		while (chosenActors.Size() > 0 && count > 0)
 		{
+			// Pick a random actor out of those that were chosen,
+			// and if that chosen actor hasn't had a BountyThinker assigned,
+			// create a BountyThinker for that actor and remove it from further selection
 			int index = random(0, chosenActors.Size() - 1);
 			Actor randAct = chosenActors[index];
-		
 			for (int i = 0; i < bountyThinkers.Size(); ++i)
 			{
 				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
-				if (randAct.GetClassName() == actorName || randAct is actorName)
+				if (chosenActors.find(randAct) < chosenActors.size() && randAct is actorName)
 				{
 					if (hdm_debug) Console.Printf("--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", randAct.GetTag(), randAct.pos.x, randAct.pos.y);
 					BountyThinker.Create("BountyThinker_"..actorName, randAct);
