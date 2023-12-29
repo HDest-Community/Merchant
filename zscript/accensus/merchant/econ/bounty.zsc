@@ -263,9 +263,9 @@ class BountyThinker : Thinker abstract
 // ----------------------------------------------------------------------
 
 class BountyThinker_Babuin : BountyThinker { override int GetBounty() { return 200; } }
+class BountyThinker_HDHumanoid : BountyThinker { override int GetBounty() { return 250; } }
 class BountyThinker_Serpentipede : BountyThinker { override int GetBounty() { return 300; } }
 class BountyThinker_NinjaPirate : BountyThinker { override int GetBounty() { return 350; } }
-class BountyThinker_HDHumanoid : BountyThinker { override int GetBounty() { return 400; } }
 class BountyThinker_CombatSlug : BountyThinker { override int GetBounty() { return 500; } }
 class BountyThinker_Boner : BountyThinker { override int GetBounty() { return 550; } }
 class BountyThinker_Trilobite : BountyThinker { override int GetBounty() { return 600; } }
