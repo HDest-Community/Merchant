@@ -182,7 +182,7 @@ OptionMenu "MerchStoreFilterHDBulletLib"
 
 OptionMenu "MerchStoreFilterAceCorp"
 {
-	Title "Vanilla Filters"
+	Title "AceCorp: Engineering Dept. Filters"
 
 	StaticText "Weapons"
 	Option "$MERCH_TAG_SOULCUBE", "hdm_enable_soulcube", "OnOff"
