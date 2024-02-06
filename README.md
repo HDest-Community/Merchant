@@ -1,3 +1,7 @@
+# Merchant
+
+[![Nightly Build](https://github.com/HDest-Community/merchant/actions/workflows/nightly.yml/badge.svg)](https://github.com/HDest-Community/merchant/actions/workflows/nightly.yml)
+
 ### Important
 ---
 - This mod requires [AceCoreLib](https://github.com/HDest-Community/AceCoreLib).
