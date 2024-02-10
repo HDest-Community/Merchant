@@ -6,4 +6,4 @@ runs:
   - uses: actions/checkout@v4
   - uses: montudor/action-zip@v1
     with:
-      args: zip -r "Merchant-${{ env.SUFFIX }}.pk3" . -i graphics/* models/* patches/* sounds/* sprites/* zscript/* CREDITS.* CVARINFO GLDEFS KEYCONF LANGUAGE LICENSE MAPINFO MENUDEF MODELDEF README.* SNDINFO TEXTURES.* ZSCRIPT.zsc
+      args: zip -r "Merchant-${{ env.SUFFIX }}.pk3" . -i graphics/* models/* patches/* sounds/* sprites/* zscript/* CHANGELOG.md CVARINFO GLDEFS KEYCONF LANGUAGE LICENSE MAPINFO MENUDEF MODELDEF README.* SNDINFO TEXTURES.* ZSCRIPT.zsc
