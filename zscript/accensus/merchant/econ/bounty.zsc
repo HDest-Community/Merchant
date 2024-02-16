@@ -264,17 +264,17 @@ class BountyThinker : Thinker abstract
 
 class BountyThinker_Babuin : BountyThinker { override int GetBounty() { return 200; } }
 class BountyThinker_HDHumanoid : BountyThinker { override int GetBounty() { return 250; } }
-class BountyThinker_Serpentipede : BountyThinker { override int GetBounty() { return 300; } }
+class BountyThinker_FighterImp : BountyThinker { override int GetBounty() { return 300; } }
 class BountyThinker_NinjaPirate : BountyThinker { override int GetBounty() { return 350; } }
-class BountyThinker_CombatSlug : BountyThinker { override int GetBounty() { return 500; } }
+class BountyThinker_Macubus : BountyThinker { override int GetBounty() { return 500; } }
 class BountyThinker_Boner : BountyThinker { override int GetBounty() { return 550; } }
-class BountyThinker_Trilobite : BountyThinker { override int GetBounty() { return 600; } }
-class BountyThinker_PainBringer : BountyThinker { override int GetBounty() { return 600; } }
+class BountyThinker_Cenobite : BountyThinker { override int GetBounty() { return 600; } }
+class BountyThinker_Knave : BountyThinker { override int GetBounty() { return 600; } }
 class BountyThinker_Necromancer : BountyThinker { override int GetBounty() { return 666; } }
-class BountyThinker_TechnoSpider : BountyThinker { override int GetBounty() { return 700; } }
-class BountyThinker_PainLord : BountyThinker { override int GetBounty() { return 800; } }
+class BountyThinker_Manticore : BountyThinker { override int GetBounty() { return 700; } }
+class BountyThinker_Baron : BountyThinker { override int GetBounty() { return 800; } }
 class BountyThinker_SatanRobo : BountyThinker { override int GetBounty() { return 2500; } }
-class BountyThinker_Technorantula : BountyThinker { override int GetBounty() { return 2500; } }
+class BountyThinker_Spiderdemon : BountyThinker { override int GetBounty() { return 2500; } }
 
 class BountyThinker_CabalCultist : BountyThinker { override int GetBounty() { return 200; } }
 class BountyThinker_CabalFanatic : BountyThinker { override int GetBounty() { return 250; } }
