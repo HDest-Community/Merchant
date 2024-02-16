@@ -775,8 +775,8 @@ extend class MerchantHandler
 
 					SpawnMonster(trgt, 'SatanRobo', 50, 1, 0); // [Ace] Extra get fucked.
 					SpawnMonster(trgt, 'Necromancer', 100, 5, 50);
-					SpawnMonster(trgt, 'PainLord', 100, 5, 40);
-					SpawnMonster(trgt, 'PainBringer', 100, 10, 25);
+					SpawnMonster(trgt, 'Baron', 100, 5, 40);
+					SpawnMonster(trgt, 'Knave', 100, 10, 25);
 					trgt.A_AlertMonsters();
 					break;
 				}
