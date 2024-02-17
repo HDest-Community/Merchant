@@ -7,6 +7,7 @@ class MercenaryBucks : HDPickup
 		Inventory.PickupMessage "$PICKUP_BUX";
 
 		+HDPICKUP.CHEATNOGIVE
+		+HDPICKUP.MULTIPICKUP
 		-HDPICKUP.FITSINBACKPACK
 		-HDPICKUP.DROPTRANSLATION
 		+INVENTORY.UNDROPPABLE
@@ -15,10 +16,10 @@ class MercenaryBucks : HDPickup
 		HDPickup.Bulk 0;
 		HDPickup.RefID "bux";
 		Inventory.MaxAmount 100000;
+		gravity 0.05;
 		scale 0.4;
 	}
 
-    // [Ace] No longer valid.
 	States
 	{
 		Spawn:

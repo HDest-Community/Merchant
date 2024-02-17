@@ -1,8 +1,11 @@
 extend class MerchantHandler
 {
+	Array<class<BountyThinker> > bountyThinkers;
+
 	private void InitBounty(int count)
 	{
-		Array<class<BountyThinker> > bountyThinkers;
+		bountyThinkers.clear();
+
 		for (int i = 0; i < AllClasses.Size(); ++i)
 		{
 			if (AllClasses[i] is 'BountyThinker' && !AllClasses[i].IsAbstract())
@@ -52,6 +55,27 @@ extend class MerchantHandler
 				}
 			}
 		}
+	}
+
+	int GetBounty(Actor actor) {
+		
+		foreach (bountyThinker : bountyThinkers)
+		{
+			// Find the appropriate BountyThinker,
+			// and if the current actor hasn't been chosen and is an instance of the relevant actor class,
+			// add it to the list of chosen actors.
+			Name actorName = String.Format(bountyThinker.GetClassName()).Mid(14);
+			if (actor is actorName)
+			{
+				let thinker = BountyThinker(new(bountyThinker));
+				let bounty = thinker.GetBounty();
+				thinker.destroy();
+
+				return bounty;
+			}
+		}
+
+		return -1;
 	}
 }
 
@@ -193,7 +217,7 @@ class BountyThinker : Thinker abstract
 {
 	private Actor Target;
 	private BountyEffect Effect;
-	protected abstract int GetBounty();
+	abstract int GetBounty();
 
 	static BountyThinker Create(class<BountyThinker> cls, Actor other, class<BountyEffect> effect = null)
 	{
