@@ -2,7 +2,7 @@ extend class MerchantHandler
 {
 	Array<class<BountyThinker> > bountyThinkers;
 
-	private void InitBounty(int count)
+	private void InitBounty()
 	{
 		bountyThinkers.clear();
 
@@ -13,7 +13,10 @@ extend class MerchantHandler
 				bountyThinkers.Push((class<BountyThinker>)(AllClasses[i]));
 			}
 		}
+	}
 
+	private void InitBountyTargets(int count)
+	{
 		Array<Actor> chosenActors;
 
 		ThinkerIterator it = ThinkerIterator.Create('Actor', Thinker.STAT_DEFAULT);

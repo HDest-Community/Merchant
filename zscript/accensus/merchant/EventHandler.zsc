@@ -292,21 +292,27 @@ class MerchantHandler : EventHandler
 			PokerTick();
 		}
 
-		if (level.time == 35 && (MoneyMode == 1 || (MoneyMode == 2 && !SpawnedTiberium)))
+		if (level.time == 35)
 		{
-			int count = 1;
-			for (int i = 0; i < 2; ++i)
+			InitBounty();
+			
+			if (MoneyMode == 1 || (MoneyMode == 2 && !SpawnedTiberium))
 			{
-				if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + (5 * i)))
+				int count = 1;
+				for (int i = 0; i < 2; ++i)
 				{
-					count++;
+					if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + (5 * i)))
+					{
+						count++;
+					}
+					else
+					{
+						break;
+					}
 				}
-				else
-				{
-					break;
-				}
+
+				InitBountyTargets(count);
 			}
-			InitBounty(count);
 		}
 	}
 
