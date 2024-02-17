@@ -1,0 +1,8 @@
+class ItemMerchant : HDMerchant
+{
+	Default
+	{
+		Tag "Item Merchant";
+		HDMerchant.ItemsType StoreItem.SType_Item;
+	}
+}

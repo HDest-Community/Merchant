@@ -1,0 +1,312 @@
+class MerchantHandler : EventHandler
+{
+	private int MoneyMode;
+	private bool SpawnedTiberium;
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		let plr = players[e.Player].mo;
+
+		if (e.Name ~== "HDM_AssemblePokerGame")
+		{
+			AssembleGame(plr);
+			return;
+		}
+
+		if (e.Name ~== "HDM_PlaceBet")
+		{
+			PlaceBet(CardPlayers[PlayerIndex], e.Args[0]);
+			return;
+		}
+
+		if (e.Name ~== "HDM_Fold")
+		{
+			CardPlayers[PlayerIndex].HasFolded = true;
+			ActionTimer = 0;
+			RotatePlayer();
+			return;
+		}
+
+		if (e.Name ~== "HDM_Check")
+		{
+			ActionTimer = 0;
+			CardPlayers[PlayerIndex].HasChecked = true;
+			CardPlayers[PlayerIndex].Player.A_StartSound("Poker/Check", 10, CHANF_UI, attenuation: 1.5);
+			RotatePlayer();
+			return;
+		}
+
+		Array<string> ParsedName;
+		e.Name.Split(ParsedName, ":");
+		if (ParsedName[0] ~== "HDM_BuyStuff")
+		{
+			for (int i = 0; i < Stores.Size(); ++i)
+			{
+				StoreItem item;
+				for (int j = 0; j < Stores[i].StoreItems.Size(); ++j)
+				{
+					if (Stores[i].StoreItems[j].GetClass() == ParsedName[1])
+					{
+						item = Stores[i].StoreItems[j];
+						break;
+					}
+				}
+
+				if (item && plr)
+				{
+					class<Actor> ItemClass = item.GetItem();
+					int Amount = item.GetAmount();
+
+					StoreCurrency Currency = StoreCurrencies[e.Args[0]];
+					int Price = StoreItem.GetAdjustedPrice(item, Currency);
+
+					if (Price > plr.CountInv(Currency.GetCurrencyClass()))
+					{
+						plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
+						return;
+					}
+
+					if (!(ItemClass is 'HDPickup') ||  ItemClass is 'HDPickupGiver')
+					{
+						Actor a; bool success;
+						[success, a] = plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+						if (success && a is 'Inventory')
+						{
+							Inventory(a).Amount = amount;
+						}
+					}
+					else
+					{
+						class<Inventory> InvClass = (class<Inventory>)(ItemClass);
+						int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
+						int MaxActualGive = min(Amount, MaxGive);
+
+						// [Ace] Give what you can directly and drop the rest on the ground.
+						plr.A_GiveInventory(InvClass, MaxActualGive);
+						Amount -= MaxActualGive;
+
+						if (Amount > 0)
+						{
+							Actor a; bool success;
+							[success, a] = plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
+							if (success)
+							{
+								Inventory(a).Amount = Amount;
+							}
+						}
+					}
+					plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
+					plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+
+					item.StoreAmount--;
+					if (item.StoreAmount == 0)
+					{
+						Stores[i].StoreItems.Delete(Stores[i].StoreItems.Find(item));
+						item.Destroy();
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		if (e.IsReopen) return;
+
+		MoneyMode = hdm_moneymode == 3 ? random(0, 1) : hdm_moneymode;
+		
+		InitCurrencies();
+		for (int i = 0; i < Stores.Size(); ++i) InitStore(i);
+
+		Array<class<HDMerchant> > AvailableMerchants;
+		AvailableMerchants.Push((class<HDMerchant>)('AmmoMerchant'));
+		AvailableMerchants.Push((class<HDMerchant>)('ItemMerchant'));
+		AvailableMerchants.Push((class<HDMerchant>)('WeaponMerchant'));
+
+		int mCount = AvailableMerchants.Size();
+		int MerchantsLeft = min(mCount, level.MapName ~== "LOTSAGUN" ? mCount : CVar.GetCVar('hdm_maxmerchants').GetInt());
+
+		Array<Sector> dedicatedMerchantSectors;
+		Array<Sector> dedicatedSlotSectors;
+		Array<Sector> secretSectors;
+
+		foreach (sec : level.sectors) {
+			if (sec.GetUDMFInt('user_merchantsector') == 1) {
+				dedicatedMerchantSectors.Push(sec);
+				continue;
+			}
+
+			if (sec.GetUDMFInt('user_slotmachinesector') == 1) {
+				dedicatedSlotSectors.Push(sec);
+				continue;
+			}
+
+			// [Ace] Secret sectors that are already dedicated don't count.
+			
+			// NOTE I: Don't spawn stuff in low sectors to prevent softlocking. You can climb crystals, but not if you slam your head into the ceiling doing so.
+			if (
+				sec.IsSecret()
+				&& dedicatedMerchantSectors.Find(sec) == dedicatedMerchantSectors.Size()
+				&& dedicatedSlotSectors.Find(sec) == dedicatedSlotSectors.Size()
+			) {
+				vector2 center = sec.centerspot;
+				double secHeight = abs(sec.floorplane.ZAtPoint(center) - sec.ceilingplane.ZAtPoint(center));
+
+				if (secHeight < 64) continue;
+
+				secretSectors.Push(sec);
+			}
+		}
+
+		int validSectorCount = secretSectors.Size();
+		if (validSectorCount == 0 && dedicatedMerchantSectors.Size() == 0 && dedicatedSlotSectors.Size() == 0) return;
+
+		// [Ace] Sort sectors by size in ascending order. Spawn merchants in smaller sectors first. Tiberium is the opposite - it prioritizes bigger sectors first.
+		for (int i = 0; i < secretSectors.Size() - 1; ++i) {
+			for (int j = i + 1; j < secretSectors.Size(); ++j) {
+				if (AceCore.GetSectorSize(secretSectors[i]) > AceCore.GetSectorSize(secretSectors[j])) {
+					let swap = secretSectors[i];
+					secretSectors[i] = secretSectors[j];
+					secretSectors[j] = swap;
+				}
+			}
+		}
+
+		// ------------------------------------------------------------------------------------------------------------------------
+		//
+		// BITCHES DON'T KNOW 'BOUT MY TIBERIUM DEPOSITS.
+		// 
+		// ------------------------------------------------------------------------------------------------------------------------
+
+		// [Ace] Spawn the crystals first, and only then bother with the merchants.
+		if (MoneyMode == 0 || MoneyMode == 2) {
+			for (int i = secretSectors.Size() - 1; i >= 0; --i) {
+				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
+					SpawnedTiberium = true;
+					SpawnCrystals(secretSectors[i]);
+					secretSectors.Delete(i);
+					if (hdm_debug < 2) break;
+				}
+			}
+		}
+
+		// ------------------------------------------------------------------------------------------------------------------------
+		//
+		//	MERCHANT SPAWNING
+		// 
+		// ------------------------------------------------------------------------------------------------------------------------
+
+		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
+		foreach (sec : dedicatedMerchantSectors) {
+			vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
+			int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+			Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
+			a.angle = sec.GetUDMFInt('user_merchantangle');
+			AvailableMerchants.Delete(spawnIndex);
+
+			if (hdm_debug) Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+
+			if (--MerchantsLeft == 0) break;
+		}
+
+		if (MerchantsLeft) {
+			for (int i = 0; i < secretSectors.Size(); ++i) {
+				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30) continue;
+				int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+				Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
+				a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
+				AvailableMerchants.Delete(spawnIndex);
+				secretSectors.Delete(i--);
+
+				if (hdm_debug) Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+
+				if (--MerchantsLeft == 0) break;
+			}
+		}
+
+		// ------------------------------------------------------------------------------------------------------------------------
+		//
+		// SLOT MACHINE SPAWNING
+		// 
+		// ------------------------------------------------------------------------------------------------------------------------
+
+		bool spawnedMachine = false;
+		for (int i = 0; i < dedicatedSlotSectors.Size(); ++i)
+		{
+			vector3 spawnPos = (dedicatedSlotSectors[i].centerspot, dedicatedSlotSectors[i].floorplane.ZAtPoint(dedicatedSlotSectors[i].centerspot));
+			Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
+			a.angle = dedicatedSlotSectors[i].GetUDMFInt('user_slotmachineangle');
+			spawnedMachine = true;
+
+			if (hdm_debug > 0)
+			{
+				Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+			}
+		}
+
+		if (!spawnedMachine && hdm_enableslots)
+		{
+			for (int i = 0; i < secretSectors.Size(); ++i)
+			{
+				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 20)
+				{
+					continue;
+				}
+				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
+				a.angle = secretSectors[i].GetUDMFInt('user_slotmachineangle');
+				secretSectors.Delete(i--);
+
+				if (hdm_debug > 0)
+				{
+					Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+				}
+				break;
+			}
+		}
+	}
+
+	override void WorldUnloaded(WorldEvent e)
+	{
+		let plr = players[Net_Arbitrator].mo;
+		if (!plr)
+		{
+			return;
+		}
+
+		for (int i = 0; i < MAXPLAYERS; ++i)
+		{
+			if (players[i].mo)
+			{
+				players[i].mo.A_TakeInventory("HDMerchantBody");
+			}
+		}
+	}
+
+	override void WorldTick()
+	{
+		if (GameInProgress)
+		{
+			PokerTick();
+		}
+
+		if (level.time == 35 && (MoneyMode == 1 || MoneyMode == 2 && !SpawnedTiberium))
+		{
+			int count = 1;
+			for (int i = 0; i < 2; ++i)
+			{
+				if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + (5 * i)))
+				{
+					count++;
+				}
+				else
+				{
+					break;
+				}
+			}
+			InitBounty(count);
+		}
+	}
+}

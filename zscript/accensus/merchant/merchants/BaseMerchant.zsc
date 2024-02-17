@@ -1,0 +1,202 @@
+class HDMerchant : Actor abstract
+{
+	override void BeginPlay()
+	{
+		Super.BeginPlay();
+		
+		InitSkins();
+		A_GiveInventory('MercenaryBucks', 250);
+	}
+
+	override void Tick()
+	{
+		A_SpriteOffset(0, SOffsetY);
+
+		if (PiggyBack)
+		{
+			A_Face(PiggyBack);
+			Warp(PiggyBack, -12, 0, 14, flags: WARPF_NOCHECKPOSITION | WARPF_INTERPOLATE);
+			bNOGRAVITY = true;
+			bTHRUACTORS = true;
+			bSOLID = false;
+
+			scale.Y = default.scale.Y * PiggyBack.player.crouchfactor;
+
+			if (PiggyBack.player.crouchfactor < 0.6 && PiggyBack.player.cmd.buttons & BT_SPEED || PiggyBack.incapacitated > 0 || PiggyBack.fallroll > 0 || PiggyBack.Health <= 0)
+			{
+				if (DropHoldTimer++ == 16 || PiggyBack.incapacitated > 0)
+				{
+					bSOLID = true;
+					bNOGRAVITY = false;
+					bTHRUACTORS = false;
+					bFORCEYBILLBOARD = false;
+					PiggyBack.A_TakeInventory("HDMerchantBody");
+					PiggyBack = null;
+					scale.Y = default.scale.Y;
+					DropHoldTimer = 0;
+				}
+			}
+			else
+			{
+				DropHoldTimer = 0;
+			}
+		}
+		else
+		{
+			if (CheckProximity("PlayerPawn", HDCONST_ONEMETRE * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
+			{
+				A_Face(target, 15);
+			}
+		}
+
+		Super.Tick();
+	}
+
+	override bool Used(Actor user)
+	{
+		let plr = HDPlayerPawn(user);
+		let handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+
+		if (!plr || PiggyBack == plr || Distance3D(plr) > 48 || handler.ActorIsInPokerGame(self))
+		{
+			return false;
+		}
+
+		if (Pissed)
+		{
+			plr.A_Print("\c[Red]Fuck off! Store's closed, cheater!");
+			return false;
+		}
+
+		if (plr.player.cmd.buttons & BT_SPEED && !plr.CheckInventory("HDMerchantBody", 1))
+		{
+			DropHoldTimer = 0;
+			PiggyBack = plr;
+			PlayerIsNear = false; // [Ace] This forces the merchant to cease their animation.
+			plr.A_GiveInventory("HDMerchantBody");
+			bFORCEYBILLBOARD = true;
+			return false;
+		}
+
+		if (plr.PlayerNumber() == consoleplayer)
+		{
+			LastUser = plr;
+			handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
+			Menu.SetMenu('MerchantShopMenu');
+		}
+
+		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop')))
+		{
+			TryPlaySpecialAnimation();
+		}
+
+		return true;
+	}
+
+	override bool CanCollideWith(Actor other, bool passive)
+	{
+		if (other is "PlayerPawn")
+		{
+			return Super.CanCollideWith(other, passive);
+		}
+
+		return false;
+	}
+
+	// [Ace] This is complete fucking overkill. It could have been done in like 5 lines of code but I wanted a more "generic" solution.
+	protected void CheckBreathing()
+	{
+		if (BreatheStepHold > 0)
+		{
+			BreatheStepHold--;
+			return;
+		}
+
+		if (BreatheHold > 0)
+		{
+			BreatheHold--;
+			return;
+		}
+
+		if (BreatheIndex < BreatheStepsHalf)
+		{
+			A_Setscale(scale.X, scale.Y + BreathescaleStep);
+			BreatheStepHold = BreatheStepDelay;
+			if (++BreatheIndex == BreatheStepsHalf)
+			{
+				BreatheHold = BreatheInOutDelay;
+			}
+		}
+		else if (BreatheIndex >= BreatheStepsHalf)
+		{
+			A_Setscale(scale.X, scale.Y - BreathescaleStep);
+			BreatheStepHold = BreatheStepDelay;
+			if (++BreatheIndex == BreatheSteps)
+			{
+				BreatheIndex = 0;
+				BreatheHold = BreatheInOutDelay;
+			}
+		}
+	}
+
+	protected void BuyingIdle(StateLabel goAwayState, string snd)
+	{
+		CheckBreathing();
+		if (!PlayerIsNear)
+		{
+			A_StartSound(snd, CHAN_VOICE);
+			SetStateLabel(goAwayState);
+		}
+	}
+
+	const BreatheInOutDelay = 30;
+	const BreatheStepDelay = 4;
+	const BreatheMaxscale = 0.03;
+
+	// [Ace] Always go for even values. Never, ever go for odd values. Only villains do that. Higher values mean smoother animation.
+	// This number is the number of frames from completely exhaled to completely inhaled, to exhaling.
+	const BreatheSteps = 4;
+
+	const BreathescaleStep = BreatheMaxscale / BreatheSteps;
+	const BreatheStepsHalf = BreatheSteps / 2;
+	private int BreatheIndex;
+	private int BreatheHold;
+	private int BreatheStepHold;
+
+	private bool PlayerIsNear;
+
+	HDPlayerPawn PiggyBack;
+	private HDPlayerPawn LastUser;
+	bool Pissed;
+
+	private double SOffsetY;
+
+	private int DropHoldTimer;
+
+	private HDMerchantSkin SelectedSkin;
+
+	meta int ItemsType;
+	property ItemsType: ItemsType;
+
+	Default
+	{
+		Mass 400;
+		Height 58;
+		Radius 8;
+		scale 1.0;
+		+SOLID
+		+NOBLOCKMONST
+	}
+}
+
+class HDMerchantBody : HDPickup
+{
+	Default
+	{
+		-INVENTORY.INVBAR
+		+INVENTORY.UNDROPPABLE
+		+HDPICKUP.NOTINPOCKETS
+		HDPickup.Bulk 500;
+		Inventory.MaxAmount 1;
+	}
+}
