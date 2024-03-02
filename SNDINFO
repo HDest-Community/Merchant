@@ -102,3 +102,21 @@ $random Poker/DeckShuffle
 	Poker/DeckShuffle3
 	Poker/DeckShuffle4
 }
+
+// ------------------------------------------------------------
+// CURRENCY STUFF
+// ------------------------------------------------------------
+Coin/Collect	COINGET
+Gem/Collect		GEMGET
+
+Coin/Pop		POPCOIN
+$limit Coin/Pop 10
+
+Coin/Bounce		COINBONC
+$limit Coin/Bounce 4
+
+Gem/Bounce		GEMBONC
+$limit Gem/Bounce 4
+
+Gem/Slam		GEMBANG
+$limit Gem/Slam 4

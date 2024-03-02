@@ -1,0 +1,41 @@
+class BaseMercGemPickup : BaseCurrencyPickup
+{
+    double getvolume; property getvolume : getvolume;
+    string currency;  property currency : currency;
+
+    Default
+    {
+        tag "$TAG_GEM";
+        hdupk.pickupmessage "$PICKUP_GEM";
+
+        radius 10;
+        height 10;
+        scale 0.5;
+        
+        hdupk.amount 1;
+        hdupk.pickupsound "Gem/Collect";
+    }
+    
+    States
+    {
+        Spawn:
+            MNY1 A 0;
+        Air:
+            #### AABBCCDDEEFFGGHH 3 Bright A_CheckFloor("Bounce");
+            Loop;
+        Bounce:
+            #### A 1 Bright A_StartSound("Gem/Bounce", 6, 0, 0.25);
+            #### BCDEFGH 1 Bright;
+        Ground:
+            #### AAABBBCCCDDDEEEFFFGGGHHH 1 Bright
+            {
+                if (!random(0, 200))
+                {
+                    A_SpawnItemEx("MoneySparkle", random(radius, -radius), random(radius, -radius), random(0, height));
+                } else {
+                    A_Pain();
+                }
+            }
+            Loop;
+    }
+}

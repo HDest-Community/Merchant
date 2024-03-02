@@ -1,7 +1,13 @@
 [enu default]
 
-TAG_BUX    = "Mercenary Bucks";
-PICKUP_BUX = "You got some paper currency.";
+TAG_BUX     = "Mercenary Bucks";
+PICKUP_BUX  = "You got some paper currency.";
+
+TAG_COIN    = "Demon Coin";
+PICKUP_COIN = "You got some demonic currency.";
+
+TAG_GEM     = "Demon Gem";
+PICKUP_GEM  = "You got a demonic gemstone.";
 
 // ----------------
 // WEAPONS
