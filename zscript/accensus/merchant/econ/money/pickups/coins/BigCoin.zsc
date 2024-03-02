@@ -1,0 +1,18 @@
+class BigCoin : BaseMercCoinPickup
+{
+    Default
+    {
+        Radius 3.333;
+        Height 3.333;
+        Scale 0.33;
+        
+        hdupk.amount 25;
+        BaseMercCoinPickup.getvolume 0.75;
+    }
+    States
+    {
+        Spawn:
+            MNY3 A 0;
+            goto Spawn2;
+    }
+}

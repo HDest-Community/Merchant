@@ -1,29 +1,27 @@
 class MercenaryBucks : HDPickup
 {
-	Default
-	{
-		Tag "$TAG_BUX";
-		Inventory.Icon "MBCKA0";
-		Inventory.PickupMessage "$PICKUP_BUX";
+    Default
+    {
+        Tag "$TAG_BUX";
+        Inventory.Icon "MBCKA0";
+        Inventory.PickupMessage "$PICKUP_BUX";
 
-		+HDPICKUP.CHEATNOGIVE
-		+HDPICKUP.MULTIPICKUP
-		-HDPICKUP.FITSINBACKPACK
-		-HDPICKUP.DROPTRANSLATION
-		+INVENTORY.UNDROPPABLE
-		-INVENTORY.INVBAR
+        +HDPICKUP.CHEATNOGIVE
+        -HDPICKUP.FITSINBACKPACK
+        -HDPICKUP.DROPTRANSLATION
+        +INVENTORY.UNDROPPABLE
+        -INVENTORY.INVBAR
 
-		HDPickup.Bulk 0;
-		HDPickup.RefID "bux";
-		Inventory.MaxAmount 100000;
-		gravity 0.05;
-		scale 0.4;
-	}
+        HDPickup.Bulk 0;
+        HDPickup.RefID "bux";
+        Inventory.MaxAmount 100000;
+        scale 0.4;
+    }
 
-	States
-	{
-		Spawn:
-			MBCK A -1;
-			Stop;
-	}
+    States
+    {
+        Spawn:
+            MBCK A -1;
+            Stop;
+    }
 }

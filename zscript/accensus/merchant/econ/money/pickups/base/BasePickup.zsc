@@ -1,0 +1,38 @@
+class BaseCurrencyPickup : HDUPK
+{
+    default
+    {
+        
+        +hdupk.multipickup
+
+        hdupk.amount 1;
+        hdupk.pickupsound "weapons/pocket";
+        hdupk.pickuptype "MercenaryBucks";
+    }
+
+    states
+    {
+        spawn:
+            MBCK A -1;
+            stop;
+    }
+}
+
+class MoneySparkle : Actor
+{
+	Default
+	{
+		Radius 1;
+		Height 1;
+		Scale 0.4;
+		+NOGRAVITY
+		+NOBLOCKMAP
+	}
+	
+	States
+	{
+		Spawn:
+			MSHN ABCDE 2 Bright;
+			Stop;
+	}
+}
