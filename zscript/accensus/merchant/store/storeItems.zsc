@@ -42,6 +42,10 @@ class StoreItem abstract
 		return int(max(ceil(item.GetBasePrice() * currency.GetPriceMult()), 1));
 	}
 
+	static bool CheckClassExists(name classType) {
+		return (Class<Object>) (classType) != null;
+	}
+
 	// --------------------------------------------------
 	// VIRTUALS
 	// --------------------------------------------------
