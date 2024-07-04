@@ -1187,11 +1187,6 @@ MERCH_CAT_RIFC                    = "Benitez";
 MERCH_TAG_RIFC                    = "Remote InterFerence Controller hacking device";
 MERCH_FLAVOR_RIFC                 = "Be a true robot emperor with this little Nintendo thingy, as long as you got batteries.";
 
-// Riot Shield
-MERCH_CAT_RIOTSHIELD              = "Bangers & Mash";
-MERCH_TAG_RIOTSHIELD              = "Riot Shield";
-MERCH_FLAVOR_RIOTSHIELD           = "Lookin' to quell some insurrection?";
-
 // Rocket Assembler
 MERCH_CAT_ROCKETASSEMBLER         = "Bryan's Armory";
 MERCH_TAG_ROCKETASSEMBLER         = "Rocket Assembler";
@@ -1617,10 +1612,10 @@ MERCH_CAT_ARMORPLATE              = "Bangers & Mash";
 MERCH_TAG_ARMORPLATE              = "Armor Plate";
 MERCH_FLAVOR_ARMORPLATE           = "When you want even more protection than you already have.";
 
-/// Ballistic Shield
-MERCH_CAT_BALLISTICSHIELD         = "Bangers & Mash";
-MERCH_TAG_BALLISTICSHIELD         = "Ballistic Shield";
-MERCH_FLAVOR_BALLISTICSHIELD      = "Your safespace became mobile.";
+// Riot Shield
+MERCH_CAT_RIOTSHIELD              = "Bangers & Mash";
+MERCH_TAG_RIOTSHIELD              = "Riot Shield";
+MERCH_FLAVOR_RIOTSHIELD           = "Lookin' to quell some insurrection?";
 
 // Battle Armour
 MERCH_CAT_BATTLEARMOUR            = "Vanilla";
