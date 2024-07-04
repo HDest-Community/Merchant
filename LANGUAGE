@@ -1100,7 +1100,7 @@ MERCH_FLAVOR_MEDICALSCANNER       = "Medikit without the medikit parts.";
 // Medikit
 MERCH_CAT_MEDIKIT                 = "Vanilla";
 MERCH_TAG_MEDIKIT                 = "Medikit";
-MERCH_FLAVOR_MEDIKIT              = "And all the king's horses and all the king's mencouldn't staple Humpty Dumpty back together again.";
+MERCH_FLAVOR_MEDIKIT              = "And all the king's horses and all the king's mencouldn't staple Humpty Dumpty together again.";
 
 // Mess Kit
 MERCH_CAT_MESSKIT                 = "Ugly as Sin";
