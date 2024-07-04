@@ -1,0 +1,71 @@
+class HDBluepackStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_bluepack; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BLUEPACK"); }
+	override Name GetItem() { return 'PortableBluepack'; }
+	override string GetIcon() { return "PBLUA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BLUEPACK"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BLUEPACK"); }
+}
+
+class HDDORKStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_dork; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_DORK"); }
+	override Name GetItem() { return 'DORKUsable'; }
+	override string GetIcon() { return "DORKA1"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_DORK"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_DORK"); }
+}
+
+class HDECTDStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_ectdevice; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ECTD"); }
+	override Name GetItem() { return 'ECTDevice'; }
+	override string GetIcon() { return "ECTDB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ECTD"); }
+	override int GetBasePrice() { return 300; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ECTD"); }
+}
+
+class HDRIFCStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_rifcontroller; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RIFC"); }
+	override Name GetItem() { return 'RIFController'; }
+	override string GetIcon() { return "RIFCB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RIFC"); }
+	override int GetBasePrice() { return 600; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RIFC"); }
+}
+
+class HDMageMedallionStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_magemedallion; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MAGEMEDALLION"); }
+	override Name GetItem() { return 'hdmagemedallion'; }
+	override string GetIcon() { return "MMDAA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MAGEMEDALLION"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_MAGEMEDALLION"); }
+}
+
+class HDGreensStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_greenpotion; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GREENPOTION"); }
+	override Name GetItem() { return 'hdgreenpotion'; }
+	override string GetIcon() { return "BN3AA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GREENPOTION"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GREENPOTION"); }
+}

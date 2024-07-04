@@ -436,3 +436,27 @@ class HDKharonStore : StoreItem
 	override int GetBasePrice() { return 170; }
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_KHARON"); }
 }
+
+class HDArmorPlateStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_armorplate; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ARMORPLATE"); }
+	override Name GetItem() { return 'HDArmorPlate'; }
+	override string GetIcon() { return "APL0A0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ARMORPLATE"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ARMORPLATE"); }
+}
+
+class HDRiotShieldStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_riotshield; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_RIOTSHIELD"); }
+	override Name GetItem() { return 'HDRiotShieldItem'; }
+	override string GetIcon() { return "RSH0Z0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_RIOTSHIELD"); }
+	override int GetBasePrice() { return 225; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RIOTSHIELD"); }
+}

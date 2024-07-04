@@ -73,7 +73,10 @@ OptionMenu "MerchStoreFilters"
 	StaticText ""
 
 	Submenu "AceCorp: Engineering Dept.", "MerchStoreFilterAceCorp"
+	Submenu "BeatCrazed", "MerchStoreFilterBeatCrazed"
+	Submenu "Benitez", "MerchStoreFilterBenitez"
 	Submenu "Bryan's Armory", "MerchStoreFilterBryan"
+	Submenu "Cannibal Hunter", "MerchStoreFilterCannibalHunter"
 	Submenu "Cozi's Offworld Wares", "MerchStoreFilterCozi"
 	Submenu "Corporate Armor", "MerchStoreFilterCorporateArmour"
 	Submenu "Dastrukar", "MerchStoreFilterDastrukar"
@@ -83,10 +86,14 @@ OptionMenu "MerchStoreFilters"
 	Submenu "HoagieTech", "MerchStoreFilterHoagieTech"
 	Submenu "Icarus Innovations, Improved", "MerchStoreFilterIcarus"
 	Submenu "Melonades", "MerchStoreFilterMelonades"
+	Submenu "Mickromash", "MerchStoreFilterMickromash"
+	Submenu "Mohl", "MerchStoreFilterMohl"
+	Submenu "Mongoose Powersuit", "MerchStoreFilterMongoose"
 	Submenu "Bangers & Mash", "MerchStoreFilterPotetobloke"
 	Submenu "Peppergrinder", "MerchStoreFilterPeppergrinder"
 	Submenu "Radtech", "MerchStoreFilterRadtech"
 	Submenu "Sirus", "MerchStoreFilterSirus"
+	Submenu "SnekTech", "MerchStoreFilterSnekTech"
 	Submenu "Sonoda", "MerchStoreFilterSonoda"
 	Submenu "Ugly as Sin", "MerchStoreFilterUaS"
 	Submenu "WAN Industries", "MerchStoreFilterWAN"
@@ -140,6 +147,19 @@ OptionMenu "MerchStoreFilterVanilla"
 	Option "$MERCH_TAG_AMMOBOX", "hdm_enable_ammobox", "OnOff"
 	Option "$MERCH_TAG_7MMRELOADER", "hdm_enable_7mmreloader", "OnOff"
 	Option "$MERCH_TAG_BACKPACK", "hdm_enable_backpack", "OnOff"
+	Option "$MERCH_TAG_BLUESPHERE", "hdm_enable_soulsphere", "OnOff"
+	Option "$MERCH_TAG_MEGASPHERE", "hdm_enable_megasphere", "OnOff"
+	Option "$MERCH_TAG_INVULNSPHERE", "hdm_enable_invulnsphere", "OnOff"
+	Option "$MERCH_TAG_HERP", "hdm_enable_herp", "OnOff"
+	Option "$MERCH_TAG_DERP", "hdm_enable_derp", "OnOff"
+	Option "$MERCH_TAG_ALLMAP", "hdm_enable_automap", "OnOff"
+	Option "$MERCH_TAG_LIGHTAMPGOGGLES", "hdm_enable_liteamp", "OnOff"
+	Option "$MERCH_TAG_BLUEKEYCARD", "hdm_enable_bluecard", "OnOff"
+	Option "$MERCH_TAG_REDKEYCARD", "hdm_enable_redcard", "OnOff"
+	Option "$MERCH_TAG_YELLOWKEYCARD", "hdm_enable_yellowcard", "OnOff"
+	Option "$MERCH_TAG_BLUESKULL", "hdm_enable_blueskull", "OnOff"
+	Option "$MERCH_TAG_REDSKULL", "hdm_enable_redskull", "OnOff"
+	Option "$MERCH_TAG_YELLOWSKULL", "hdm_enable_yellowskull", "OnOff"
 	StaticText ""
 
 	StaticText "Armor"
@@ -248,6 +268,27 @@ OptionMenu "MerchStoreFilterAceCorp"
 	Option "$MERCH_TAG_SUICIDEVEST", "hdm_enable_suicidevest", "OnOff"
 }
 
+OptionMenu "MerchStoreFilterBeatCrazed"
+{
+	Title "BeatCrazed Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_CROSSPULSEMODKIT", "hdm_enable_xpulsekit", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterBenitez"
+{
+	Title "Benitez Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_BLUEPACK", "hdm_enable_bluepack", "OnOff"
+	Option "$MERCH_TAG_DORK", "hdm_enable_dork", "OnOff"
+	Option "$MERCH_TAG_ECTD", "hdm_enable_ectdevice", "OnOff"
+	Option "$MERCH_TAG_RIFC", "hdm_enable_rifcontroller", "OnOff"
+	Option "$MERCH_TAG_MAGEMEDALLION", "hdm_enable_magemedallion", "OnOff"
+	Option "$MERCH_TAG_GREENPOTION", "hdm_enable_greenpotion", "OnOff"
+}
+
 OptionMenu "MerchStoreFilterBryan"
 {
 	Title "Bryan's Armory Filters"
@@ -257,7 +298,15 @@ OptionMenu "MerchStoreFilterBryan"
 	Option "$MERCH_TAG_CASECRAFTER", "hdm_enable_casecrafter", "OnOff"
 	Option "$MERCH_TAG_BULLETASSEMBLER", "hdm_enable_bulletassembler", "OnOff"
 	Option "$MERCH_TAG_ROCKETASSEMBLER", "hdm_enable_rocketassembler", "OnOff"
-	Option "$MERCH_TAG_M249RELOADER", "hdm_enable_m249RELOADER", "OnOff"
+	Option "$MERCH_TAG_M249RELOADER", "hdm_enable_m249reloader", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterCannibalHunter"
+{
+	Title "Cannibal Hunter Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_FANNYPACK", "hdm_enable_fannypack", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterCozi"
@@ -267,6 +316,11 @@ OptionMenu "MerchStoreFilterCozi"
 	StaticText "Weapons"
 	Option "$MERCH_TAG_FLINTLOCK", "hdm_enable_flintlock", "OnOff"
 	Option "$MERCH_TAG_MUSKET", "hdm_enable_musket", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_BLUERUM", "hdm_enable_olerum", "OnOff"
+	Option "$MERCH_TAG_PORTABLECLEANSER", "hdm_enable_portablecleanser", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterCorporateArmour"
@@ -378,6 +432,39 @@ OptionMenu "MerchStoreFilterMelonades"
 	Option "$MERCH_TAG_MG13GRENADE", "hdm_enable_mg13grenade", "OnOff"
 }
 
+OptionMenu "MerchStoreFilterMickromash"
+{
+	Title "Mickromash Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_CARCANOSCOPE", "hdm_enable_carcanoscope", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterMohl"
+{
+	Title "Mohl Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_PURSE", "hdm_enable_purse", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterMongoose"
+{
+	Title "Mongoose Powersuit Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_POWERSUIT", "hdm_enable_mongoosepowersuit", "OnOff"
+	Option "$MERCH_TAG_ATHENALIGHTCANNON", "hdm_enable_mongoosebrontoarm", "OnOff"
+	Option "$MERCH_TAG_CALINICUSAUTOLAUNCHER", "hdm_enable_mongooserocketarm", "OnOff"
+	Option "$MERCH_TAG_JACKRIPPERHYBRIDMG", "hdm_enable_mongoosesmgarm", "OnOff"
+	Option "$MERCH_TAG_LEONIDASLIGHTMG", "hdm_enable_mongoosevulcarm", "OnOff"
+	Option "$MERCH_TAG_ZMG33", "hdm_enable_mongooselibarm", "OnOff"
+	Option "$MERCH_TAG_M2BROWNING", "hdm_enable_mongoosebrowningarm", "OnOff"
+	Option "$MERCH_TAG_POWERSUITCORE", "hdm_enable_mongoosecore", "OnOff"
+	Option "$MERCH_TAG_POWERSUITARMS", "hdm_enable_mongoosearms", "OnOff"
+	Option "$MERCH_TAG_POWERSUITLEGS", "hdm_enable_mongooselegs", "OnOff"
+}
+
 OptionMenu "MerchStoreFilterPotetobloke"
 {
 	Title "Bangers & Mash Filters"
@@ -418,6 +505,11 @@ OptionMenu "MerchStoreFilterPotetobloke"
 	Option "$MERCH_TAG_FIREAXE", "hdm_enable_fireaxe", "OnOff"
 	Option "$MERCH_TAG_SLEDGEHAMMER", "hdm_enable_sledgehammer", "OnOff"
 	Option "$MERCH_TAG_KHARON", "hdm_enable_kharon", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_ARMORPLATE", "hdm_enable_armorplate", "OnOff"
+	Option "$MERCH_TAG_RIOTSHIELD", "hdm_enable_riotshield", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterPeppergrinder"
@@ -460,6 +552,10 @@ OptionMenu "MerchStoreFilterPeppergrinder"
 
 	StaticText "Ammunition"
 	Option "$MERCH_TAG_NDM", "hdm_enable_ndm", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_BINOCULARS", "hdm_enable_binoculars", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterRadtech"
@@ -513,6 +609,10 @@ OptionMenu "MerchStoreFilterRadtech"
     Option "$MERCH_TAG_FIRSTAIDSPRAY", "hdm_enable_firstaidspray", "OnOff"
     Option "$MERCH_TAG_HALFPACK", "hdm_enable_halfpack", "OnOff"
     Option "$MERCH_TAG_RADIRADIO", "hdm_enable_radiradio", "OnOff"
+    Option "$MERCH_TAG_POCKETLAMP", "hdm_enable_pocketlamp", "OnOff"
+	StaticText ""
+
+	StaticText "Armor"
     Option "$MERCH_TAG_LEATHERARMOUR", "hdm_enable_leatherarmour", "OnOff"
 }
 
@@ -524,12 +624,24 @@ OptionMenu "MerchStoreFilterSirus"
 	Option "$MERCH_TAG_REQUISITIONKIT", "hdm_enable_requisitionkit", "OnOff"
 }
 
+OptionMenu "MerchStoreFilterSnekTech"
+{
+	Title "SnekTech Filters"
+
+	StaticText "Items"
+	Option "$MERCH_TAG_CACODEMONPLUSHIE", "hdm_enable_cacoplushie", "OnOff"
+	Option "$MERCH_TAG_GRETCHENCOUNTER", "hdm_enable_gretchencounter", "OnOff"
+	Option "$MERCH_TAG_JUMPERCABLES", "hdm_enable_jumpercables", "OnOff"
+	Option "$MERCH_TAG_SPRAYCAN", "hdm_enable_spraycan", "OnOff"
+}
+
 OptionMenu "MerchStoreFilterSonoda"
 {
 	Title "Sonoda Filters"
 
 	StaticText "Items"
 	Option "$MERCH_TAG_ADHESIVE", "hdm_enable_adhesive", "OnOff"
+	Option "$MERCH_TAG_HANDCHARGE", "hdm_enable_handcharger", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterUaS"

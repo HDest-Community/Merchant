@@ -1,0 +1,47 @@
+class HDPKiriCacodemonPlushieStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_cacoplushie; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_CACODEMONPLUSHIE"); }
+	override Name GetItem() { return 'KiriCacodemonPlushie'; }
+	override string GetIcon() { return "CCPLA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_CACODEMONPLUSHIE"); }
+	override int GetBasePrice() { return 1000; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_CACODEMONPLUSHIE"); }
+}
+
+class HDGretchenCounterStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_gretchencounter; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GRETCHENCOUNTER"); }
+	override Name GetItem() { return 'gretchencounter'; }
+	override string GetIcon() { return "KGCPA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_GRETCHENCOUNTER"); }
+	override int GetBasePrice() { return 200; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_GRETCHENCOUNTER"); }
+}
+
+class HDJumperCableStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_jumpercables; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_JUMPERCABLES"); }
+	override Name GetItem() { return 'JumperCablesUsable'; }
+	override string GetIcon() { return "JMPKA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_JUMPERCABLES"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_JUMPERCABLES"); }
+}
+
+class HDSprayCanStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_spraycan; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_SPRAYCAN"); }
+	override Name GetItem() { return 'SnekTechSprayer'; }
+	override string GetIcon() { return "KSPRB0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_SPRAYCAN"); }
+	override int GetBasePrice() { return 10; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_SPRAYCAN"); }
+}

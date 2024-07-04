@@ -514,6 +514,18 @@ class HDRadiRadio_Store : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RADIRADIO"); }
 }
 
+class HDPocketLamptore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_pocketlamp; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_POCKETLAMP"); }
+	override Name GetItem() { return 'HDPocketLamp'; }
+	override string GetIcon() { return "plmpa0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_POCKETLAMP"); }
+	override int GetBasePrice() { return 100; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_POCKETLAMP"); }
+}
+
 
 // ----------------
 // ARMOUR

@@ -1,0 +1,11 @@
+class HDPurseStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_purse; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_PURSE"); }
+	override Name GetItem() { return 'Purse'; }
+	override string GetIcon() { return "purse"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_PURSE"); }
+	override int GetBasePrice() { return 40; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_PURSE"); }
+}

@@ -69,6 +69,17 @@ server bool hdm_enable_rawplastic           = true;
 server bool hdm_enable_rawpowder            = true;
 server bool hdm_enable_rawsteel             = true;
 
+// BeatCrazed
+server bool hdm_enable_xpulsekit            = true;
+
+// Benitez
+server bool hdm_enable_bluepack             = true;
+server bool hdm_enable_dork                 = true;
+server bool hdm_enable_ectdevice            = true;
+server bool hdm_enable_rifcontroller        = true;
+server bool hdm_enable_magemedallion        = true;
+server bool hdm_enable_greenpotion          = true;
+
 // Bryan's Armory
 server bool hdm_enable_ballcrafter          = true;
 server bool hdm_enable_casecrafter          = true;
@@ -76,9 +87,14 @@ server bool hdm_enable_bulletassembler      = true;
 server bool hdm_enable_rocketassembler      = true;
 server bool hdm_enable_m249reloader         = true;
 
+// Cannibal Hunter
+server bool hdm_enable_fannypack            = true;
+
 // Cozi's Offworld Wares
 server bool hdm_enable_flintlock            = true;
 server bool hdm_enable_musket               = true;
+server bool hdm_enable_olerum               = true;
+server bool hdm_enable_portablecleanser     = true;
 
 // FDA Approved
 server bool hdm_enable_altis                = true;
@@ -163,6 +179,24 @@ server bool hdm_enable_impactgrenade        = true;
 server bool hdm_enable_thundergrenade       = true;
 server bool hdm_enable_mg13grenade          = true;
 
+// Mickromash
+server bool hdm_enable_carcanoscope         = true;
+
+// Mohl
+server bool hdm_enable_purse                = true;
+
+// Mongoose Powersuit
+server bool hdm_enable_mongoosepowersuit    = true;
+server bool hdm_enable_mongoosebrontoarm    = true;
+server bool hdm_enable_mongooserocketarm    = true;
+server bool hdm_enable_mongoosesmgarm       = true;
+server bool hdm_enable_mongoosevulcarm      = true;
+server bool hdm_enable_mongooselibarm       = true;
+server bool hdm_enable_mongoosebrowningarm  = true;
+server bool hdm_enable_mongoosecore         = true;
+server bool hdm_enable_mongoosearms         = true;
+server bool hdm_enable_mongooselegs         = true;
+
 // Potetobloke
 server bool hdm_enable_gasgrenade           = true;
 server bool hdm_enable_wpgrenade            = true;
@@ -199,6 +233,8 @@ server bool hdm_enable_knife                = true;
 server bool hdm_enable_fireaxe              = true;
 server bool hdm_enable_sledgehammer         = true;
 server bool hdm_enable_kharon               = true;
+server bool hdm_enable_armorplate           = true;
+server bool hdm_enable_riotshield           = true;
 
 // Peppergrinder
 server bool hdm_enable_otis5                = true;
@@ -233,6 +269,7 @@ server bool hdm_enable_fulgur               = true;
 server bool hdm_enable_mauler               = true;
 server bool hdm_enable_zorcher              = true;
 server bool hdm_enable_ndm                  = true;
+server bool hdm_enable_binoculars           = true;
 
 // RadTech
 server bool hdm_enable_10mmpistol           = true;
@@ -275,11 +312,21 @@ server bool hdm_enable_fieldmedickit        = true;
 server bool hdm_enable_firstaidspray        = true;
 server bool hdm_enable_halfpack             = true;
 server bool hdm_enable_radiradio            = true;
+server bool hdm_enable_pocketlamp           = true;
 server bool hdm_enable_leatherarmour        = true;
 
 // Sirus
-server bool hdm_enable_adhesive             = true;
 server bool hdm_enable_requisitionkit       = true;
+
+// SnekTech
+server bool hdm_enable_cacoplushie          = true;
+server bool hdm_enable_gretchencounter      = true;
+server bool hdm_enable_jumpercables         = true;
+server bool hdm_enable_spraycan             = true;
+
+// Sonoda
+server bool hdm_enable_adhesive             = true;
+server bool hdm_enable_handcharger          = true;
 
 // Ugly as Sin
 server bool hdm_enable_ammopouch            = true;
@@ -331,6 +378,19 @@ server bool hdm_enable_7mmreloader          = true;
 server bool hdm_enable_backpack             = true;
 server bool hdm_enable_garrisonarmour       = true;
 server bool hdm_enable_battlearmour         = true;
+server bool hdm_enable_soulsphere           = true;
+server bool hdm_enable_megasphere           = true;
+server bool hdm_enable_invulnsphere         = true;
+server bool hdm_enable_herp                 = true;
+server bool hdm_enable_derp                 = true;
+server bool hdm_enable_automap              = true;
+server bool hdm_enable_liteamp              = true;
+server bool hdm_enable_bluecard             = true;
+server bool hdm_enable_redcard              = true;
+server bool hdm_enable_yellowcard           = true;
+server bool hdm_enable_blueskull            = true;
+server bool hdm_enable_redskull             = true;
+server bool hdm_enable_yellowskull          = true;
 
 // WAN Industries
 server bool hdm_enable_ma75b                = true;

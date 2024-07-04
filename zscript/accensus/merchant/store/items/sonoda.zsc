@@ -10,3 +10,15 @@ class HDAdhesiveStore : StoreItem
     override int GetStoreAmount() { return random[merchrand](2, 5) * hdm_stock_item; }
     override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ADHESIVE"); }
 }
+
+class HDHandchargeStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_handcharger; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_HANDCHARGE"); }
+	override Name GetItem() { return 'hdcharger'; }
+	override string GetIcon() { return "CGPAA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_HANDCHARGE"); }
+	override int GetBasePrice() { return 50; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_HANDCHARGE"); }
+}

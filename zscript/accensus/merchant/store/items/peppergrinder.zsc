@@ -370,6 +370,18 @@ class HDZorcherStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ZORCHER"); }
 }
 
+class HDBinocularsStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_binoculars; }
+	override int GetType() { return SType_Item; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BINOCULARS"); }
+	override Name GetItem() { return 'HDBinoculars'; }
+	override string GetIcon() { return "BINPA0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BINOCULARS"); }
+	override int GetBasePrice() { return 30; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_BINOCULARS"); }
+}
+
 class HD9mmNDMStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_ndm; }

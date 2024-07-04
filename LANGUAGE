@@ -787,6 +787,11 @@ MERCH_CAT_ANTIRADBOOTS            = "RadTech Inc.";
 MERCH_TAG_ANTIRADBOOTS            = "Anti-Radiation Boots";
 MERCH_FLAVOR_ANTIRADBOOTS         = "When you don't want your feet getting irradiated.";
 
+// Area Map
+MERCH_CAT_ALLMAP                  = "Vanilla";
+MERCH_TAG_ALLMAP                  = "Area map";
+MERCH_FLAVOR_ALLMAP               = "It won't treat your topographical cretinism, but you'll surely made it to the exit.";
+
 // Armour Patch Kit
 MERCH_CAT_ARMOURPATCHKIT          = "AceCorp";
 MERCH_TAG_ARMOURPATCHKIT          = "Armor Patch Kit";
@@ -822,6 +827,11 @@ MERCH_CAT_BERSERK                 = "Vanilla";
 MERCH_TAG_BERSERK                 = "Berserk Pack";
 MERCH_FLAVOR_BERSERK              = "Do not overdose. Oh who am I kidding, of course you will.";
 
+// Binoculars
+MERCH_CAT_BINOCULARS              = "Peppergrinder";
+MERCH_TAG_BINOCULARS              = "Binoculars";
+MERCH_FLAVOR_BINOCULARS           = "A pair of binoculars. Attuned so well that you can see yourself in the demon's eyes from a mile away.";
+
 // Bioelectric Cell
 MERCH_CAT_BIOELECTRICCELL         = "UNATCO";
 MERCH_TAG_BIOELECTRICCELL         = "Bioelectric Cell";
@@ -832,10 +842,35 @@ MERCH_CAT_BLOODBAG                = "Vanilla";
 MERCH_TAG_BLOODBAG                = "Synthetic Blood";
 MERCH_FLAVOR_BLOODBAG             = "'Tis but a scratch.";
 
+// Blue Keycard
+MERCH_CAT_BLUEKEYCARD             = "Vanilla";
+MERCH_TAG_BLUEKEYCARD             = "Blue Keycard";
+MERCH_FLAVOR_BLUEKEYCARD          = "Don't ask where I got it from.";
+
+// Blue Skull
+MERCH_CAT_BLUESKULL               = "Vanilla";
+MERCH_TAG_BLUESKULL               = "Blue skull";
+MERCH_FLAVOR_BLUESKULL            = "Blue, the way of the heaven forever lost to you.";
+
 // Blue Potion
 MERCH_CAT_BLUEPOTION              = "Vanilla";
 MERCH_TAG_BLUEPOTION              = "Blue Potion";
 MERCH_FLAVOR_BLUEPOTION           = "For what ails you.";
+
+// Blue Sphere
+MERCH_CAT_BLUESPHERE              = "Vanilla";
+MERCH_TAG_BLUESPHERE              = "Blue sphere";
+MERCH_FLAVOR_BLUESPHERE           = "For what ails you — but now it's too much.";
+
+// Bluepack
+MERCH_CAT_BLUEPACK                = "Benitez";
+MERCH_TAG_BLUEPACK                = "Bluepack";
+MERCH_FLAVOR_BLUEPACK             = "For what ails you — now comes in a compact package!";
+
+// Carcano Scope Attachment
+MERCH_CAT_CARCANOSCOPE            = "Mickromash";
+MERCH_TAG_CARCANOSCOPE            = "Carcano scope";
+MERCH_FLAVOR_CARCANOSCOPE         = "Scope!";
 
 // Booster Jets
 MERCH_CAT_BOOSTERJETS             = "AceCorp";
@@ -847,20 +882,35 @@ MERCH_CAT_BULLETASSEMBLER         = "Bryan's Armory";
 MERCH_TAG_BULLETASSEMBLER         = "Bullet Assembler";
 MERCH_FLAVOR_BULLETASSEMBLER      = "Will you create the regular ammo?";
 
-// Cacodemon Plush Doll
+// Cacodemon Plush Doll (Radtech)
 MERCH_CAT_CACOPLUSH               = "RadTech Inc.";
 MERCH_TAG_CACOPLUSH               = "Cacodemon Plush Doll";
 MERCH_FLAVOR_CACOPLUSH            = "Come on, look at that face. How can you say no to that?";
+
+// Cacodemon Plushie (Kiri/SnekTek)
+MERCH_CAT_CACODEMONPLUSHIE        = "SnekTech";
+MERCH_TAG_CACODEMONPLUSHIE        = "Cursed Cacodemon Plushie";
+MERCH_FLAVOR_CACODEMONPLUSHIE     = "Even in death, I will protect you, and not even the gods can stop me.";
 
 // Case Crafter
 MERCH_CAT_CASECRAFTER             = "Bryan's Armory";
 MERCH_TAG_CASECRAFTER             = "Case Crafter";
 MERCH_FLAVOR_CASECRAFTER          = "I rest my case.";
 
+// Cross-Pulse Thunder Buster Modification Kit
+MERCH_CAT_CROSSPULSEMODKIT        = "BeatCrazed";
+MERCH_TAG_CROSSPULSEMODKIT        = "Cross Pulse Modification kit";
+MERCH_FLAVOR_CROSSPULSEMODKIT     = "Take your plasmagun to the next level of hideous destruction.";
+
 // Deployable Barricade
 MERCH_CAT_BARRICADE               = "AceCorp";
 MERCH_TAG_BARRICADE               = "Deployable Barricade";
 MERCH_FLAVOR_BARRICADE            = "Enjoy your safe space.";
+
+// Defence, Engagement, Reconnaissance and Patrol Robot
+MERCH_CAT_DERP                    = "Vanilla";
+MERCH_TAG_DERP                    = "D.E.R.P.";
+MERCH_FLAVOR_DERP                 = "A H.E.R.P.'s lil' 9mm brother.";
 
 // Dimensional Storage Device
 MERCH_CAT_DSD                     = "AceCorp";
@@ -872,10 +922,30 @@ MERCH_CAT_DOORBUSTER              = "Vanilla";
 MERCH_TAG_DOORBUSTER              = "Door Buster";
 MERCH_FLAVOR_DOORBUSTER           = "Breaching, breaching!";
 
+// Deployable Overcharging Robot for Killjoys
+MERCH_CAT_DORK                    = "Benitez";
+MERCH_TAG_DORK                    = "Deployable Overcharging Robot for Killjoys";
+MERCH_FLAVOR_DORK                 = "D.E.R.P., but it's flying and carrying a Thunder Buster. A truly diabolical creation.";
+
+// Experimental Configurable Teleportation Device
+MERCH_CAT_ECTD                    = "Benitez";
+MERCH_TAG_ECTD                    = "Experimental Configurable Teleportation Device";
+MERCH_FLAVOR_ECTD                 = "I'm gone.";
+
+// Factory Reloader
+MERCH_CAT_FACTORYRELOADER         = "General Goods";
+MERCH_TAG_FACTORYRELOADER         = "Factory reloader";
+MERCH_FLAVOR_FACTORYRELOADER      = "Please don't tell anyone that I sold you this.";
+
 // Field Assembly Kit
 MERCH_CAT_FAK                     = "AceCorp";
 MERCH_TAG_FAK                     = "Field Assembly Kit";
 MERCH_FLAVOR_FAK                  = "Armor almost gone? Shield generator giving out? Well go FAK yourself.";
+
+// Fanny Pack
+MERCH_CAT_FANNYPACK               = "Cannibal Hunter";
+MERCH_TAG_FANNYPACK               = "Fanny Pack";
+MERCH_FLAVOR_FANNYPACK            = "An extended version of your pockets.";
 
 // Field Medic Kit
 MERCH_CAT_FIELDMEDICKIT           = "RadTech Inc.";
@@ -912,6 +982,21 @@ MERCH_CAT_GEARBOX                 = "FDA Approved";
 MERCH_TAG_GEARBOX                 = "Gear Box";
 MERCH_FLAVOR_GEARBOX              = "A hoarder's best friend.";
 
+// Grenade Launcher Attachment
+MERCH_CAT_GLATTACHMENT            = "General Goods";
+MERCH_TAG_GLATTACHMENT            = "Grenade launcher attachement";
+MERCH_FLAVOR_GLATTACHMENT         = "A small boom-boom addition for your rifle of choose.";
+
+// Green Potion
+MERCH_CAT_GREENPOTION             = "Benitez";
+MERCH_TAG_GREENPOTION             = "Green potion";
+MERCH_FLAVOR_GREENPOTION          = "For what... wait, it's just an apple juice!";
+
+// Gretchen Counter
+MERCH_CAT_GRETCHENCOUNTER         = "SnekTech";
+MERCH_TAG_GRETCHENCOUNTER         = "Gretchenfrag Counter";
+MERCH_FLAVOR_GRETCHENCOUNTER      = "This object clearly looks like it was recycled from a very old Geiger counter.";
+
 // Gunsmith Pouch
 MERCH_CAT_GUNSMITHPOUCH           = "AceCorp";
 MERCH_TAG_GUNSMITHPOUCH           = "Gunsmith Pouch";
@@ -932,30 +1017,80 @@ MERCH_CAT_HALFPACK                = "RadTech Inc.";
 MERCH_TAG_HALFPACK                = "Half-Pack";
 MERCH_FLAVOR_HALFPACK             = "May or may not contain anything useful inside.";
 
+// Handcharge
+MERCH_CAT_HANDCHARGE              = "Takemi Electronics";
+MERCH_TAG_HANDCHARGE              = "Handcharge";
+MERCH_FLAVOR_HANDCHARGE           = "A compact and useful charger powered by your own hands.";
+
+// Heavy Engagement Rotary Platform Robot
+MERCH_CAT_HERP                    = "Vanilla";
+MERCH_TAG_HERP                    = "H.E.R.P.";
+MERCH_FLAVOR_HERP                 = "An automatic ZM66-based system which will shoot bad guys for you.";
+
 // HUD Helmet
 MERCH_CAT_HHELMET                 = "Dastrukar";
 MERCH_TAG_HHELMET                 = "Helmet";
 MERCH_FLAVOR_HHELMET              = "Does not protect from bicycle falls.";
+
+// Invulnerability Sphere
+MERCH_CAT_INVULNSPHERE            = "Vanilla";
+MERCH_TAG_INVULNSPHERE            = "Invulnerability sphere";
+MERCH_FLAVOR_INVULNSPHERE         = "Will set everything on fire, but you won't feel it.";
 
 // Jetpack
 MERCH_CAT_JETPACK                 = "Vanilla";
 MERCH_TAG_JETPACK                 = "Jetpack";
 MERCH_FLAVOR_JETPACK              = "Careful not to leave the atmosphere.";
 
+// Jumper Cables
+MERCH_CAT_JUMPERCABLES            = "SnekTech";
+MERCH_TAG_JUMPERCABLES            = "Wiring Bypass Kit";
+MERCH_FLAVOR_JUMPERCABLES         = "Blew up the exit switch, did'ya?";
+
+// Portable Ladder
+MERCH_CAT_LADDER                  = "Vanilla";
+MERCH_TAG_LADDER                  = "Portable Ladder";
+MERCH_FLAVOR_LADDER               = "Don't fall and break a leg.";
+
 // Ladder Launcher
 MERCH_CAT_LADDERLAUNCHER          = "AceCorp";
 MERCH_TAG_LADDERLAUNCHER          = "Ladder Launcher";
 MERCH_FLAVOR_LADDERLAUNCHER       = "Aim for the top.";
+
+// Light AMP Goggles
+MERCH_CAT_LIGHTAMPGOGGLES         = "Vanilla";
+MERCH_TAG_LIGHTAMPGOGGLES         = "Light AMP goggles";
+MERCH_FLAVOR_LIGHTAMPGOGGLES      = "I can't see shit, captain!";
+
+// Logistics Bag
+MERCH_CAT_LOGIBAG                 = "Cozi's Offworld Wares";
+MERCH_TAG_LOGIBAG                 = "Logistics bag";
+MERCH_FLAVOR_LOGIBAG              = "Gunsmith pouch's bigger brother.";
 
 // M249 Reloader
 MERCH_CAT_M249RELOADER            = "Bryan's Armory";
 MERCH_TAG_M249RELOADER            = "M249 Pouch Reloading Machine";
 MERCH_FLAVOR_M249RELOADER         = "Too tired to load?";
 
+// Megasphere
+MERCH_CAT_MEGASPHERE              = "Vanilla";
+MERCH_TAG_MEGASPHERE              = "Megasphere";
+MERCH_FLAVOR_MEGASPHERE           = "For what ails you — but now it's REALLY much + shield.";
+
 // Magazine Reloader
 MERCH_CAT_MRL                     = "AceCorp";
 MERCH_TAG_MRL                     = "Magazine Reloader";
 MERCH_FLAVOR_MRL                  = "Waste your enemies, not your time.";
+
+// Medallion of Mages
+MERCH_CAT_MAGEMEDALLION           = "Benitez";
+MERCH_TAG_MAGEMEDALLION           = "Medallion of mages";
+MERCH_FLAVOR_MAGEMEDALLION        = "A medallion made by human mages. Will grant you the power of demons you fighting against.";
+
+// Medical Bag
+MERCH_CAT_MEDIBAG                 = "Cozi's Offworld Wares";
+MERCH_TAG_MEDIBAG                 = "Medical bag";
+MERCH_FLAVOR_MEDIBAG              = "We had 2 first aid kits, 75 suture cartridges, 5 super stimpacks, a bottle half-full of blues...";
 
 // Medical Scanner
 MERCH_CAT_MEDICALSCANNER          = "Hexadoken Industries";
@@ -965,27 +1100,37 @@ MERCH_FLAVOR_MEDICALSCANNER       = "Medikit without the medikit parts.";
 // Medikit
 MERCH_CAT_MEDIKIT                 = "Vanilla";
 MERCH_TAG_MEDIKIT                 = "Medikit";
-MERCH_FLAVOR_MEDIKIT              = "And all the king's horses and all the king's men couldn't staple Humpty Dumpty back together again.";
+MERCH_FLAVOR_MEDIKIT              = "And all the king's horses and all the king's mencouldn't staple Humpty Dumpty back together again.";
 
 // Mess Kit
 MERCH_CAT_MESSKIT                 = "Ugly as Sin";
 MERCH_TAG_MESSKIT                 = "Mess Kit";
 MERCH_FLAVOR_MESSKIT              = "Don't make a mess.";
 
+// Ole Rum
+MERCH_CAT_BLUERUM                 = "Cozi's Offworld Wares";
+MERCH_TAG_BLUERUM                 = "Ole rum";
+MERCH_FLAVOR_BLUERUM              = "The alcohol amount would probably kill you if it wasn't watered down with a magical tonic. Drink up!";
+
 // Personal Shield Generator
 MERCH_CAT_PERSONALSHIELDGEN       = "AceCorp";
 MERCH_TAG_PERSONALSHIELDGEN       = "Personal Shield Generator";
 MERCH_FLAVOR_PERSONALSHIELDGEN    = "Guaranteed to make rocket marines sad.";
 
-// Portable Ladder
-MERCH_CAT_LADDER                  = "Vanilla";
-MERCH_TAG_LADDER                  = "Portable Ladder";
-MERCH_FLAVOR_LADDER               = "Don't fall and break a leg.";
+// Pocket lamp/Pocket lamp selfcharging
+MERCH_CAT_POCKETLAMP              = "Radtech Inc.";
+MERCH_TAG_POCKETLAMP              = "Pocket lamp";
+MERCH_FLAVOR_POCKETLAMP           = "Don't break it like that hatman drom Dusk.";
 
-// Portable Radar
-MERCH_CAT_ZRADAR                  = "AceCorp";
-MERCH_TAG_ZRADAR                  = "Portable Radar";
-MERCH_FLAVOR_ZRADAR               = "They're coming out of the god damn walls!";
+// Portable Cleanser
+MERCH_CAT_PORTABLECLEANSER        = "Cozi's Offworld Wares";
+MERCH_TAG_PORTABLECLEANSER        = "Portable cleanser";
+MERCH_FLAVOR_PORTABLECLEANSER     = "Cleanser packs help clear ALL drugs out of your system.";
+
+// Purse
+MERCH_CAT_PURSE                   = "Mohl";
+MERCH_TAG_PURSE                   = "Purse";
+MERCH_FLAVOR_PURSE                = "It's kinda PayDay stuff.";
 
 // Portable Teleporter
 MERCH_CAT_PORTABLETELEPORTER      = "AceCorp";
@@ -1012,6 +1157,21 @@ MERCH_CAT_REARVIEWMIRROR          = "AceCorp";
 MERCH_TAG_REARVIEWMIRROR          = "Rearview Mirror";
 MERCH_FLAVOR_REARVIEWMIRROR       = "They came from... BEHIND!";
 
+// Red Keycard
+MERCH_CAT_REDKEYCARD              = "Vanilla";
+MERCH_TAG_REDKEYCARD              = "Red Keycard";
+MERCH_FLAVOR_REDKEYCARD           = "Are you going to buy it or not?";
+
+// Red Skull
+MERCH_CAT_REDSKULL                = "Vanilla";
+MERCH_TAG_REDSKULL                = "Red skull";
+MERCH_FLAVOR_REDSKULL             = "Red, the way of the blood shed for you in vain.";
+
+// Reflex Sight Attachment
+MERCH_CAT_REFLEXATTACHMENT        = "General Goods";
+MERCH_TAG_REFLEXATTACHMENT        = "Reflex sight attachment";
+MERCH_FLAVOR_REFLEXATTACHMENT     = "This won't make you an SMG marksman but it looks stylish at least.";
+
 // Requisition Kit
 MERCH_CAT_REQUISITIONKIT          = "Sirus Inc.";
 MERCH_TAG_REQUISITIONKIT          = "Requisition Kit";
@@ -1021,6 +1181,16 @@ MERCH_FLAVOR_REQUISITIONKIT       = "What's in the box? What's in the booooooooo
 MERCH_CAT_RESPIRATOR              = "Ugly as Sin";
 MERCH_TAG_RESPIRATOR              = "Respirator";
 MERCH_FLAVOR_RESPIRATOR           = "Blub blub blub.";
+
+// The Remote InterFerence Controller hacking device
+MERCH_CAT_RIFC                    = "Benitez";
+MERCH_TAG_RIFC                    = "Remote InterFerence Controller hacking device";
+MERCH_FLAVOR_RIFC                 = "Be a true robot emperor with this little Nintendo thingy, as long as you got batteries.";
+
+// Riot Shield
+MERCH_CAT_RIOTSHIELD              = "Bangers & Mash";
+MERCH_TAG_RIOTSHIELD              = "Riot Shield";
+MERCH_FLAVOR_RIOTSHIELD           = "Lookin' to quell some insurrection?";
 
 // Rocket Assembler
 MERCH_CAT_ROCKETASSEMBLER         = "Bryan's Armory";
@@ -1036,6 +1206,11 @@ MERCH_FLAVOR_ROOMBA               = "Stop breaking your back trying to pick up b
 MERCH_CAT_SECRETFINDER            = "AceCorp";
 MERCH_TAG_SECRETFINDER            = "Secret Finder";
 MERCH_FLAVOR_SECRETFINDER         = "Do you hear that? It's the sound of a hidden BFG.";
+
+// Spray Can
+MERCH_CAT_SPRAYCAN                = "SnekTech";
+MERCH_TAG_SPRAYCAN                = "Spraypaint Can";
+MERCH_FLAVOR_SPRAYCAN             = "Spreading acceptance, one act of defiance at a time.";
 
 // Stimpack
 MERCH_CAT_STIMPACK                = "Vanilla";
@@ -1091,6 +1266,21 @@ MERCH_FLAVOR_WEAPONSLING          = "For when you need that third arm.";
 MERCH_CAT_WEAPONCRATE             = "AceCorp";
 MERCH_TAG_WEAPONCRATE             = "Weapon Crate";
 MERCH_FLAVOR_WEAPONCRATE          = "Ammo sold separately.";
+
+// Yellow Keycard
+MERCH_CAT_YELLOWKEYCARD           = "Vanilla";
+MERCH_TAG_YELLOWKEYCARD           = "Yellow Keycard";
+MERCH_FLAVOR_YELLOWKEYCARD        = "Some zombie scientist dropped it in the hallway.";
+
+// Yellow Skull
+MERCH_CAT_YELLOWSKULL             = "Vanilla";
+MERCH_TAG_YELLOWSKULL             = "Yellow skull";
+MERCH_FLAVOR_YELLOWSKULL          = "Yellow, the way of the gold that has lured all mankind to death.";
+
+// Portable Radar
+MERCH_CAT_ZRADAR                  = "AceCorp";
+MERCH_TAG_ZRADAR                  = "Portable Radar";
+MERCH_FLAVOR_ZRADAR               = "They're coming out of the god damn walls!";
 
 
 // ------------------
@@ -1422,6 +1612,16 @@ MERCH_FLAVOR_RAWSTEEL             = "Tore this one off a Spider demon!";
 // ARMOUR
 // ------------------
 
+// Armor Plate
+MERCH_CAT_ARMORPLATE              = "Bangers & Mash";
+MERCH_TAG_ARMORPLATE              = "Armor Plate";
+MERCH_FLAVOR_ARMORPLATE           = "When you want even more protection than you already have.";
+
+/// Ballistic Shield
+MERCH_CAT_BALLISTICSHIELD         = "Bangers & Mash";
+MERCH_TAG_BALLISTICSHIELD         = "Ballistic Shield";
+MERCH_FLAVOR_BALLISTICSHIELD      = "Your safespace became mobile.";
+
 // Battle Armour
 MERCH_CAT_BATTLEARMOUR            = "Vanilla";
 MERCH_TAG_BATTLEARMOUR            = "Battle Armor";
@@ -1451,3 +1651,58 @@ MERCH_FLAVOR_LEATHERARMOUR        = "Goes over your other armor.";
 MERCH_CAT_SNEAKINGSUIT            = "WAN Industries";
 MERCH_TAG_SNEAKINGSUIT            = "Sneaking Suit";
 MERCH_FLAVOR_SNEAKINGSUIT         = "Won't even know what him 'em.";
+
+
+// ------------------------------------------------
+// Mongoose Powersuit Parts
+// ------------------------------------------------
+
+// Mongoose Powersuit
+MERCH_CAT_POWERSUIT               = "\"Mongoose\" Powersuit";
+MERCH_TAG_POWERSUIT               = "\"Mongoose\" Powersuit";
+MERCH_FLAVOR_POWERSUIT            = "Your personal powermech which doesn't even require a class M driver's license. Yay!";
+
+// "Athena" Light Cannon
+MERCH_CAT_ATHENALIGHTCANNON       = "\"Mongoose\" Powersuit";
+MERCH_TAG_ATHENALIGHTCANNON       = "\"Athena\" light cannon";
+MERCH_FLAVOR_ATHENALIGHTCANNON    = "You wanna fight a cyberdemon 1 on 1? Well, this is for you.";
+
+// "Calinicus" Automatic Grenade Launcher
+MERCH_CAT_CALINICUSAUTOLAUNCHER   = "\"Mongoose\" powersuit";
+MERCH_TAG_CALINICUSAUTOLAUNCHER   = "\"Calinicus\" automatic grenade launcher";
+MERCH_FLAVOR_CALINICUSAUTOLAUNCHER= "For when a crowd of zombies stands in your way.";
+
+// "Jackripper" Hybrid Machune Gun
+MERCH_CAT_JACKRIPPERHYBRIDMG      = "\"Mongoose\" powersuit";
+MERCH_TAG_JACKRIPPERHYBRIDMG      = "\"Jackripper\" hybrid machine gun";
+MERCH_FLAVOR_JACKRIPPERHYBRIDMG   = "Can't choose between 12 gauge and 9mm? Then why not both?";
+
+// "Leonidas" Light Machine Gun
+MERCH_CAT_LEONIDASLIGHTMG         = "\"Mongoose\" powersuit";
+MERCH_TAG_LEONIDASLIGHTMG         = "\"Leonidas\" light machine gun";
+MERCH_FLAVOR_LEONIDASLIGHTMG      = "Basically the Vulcanette. Almost.";
+
+// ZMG33 Light Machine Gun
+MERCH_CAT_ZMG33                   = "\"Mongoose\" powersuit";
+MERCH_TAG_ZMG33                   = "ZMG33 light machine gun";
+MERCH_FLAVOR_ZMG33                = "Liberator on steroids.";
+
+/// M2 Browning
+MERCH_CAT_M2BROWNING              = "\"Mongoose\" powersuit";
+MERCH_TAG_M2BROWNING              = "M2 Browning";
+MERCH_FLAVOR_M2BROWNING           = "A heavy machine gun which will decimate anything unfortunate enough to get in front of you.";
+
+// Mongoose Powersuit Core
+MERCH_CAT_POWERSUITCORE           = "\"Mongoose\" powersuit";
+MERCH_TAG_POWERSUITCORE           = "\"Mongoose\" Powersuit Core";
+MERCH_FLAVOR_POWERSUITCORE        = "You can't even hide in there.";
+
+// Mongoose Powersuit Arms
+MERCH_CAT_POWERSUITARMS           = "\"Mongoose\" powersuit";
+MERCH_TAG_POWERSUITARMS           = "\"Mongoose\" Powersuit Arms";
+MERCH_FLAVOR_POWERSUITARMS        = "Ruki-zagrebuki.";
+
+// Mongoose Powersuit Legs
+MERCH_CAT_POWERSUITLEGS           = "\"Mongoose\" powersuit";
+MERCH_TAG_POWERSUITLEGS           = "\"Mongoose\" Powersuit Legs";
+MERCH_FLAVOR_POWERSUITLEGS        = "Left! Right! Left! Right!";

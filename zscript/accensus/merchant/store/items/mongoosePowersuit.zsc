@@ -1,0 +1,120 @@
+// Mongoose Powersuit
+class HDPowersuitStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosepowersuit; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_POWERSUIT"); }
+	override Name GetItem() { return 'hdpowersuitspawnerpickup'; }
+	override string GetIcon() { return "hcapa0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_POWERSUIT"); }
+	override int GetBasePrice() { return 1500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_POWERSUIT"); }
+}
+
+class HDBrontoArmStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosebrontoarm; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ATHENALIGHTCANNON"); }
+	override Name GetItem() { return 'hdpowersuitbrontoarmpickup'; }
+	override string GetIcon() { return "ATENA3"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ATHENALIGHTCANNON"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ATHENALIGHTCANNON"); }
+}
+
+class HDRocketArmStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongooserocketarm; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_CALINICUSAUTOLAUNCHER"); }
+	override Name GetItem() { return 'hdpowersuitrocketarmpickup'; }
+	override string GetIcon() { return "CLNCA3"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_CALINICUSAUTOLAUNCHER"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_CALINICUSAUTOLAUNCHER"); }
+}
+
+class HDSMGArmStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosesmgarm; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_JACKRIPPERHYBRIDMG"); }
+	override Name GetItem() { return 'hdpowersuitsmgarmpickup'; }
+	override string GetIcon() { return "JKRPA3"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_JACKRIPPERHYBRIDMG"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_JACKRIPPERHYBRIDMG"); }
+}
+
+class HDVulcArmStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosevulcarm; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_LEONIDASLIGHTMG"); }
+	override Name GetItem() { return 'hdpowersuitvulcarmpickup'; }
+	override string GetIcon() { return "LEONA3"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_LEONIDASLIGHTMG"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_LEONIDASLIGHTMG"); }
+}
+
+class HDLibArmStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongooselibarm; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ZMG33"); }
+	override Name GetItem() { return 'hdpowersuitlibarmpickup'; }
+	override string GetIcon() { return "ZMG3A3"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ZMG33"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_ZMG33"); }
+}
+
+class HDM2BrowningArmStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosebrowningarm; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_M2BROWNING"); }
+	override Name GetItem() { return 'hdpowersuitM2armpickup'; }
+	override string GetIcon() { return "MMG2A3"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_M2BROWNING"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_M2BROWNING"); }
+}
+
+class HDPowersuitCoreStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosecore; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_POWERSUITCORE"); }
+	override Name GetItem() { return 'hdpowersuitcorepickup'; }
+	override string GetIcon() { return "PSTOB1"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_POWERSUITCORE"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_POWERSUITCORE"); }
+}
+
+class HDPowersuitArmsStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongoosearms; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_POWERSUITARMS"); }
+	override Name GetItem() { return 'hdpowersuitbotharmspickup'; }
+	override string GetIcon() { return "PARMZ0"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_POWERSUITARMS"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_POWERSUITARMS"); }
+}
+
+class HDPowersuitLegsStore : StoreItem
+{
+	override bool IsEnabled() { return hdm_enable_mongooselegs; }
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_POWERSUITLEGS"); }
+	override Name GetItem() { return 'hdpowersuitlegspickup'; }
+	override string GetIcon() { return "powleg1"; }
+	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_POWERSUITLEGS"); }
+	override int GetBasePrice() { return 500; }
+	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_POWERSUITLEGS"); }
+}
