@@ -96,7 +96,7 @@ class MerchantItemFrame : MerchZFFrame {
 
         ret.itemFlavorLabel = MerchZFLabel.create(
             contentPos + (0, ret.itemTagLabel.getHeight()),
-            (contentWidth, ConFont.getHeight()),
+            (contentWidth, ConFont.getHeight() * ((item.GetFlavorText().Length() / 48) + 1)),
             item.GetFlavorText(),
             ConFont,
             textColor: Font.CR_DARKGRAY
