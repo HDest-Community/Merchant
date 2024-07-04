@@ -23,17 +23,18 @@ extend class MerchantHandler
 				let item = StoreItem(new(cls));
 
 				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
+				bool inRange = level.MapName ~== "RANGE";
 
 				static const name merchChances[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
 				if (
 					(Class<Actor>)(item.GetItem())
 					&& item.GetType() == type
 					&& item.IsEnabled()
-					&& (inReloadingRoom || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
+					&& (inReloadingRoom || inRange || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
 				) {
 					item.StoreAmount = item.GetStoreAmount();
 
-					if (inReloadingRoom) item.StoreAmount *= random[merchrand](25, 150);
+					if (inReloadingRoom || inRange) item.StoreAmount *= random[merchrand](25, 150);
 
 					Stores[type].StoreItems.Push(item);
 				}
