@@ -318,12 +318,54 @@ class MerchantHandler : EventHandler
 
 	override void WorldThingDied(WorldEvent e)
 	{
-		if (!(e.thing is 'HDPlayerPawn')) {
-			let amt = random(0, GetBounty(e.thing) * hdm_nonbounty_dropratio);
-			for (let i = 0; i < amt; i++)
+		if (!(e.thing is 'HDPlayerPawn' || e.thing is 'HDPlayerCorpse') && hdm_nonbounty_dropratio > 0)
+		{
+			let mob = HDMobBase(e.thing);
+			if (mob && !mob.bhasdropped)
 			{
-				let bux = HDMobBase(e.thing).DropNewItem('MercenaryBucks');
-				bux.vel *= 0.333;
+				DropCurrency(mob);
+			}
+		}
+	}
+
+	private void DropCurrency(HDMobBase mob)
+	{
+		// Get the raw amount of currency to drop
+		let bounty = GetBounty(mob);
+		let healthamt = mob.getspawnhealth() + (mob.maxshields / 2);
+		let maxAmount = random(min(bounty, healthamt), max(bounty, healthamt)) * hdm_nonbounty_dropratio;
+		let amount = random(0, maxAmount);
+
+		while (amount > 0) {
+			if (amount >= 2000)
+			{
+				mob.DropNewItem('BigGem');
+				amount -= 1000;
+			}
+			else if (amount >= 1000)
+			{
+				mob.DropNewItem('SmallGem');
+				amount -= 500;
+			}
+			else if (amount >= 500)
+			{
+				mob.DropNewItem('BigCoin');
+				amount -= 250;
+			}
+			else if (amount >= 250)
+			{
+				mob.DropNewItem('MediumCoin');
+				amount -= 100;
+			}
+			else if (amount >= 50)
+			{
+				mob.DropNewItem('SmallCoin');
+				amount -= 25;
+			}
+			else
+			{
+				mob.DropNewItem('MercenaryBucksPickup');
+				amount -= random(1, 4);
 			}
 		}
 	}

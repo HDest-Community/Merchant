@@ -8,6 +8,9 @@
 - There are three merchants, one for each type of item: weapons, ammo, and items.
 - Up to three merchants can spawn on a map. They have a different inventory each time, meaning some items may be missing.
 - You can carry the merchant by using Sprinting + Use. Put them down by crouching and holding the sprint key for half a second. You can only carry one merchant at a time.
+- Monsters will now drop a random amount of currency, based on a few factors and scaled based on the `hdm_nonbounty_dropratio` CVar.
+  - This is separate from Tiberium and/or Bounties.  If you'd prefer to only get money from either of those two systems, just set `hdm_nonbounty_dropratio` to `0.0`.
+  - The same is true the other way around, if you'd prefer to only get money randomly through killing normal monsters, just set the Money Mode to "neither".
 
 ### Notes
 ---
@@ -77,7 +80,8 @@ Payouts are as follows:
 
 Original Mod Credits are displayed below.
 - Cryomundus, for porting original mod to HDest Community Organization, updating as needed.
-- Undead Zeratul, adding all sorts of Shop Entries & filters, updating ZForms, redesigning Shop Menu.
+- Undead Zeratul, adding all sorts of Shop Entries & filters, updating ZForms, redesigning Shop Menu, incorporating FDA's HDest Avarice Coins mini-mod.
+- FDA, for originally porting Avarice Coins into a compatible addon for Merchant.
 
 Code:
 - Accensus
@@ -108,3 +112,41 @@ Card backs:
 
 Additional:
 - Kat, additional store items
+ 
+#### Avarice Coins Mod Original Credits:
+
+All Coin sprites:
+- HorrorMovieRei, carvings on the coins based on Freedoom assets (The coin sprites are free to use in any mod or TC, commercial or not)
+
+Small Gem sprites:
+- Tyrian 2000 by Eclipse Software
+
+Big Gem sprites:
+- Sonic Spinball by Sega
+
+Money shine sprites:
+- Super Turrican 2 by Factor 5
+
+Chest Sprites:
+- RPG Maker XP by Enterbrain
+
+Coin bouncing sound:
+- Freedoom (Edited by HorrorMovieRei)
+
+Gem bouncing sound:
+- Blasphemer
+
+Big Gem slamming sound:
+- Blasphemer
+
+Coin/Gem pickup Sounds:
+- Rise of the Triad by Apogee Software
+
+Decorate Code and ACS:
+- HorrorMovieRei
+
+Director code:
+- Although I've wrote it from scratch, it is a technique that Beed28 gave me permission to use a long time ago for another unrelated mod, and I have been using this same technique ever since, so I feel like shouting them out is the right thing to do!
+
+Zscript for making the coins fly towards you:
+- Melodica

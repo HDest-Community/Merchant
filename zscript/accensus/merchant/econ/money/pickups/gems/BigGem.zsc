@@ -1,0 +1,29 @@
+class BIGGem : BaseMercGemPickup
+{
+    Default
+    {
+        Radius 5;
+        Height 10;
+        Scale 0.5;
+        
+        hdupk.amount 75;
+    }
+
+    States
+    {
+        Spawn:
+            MNY5 A 0;
+            goto Air;
+        Bounce:
+            #### A 1 Bright
+            {
+                Radius_Quake(1,10,0,2,0);
+                A_StartSound("Gem/Slam",6,0,1);
+                A_ChangeVelocity(1,0,(CountInv("CoinBounceToken")*2),CVF_RELATIVE|CVF_REPLACE);
+                A_TakeInventory("CoinBounceToken",1);
+            }
+            #### BCDEFGH 1 Bright;
+            #### A 0 Bright A_JumpifInventory("CoinBounceToken",1,"Air");
+            Goto Ground;
+    }
+}

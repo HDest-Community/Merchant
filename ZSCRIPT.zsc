@@ -62,3 +62,16 @@ version "4.10"
 #include "zscript/accensus/merchant/econ/tiberium.zsc"
 
 #include "zscript/accensus/merchant/econ/money/MercBucks.zsc"
+
+#include "zscript/accensus/merchant/econ/money/pickups/base/BasePickup.zsc"
+#include "zscript/accensus/merchant/econ/money/pickups/base/BaseCoinPickup.zsc"
+#include "zscript/accensus/merchant/econ/money/pickups/base/BaseGemPickup.zsc"
+
+#include "zscript/accensus/merchant/econ/money/pickups/coins/SmallCoin.zsc"
+#include "zscript/accensus/merchant/econ/money/pickups/coins/MediumCoin.zsc"
+#include "zscript/accensus/merchant/econ/money/pickups/coins/BigCoin.zsc"
+
+#include "zscript/accensus/merchant/econ/money/pickups/gems/SmallGem.zsc"
+#include "zscript/accensus/merchant/econ/money/pickups/gems/BigGem.zsc"
+
+#include "zscript/accensus/merchant/econ/money/pickups/paper/PaperCurrency.zsc"
