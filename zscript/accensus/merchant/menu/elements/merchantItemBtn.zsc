@@ -1,4 +1,4 @@
-class MerchantItemBtn : MerchZFButton {
+class MerchantItemBtn : HDZFButton {
 
     StoreItem item;
 
@@ -7,10 +7,10 @@ class MerchantItemBtn : MerchZFButton {
         string text = "",
         MerchantMenuHandler cmdHandler = NULL,
         Name command = '',
-        MerchZFBoxTextures inactive = NULL,
-        MerchZFBoxTextures hover = NULL,
-        MerchZFBoxTextures click = NULL,
-        MerchZFBoxTextures disabled = NULL,
+        HDZFBoxTextures inactive = NULL,
+        HDZFBoxTextures hover = NULL,
+        HDZFBoxTextures click = NULL,
+        HDZFBoxTextures disabled = NULL,
         Font fnt = NULL,
         double textScale = 1,
         int textColor = Font.CR_WHITE,
@@ -39,10 +39,10 @@ class MerchantItemBtn : MerchZFButton {
         string text = "",
         MerchantMenuHandler cmdHandler = NULL,
         Name command = '',
-        MerchZFBoxTextures inactive = NULL,
-        MerchZFBoxTextures hover = NULL,
-        MerchZFBoxTextures click = NULL,
-        MerchZFBoxTextures disabled = NULL,
+        HDZFBoxTextures inactive = NULL,
+        HDZFBoxTextures hover = NULL,
+        HDZFBoxTextures click = NULL,
+        HDZFBoxTextures disabled = NULL,
         Font fnt = NULL,
         double textScale = 1,
         int textColor = Font.CR_WHITE,
