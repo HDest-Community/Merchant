@@ -1,13 +1,13 @@
-class MerchantCategoryFrame : MerchZFListFrame {
+class MerchantCategoryFrame : HDZFListFrame {
 
     MerchantShopMenu menu;
     PlayerPawn plr;
     Array<StoreItem> items;
 
-    // MerchZFImage toggleIcon;
+    // HDZFImage toggleIcon;
     // MerchantCategoryToggleButton toggleBtn;
     MerchantCategoryHeaderFrame categoryHeader;
-    MerchZFListFrame itemsFrame;
+    HDZFListFrame itemsFrame;
     Array<MerchantItemFrame> itemFrames;
 
     static MerchantCategoryFrame create(
@@ -29,7 +29,7 @@ class MerchantCategoryFrame : MerchZFListFrame {
         ret.plr = plr;
         ret.items.copy(items);
 
-        ret.itemsFrame = MerchZFListFrame.create(
+        ret.itemsFrame = HDZFListFrame.create(
             (0, 0),
             (size.x, ret.items.size() * (30 + padding)),
             padding

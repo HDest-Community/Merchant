@@ -1,8 +1,8 @@
-class MerchantMenuHandler : MerchZFHandler {
+class MerchantMenuHandler : HDZFHandler {
 
     MerchantShopMenu menu;
 
-    override void buttonClickCommand(MerchZFButton btn, Name cmd) {
+    override void buttonClickCommand(HDZFButton btn, Name cmd) {
         let numCategories = menu.GetOpenedStore().Categories.Size();
 
         switch (cmd) {
@@ -15,7 +15,7 @@ class MerchantMenuHandler : MerchZFHandler {
         }
     }
 
-    override void toggleButtonChanged(MerchZFToggleButton btn, Name cmd, bool on) {
+    override void toggleButtonChanged(HDZFToggleButton btn, Name cmd, bool on) {
         switch (cmd) {
             case 'toggleCategoryCollapse':
                 if (hdm_debug) console.printf("Toggle Category Collapsed...");
