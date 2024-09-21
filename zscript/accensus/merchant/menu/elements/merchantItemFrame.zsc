@@ -1,16 +1,16 @@
-class MerchantItemFrame : MerchZFFrame {
+class MerchantItemFrame : HDZFFrame {
 
     MerchantShopMenu menu;
     PlayerPawn plr;
     StoreItem item;
 
-    MerchZFImage itemIcon;
+    HDZFImage itemIcon;
     
-    MerchZFLabel itemTagLabel;
-    MerchZFLabel itemFlavorLabel;
+    HDZFLabel itemTagLabel;
+    HDZFLabel itemFlavorLabel;
 
-    MerchZFImage curImg;
-    MerchZFLabel priceLabel;
+    HDZFImage curImg;
+    HDZFLabel priceLabel;
 
     MerchantItemBtn itemBtn;
 
@@ -45,10 +45,10 @@ class MerchantItemFrame : MerchZFFrame {
             size,
             cmdHandler: btnHandler,
             command: 'buyItem',
-            inactive: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackground.png', (7,7), (14,14), true, true),
-            hover: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundHover.png', (7,7), (14,14), true, true),
-            click: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
-            disabled: MerchZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true)
+            inactive: HDZFBoxTextures.createTexturePixels('Graphics/CommonBackground.png', (7,7), (14,14), true, true),
+            hover: HDZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundHover.png', (7,7), (14,14), true, true),
+            click: HDZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
+            disabled: HDZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true)
         );
         ret.itemBtn.pack(ret);
 
@@ -67,11 +67,11 @@ class MerchantItemFrame : MerchZFFrame {
             iSize
         );
 
-        ret.itemIcon = MerchZFImage.create(
+        ret.itemIcon = HDZFImage.create(
             (MerchantShopMenu.Spacing, MerchantShopMenu.Spacing),
             iSize,
             iIcon,
-            MerchZFElement.AlignType_Center,
+            HDZFElement.AlignType_Center,
             (iconScale, iconScale)
         );
         ret.itemIcon.setDontBlockMouse(true);
@@ -84,7 +84,7 @@ class MerchantItemFrame : MerchZFFrame {
         let contentWidth = ret.getWidth() - (iconWidth * 2);
         int amount = item.GetAmount();
 
-        ret.itemTagLabel = MerchZFLabel.create(
+        ret.itemTagLabel = HDZFLabel.create(
             contentPos,
             (contentWidth, SmallFont.getHeight()),
             (amount > 1 ? "\c[White]"..amount.."\c- " : "")..item.GetDisplayName().."\c[Yellow] ("..item.StoreAmount.." remaining)\c-",
@@ -94,7 +94,7 @@ class MerchantItemFrame : MerchZFFrame {
         ret.itemTagLabel.setDontBlockMouse(true);
         ret.itemTagLabel.pack(ret);
 
-        ret.itemFlavorLabel = MerchZFLabel.create(
+        ret.itemFlavorLabel = HDZFLabel.create(
             contentPos + (0, ret.itemTagLabel.getHeight()),
             (contentWidth, ConFont.getHeight() * ((item.GetFlavorText().Length() / 48) + 1)),
             item.GetFlavorText(),
@@ -116,11 +116,11 @@ class MerchantItemFrame : MerchZFFrame {
         let curSize = (currencyWidth - MerchantShopMenu.Spacing, curHeight);
         let curIconScale = MerchantShopMenu.GetBoxedScale(curIconSize, curSize - (0, MerchantShopMenu.Spacing + SmallFont.getHeight()));
 
-        ret.curImg = MerchZFImage.create(
+        ret.curImg = HDZFImage.create(
             (ret.getWidth() - currencyWidth, (height - curHeight) / 2),
             curSize - (0, MerchantShopMenu.Spacing + SmallFont.getHeight()),
             curIconString,
-            MerchZFElement.AlignType_Center,
+            HDZFElement.AlignType_Center,
             curIconSize.y > (curHeight - (MerchantShopMenu.Spacing + SmallFont.getHeight()))
                 ? (1.0 / curIconScale, 1.0 / curIconScale)
                 : (curIconScale, curIconScale)
@@ -129,11 +129,11 @@ class MerchantItemFrame : MerchZFFrame {
         ret.curImg.pack(ret);
 
 
-        ret.priceLabel = MerchZFLabel.create(
+        ret.priceLabel = HDZFLabel.create(
             (ret.getWidth() - currencyWidth, (height - curHeight) / 2),
             curSize,
             fnt: SmallFont,
-            alignment: MerchZFElement.AlignType_BottomCenter
+            alignment: HDZFElement.AlignType_BottomCenter
         );
         ret.priceLabel.setDontBlockMouse(true);
         ret.priceLabel.pack(ret);
