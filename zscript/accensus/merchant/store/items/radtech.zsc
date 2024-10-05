@@ -72,7 +72,7 @@ class HDCombatShotgun_Store : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_COMBATSHOTGUN"); }
 }
 
-class HDDetectiveSpecialStore : StoreItem
+class HDDetectiveSpecial_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_snubnose; }
 	override int GetType() { return SType_Weapon; }
@@ -144,7 +144,7 @@ class HDFragCannon_Store : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_FRAGCANNON"); }
 }
 
-class HDHackedZMStore : StoreItem
+class HDHackedZM_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_hzm; }
 	override int GetType() { return SType_Weapon; }
@@ -514,7 +514,7 @@ class HDRadiRadio_Store : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_RADIRADIO"); }
 }
 
-class HDPocketLamptore : StoreItem
+class HDPocketLamp_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_pocketlamp; }
 	override int GetType() { return SType_Item; }
