@@ -11,12 +11,35 @@ class MercenaryBucks : HDPickup
         -HDPICKUP.DROPTRANSLATION
         +INVENTORY.UNDROPPABLE
         -INVENTORY.INVBAR
+        +HDPICKUP.MULTIPICKUP
 
         HDPickup.Bulk 0;
         HDPickup.RefID "bux";
         Inventory.MaxAmount 100000;
         scale 0.4;
     }
+
+    override void Tick(){
+        if(hdm_moneydroppable) {
+            self.A_ChangeFlag("HDPICKUP.FITSINBACKPACK", true);
+            self.A_ChangeFlag("INVENTORY.UNDROPPABLE", false);
+            self.A_ChangeFlag("INVENTORY.INVBAR", true);
+        }
+        else {
+            self.A_ChangeFlag("HDPICKUP.FITSINBACKPACK", false);
+            self.A_ChangeFlag("INVENTORY.UNDROPPABLE", true);
+            self.A_ChangeFlag("INVENTORY.INVBAR", false);
+        }
+        Super.Tick();
+	}
+
+    override double getbulk(){
+        float moneybulk = 0;
+        if(hdm_moneydroppable) {
+            moneybulk = amount*hdm_moneybulk;
+        }
+        return moneybulk;
+	}
 
     States
     {
