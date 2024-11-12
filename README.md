@@ -82,6 +82,7 @@ Original Mod Credits are displayed below.
 - Cryomundus, for porting original mod to HDest Community Organization, updating as needed.
 - Undead Zeratul, adding all sorts of Shop Entries & filters, updating ZForms, redesigning Shop Menu, incorporating FDA's HDest Avarice Coins mini-mod.
 - FDA, for originally porting Avarice Coins into a compatible addon for Merchant.
+- Cannibal Hunter, updating the merc bucks sprites and making them droppable with a cvar
 
 Code:
 - Accensus
