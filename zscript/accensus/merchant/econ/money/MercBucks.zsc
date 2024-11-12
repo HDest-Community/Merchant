@@ -41,10 +41,67 @@ class MercenaryBucks : HDPickup
         return moneybulk;
 	}
 
+    override void SplitPickup(){
+		SplitPickupBoxableRound(25,100,"MercenaryBucks100","MBC1A0","MBCKA0");
+	}
+
+    void SplitPickupBoxableRound(
+		int packnum,
+		int boxnum,
+		class<actor> boxtype,
+		name packsprite,
+		name singlesprite
+	){
+		//abort if death state - ejected shell uses this
+		if(curstate==resolvestate("death"))return;
+
+		//enter an invalid number to skip the boxes
+		if(boxnum<=0)boxnum=amount+1;
+
+		while(amount>packnum){
+			if(amount>=boxnum){
+				actor aaa=spawn(boxtype,pos+(frandom(-1,1),frandom(-1,1),frandom(-1,1)));
+				aaa.vel=vel+(frandom(-0.6,0.6),frandom(-0.6,0.6),frandom(-0.6,0.6));
+				aaa.angle=angle;
+				amount-=boxnum;
+			}else{
+				let sss=hdpickup(spawn(getclassname(),pos+(frandom(-1,1),frandom(-1,1),frandom(-1,1))));
+				sss.vel=vel+(frandom(-0.6,0.6),frandom(-0.6,0.6),frandom(-0.6,0.6));
+				sss.amount=packnum;
+				sss.angle=angle;
+				amount-=packnum;
+			}
+			if(amount<1){
+				destroy();
+				return;
+			}
+		}
+		if(amount==packnum)sprite=getspriteindex(packsprite);
+		else super.SplitPickup();
+		if(amount==1)sprite=getspriteindex(singlesprite);
+	}
+
     States
     {
         Spawn:
+            MBC1 A -1;
             MBCK A -1;
-            Stop;
     }
 }
+
+class MercenaryBucks100:HDUPK{
+	default{
+		hdupk.amount 100;
+		hdupk.pickupsound "weapons/pocket";
+		hdupk.pickupmessage "$PICKUP_BUX";
+		hdupk.pickuptype "MercenaryBucks";
+        +hdupk.multipickup
+        Tag "$TAG_BUX";
+        scale 0.4;
+	}
+	states{
+	spawn:
+        MBC2 A -1;
+	}
+}
+
