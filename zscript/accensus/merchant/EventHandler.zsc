@@ -318,7 +318,14 @@ class MerchantHandler : EventHandler
 
 	override void WorldThingDied(WorldEvent e)
 	{
-		if (!(e.thing is 'HDPlayerPawn' || e.thing is 'HDPlayerCorpse') && hdm_nonbounty_dropratio > 0)
+		if (e.thing
+			&& !(
+				e.thing is 'HDPlayerPawn'
+				|| e.thing is 'HDPlayerCorpse'
+				|| e.thing is 'HDBarrel'
+			)
+			&& hdm_nonbounty_dropratio > 0
+		)
 		{
 			let mob = HDMobBase(e.thing);
 			if (mob && !mob.bhasdropped)
