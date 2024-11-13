@@ -4,8 +4,11 @@ OptionMenu "MerchantMenu"
 
 	Slider "Max Merchants Per Map", "hdm_maxmerchants", 1, 3, 1, 0
 	Option "Money Mode", "hdm_moneymode", "MoneyMode"
-	Slider "Non-Bounty Money Drop Ratio", "hdm_nonbounty_dropratio", 0.0, 1.0, 0.01, 2
 	Submenu "Store Filters", "MerchStoreFilters"
+	StaticText ""
+	Slider "Non-Bounty Money Drop Ratio", "hdm_nonbounty_dropratio", 0.0, 1.0, 0.01, 2
+	Option "Droppable Money", "hdm_moneydroppable", "YesNo"
+	Slider "Droppable Money Bulk", "hdm_moneybulk", 0.0, 1.0, 0.1, 2
 	StaticText ""
 	Option "Enable Slot Machines", "hdm_enableslots", "YesNo"
 	Slider "Min Bet", "hdm_slots_bet", 5, 100, 5, 0
