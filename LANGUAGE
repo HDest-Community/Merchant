@@ -13,6 +13,27 @@ PICKUP_GEM  = "You got a demonic gemstone.";
 // WEAPONS
 // ----------------
 
+// Bronto-Buddy
+MERCH_CAT_BRONTOBUDDY             = "RightInfinity";
+MERCH_TAG_BRONTOBUDDY             = "Brontornis Cannon W/Bolt Rack";
+MERCH_FLAVOR_BRONTOBUDDY          = "It's a buddy, for your Bronto.";
+
+// Khleb
+MERCH_CAT_KHLEB                   = "RightInfinity";
+MERCH_TAG_KHLEB                   = "Khleb";
+MERCH_FLAVOR_KHLEB                = "It's Khlebberin' time!";
+
+// Reaper
+MERCH_CAT_REAPER                  = "RightInfinity";
+MERCH_TAG_REAPER                  = "Reaper Automatic Shotgun";
+MERCH_FLAVOR_REAPER               = "Don't fear the reaper?  Oh, they will.";
+
+// Thompson
+MERCH_CAT_THOMPSON                = "RightInfinity";
+MERCH_TAG_THOMPSON                = "Thompson Submachine Gun (9mm Repro)";
+MERCH_FLAVOR_THOMPSON             = "Merry Christmas, ya filthy animal.";
+
+
 // 10mm Pistol
 MERCH_CAT_10MMPISTOL              = "RadTech Inc.";
 MERCH_TAG_10MMPISTOL              = "10mm Pistol";

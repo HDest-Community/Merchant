@@ -317,6 +317,12 @@ server bool hdm_enable_radiradio            = true;
 server bool hdm_enable_pocketlamp           = true;
 server bool hdm_enable_leatherarmour        = true;
 
+// RightInfinity
+server bool hdm_enable_reaper               = true;
+server bool hdm_enable_brontobuddy          = true;
+server bool hdm_enable_thompson             = true;
+server bool hdm_enable_khleb                = false;
+
 // Sirus
 server bool hdm_enable_requisitionkit       = true;
 
