@@ -13,26 +13,6 @@ PICKUP_GEM  = "You got a demonic gemstone.";
 // WEAPONS
 // ----------------
 
-// Bronto-Buddy
-MERCH_CAT_BRONTOBUDDY             = "RightInfinity";
-MERCH_TAG_BRONTOBUDDY             = "Brontornis Cannon W/Bolt Rack";
-MERCH_FLAVOR_BRONTOBUDDY          = "It's a buddy, for your Bronto.";
-
-// Khleb
-MERCH_CAT_KHLEB                   = "RightInfinity";
-MERCH_TAG_KHLEB                   = "Khleb";
-MERCH_FLAVOR_KHLEB                = "It's Khlebberin' time!";
-
-// Reaper
-MERCH_CAT_REAPER                  = "RightInfinity";
-MERCH_TAG_REAPER                  = "Reaper Automatic Shotgun";
-MERCH_FLAVOR_REAPER               = "Don't fear the reaper?  Oh, they will.";
-
-// Thompson
-MERCH_CAT_THOMPSON                = "RightInfinity";
-MERCH_TAG_THOMPSON                = "Thompson Submachine Gun (9mm Repro)";
-MERCH_FLAVOR_THOMPSON             = "Merry Christmas, ya filthy animal.";
-
 
 // 10mm Pistol
 MERCH_CAT_10MMPISTOL              = "RadTech Inc.";
@@ -163,6 +143,11 @@ MERCH_FLAVOR_BPX                  = "The standard-issue handgun after a complete
 MERCH_CAT_BRONTO                  = "Vanilla";
 MERCH_TAG_BRONTO                  = "Brontornis";
 MERCH_FLAVOR_BRONTO               = "And now I will show you a magic trick. Watch as this Hell Noble disappears.";
+
+// Bronto-Buddy
+MERCH_CAT_BRONTOBUDDY             = "RightInfinity";
+MERCH_TAG_BRONTOBUDDY             = "Brontornis Cannon W/Bolt Rack";
+MERCH_FLAVOR_BRONTOBUDDY          = "It's a buddy, for your Bronto.";
 
 // Cawsgun
 MERCH_CAT_CAWSGUN                 = "Bangers & Mash";
@@ -369,6 +354,11 @@ MERCH_CAT_KHARON                  = "Bangers & Mash";
 MERCH_TAG_KHARON                  = "Replica Kharon";
 MERCH_FLAVOR_KHARON               = "Filled with a history of violence and anguish... except this one's a replica. Still effective.";
 
+// Khleb
+MERCH_CAT_KHLEB                   = "RightInfinity";
+MERCH_TAG_KHLEB                   = "Khleb";
+MERCH_FLAVOR_KHLEB                = "It's Khlebberin' time!";
+
 // Less-Lethal Shotgun
 MERCH_CAT_LLHUNTER                = "RadTech Inc.";
 MERCH_TAG_LLHUNTER                = "Bernoulli M1053";
@@ -554,6 +544,11 @@ MERCH_CAT_RAILGUNDYNAMO           = "Bangers & Mash";
 MERCH_TAG_RAILGUNDYNAMO           = "XM99 Experimental Railgun Dynamo";
 MERCH_FLAVOR_RAILGUNDYNAMO        = "A recharging device for the XM99. Required for continued operation of the weapon.";
 
+// Reaper
+MERCH_CAT_REAPER                  = "RightInfinity";
+MERCH_TAG_REAPER                  = "Reaper Automatic Shotgun";
+MERCH_FLAVOR_REAPER               = "Don't fear the reaper?  Oh, they will.";
+
 // Redline
 MERCH_CAT_REDLINE                 = "AceCorp";
 MERCH_TAG_REDLINE                 = "'Redline' Thermal Lance";
@@ -668,6 +663,11 @@ MERCH_FLAVOR_STREETSWEEPER        = "All fun and games until you need to reload.
 MERCH_CAT_STUNGUN                 = "RadTech Inc.";
 MERCH_TAG_STUNGUN                 = "'ShokStop' Stun Gun";
 MERCH_FLAVOR_STUNGUN              = "Don't taze me, bro!";
+
+// Thompson
+MERCH_CAT_THOMPSON                = "RightInfinity";
+MERCH_TAG_THOMPSON                = "Thompson Submachine Gun (9mm Repro)";
+MERCH_FLAVOR_THOMPSON             = "Merry Christmas, ya filthy animal.";
 
 // Thunderbuster
 MERCH_CAT_THUNDERBUSTER           = "Vanilla";
