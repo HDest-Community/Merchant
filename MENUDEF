@@ -95,6 +95,7 @@ OptionMenu "MerchStoreFilters"
 	Submenu "Bangers & Mash", "MerchStoreFilterPotetobloke"
 	Submenu "Peppergrinder", "MerchStoreFilterPeppergrinder"
 	Submenu "Radtech", "MerchStoreFilterRadtech"
+	Submenu "RightInfinity", "MerchStoreFilterRightInfinity"
 	Submenu "Sirus", "MerchStoreFilterSirus"
 	Submenu "SnekTech", "MerchStoreFilterSnekTech"
 	Submenu "Sonoda", "MerchStoreFilterSonoda"
@@ -617,6 +618,17 @@ OptionMenu "MerchStoreFilterRadtech"
 
 	StaticText "Armor"
     Option "$MERCH_TAG_LEATHERARMOUR", "hdm_enable_leatherarmour", "OnOff"
+}
+
+OptionMenu "MerchStoreFilterRightInfinity"
+{
+	Title "RightInfinity Filters"
+
+	StaticText "Weapons"
+	Option "$MERCH_TAG_BRONTOBUDDY", "hdm_enable_brontobuddy", "OnOff"
+	Option "$MERCH_TAG_KHLEB", "hdm_enable_khleb", "OnOff"
+	Option "$MERCH_TAG_REAPER", "hdm_enable_reaper", "OnOff"
+	Option "$MERCH_TAG_THOMPSON", "hdm_enable_thompson", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterSirus"
