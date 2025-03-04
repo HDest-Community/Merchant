@@ -2,6 +2,7 @@ server int   hdm_debug                      = 0;
 server int   hdm_moneymode                  = 0;
 server bool  hdm_enableslots                = true;
 server bool  hdm_moneydroppable             = false;
+server bool  hdm_moneyshootable             = false;
 server float hdm_moneybulk                  = 0.1;
 server int   hdm_maxmerchants               = 1;
 server float hdm_chance_weapon              = 0.6;
