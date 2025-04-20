@@ -6,7 +6,7 @@ class SmallCoin : BaseMercCoinPickup
         Height 1;
         Scale 0.1;
         
-        hdupk.amount 2;
+        hdupk.amount 250;
         BaseMercCoinPickup.getvolume 0.45;
     }
     

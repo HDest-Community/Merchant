@@ -56,37 +56,26 @@ class MercenaryBucks : HDPickup {
 
     override void SplitPickup() {
 
-        int packnum = 25;
-        int boxnum = 100;
-        Class<Actor> boxtype = 'MercenaryBucks100';
-        name packsprite = 'MBC1A0';
-        name singlesprite = 'MBCKA0';
-
-        while (amount > packnum) {
-            if (amount >= boxnum) {
-                actor aaa = spawn(boxtype, pos + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1)));
+        while (amount > 0) {
+            if (amount >= 100) {
+                Actor aaa = spawn('MercenaryBucks100', pos + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1)));
                 aaa.vel = vel + (frandom(-0.6, 0.6), frandom(-0.6, 0.6), frandom(-0.6, 0.6));
                 aaa.angle = angle;
-                amount -= boxnum;
+                amount -= 100;
+            } else if (amount >= 25) {
+                Actor aaa = spawn('MercenaryBucks25', pos + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1)));
+                aaa.vel = vel + (frandom(-0.6, 0.6), frandom(-0.6, 0.6), frandom(-0.6, 0.6));
+                aaa.angle = angle;
+                amount -= 25;
             } else {
-                let sss = hdpickup(spawn(getclassname(), pos + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1))));
-                sss.vel = vel+(frandom(-0.6, 0.6), frandom(-0.6, 0.6), frandom(-0.6, 0.6));
-                sss.amount = packnum;
-                sss.angle = angle;
-                amount -= packnum;
-            }
-
-            if (amount < 1) {
-                destroy();
-                return;
+                Actor aaa = spawn('MercenaryBucks1', pos + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1)));
+                aaa.vel = vel + (frandom(-0.6, 0.6), frandom(-0.6, 0.6), frandom(-0.6, 0.6));
+                aaa.angle = angle;
+                amount -= 1;
             }
         }
 
-        if (amount == packnum) {
-            sprite = getspriteindex(packsprite);
-        } else {
-            super.SplitPickup();
-        }
+        destroy();
     }
 
     States {

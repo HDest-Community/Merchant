@@ -347,32 +347,42 @@ class MerchantHandler : EventHandler
 			if (amount >= 2000)
 			{
 				mob.DropNewItem('BigGem');
-				amount -= 1000;
+				amount -= 2000;
 			}
 			else if (amount >= 1000)
 			{
 				mob.DropNewItem('SmallGem');
-				amount -= 500;
+				amount -= 1000;
+			}
+			else if (amount >= 750)
+			{
+				mob.DropNewItem('BigCoin');
+				amount -= 750;
 			}
 			else if (amount >= 500)
 			{
-				mob.DropNewItem('BigCoin');
-				amount -= 250;
+				mob.DropNewItem('MediumCoin');
+				amount -= 500;
 			}
 			else if (amount >= 250)
 			{
-				mob.DropNewItem('MediumCoin');
+				mob.DropNewItem('SmallCoin');
+				amount -= 250;
+			}
+			else if (amount >= 100)
+			{
+				mob.DropNewItem('MercenaryBucks100');
 				amount -= 100;
 			}
-			else if (amount >= 50)
+			else if (amount >= 25)
 			{
-				mob.DropNewItem('SmallCoin');
+				mob.DropNewItem('MercenaryBucks25');
 				amount -= 25;
 			}
 			else
 			{
-				mob.DropNewItem('MercenaryBucksPickup');
-				amount -= random(1, 4);
+				mob.DropNewItem('MercenaryBucks1');
+				amount -= 1;
 			}
 		}
 	}
