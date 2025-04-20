@@ -6,10 +6,10 @@ class MercenaryBucksPickup : BaseCurrencyPickup
         super.Tick();
 
         let time = level.time - spawnTime;
-        let velAdj = 1 - (0.5 / max(1, (35 - time)));
+        let velAdj = 1 - (0.5 / max(1, (TICRATE - time)));
 
         vel = (vel.x * velAdj, vel.y * velAdj, vel.z);
-        roll = velZ ? 30 * sin((time) * 5) - 5 : 0;
+        roll = velZ ? 30 * sin(time * 5) - 5 : 0;
     }
 
     default
@@ -17,28 +17,70 @@ class MercenaryBucksPickup : BaseCurrencyPickup
         Tag "$TAG_BUX";
 
         +ROLLSPRITE
+        +SHOOTABLE
+        +NOBLOOD
         
         hdupk.amount 1;
         hdupk.pickupmessage "$PICKUP_BUX";
         
         gravity 0.01;
         scale 0.4;
+
+        damagefactor "balefire", 10.0;
+        damagefactor "bashing", 0.0;
+        damagefactor "bleedout", 0.0;
+        damagefactor "claws", 1.2;
+        damagefactor "cold", 0.0;
+        damagefactor "crush", 0.0;
+        damagefactor "drowning", 0.0;
+        damagefactor "electrical", 0.1;
+        damagefactor "falling", 0.0;
+        damagefactor "GhostSquadAttack", 0.0;
+        damagefactor "hot", 2.0;
+        damagefactor "internal", 0.0;
+        damagefactor "maxhpdrain", 0.0;
+        damagefactor "melee", 0.0;
+        damagefactor "natural", 0.0;
+        damagefactor "slashing", 0.5;
+        damagefactor "slime", 0.0;
+        damagefactor "staples", 0.0;
+        damagefactor "teeth", 1.1;
+
+        health 20;
     }
 
     states
     {
         spawn:
-            MBCK V 5 A_CheckFloor("grounded");
-            MBCK W 5 A_CheckFloor("grounded");
-            MBCK X 5 A_CheckFloor("grounded");
-            MBCK Y 5 A_CheckFloor("grounded");
-            MBCK Z 5 A_CheckFloor("grounded");
-            MBCK Y 5 A_CheckFloor("grounded");
-            MBCK X 5 A_CheckFloor("grounded");
-            MBCK W 5 A_CheckFloor("grounded");
+            MBCK VWXYZYXW 5 A_CheckFloor("grounded");
             loop;
         grounded:
-            MBCK # -1;
+            #### # -1;
+            stop;
+    }
+}
+
+class MercenaryBucks100 : BaseCurrencyPickup
+{
+
+    Default {
+        hdupk.amount 100;
+
+        health 100;
+    }
+
+    override void Tick() {
+        Super.Tick();
+
+        A_ChangeFlag("SHOOTABLE", hdm_moneyshootable);
+    }
+
+    States {
+        Spawn:
+        Pain:
+            MBC2 A -1;
+        Death:
+            TNT1 A 0;
             stop;
     }
 }
