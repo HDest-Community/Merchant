@@ -7,6 +7,7 @@ OptionMenu "MerchantMenu"
 	Submenu "Store Filters", "MerchStoreFilters"
 	StaticText ""
 	Slider "Non-Bounty Money Drop Ratio", "hdm_nonbounty_dropratio", 0.0, 1.0, 0.01, 2
+	Option "Non-Bounty Money Given Instantly?", "hdm_nonbounty_directdeposit", "YesNo"
 	Option "Droppable Money", "hdm_moneydroppable", "YesNo"
 	Option "Shootable (Burnable) Money", "hdm_moneyshootable", "YesNo"
 	Slider "Droppable Money Bulk", "hdm_moneybulk", 0.0, 1.0, 0.1, 2

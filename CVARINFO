@@ -16,6 +16,7 @@ user   int   hdm_skin_item                  = 4064;
 user   int   hdm_slots_bet                  = 10;
 user   int   hdm_cardback                   = 0;
 server float hdm_nonbounty_dropratio        = 0.1;
+server bool  hdm_nonbounty_directdeposit    = false;
 
 // -------------------
 // Store Item Filters
