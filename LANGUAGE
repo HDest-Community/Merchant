@@ -13,6 +13,10 @@ PICKUP_GEM  = "You got a demonic gemstone.";
 // WEAPONS
 // ----------------
 
+// 5mm Suppressed
+MERCH_CAT_5MMS                    = "ZikShadow";
+MERCH_TAG_5MMS                    = "5mm Suppressed";
+MERCH_FLAVOR_5MMS                 = "On the bright side, it doesn't set off metal detectors?";
 
 // 10mm Pistol
 MERCH_CAT_10MMPISTOL              = "RadTech Inc.";
@@ -654,6 +658,11 @@ MERCH_CAT_STEYR                   = "Bangers & Mash";
 MERCH_TAG_STEYR                   = "Austere M17 Flechette Rifle";
 MERCH_FLAVOR_STEYR                = "Don't judge this gun by its appearance.";
 
+// STI Eagle
+MERCH_CAT_STIE                    = "ZikShadow";
+MERCH_TAG_STIE                    = "STI Eagle 6.0";
+MERCH_FLAVOR_STIE                 = "For those who like that competitive marksman's edge in their handguns.";
+
 // Street Sweeper
 MERCH_CAT_STREETSWEEPER           = "Bangers & Mash";
 MERCH_TAG_STREETSWEEPER           = "Raycob Urban Destroyer";
@@ -1064,6 +1073,11 @@ MERCH_CAT_INVULNSPHERE            = "Vanilla";
 MERCH_TAG_INVULNSPHERE            = "Invulnerability sphere";
 MERCH_FLAVOR_INVULNSPHERE         = "Will set everything on fire, but you won't feel it.";
 
+// Light Jet
+MERCH_CAT_JETLIGHT                = "ZikShadow";
+MERCH_TAG_JETLIGHT                = "Light Jet";
+MERCH_FLAVOR_JETLIGHT             = "Half the weight, half the output. Still takes the same amount of juice, though.";
+
 // Jetpack
 MERCH_CAT_JETPACK                 = "Vanilla";
 MERCH_TAG_JETPACK                 = "Jetpack";
@@ -1139,6 +1153,11 @@ MERCH_CAT_BLUERUM                 = "Cozi's Offworld Wares";
 MERCH_TAG_BLUERUM                 = "Ole rum";
 MERCH_FLAVOR_BLUERUM              = "The alcohol amount would probably kill you if it wasn't watered down with a magical tonic. Drink up!";
 
+// Orange Joe
+MERCH_CAT_OMORJOE                 = "ZikShadow";
+MERCH_TAG_OMORJOE                 = "Orange Joe";
+MERCH_FLAVOR_OMORJOE              = "It's a bit strange, yes, but basketball players swear by it.";
+
 // Personal Shield Generator
 MERCH_CAT_PERSONALSHIELDGEN       = "AceCorp";
 MERCH_TAG_PERSONALSHIELDGEN       = "Personal Shield Generator";
@@ -1153,6 +1172,16 @@ MERCH_FLAVOR_POCKETLAMP           = "Don't break it like that hatman drom Dusk."
 MERCH_CAT_PORTABLECLEANSER        = "Cozi's Offworld Wares";
 MERCH_TAG_PORTABLECLEANSER        = "Portable cleanser";
 MERCH_FLAVOR_PORTABLECLEANSER     = "Cleanser packs help clear ALL drugs out of your system.";
+
+// Potions of Persia
+MERCH_CAT_POP                     = "ZikShadow";
+MERCH_TAG_POP                     = "Potions of Persia, Light Potions";
+MERCH_FLAVOR_POP                  = "Any idea what's inside?";
+
+// Potions of Persia, Big Vase
+MERCH_CAT_POPBIG                  = "ZikShadow";
+MERCH_TAG_POPBIG                  = "Potions of Persia, Heavy Potions";
+MERCH_FLAVOR_POPBIG               = "Its got a bigger vase, so naturally I gotta cost ya more.";
 
 // Purse
 MERCH_CAT_PURSE                   = "Mohl";
@@ -1263,6 +1292,11 @@ MERCH_FLAVOR_SUPPLYBEACON         = "Intergalactic resupply.";
 MERCH_CAT_URL                     = "AceCorp";
 MERCH_TAG_URL                     = "Universal Reloader";
 MERCH_FLAVOR_URL                  = "I have no idea why you'd spend this much cash on this.";
+
+// Violin
+MERCH_CAT_OMORLIN                 = "ZikShadow";
+MERCH_TAG_OMORLIN                 = "Violin";
+MERCH_FLAVOR_OMORLIN              = "Found this in an old toy box while I was exploring abandoned houses.";
 
 // Wallet
 MERCH_CAT_WALLET                  = "Icarus Innovations";
@@ -1554,10 +1588,20 @@ MERCH_CAT_NAPALMTANK              = "Bangers & Mash";
 MERCH_TAG_NAPALMTANK              = "Napalm Tank";
 MERCH_FLAVOR_NAPALMTANK           = "Burns hotter than the Tyrant's asshole.";
 
+// Panzerwurfmine-Silent Storm
+MERCH_CAT_PWMS2                   = "ZikShadow";
+MERCH_TAG_PWMS2                   = "PWM-S2";
+MERCH_FLAVOR_PWMS2                = "Handheld anti-tank solution. Requires high skill to throw.";
+
 // Rocket Grenades
 MERCH_CAT_ROCKETGRENADE           = "Vanilla";
 MERCH_TAG_ROCKETGRENADE           = "Rocket Grenades";
 MERCH_FLAVOR_ROCKETGRENADE        = "Krognar's favorite.";
+
+// Roller Detonator
+MERCH_CAT_TNJGREN                 = "ZikShadow";
+MERCH_TAG_TNJGREN                 = "Roller Detonator";
+MERCH_FLAVOR_TNJGREN              = "Are you sure you want to bounce this around that corner?";
 
 // Thunder Grenade
 MERCH_CAT_THUNDERGRENADE          = "Melonades";

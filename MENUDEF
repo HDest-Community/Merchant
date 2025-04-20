@@ -102,6 +102,7 @@ OptionMenu "MerchStoreFilters"
 	Submenu "Sonoda", "MerchStoreFilterSonoda"
 	Submenu "Ugly as Sin", "MerchStoreFilterUaS"
 	Submenu "WAN Industries", "MerchStoreFilterWAN"
+	Submenu "ZikShadow", "MerchStoreFilterZikShadow"
 }
 
 OptionMenu "MerchStoreFilterVanilla"
@@ -693,7 +694,22 @@ OptionMenu "MerchStoreFilterZikShadow"
 	Title "ZikShadow Filters"
 
 	StaticText "Weapons"
+	Option "$MERCH_TAG_STIE", "hdm_enable_stie", "OnOff"
+	Option "$MERCH_TAG_5MMS", "hdm_enable_5mms", "OnOff"
 	Option "$MERCH_TAG_UMSAUTOMAG", "hdm_enable_umsautomag", "OnOff"
+	StaticText ""
+
+	StaticText "Ammo"
+	Option "$MERCH_TAG_PWMS2", "hdm_enable_pwms2", "OnOff"
+	Option "$MERCH_TAG_TNJGREN", "hdm_enable_tnjgren", "OnOff"
+	StaticText ""
+
+	StaticText "Items"
+	Option "$MERCH_TAG_POP", "hdm_enable_persiapotionsmall", "OnOff"
+	Option "$MERCH_TAG_POPBIG", "hdm_enable_persiapotionbig", "OnOff"
+	Option "$MERCH_TAG_OMORJOE", "hdm_enable_orangejoe", "OnOff"
+	Option "$MERCH_TAG_OMORLIN", "hdm_enable_omorviolin", "OnOff"
+	Option "$MERCH_TAG_JETLIGHT", "hdm_enable_lightjetpack", "OnOff"
 }
 
 OptionValue "StockMult"

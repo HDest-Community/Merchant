@@ -410,3 +410,14 @@ server bool hdm_enable_sneakingsuit         = true;
 
 // ZikShadow
 server bool hdm_enable_umsautomag           = true;
+
+// ZikShadow
+server bool hdm_enable_pwms2             	= true;
+server bool hdm_enable_stie              	= true;
+server bool hdm_enable_5mms                	= true;
+server bool hdm_enable_tnjgren              = true;
+server bool hdm_enable_persiapotionsmall    = true;
+server bool hdm_enable_persiapotionbig    	= true;
+server bool hdm_enable_orangejoe    		= true;
+server bool hdm_enable_omorviolin    		= true;
+server bool hdm_enable_lightjetpack    		= true;

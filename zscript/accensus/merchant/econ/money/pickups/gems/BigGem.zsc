@@ -6,7 +6,7 @@ class BIGGem : BaseMercGemPickup
         Height 10;
         Scale 0.5;
         
-        hdupk.amount 75;
+        hdupk.amount 2000;
     }
 
     States
