@@ -133,7 +133,7 @@ class HDGold45LCAmmo_Store : StoreItem
 	override bool IsEnabled() { return hdm_enable_g45lc; }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_G45LC"); }
-	override Name GetItem() { return StoreItem.CheckClassExists('ReusableGold45LCBox') ? 'ReusableGold45LCBox' : 'HD45LCAmmo'; }
+	override Name GetItem() { return StoreItem.CheckClassExists('ReusableGold45LCBox') ? 'ReusableGold45LCBox' : 'HDGold45LCAmmo'; }
 	override int GetAmount() { return StoreItem.CheckClassExists('ReusableGold45LCBox') ? 1 : 12; }
 	override string GetIcon() { return "GLBXA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_G45LC"); }
