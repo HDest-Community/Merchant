@@ -1,27 +1,4 @@
-class HDImpactGrenadeStore : StoreItem
-{
-	override bool IsEnabled() { return hdm_enable_impactgrenade; }
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_IMPACTGRENADE"); }
-	override Name GetItem() { return 'HDImpactGrenadeAmmo'; }
-	override string GetIcon() { return "IMPGA0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_IMPACTGRENADE"); }
-	override int GetBasePrice() { return 30; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_IMPACTGRENADE"); }
-}
-
-class HDThunderGrenadeStore : StoreItem
-{
-	override bool IsEnabled() { return hdm_enable_thundergrenade; }
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_THUNDERGRENADE"); }
-	override Name GetItem() { return 'HDThunderGrenadeAmmo'; }
-	override string GetIcon() { return "TFRGA0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_THUNDERGRENADE"); }
-	override int GetBasePrice() { return 40; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_THUNDERGRENADE"); }
-}
-
+// TODO: Refactor
 class HDMG13Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_mg13grenade; }

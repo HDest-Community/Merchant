@@ -1,3 +1,4 @@
+// newStoreItem => { "enabled": "#hdm_enable_augcanister", "type": "SType_Item", "category": "$MERCH_CAT_AUGCANISTER", "item": "DD_AugmentationCanister", "amount": "", "icon": "AGCNA0", "displayName": "$MERCH_TAG_AUGCANISTER", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_AUGCANISTER" }
 class DDAugCanStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_augcanister; }
@@ -10,6 +11,7 @@ class DDAugCanStore : StoreItem
 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_AUGCANISTER"); }
 }
 
+// newStoreItem => { "enabled": "#hdm_enable_augupgrade", "type": "SType_Item", "category": "$MERCH_CAT_AUGUPGRADE", "item": "DD_AugmentationUpgradeCanister", "amount": "", "icon": "AUCNA0", "displayName": "$MERCH_TAG_AUGUPGRADE", "basePrice": "250", "flavorText": "$MERCH_FLAVOR_AUGUPGRADE" }
 class DDAugUpCanStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_augupgrade; }

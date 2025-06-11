@@ -3,6 +3,206 @@ class MerchantHandler : EventHandler
 	private int MoneyMode;
 	private bool SpawnedTiberium;
 
+	bool initialized;
+
+	// Populates the Merchant Store Lists.
+	void init() {
+
+		if (initialized) return;
+
+		SafeMapNames.clear();
+		StoreCurrencies.clear();
+		StoreItems.clear();
+
+		let cmdReader = HDCoreInfoReader(StaticEventHandler.find('HDCoreInfoReader'));
+		
+		// Process all HDCore Commands,
+		// as well as all loaded Child Classes for Store Items/Currencies
+		initCurrencies();
+		initStores();
+		loadMerchantLists(cmdReader.commands);
+
+		if (hd_debug) {
+			Console.printF("Merchant Safe Maps:");
+			forEach(mapName : SafeMapNames) Console.printF(" * "..mapName);
+
+			Console.printF("Merchant Currencies:");
+			forEach(currency : StoreCurrencies) Console.printF(" * "..currency.toString());
+
+			Console.printF("Merchant Store Items:");
+			forEach(item : StoreItems) Console.printF(" * "..item.toString());
+		}
+
+		initialized = true;
+	}
+
+	void loadMerchantLists(Array<HDCoreCommand> cmds) {
+		forEach (cmd : cmds) {
+			switch (cmd.command) {
+				case 'newMerchantSafeMap': {
+					let name = cmd.getNameParam("name");
+
+					if (name && safeMapNames.find(name) == safeMapNames.size()) safeMapNames.push(name);
+					break;
+				}
+				case 'removeMerchantSafeMap': {
+					let name = cmd.getNameParam("name");
+
+					forEach (mapName : SafeMapNames) {
+						if (mapName == name) {
+							SafeMapNames.delete(SafeMapNames.find(mapName));
+							break;
+						}
+					}
+
+					break;
+				}
+				case 'clearMerchantSafeMaps': {
+					SafeMapNames.clear();
+					break;
+				}
+				case 'newMerchantStoreCurrency': {
+					
+					// Get Currency name and check if it's valid
+					let currency = cmd.getNameParam("name");
+					Class<Inventory> currencyCls = currency;
+
+					// If the currency's class doesn't exist, quit.
+					if (!currencyCls) break;
+
+					// get remaining params
+					let icon = cmd.getStringParam("icon");
+					let priceMult = cmd.getDoubleParam("priceMult", 1.0);
+
+					// Look for existing currency definitions
+					StoreCurrency existingCurrency;
+					forEach (c : StoreCurrencies) {
+						if (c.cls == currency) {
+							existingCurrency = c;
+							break;
+						}
+					}
+
+					// If an existing currency for this class already exists, quit.
+					if (existingCurrency) break;
+
+					// Create the new currency and add it to the registry.
+					let newCurrency = StoreCurrency.create(currency, icon, priceMult);
+
+					if (newCurrency) StoreCurrencies.push(newCurrency);
+
+					break;
+				}
+				case 'removeMerchantStoreCurrency': {
+					let currency = cmd.getNameParam("name");
+
+					forEach (storeCurrency : StoreCurrencies) {
+						if (storeCurrency.cls == currency) {
+							StoreCurrencies.delete(StoreCurrencies.find(storeCurrency));
+							break;
+						}
+					}
+
+					break;
+				}
+				case 'clearMerchantStoreCurrencies': {
+					StoreCurrencies.clear();
+					break;
+				}
+				case 'newMerchantStoreItem': {
+					
+					// Get Item name and check if it's valid
+					let item = cmd.getNameParam("item");
+					Class<Actor> itemCls = item;
+					
+					// If the item's class doesn't exist, quit.
+					if (!itemCls) break;
+					
+					// Get Item type and check if it's valid
+					let type = cmd.getNameParam("type");
+					int sType = -1;
+					switch (type) {
+						case 'ammo': {
+							sType = SType_Ammo;
+							break;
+						}
+						case 'item': {
+							sType = SType_Item;
+							break;
+						}
+						case 'weapon': {
+							sType = SType_Weapon;
+							break;
+						}
+						default: {
+							Console.printF("\c[Red][MerchantHandler] Unknown Merchant Store Type: "..cmd.getNameParam("type"));
+							break;
+						}
+					}
+					
+					// If the item type isn't valid, quit.
+					if (sType < 0) break;
+
+					// get remaining params
+					let enabled = cmd.getBoolParam("enabled", true);
+					let category = cmd.getStringParam("category", type);
+					let icon = cmd.getStringParam("icon");
+					let displayName = cmd.getStringParam("displayName", item);
+					let flavorText = cmd.getStringParam("flavorText");
+					let baseAmount = cmd.getIntParam("amount", 1);
+					let basePrice = cmd.getIntParam("basePrice", 1);
+
+					StoreItem existingItem;
+					forEach (i : StoreItems) {
+						if (i.getItem() == item) {
+							existingItem = i;
+							break;
+						}
+					}
+
+					// If an existing store item for this class already exists, quit.
+					if (existingItem) break;
+
+					// Create the new store item and add it to the registry.
+					let newItem = StoreItem.create(
+						enabled,
+						sType,
+						category,
+						item,
+						icon,
+						displayName,
+						flavorText,
+						baseAmount,
+						basePrice
+					);
+
+					if (newItem) StoreItems.push(newitem);
+
+					break;
+				}
+				case 'removeMerchantStoreItem': {
+					let item = cmd.getNameParam("name");
+
+					forEach (storeItem : StoreItems) {
+						if (storeItem.getItem() == item) {
+							StoreItems.delete(StoreItems.find(storeItem));
+							break;
+						}
+					}
+
+					break;
+				}
+				case 'clearMerchantStoreItems': {
+					StoreItems.clear();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let plr = players[e.Player].mo;
@@ -114,10 +314,27 @@ class MerchantHandler : EventHandler
 	{
 		if (e.IsReopen) return;
 
+        // Populates the main arrays if they haven't been already.
+        if (!initialized) init();
+
 		MoneyMode = hdm_moneymode == 3 ? random(0, 1) : hdm_moneymode;
 		
-		InitCurrencies();
+		// Initialize the stores for this map
 		for (int i = 0; i < Stores.Size(); ++i) InitStore(i);
+		
+		if (hd_debug) {
+			Console.printF("Merchant Stores:");
+			forEach(store : Stores) {
+				forEach(category : store.Categories) {
+					Console.printF(" * "..category.." Items:");
+					forEach(item : store.StoreItems) {
+						if (item.GetCategory() == category) {
+							Console.printF("   * "..item.toString());
+						}
+					}
+				}
+			}
+		}
 
 		Array<class<HDMerchant> > AvailableMerchants;
 		AvailableMerchants.Push((class<HDMerchant>)('AmmoMerchant'));

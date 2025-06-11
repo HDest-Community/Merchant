@@ -3,6 +3,6 @@ class AmmoMerchant : HDMerchant
 	Default
 	{
 		Tag "Ammo Merchant";
-		HDMerchant.ItemsType StoreItem.SType_Ammo;
+		HDMerchant.ItemsType SType_Ammo;
 	}
 }

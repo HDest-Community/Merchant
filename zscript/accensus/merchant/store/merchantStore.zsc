@@ -6,10 +6,16 @@ class MerchantStore play
 
 extend class MerchantHandler
 {
+	Array<name> SafeMapNames;
 	Array<StoreCurrency> StoreCurrencies;
+	Array<StoreItem> StoreItems;
+
 	MerchantStore Stores[3];
 	int OpenedStoreIndex[MAXPLAYERS];
+
+	static const name merchChances[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
 	
+	// Initialize Store of given type for the current map
 	private void InitStore(int type) {
 		// Ensure Store Exists
 		if (!Stores[type]) Stores[type] = new('MerchantStore');
@@ -17,43 +23,55 @@ extend class MerchantHandler
 		// Clean current categories & items
 		Stores[type].Categories.Clear();
 		Stores[type].StoreItems.Clear();
-		
-		foreach (cls : AllClasses) {
-			if (cls is "StoreItem" && cls != 'StoreItem') {
-				let item = StoreItem(new(cls));
 
-				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
-				bool inRange = level.MapName ~== "RANGE";
+		forEach (item : StoreItems) {
 
-				static const name merchChances[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-				if (
-					(Class<Actor>)(item.GetItem())
-					&& item.GetType() == type
-					&& item.IsEnabled()
-					&& (inReloadingRoom || inRange || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
-				) {
-					item.StoreAmount = item.GetStoreAmount();
-
-					if (inReloadingRoom || inRange) item.StoreAmount *= random[merchrand](25, 150);
-
-					Stores[type].StoreItems.Push(item);
+			bool inSafeMap = false;
+			forEach (mapName : SafeMapNames) {
+				if (level.mapName == mapName) {
+					inSafeMap = true;
+					break;
 				}
 			}
-		}
 
+			if (
+				HDCore.CheckClassExists(item.GetItem())
+				&& item.GetType() == type
+				&& item.IsEnabled()
+				&& (inSafeMap || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
+			) {
+				item.StoreAmount = item.GetStoreAmount();
+
+				if (inSafeMap) item.StoreAmount *= random[merchrand](25, 150);
+
+				Stores[type].StoreItems.Push(item);
+			}
+		}
+		
 		// [Ace] Don't duplicate categories.
-		foreach (currItem : Stores[type].StoreItems) {
+		forEach (currItem : Stores[type].StoreItems) {
 			if (Stores[type].Categories.Find(currItem.GetCategory()) == Stores[type].Categories.Size()) {
 				Stores[type].Categories.Push(currItem.GetCategory());
 			}
 		}
 	}
 
+	// Get & add all class-defined store items
+	private void InitStores() {
+		forEach (cls : AllClasses) {
+			if (cls is "StoreItem" && cls != 'StoreItem') {
+				let item = StoreItem(new(cls));
+				if (HDCore.CheckClassExists(item.GetItem())) StoreItems.push(item);
+			}
+		}
+	}
+
+	// Get & add all class-defined store currencies
 	private void InitCurrencies() {
-		foreach (cls : AllClasses) {
+		forEach (cls : AllClasses) {
 			if (cls is "StoreCurrency" && cls != 'StoreCurrency') {
 				let currency = StoreCurrency(new(cls));
-				if ((Class<Actor>)(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
+				if (HDCore.CheckClassExists(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
 			}
 		}
 	}

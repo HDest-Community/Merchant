@@ -1,105 +1,129 @@
-class StoreCurrency abstract
+enum ItemType
 {
-	abstract Name GetCurrencyClass() const;
-	abstract string GetIcon() const;
-	virtual double GetPriceMult() const { return 1.0; }
+    SType_Weapon,
+    SType_Ammo,
+    SType_Item
 }
 
-class BucksCurrency : StoreCurrency
-{
-	override Name GetCurrencyClass() { return 'MercenaryBucks'; }
-	override string GetIcon() { return "MBCKA0"; }
-}
+class StoreItem {
+    
+    // --------------------------------------------------
+    // VARIABLES
+    // --------------------------------------------------
 
-class SevenMilCurrency : StoreCurrency
-{
-	override Name GetCurrencyClass() { return 'SevenMilAmmo'; }
-	override string GetIcon() { return "TEN7A0"; }
-}
+    bool enabled;
+    
+    int type;
+    string category;
+    name itemName;
+    string icon;
+    string displayName;
+    string flavorText;
+    int baseAmount;
+    int basePrice;
 
-class AssemblyCoreCurrency : StoreCurrency
-{
-	override Name GetCurrencyClass() { return 'AssemblyCore'; }
-	override string GetIcon() { return "ASCRA0"; }
-	override double GetPriceMult() { return 0.01; }
-}
+    // The current amount in the store
+    int StoreAmount;
 
-class StoreItem abstract
-{
-	enum ItemType
-	{
-		SType_Weapon,
-		SType_Ammo,
-		SType_Item
-	}
 
-	// --------------------------------------------------
-	// STATIC
-	// --------------------------------------------------
+    // --------------------------------------------------
+    // STATIC
+    // --------------------------------------------------
 
-	static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
-	{
-		return int(max(ceil(item.GetBasePrice() * currency.GetPriceMult()), 1));
-	}
+    static StoreItem Create(
+        bool enabled,
+        int type,
+        string category,
+        name itemName,
+        string icon,
+        string displayName,
+        string flavorText,
+        int baseAmount,
+        int basePrice
+    ) {
+        let item = StoreItem(new('StoreItem'));
 
-	static bool CheckClassExists(name classType) {
-		return (Class<Object>) (classType) != null;
-	}
+        if (item) {
+            item.enabled     = enabled;
+            item.type        = type;
+            item.category    = category;
+            item.itemName    = itemName;
+            item.icon        = icon;
+            item.displayName = displayName;
+            item.flavorText  = flavorText;
+            item.baseAmount  = baseAmount;
+        }
 
-	// --------------------------------------------------
-	// VIRTUALS
-	// --------------------------------------------------
+        return item;
+    }
 
-	protected abstract int GetBasePrice(); // [Ace] The base price is for merc bucks.
-	abstract string GetCategory();
-	abstract string GetDisplayName();
-	abstract string GetIcon();
-	abstract Name GetItem();
-	abstract int GetType();
-	abstract bool IsEnabled();
+    static int GetAdjustedPrice(StoreItem item, StoreCurrency currency)
+    {
+        return int(max(ceil(item.GetBasePrice() * currency.GetPriceMult()), 1));
+    }
 
-	virtual int GetAmount() { return 1; }
-	virtual string GetFlavorText() { return ""; }
-	virtual int GetStoreAmount()
-	{
-		switch (GetType())
-		{
-			case SType_Weapon:
-			{
-				return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
-			}
-			case SType_Ammo:
-			{
-				if (GetAmount() == 1)
-				{
-					return random[merchrand](1, 5) * hdm_stock_ammo;
-				}
-				return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6)) * hdm_stock_ammo;
-			}
-			case SType_Item:
-			{
-				if (GetBasePrice() <= 15)
-				{
-					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7)) * hdm_stock_item;
-				}
-				if (GetBasePrice() <= 40)
-				{
-					return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5) * hdm_stock_item;
-				}
-				if (GetBasePrice() <= 80)
-				{
-					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3) * hdm_stock_item;
-				}
-				return 1 * hdm_stock_item;
-			}
-		}
+    // --------------------------------------------------
+    // VIRTUALS
+    // --------------------------------------------------
 
-		return 666;
-	}
-	
-	// --------------------------------------------------
-	// VARIABLES
-	// --------------------------------------------------
+    virtual bool IsEnabled() { return enabled; }
+    virtual int GetType() { return type; }
+    virtual string GetCategory() { return category; }
+    virtual name GetItem() { return itemName; }
+    virtual string GetIcon() { return icon; }
+    virtual string GetDisplayName() { return displayName; }
+    virtual string GetFlavorText() { return flavorText; }
+    virtual int GetAmount() { return baseAmount; }
+    virtual int GetBasePrice() { return basePrice; }
 
-	int StoreAmount;
+    // TODO: Refactor thresholds, types, amounts into commands?
+    virtual int GetStoreAmount()
+    {
+        switch (GetType())
+        {
+            case SType_Weapon:
+            {
+                return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
+            }
+            case SType_Ammo:
+            {
+                if (GetAmount() == 1)
+                {
+                    return random[merchrand](1, 5) * hdm_stock_ammo;
+                }
+                return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6)) * hdm_stock_ammo;
+            }
+            case SType_Item:
+            {
+                if (GetBasePrice() <= 15)
+                {
+                    return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7)) * hdm_stock_item;
+                }
+                if (GetBasePrice() <= 40)
+                {
+                    return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5) * hdm_stock_item;
+                }
+                if (GetBasePrice() <= 80)
+                {
+                    return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3) * hdm_stock_item;
+                }
+                return 1 * hdm_stock_item;
+            }
+        }
+
+        return 666;
+    }
+
+    string ToString() {
+        return "{ enabled="..IsEnabled()
+        ..", type="..GetType()
+        ..", category="..GetCategory()
+        ..", item="..GetItem()
+        ..", icon="..GetIcon()
+        ..", displayName="..GetDisplayName()
+        ..", flavorText="..GetFlavorText()
+        ..", amount="..GetAmount()
+        ..", basePrice="..GetBasePrice()
+        .." }";
+    }
 }

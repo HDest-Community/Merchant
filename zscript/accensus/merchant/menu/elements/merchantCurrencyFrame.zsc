@@ -21,28 +21,30 @@ class MerchantCurrencyFrame : HDZFFrame {
         ret.menu = menu;
         ret.plr = plr;
 
-        ret.currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
-
         let height = ret.getHeight();
         let width = 35;
-        
-        ret.curImg = HDZFImage.create(
-            (ret.getWidth() - width, 0),
-            (width, height - MerchantShopMenu.Spacing),
-            ret.currency.GetIcon(),
-            HDZFElement.AlignType_Center
-        );
-        ret.curImg.pack(ret);
 
-        ret.curAmtLabel = HDZFLabel.create(
-            (ret.getWidth() - width, 0),
-            (width, height),
-            BaseStatusBar.FormatNumber(plr.CountInv(ret.currency.GetCurrencyClass()), 1, 4),
-            SmallFont,
-            HDZFElement.AlignType_BottomCenter,
-            textColor: Font.CR_GOLD
-        );
-        ret.curAmtLabel.pack(ret);
+        if (menu.Handler.StoreCurrencies.size()) {
+            ret.currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+
+            ret.curImg = HDZFImage.create(
+                (ret.getWidth() - width, 0),
+                (width, height - MerchantShopMenu.Spacing),
+                ret.currency.GetIcon(),
+                HDZFElement.AlignType_Center
+            );
+            ret.curImg.pack(ret);
+    
+            ret.curAmtLabel = HDZFLabel.create(
+                (ret.getWidth() - width, 0),
+                (width, height),
+                BaseStatusBar.FormatNumber(plr.CountInv(ret.currency.GetCurrencyClass()), 1, 4),
+                SmallFont,
+                HDZFElement.AlignType_BottomCenter,
+                textColor: Font.CR_GOLD
+            );
+            ret.curAmtLabel.pack(ret);
+        }
 
         return ret;
     }
@@ -50,10 +52,12 @@ class MerchantCurrencyFrame : HDZFFrame {
     override void ticker() {
         super.ticker();
 
-        let currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
-
-        curImg.setImage(currency.GetIcon());
-        curAmtLabel.setText(BaseStatusBar.FormatNumber(plr.CountInv(currency.GetCurrencyClass()), 1, 4));
+        if (menu.Handler.StoreCurrencies.size()) {
+            let currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
+    
+            curImg.setImage(currency.GetIcon());
+            curAmtLabel.setText(BaseStatusBar.FormatNumber(plr.CountInv(currency.GetCurrencyClass()), 1, 4));
+        }
     }
 
     override bool onNavEvent(HDZFNavEventType type, bool fromController) {

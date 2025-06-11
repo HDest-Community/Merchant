@@ -21,6 +21,7 @@ version "4.10"
 #include "zscript/accensus/merchant/menu/handlers/merchantMenuHandler.zsc"
 
 #include "zscript/accensus/merchant/store/merchantStore.zsc"
+#include "zscript/accensus/merchant/store/storeCurrencies.zsc"
 #include "zscript/accensus/merchant/store/storeItems.zsc"
 
 #include "zscript/accensus/merchant/store/items/vanilla.zsc"
