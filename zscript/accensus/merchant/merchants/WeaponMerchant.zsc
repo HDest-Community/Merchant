@@ -3,6 +3,6 @@ class WeaponMerchant : HDMerchant
 	Default
 	{
 		Tag "Weapon Merchant";
-		HDMerchant.ItemsType StoreItem.SType_Weapon;
+		HDMerchant.ItemsType SType_Weapon;
 	}
 }
