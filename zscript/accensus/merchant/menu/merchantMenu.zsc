@@ -116,8 +116,10 @@ class MerchantShopMenu : HDZFGenericMenu {
         for (let i = 0; i < focusableBtns.size(); i++) focusHelper.setElement(i, 0, focusableBtns[i]);
         focusHelper.setLinks();
 
-        focusDefaults[HDZFNavEventType_Down] = focusableBtns[0];
-        focusDefaults[HDZFNavEventType_Up] = focusableBtns[focusableBtns.size() - 1];
+        if (focusableBtns.size()) {
+            focusDefaults[HDZFNavEventType_Down] = focusableBtns[0];
+            focusDefaults[HDZFNavEventType_Up] = focusableBtns[focusableBtns.size() - 1];
+        }
     }
 
     override void ticker() {

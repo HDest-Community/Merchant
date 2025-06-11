@@ -493,6 +493,11 @@ MERCH_CAT_OTIS5                   = "Peppergrinder";
 MERCH_TAG_OTIS5                   = "Otis-5";
 MERCH_FLAVOR_OTIS5                = "Feeling lucky, punk?";
 
+// OTRU92
+MERCH_CAT_OTRU92                  = "Banger's & Mash";
+MERCH_TAG_OTRU92                  = "OTRU-92 Incendiary Rocket Launcher";
+MERCH_FLAVOR_OTRU92               = "Cook delicious meals from 100 meters away!";
+
 // P90
 MERCH_CAT_P90                     = "Peppergrinder";
 MERCH_TAG_P90                     = "BreakerTek P90";

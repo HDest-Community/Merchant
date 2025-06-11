@@ -1,0 +1,36 @@
+class StoreCurrency {
+    name cls;
+    string icon;
+    double priceMult;
+    
+    static StoreCurrency Create(name cls, string icon, double priceMult = 1.0) {
+        let currency = StoreCurrency(new('StoreCurrency'));
+
+        if (currency) {
+            currency.cls = cls;
+            currency.icon  = icon;
+            currency.priceMult = priceMult;
+        }
+
+        return currency;
+    }
+
+    virtual name GetCurrencyClass() {
+        return cls;
+    }
+
+    virtual string GetIcon() {
+        return icon;
+    }
+
+    virtual double GetPriceMult() {
+        return priceMult;
+    }
+
+    string ToString() {
+        return String.format(
+            "{ cls=%s, icon=%s, priceMult=%.2f }",
+            cls,    icon,    priceMult
+        );
+    }
+}
