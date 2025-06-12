@@ -2,6 +2,7 @@
 class HDGasTankStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_gastank; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_Ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_GASTANK"); }
 	override Name GetItem() { return 'HDGasTank'; }

@@ -3,6 +3,7 @@
 class HD10mmPistolMag_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_replaceme; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_weapon').GetFloat(); }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "RadTech Inc."; }
 	override Name GetItem() { return 'HD10mMag12'; }
@@ -15,6 +16,7 @@ class HD10mmPistolMag_Store : StoreItem
 class HDSigCowMag_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_replaceme; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_weapon').GetFloat(); }
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "RadTech Inc."; }
 	override Name GetItem() { return 'HD10mMag25'; }

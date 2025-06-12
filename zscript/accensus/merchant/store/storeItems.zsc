@@ -12,6 +12,7 @@ class StoreItem {
     // --------------------------------------------------
 
     bool enabled;
+    double chance;
     
     int type;
     string category;
@@ -32,6 +33,7 @@ class StoreItem {
 
     static StoreItem Create(
         bool enabled,
+        double chance,
         int type,
         string category,
         name itemName,
@@ -45,6 +47,7 @@ class StoreItem {
 
         if (item) {
             item.enabled     = enabled;
+            item.chance      = chance;
             item.type        = type;
             item.category    = category;
             item.itemName    = itemName;
@@ -52,6 +55,7 @@ class StoreItem {
             item.displayName = displayName;
             item.flavorText  = flavorText;
             item.baseAmount  = baseAmount;
+            item.basePrice   = basePrice;
         }
 
         return item;
@@ -67,6 +71,7 @@ class StoreItem {
     // --------------------------------------------------
 
     virtual bool IsEnabled() { return enabled; }
+    virtual double GetChance() { return chance; }
     virtual int GetType() { return type; }
     virtual string GetCategory() { return category; }
     virtual name GetItem() { return itemName; }
@@ -117,12 +122,13 @@ class StoreItem {
     string ToString() {
         return "{ enabled="..IsEnabled()
         ..", type="..GetType()
+        ..", chance="..GetChance()
         ..", category="..GetCategory()
         ..", item="..GetItem()
         ..", icon="..GetIcon()
         ..", displayName="..GetDisplayName()
         ..", flavorText="..GetFlavorText()
-        ..", amount="..GetAmount()
+        ..", baseAmount="..GetAmount()
         ..", basePrice="..GetBasePrice()
         .." }";
     }
