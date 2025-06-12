@@ -26,6 +26,13 @@ extend class MerchantHandler
 
 		forEach (item : StoreItems) {
 
+			// If the store item isn't valid, skip.
+			if (
+				!HDCore.CheckClassExists(item.GetItem())
+				|| !item.IsEnabled()
+				|| item.GetType() != type
+			) continue;
+
 			bool inSafeMap = false;
 			forEach (mapName : SafeMapNames) {
 				if (level.mapName == mapName) {
@@ -34,20 +41,14 @@ extend class MerchantHandler
 				}
 			}
 
-			if (
-				HDCore.CheckClassExists(item.GetItem())
-				&& item.GetType() == type
-				&& item.IsEnabled()
-				&& (inSafeMap || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
-			) {
-				item.StoreAmount = item.GetStoreAmount();
-
-				if (inSafeMap) item.StoreAmount *= random[merchrand](25, 150);
+			let chance = item.GetChance();
+			if (inSafeMap || frandom[merchrand](0.0, 1.0) < chance) {
+				item.StoreAmount = ceil(item.GetStoreAmount() * (inSafeMap ? random[merchrand](25, 150) : max(chance, 1.0)));
 
 				Stores[type].StoreItems.Push(item);
 			}
 		}
-		
+
 		// [Ace] Don't duplicate categories.
 		forEach (currItem : Stores[type].StoreItems) {
 			if (Stores[type].Categories.Find(currItem.GetCategory()) == Stores[type].Categories.Size()) {

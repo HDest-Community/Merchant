@@ -145,6 +145,7 @@ class MerchantHandler : EventHandler
 
 					// get remaining params
 					let enabled = cmd.getBoolParam("enabled", true);
+					let chance = cmd.getDoubleParam("chance", CVar.GetCVar(merchChances[sType]).GetFloat());
 					let category = cmd.getStringParam("category", type);
 					let icon = cmd.getStringParam("icon");
 					let displayName = cmd.getStringParam("displayName", item);
@@ -166,6 +167,7 @@ class MerchantHandler : EventHandler
 					// Create the new store item and add it to the registry.
 					let newItem = StoreItem.create(
 						enabled,
+						chance,
 						sType,
 						category,
 						item,
