@@ -2,6 +2,7 @@
 class DDAugCanStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_augcanister; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_item').GetFloat(); }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AUGCANISTER"); }
 	override Name GetItem() { return 'DD_AugmentationCanister'; }
@@ -15,6 +16,7 @@ class DDAugCanStore : StoreItem
 class DDAugUpCanStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_augupgrade; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_item').GetFloat(); }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AUGUPGRADE"); }
 	override Name GetItem() { return 'DD_AugmentationUpgradeCanister'; }
@@ -27,6 +29,7 @@ class DDAugUpCanStore : StoreItem
 class DDBioCellStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_bioelectriccell; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_item').GetFloat(); }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BIOELECTRICCELL"); }
 	override Name GetItem() { return 'DD_BioelectricCell'; }
