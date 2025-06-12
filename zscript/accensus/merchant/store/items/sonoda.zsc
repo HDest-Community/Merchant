@@ -2,6 +2,7 @@
 class HDAdhesiveStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_adhesive; }
+    override double GetChance() { return CVar.GetCVar('hdm_chance_item').GetFloat(); }
     override int GetType() { return SType_Item; }
     override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ADHESIVE"); }
     override Name GetItem() { return 'HDReqKitBox'; }
