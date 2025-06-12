@@ -2,6 +2,7 @@
 class HD9mmStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_9mm; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_9MM"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable9mmBox') ? 'Reusable9mmBox' : 'HDPistolAmmo'; }
@@ -15,6 +16,7 @@ class HD9mmStore : StoreItem
 class HDShellsStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_12gshell; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GSHELL"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableShellBox') ? 'ReusableShellBox' : 'HDShellAmmo'; }
@@ -28,6 +30,7 @@ class HDShellsStore : StoreItem
 class HD355Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_355; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_355"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable355Box') ? 'Reusable355Box' : 'HDRevolverAmmo'; }
@@ -41,6 +44,7 @@ class HD355Store : StoreItem
 class HDRocketGrenadeStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_rocketgrenade; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ROCKETGRENADE"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableRocketBox') ? 'ReusableRocketBox' : 'HDRocketAmmo'; }
@@ -54,6 +58,7 @@ class HDRocketGrenadeStore : StoreItem
 class HDSevenMilStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_7mm; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_7MM"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable7mmBox') ? 'Reusable7mmBox' : 'SevenMilAmmo'; }
@@ -67,6 +72,7 @@ class HDSevenMilStore : StoreItem
 class HDAmmoBoxStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_ammobox; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_item').GetFloat(); }
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AMMOBOX"); }
 	override Name GetItem() { return 'HDAmBox'; }

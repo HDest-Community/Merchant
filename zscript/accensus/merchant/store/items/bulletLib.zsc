@@ -1,6 +1,7 @@
 // class HD50AEStore : StoreItem
 // {
 // 	override bool IsEnabled() { return hdm_enable_50ae; }
+// 	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 // 	override int GetType() { return SType_Ammo; }
 // 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AE"); }
 // 	override Name GetItem() { return HDCore.CheckClassExists('Reusable50AEBox') ? 'Reusable50AEBox' : 'HD50AEAmmo'; }
@@ -14,6 +15,7 @@
 class HD12gSlugsStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_12gslug; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GSLUG"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableSlugBox') ? 'ReusableSlugBox' : 'HDSlugAmmo'; }
@@ -27,6 +29,7 @@ class HD12gSlugsStore : StoreItem
 class HD500LightStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_500swl; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_500SWL"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable500LightBox') ? 'Reusable500LightBox' : 'HD500SWLightAmmo'; }
@@ -40,6 +43,7 @@ class HD500LightStore : StoreItem
 class HD500HeavyStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_500swh; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_500SWH"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable500HeavyBox') ? 'Reusable500HeavyBox' : 'HD500SWHeavyAmmo'; }
@@ -53,6 +57,7 @@ class HD500HeavyStore : StoreItem
 class HD50OMGStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_50omg; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50OMG"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable50OMGBox') ? 'Reusable50OMGBox' : 'HD50OMGAmmo'; }
@@ -66,6 +71,7 @@ class HD50OMGStore : StoreItem
 class HD45ACPStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_45acp; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_45ACP"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable45ACPBox') ? 'Reusable45ACPBox' : 'HD45ACPAmmo'; }
@@ -79,6 +85,7 @@ class HD45ACPStore : StoreItem
 class HD10mmAmmo_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_10mm; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_10MM"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable10mmBox') ? 'Reusable10mmBox' : 'HD10mAmmo'; }
@@ -92,6 +99,7 @@ class HD10mmAmmo_Store : StoreItem
 class HD45LCAmmo_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_g45lc; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_45LC"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable45LCBox') ? 'Reusable45LCBox' : 'HD45LCAmmo'; }
@@ -105,6 +113,7 @@ class HD45LCAmmo_Store : StoreItem
 class HDLessLethalShotgunAmmo_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_llshell; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_LLSHELL"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableLessLethalBox') ? 'ReusableLessLethalBox' : 'LLShellPickup'; }
@@ -118,6 +127,7 @@ class HDLessLethalShotgunAmmo_Store : StoreItem
 class HDMoreLethalShotgunAmmo_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_xshell; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_XSHELL"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableExplosiveShellBox') ? 'ReusableExplosiveShellBox' : 'HDExplosiveShellAmmo'; }
@@ -131,6 +141,7 @@ class HDMoreLethalShotgunAmmo_Store : StoreItem
 class HDGold45LCAmmo_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_g45lc; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_G45LC"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableGold45LCBox') ? 'ReusableGold45LCBox' : 'HDGold45LCAmmo'; }
@@ -144,6 +155,7 @@ class HDGold45LCAmmo_Store : StoreItem
 class HDFlareGunAmmo_Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_12gflare; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_12GFLARE"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableFlareBox') ? 'ReusableFlareBox' : 'HDFlareAmmo'; }
@@ -157,6 +169,7 @@ class HDFlareGunAmmo_Store : StoreItem
 class HDLeadBallStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_leadball; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_LEADBALL"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableLeadBallBox') ? 'ReusableLeadBallBox' : 'HDBallAmmo'; }
@@ -171,6 +184,7 @@ class HDLeadBallStore : StoreItem
 class HD4gSlugStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_4gslug; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_4GSLUG"); }
 	override Name GetItem() { return 'HD4GSAmmo'; }
@@ -184,6 +198,7 @@ class HD4gSlugStore : StoreItem
 class HD5mm_AmmoStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_5mmbr; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_5MMBR"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable5mmBox') ? 'Reusable5mmBox' : 'HD5mm_Ammo'; }
@@ -197,6 +212,7 @@ class HD5mm_AmmoStore : StoreItem
 class HD6mmFlechetteAmmoStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_6mmflechette; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_6MMFLECHETTE"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable6mmBox') ? 'Reusable6mmBox' : 'HD6mmFlechetteAmmo'; }
@@ -210,6 +226,7 @@ class HD6mmFlechetteAmmoStore : StoreItem
 class HD50AM_AmmoStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_50am; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AM"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable50AMBox') ? 'Reusable50AMBox' : 'HD50AM_Ammo'; }
@@ -223,6 +240,7 @@ class HD50AM_AmmoStore : StoreItem
 class HDAurochsAmmoStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_420frei; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_420FREI"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable420Box') ? 'Reusable420Box' : 'HDAurochsAmmo'; }
@@ -236,6 +254,7 @@ class HDAurochsAmmoStore : StoreItem
 class HD069BoreAmmoStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_069bore; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_069BORE"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable069Box') ? 'Reusable069Box' : 'HD069BoreAmmo'; }
@@ -249,6 +268,7 @@ class HD069BoreAmmoStore : StoreItem
 class HDThunderRocketStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_thunderrocket; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_THUNDERROCKET"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableThunderRocketBox') ? 'ReusableThunderRocketBox' : 'Wan_ThuRKTAmmo'; }
@@ -261,6 +281,7 @@ class HDThunderRocketStore : StoreItem
 class HDTortoiseRocketStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_tortoiserocket; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_TORTOISEROCKET"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableTortoiseRocketBox') ? 'ReusableTortoiseRocketBox' : 'Wan_TortRKTAmmo'; }
@@ -273,6 +294,7 @@ class HDTortoiseRocketStore : StoreItem
 class HD20mmGrenadeStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_20mmgrenade; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_20MMGRENADE"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable20mmGrenadeBox') ? 'Reusable20mmGrenadeBox' : 'WAN_20mmGrenadeAmmo'; }
@@ -286,6 +308,7 @@ class HD20mmGrenadeStore : StoreItem
 class H3006Store : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_3006; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_3006"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable3006Box') ? 'Reusable3006Box' : 'ThirtyAughtSixAmmo'; }
@@ -299,6 +322,7 @@ class H3006Store : StoreItem
 class HD4gShellStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_4gshell; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_4GSHELL"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable4gaShellBox') ? 'Reusable4gaShellBox' : 'HD4GBAmmo'; }
@@ -312,6 +336,7 @@ class HD4gShellStore : StoreItem
 class HDBirdshotStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_birdshot; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BIRDSHOT"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableBirdshotShellBox') ? 'ReusableBirdshotShellBox' : 'HDBirdshotShellAmmo'; }
@@ -325,6 +350,7 @@ class HDBirdshotStore : StoreItem
 class HD300SavageStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_300savage; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_300SAVAGE"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable300SavageBox') ? 'Reusable300SavageBox' : 'Savage300Ammo'; }
@@ -338,6 +364,7 @@ class HD300SavageStore : StoreItem
 class HD762TokarevStore : StoreItem
 {
 	override bool IsEnabled() { return hdm_enable_762tokarev; }
+	override double GetChance() { return CVar.GetCVar('hdm_chance_ammo').GetFloat(); }
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_762TOKAREV"); }
 	override Name GetItem() { return HDCore.CheckClassExists('Reusable762TokarevBox') ? 'Reusable762TokarevBox' : 'HD762TokarevAmmo'; }
