@@ -35,10 +35,10 @@ class MerchantHandler : EventHandler
 			forEach (mapName : SafeMapNames) Console.printF(" * "..mapName);
 
 			Console.printF("Merchant Currencies:");
-			forEach(currency : StoreCurrencies) Console.printF(" * "..currency.toString());
+			forEach (currency : StoreCurrencies) Console.printF(" * "..currency.toString());
 
 			Console.printF("Merchant Store Items:");
-			forEach(item : StoreItems) Console.printF(" * "..item.toString());
+			forEach (item : StoreItems) Console.printF(" * "..item.toString());
 		}
 
 		initialized = true;
@@ -277,115 +277,132 @@ class MerchantHandler : EventHandler
 		}
 	}
 
-	override void NetworkProcess(ConsoleEvent e)
-	{
+	override void NetworkProcess(ConsoleEvent e) {
+
 		let plr = players[e.Player].mo;
+		name eventName = e.name;
 
-		if (e.Name ~== "HDM_AssemblePokerGame")
-		{
-			AssembleGame(plr);
-			return;
-		}
+		switch (eventName) {
+			case 'HDM_AssemblePokerGame': {
+				AssembleGame(plr);
 
-		if (e.Name ~== "HDM_PlaceBet")
-		{
-			PlaceBet(CardPlayers[PlayerIndex], e.Args[0]);
-			return;
-		}
+				break;
+			}
+			case 'HDMPlaceBet': {
+				PlaceBet(CardPlayers[PlayerIndex], e.Args[0]);
 
-		if (e.Name ~== "HDM_Fold")
-		{
-			CardPlayers[PlayerIndex].HasFolded = true;
-			ActionTimer = 0;
-			RotatePlayer();
-			return;
-		}
+				break;
+			}
+			case 'HDM_Fold': {
+				ActionTimer = 0;
 
-		if (e.Name ~== "HDM_Check")
-		{
-			ActionTimer = 0;
-			CardPlayers[PlayerIndex].HasChecked = true;
-			CardPlayers[PlayerIndex].Player.A_StartSound("Poker/Check", 10, CHANF_UI, attenuation: 1.5);
-			RotatePlayer();
-			return;
-		}
+				CardPlayers[PlayerIndex].HasFolded = true;
+				RotatePlayer();
 
-		Array<string> ParsedName;
-		e.Name.Split(ParsedName, ":");
-		if (ParsedName[0] ~== "HDM_BuyStuff")
-		{
-			for (int i = 0; i < Stores.Size(); ++i)
-			{
-				StoreItem item;
-				for (int j = 0; j < Stores[i].StoreItems.Size(); ++j)
-				{
-					if (Stores[i].StoreItems[j].GetClass() == ParsedName[1])
-					{
-						item = Stores[i].StoreItems[j];
-						break;
-					}
-				}
+				break;
+			}
+			case 'HDM_Check': {
+				ActionTimer = 0;
 
-				if (item && plr)
-				{
-					class<Actor> ItemClass = item.GetItem();
-					int Amount = item.GetAmount();
+				CardPlayers[PlayerIndex].HasChecked = true;
+				CardPlayers[PlayerIndex].Player.A_StartSound("Poker/Check", 10, CHANF_UI, attenuation: 1.5);
+				RotatePlayer();
 
-					StoreCurrency Currency = StoreCurrencies[e.Args[0]];
-					int Price = StoreItem.GetAdjustedPrice(item, Currency);
+				break;
+			}
+			default: {
+				Array<string> ParsedName;
+				e.name.Split(ParsedName, ":");
 
-					if (Price > plr.CountInv(Currency.GetCurrencyClass()))
-					{
-						plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
-						return;
-					}
+				if (ParsedName[0] ~== "HDM_BuyStuff") {
 
-					if (!(ItemClass is 'HDPickup') ||  ItemClass is 'HDPickupGiver')
-					{
-						Actor a; bool success;
-						[success, a] = plr.A_SpawnItemEx(ItemClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
-						if (success && a is 'Inventory')
-						{
-							Inventory(a).Amount = amount;
-						}
-					}
-					else
-					{
-						class<Inventory> InvClass = (class<Inventory>)(ItemClass);
-						int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
-						int MaxActualGive = min(Amount, MaxGive);
+					forEach (store : Stores) {
 
-						// [Ace] Give what you can directly and drop the rest on the ground.
-						plr.A_GiveInventory(InvClass, MaxActualGive);
-						Amount -= MaxActualGive;
+						StoreItem item;
+						forEach (storeItem : store.StoreItems) {
 
-						if (Amount > 0)
-						{
-							Actor a; bool success;
-							[success, a] = plr.A_SpawnItemEx(InvClass, 6, 0, plr.height - 8, frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0), 0, SXF_NOCHECKPOSITION);
-							if (success)
-							{
-								Inventory(a).Amount = Amount;
+							if (storeItem.GetClass() == ParsedName[1]) {
+								item = storeItem;
+								break;
 							}
 						}
-					}
-					plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
-					plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+		
+						if (item && plr) {
 
-					item.StoreAmount--;
-					if (item.StoreAmount == 0)
-					{
-						Stores[i].StoreItems.Delete(Stores[i].StoreItems.Find(item));
-						item.Destroy();
+							class<Actor> ItemClass = item.GetItem();
+							int Amount = item.GetAmount();
+		
+							StoreCurrency Currency = StoreCurrencies[e.Args[0]];
+							int Price = StoreItem.GetAdjustedPrice(item, Currency);
+		
+							// If the price is too high, play failure sound and quit.
+							if (Price > plr.CountInv(Currency.GetCurrencyClass())) {
+								plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
+								return;
+							}
+
+							// If the thing bought is a pickup or pickup giver, give to the player & dump the overflow
+							// otherwise just dump the thing on the ground.
+							if (!(ItemClass is 'HDPickup') || ItemClass is 'HDPickupGiver') {
+								Actor a; bool success;
+
+								[success, a] = plr.A_SpawnItemEx(
+									ItemClass,
+									6, 0, plr.height - 8,
+									frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0),
+									0,
+									SXF_NOCHECKPOSITION
+								);
+
+								if (success && a is 'Inventory') Inventory(a).Amount = amount;
+							} else {
+								class<Inventory> InvClass = (class<Inventory>)(ItemClass);
+								int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
+								int MaxActualGive = min(Amount, MaxGive);
+
+								// [Ace] Give what you can directly and drop the rest on the ground.
+								plr.A_GiveInventory(InvClass, MaxActualGive);
+								Amount -= MaxActualGive;
+
+								if (Amount > 0) {
+									Actor a; bool success;
+
+									[success, a] = plr.A_SpawnItemEx(
+										InvClass,
+										6, 0, plr.height - 8,
+										frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0),
+										0,
+										SXF_NOCHECKPOSITION
+									);
+
+									if (success) Inventory(a).Amount = Amount;
+								}
+							}
+
+							// Take the currency from the player, play success sound, reduce stock
+							plr.A_TakeInventory(Currency.GetCurrencyClass(), Price);
+							plr.A_StartSound("Merchant/BuySuccess", 16, CHANF_LOCAL | CHANF_UI);
+							item.StoreAmount--;
+
+							// If there's none left, remove from the store.
+							// TODO: Mark as disabled instead?
+							if (item.StoreAmount <= 0) {
+								store.StoreItems.Delete(store.StoreItems.Find(item));
+								item.Destroy();
+							}
+
+							break;
+						}
 					}
-					break;
 				}
+
+				break;
 			}
 		}
 	}
 
-	override void WorldLoaded(WorldEvent e)
-	{
+	override void WorldLoaded(WorldEvent e) {
+
 		if (e.IsReopen) return;
 
         // Populates the main arrays if they haven't been already.
@@ -401,7 +418,7 @@ class MerchantHandler : EventHandler
 			forEach (store : Stores) {
 				forEach (category : store.Categories) {
 					Console.printF(" * "..category.." Items:");
-					forEach(item : store.StoreItems) {
+					forEach (item : store.StoreItems) {
 						if (item.GetCategory() == category) {
 							Console.printF("   * "..item.toString());
 						}
@@ -411,9 +428,9 @@ class MerchantHandler : EventHandler
 		}
 
 		Array<class<HDMerchant> > AvailableMerchants;
-		AvailableMerchants.Push((class<HDMerchant>)('AmmoMerchant'));
-		AvailableMerchants.Push((class<HDMerchant>)('ItemMerchant'));
-		AvailableMerchants.Push((class<HDMerchant>)('WeaponMerchant'));
+		AvailableMerchants.Push('AmmoMerchant');
+		AvailableMerchants.Push('ItemMerchant');
+		AvailableMerchants.Push('WeaponMerchant');
 
 		int mCount = AvailableMerchants.Size();
 		int MerchantsLeft = min(mCount, level.MapName ~== "LOTSAGUN" ? mCount : CVar.GetCVar('hdm_maxmerchants').GetInt());
@@ -441,7 +458,7 @@ class MerchantHandler : EventHandler
 				&& dedicatedMerchantSectors.Find(sec) == dedicatedMerchantSectors.Size()
 				&& dedicatedSlotSectors.Find(sec) == dedicatedSlotSectors.Size()
 			) {
-				vector2 center = sec.centerspot;
+				Vector2 center = sec.centerspot;
 				double secHeight = abs(sec.floorplane.ZAtPoint(center) - sec.ceilingplane.ZAtPoint(center));
 
 				if (secHeight < 64) continue;
@@ -472,11 +489,14 @@ class MerchantHandler : EventHandler
 
 		// [Ace] Spawn the crystals first, and only then bother with the merchants.
 		if (MoneyMode == 0 || MoneyMode == 2) {
+
 			for (int i = secretSectors.Size() - 1; i >= 0; --i) {
 				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
 					SpawnedTiberium = true;
+
 					SpawnCrystals(secretSectors[i]);
 					secretSectors.Delete(i);
+
 					if (hdm_debug < 2) break;
 				}
 			}
@@ -490,28 +510,36 @@ class MerchantHandler : EventHandler
 
 		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
 		foreach (sec : dedicatedMerchantSectors) {
-			vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
+			Vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
 			int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
 			Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
 			a.angle = sec.GetUDMFInt('user_merchantangle');
 			AvailableMerchants.Delete(spawnIndex);
 
-			if (hdm_debug) Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+			if (hdm_debug) Console.Printf(
+				"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+				a.GetTag(), spawnPos.x, spawnPos.y
+			);
 
 			if (--MerchantsLeft == 0) break;
 		}
 
 		if (MerchantsLeft) {
 			for (int i = 0; i < secretSectors.Size(); ++i) {
-				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				Vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				
 				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30) continue;
 				int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
+				
 				Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
 				a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
 				AvailableMerchants.Delete(spawnIndex);
 				secretSectors.Delete(i--);
 
-				if (hdm_debug) Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
+				if (hdm_debug) Console.Printf(
+					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					a.GetTag(), spawnPos.x, spawnPos.y
+				);
 
 				if (--MerchantsLeft == 0) break;
 			}
@@ -524,56 +552,47 @@ class MerchantHandler : EventHandler
 		// ------------------------------------------------------------------------------------------------------------------------
 
 		bool spawnedMachine = false;
-		for (int i = 0; i < dedicatedSlotSectors.Size(); ++i)
-		{
-			vector3 spawnPos = (dedicatedSlotSectors[i].centerspot, dedicatedSlotSectors[i].floorplane.ZAtPoint(dedicatedSlotSectors[i].centerspot));
+		for (int i = 0; i < dedicatedSlotSectors.Size(); i++) {
+
+			Vector3 spawnPos = (dedicatedSlotSectors[i].centerspot, dedicatedSlotSectors[i].floorplane.ZAtPoint(dedicatedSlotSectors[i].centerspot));
+
 			Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
 			a.angle = dedicatedSlotSectors[i].GetUDMFInt('user_slotmachineangle');
 			spawnedMachine = true;
 
-			if (hdm_debug > 0)
-			{
-				Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
-			}
+			if (hdm_debug ) Console.Printf(
+				"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+				a.GetTag(), spawnPos.x, spawnPos.y
+			);
 		}
 
-		if (!spawnedMachine && hdm_enableslots)
-		{
-			for (int i = 0; i < secretSectors.Size(); ++i)
-			{
-				vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 20)
-				{
-					continue;
-				}
+		if (!spawnedMachine && hdm_enableslots) {
+
+			for (int i = 0; i < secretSectors.Size(); i++) {
+
+				Vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 20) continue;
+
 				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
 				a.angle = secretSectors[i].GetUDMFInt('user_slotmachineangle');
 				secretSectors.Delete(i--);
 
-				if (hdm_debug > 0)
-				{
-					Console.Printf("--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", a.GetTag(), spawnPos.x, spawnPos.y);
-				}
+				if (hdm_debug) Console.Printf(
+					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					a.GetTag(), spawnPos.x, spawnPos.y
+				);
+
 				break;
 			}
 		}
 	}
 
-	override void WorldUnloaded(WorldEvent e)
-	{
-		let plr = players[Net_Arbitrator].mo;
-		if (!plr)
-		{
-			return;
-		}
+	override void WorldUnloaded(WorldEvent e) {
 
-		for (int i = 0; i < MAXPLAYERS; ++i)
-		{
-			if (players[i].mo)
-			{
-				players[i].mo.A_TakeInventory("HDMerchantBody");
-			}
-		}
+		let plr = players[Net_Arbitrator].mo;
+		if (!plr) return;
+
+		forEach (p : PLAYERS) if (p.mo) p.mo.A_TakeInventory("HDMerchantBody");
 	}
 
 	override void WorldTick() {
@@ -611,59 +630,44 @@ class MerchantHandler : EventHandler
 		if (hdm_nonbounty_dropratio > 0 && !mob.bHASDROPPED) DropCurrency(mob);
 	}
 
-	private void DropCurrency(HDMobBase mob)
-	{
+	private void DropCurrency(HDMobBase mob) {
+
 		// Get the raw amount of currency to drop
 		let bounty = GetBounty(mob);
 		let healthamt = mob.getspawnhealth() + (mob.maxshields / 2);
 		let maxAmount = random(min(bounty, healthamt), max(bounty, healthamt)) * hdm_nonbounty_dropratio;
 		let amount = random(0, maxAmount);
 
-		if (Cvar.GetCVar('hdm_nonbounty_directdeposit').GetBool())
-		{
-			AceCore.GiveToPlayers('MercenaryBucks', amount); // Genericfiredemon: Code taken from line 263 of Bounty.zsc and modified for basic cash.
-		}
-		else
-		{
-			while (amount > 0)
-			{
-				if (amount >= 2000)
-				{
+		if (hdm_nonbounty_directdeposit) {
+
+			// Genericfiredemon: Code taken from line 263 of Bounty.zsc and modified for basic cash.
+			AceCore.GiveToPlayers('MercenaryBucks', amount);
+		} else {
+
+			while (amount > 0) {
+
+				if (amount >= 2000) {
 					mob.DropNewItem('BigGem');
 					amount -= 2000;
-				}
-				else if (amount >= 1000)
-				{
+				} else if (amount >= 1000) {
 					mob.DropNewItem('SmallGem');
 					amount -= 1000;
-				}
-				else if (amount >= 750)
-				{
+				} else if (amount >= 750) {
 					mob.DropNewItem('BigCoin');
 					amount -= 750;
-				}
-				else if (amount >= 500)
-				{
+				} else if (amount >= 500) {
 					mob.DropNewItem('MediumCoin');
 					amount -= 500;
-				}
-				else if (amount >= 250)
-				{
+				} else if (amount >= 250) {
 					mob.DropNewItem('SmallCoin');
 					amount -= 250;
-				}
-				else if (amount >= 100)
-				{
+				} else if (amount >= 100) {
 					mob.DropNewItem('MercenaryBucks100');
 					amount -= 100;
-				}
-				else if (amount >= 25)
-				{
+				} else if (amount >= 25) {
 					mob.DropNewItem('MercenaryBucks25');
 					amount -= 25;
-				}
-				else
-				{
+				} else {
 					mob.DropNewItem('MercenaryBucks1');
 					amount -= 1;
 				}
