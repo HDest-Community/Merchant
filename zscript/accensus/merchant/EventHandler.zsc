@@ -10,6 +10,7 @@ class MerchantHandler : EventHandler
 
 		if (initialized) return;
 
+		BountyTargets.clear();
 		SafeMapNames.clear();
 		StoreCurrencies.clear();
 		StoreItems.clear();
@@ -17,14 +18,18 @@ class MerchantHandler : EventHandler
 		let cmdReader = HDCoreInfoReader(StaticEventHandler.find('HDCoreInfoReader'));
 		
 		// Process all HDCore Commands,
-		// as well as all loaded Child Classes for Store Items/Currencies
+		// as well as all loaded Child Classes for Bounties, Store Items/Currencies, etc.
+		initBounties();
 		initCurrencies();
 		initStores();
 		loadMerchantLists(cmdReader.commands);
 
-		if (hd_debug) {
+		if (hdm_debug) {
+			Console.printF("Merchant Bounty Targets:");
+			forEach (target : BountyTargets) Console.printF(" * "..target.toString());
+
 			Console.printF("Merchant Safe Maps:");
-			forEach(mapName : SafeMapNames) Console.printF(" * "..mapName);
+			forEach (mapName : SafeMapNames) Console.printF(" * "..mapName);
 
 			Console.printF("Merchant Currencies:");
 			forEach(currency : StoreCurrencies) Console.printF(" * "..currency.toString());
@@ -39,21 +44,73 @@ class MerchantHandler : EventHandler
 	void loadMerchantLists(Array<HDCoreCommand> cmds) {
 		forEach (cmd : cmds) {
 			switch (cmd.command) {
-				case 'newMerchantSafeMap': {
+				case 'newMerchantBountyTarget': {
+
+					// Get Target's ClassName and check if it's valid
+					let name = cmd.getNameParam("name");
+					Class<Actor> cls = name;
+
+					// If the target's class doesn't exist, quit.
+					if (!cls) break;
+
+					// get remaining params
+					let effect = cmd.getNameParam("effect");
+					let value = cmd.getIntParam("value");
+
+					// Look for existing bounty target definitions
+					BountyTarget existingTarget;
+					forEach (t : BountyTargets) {
+						if (t.targetCls == name) {
+							existingTarget = t;
+							break;
+						}
+					}
+
+					// If an existing target for this class already exists, quit.
+					if (existingTarget) break;
+
+					// Create the new Bounty Target and add it to the registry.
+					let newTarget = BountyTarget.create(name, value, effect);
+
+					if (newTarget) BountyTargets.push(newTarget);
+
+					break;
+				}
+				case 'removeMerchantBountyTarget': {
+
 					let name = cmd.getNameParam("name");
 
-					if (name && safeMapNames.find(name) == safeMapNames.size()) safeMapNames.push(name);
+					forEach (target : BountyTargets) {
+						if (target.targetCls == name) {
+							BountyTargets.delete(BountyTargets.find(target));
+							break;
+						}
+					}
+
+					break;
+				}
+				case 'clearMerchantBountyTargets': {
+					BountyTargets.clear();
+					break;
+				}
+				case 'addMerchantNonBountyBlacklist': {
+					
+					let name = cmd.getNameParam("name");
+
+					if (name && NonBountyBlacklist.find(name) == NonBountyBlacklist.size()) NonBountyBlacklist.push(name);
+
+					break;
+				}
+				case 'addMerchantSafeMap': {
+					let name = cmd.getNameParam("name");
+
+					if (name && SafeMapNames.find(name) == SafeMapNames.size()) SafeMapNames.push(name);
 					break;
 				}
 				case 'removeMerchantSafeMap': {
 					let name = cmd.getNameParam("name");
 
-					forEach (mapName : SafeMapNames) {
-						if (mapName == name) {
-							SafeMapNames.delete(SafeMapNames.find(mapName));
-							break;
-						}
-					}
+					if (SafeMapNames.find(name) < SafeMapNames.size()) SafeMapNames.delete(SafeMapNames.find(name));
 
 					break;
 				}
@@ -324,10 +381,10 @@ class MerchantHandler : EventHandler
 		// Initialize the stores for this map
 		for (int i = 0; i < Stores.Size(); ++i) InitStore(i);
 		
-		if (hd_debug) {
+		if (hdm_debug) {
 			Console.printF("Merchant Stores:");
-			forEach(store : Stores) {
-				forEach(category : store.Categories) {
+			forEach (store : Stores) {
+				forEach (category : store.Categories) {
 					Console.printF(" * "..category.." Items:");
 					forEach(item : store.StoreItems) {
 						if (item.GetCategory() == category) {
@@ -504,34 +561,23 @@ class MerchantHandler : EventHandler
 		}
 	}
 
-	override void WorldTick()
-	{
-		if (GameInProgress)
-		{
-			PokerTick();
-		}
+	override void WorldTick() {
 
-		if (level.time == 35)
-		{
-			InitBounty();
-			
-			if (MoneyMode == 1 || (MoneyMode == 2 && !SpawnedTiberium))
-			{
-				int count = 1;
-				for (int i = 0; i < 2; ++i)
-				{
-					if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + (5 * i)))
-					{
-						count++;
-					}
-					else
-					{
-						break;
-					}
+		if (GameInProgress) PokerTick();
+
+		// Initialize Bounty Target(s) Selection
+		if (level.time == 35 && (MoneyMode == 1 || (MoneyMode == 2 && !SpawnedTiberium))) {
+			int count = 1;
+			for (int i = 0; i < 2; ++i) {
+
+				if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + (5 * i))) {
+					count++;
+				} else {
+					break;
 				}
-
-				InitBountyTargets(count);
 			}
+
+			InitBountyTargets(count);
 		}
 	}
 

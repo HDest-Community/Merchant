@@ -8,6 +8,25 @@ newMerchantStoreCurrency => { "name": "MercenaryBucks", "icon": "MBCKA0" }
 newMerchantStoreCurrency => { "name": "SevenMilAmmo", "icon": "TEN7A0" }
 newMerchantStoreCurrency => { "name": "AssemblyCore", "icon": "ASCRA0", "priceMult": "0.01" }
 
+// Bounty Targets
+newMerchantBountyTarget => { "name": "Babuin", "value": "200" }
+newMerchantBountyTarget => { "name": "HDHumanoid", "value": "250" }
+newMerchantBountyTarget => { "name": "FighterImp", "value": "300" }
+newMerchantBountyTarget => { "name": "NinjaPirate", "value": "350" }
+newMerchantBountyTarget => { "name": "Mancubus", "value": "500" }
+newMerchantBountyTarget => { "name": "Boner", "value": "550" }
+newMerchantBountyTarget => { "name": "FlyZapper", "value": "600" }
+newMerchantBountyTarget => { "name": "Knave", "value": "600" }
+newMerchantBountyTarget => { "name": "Necromancer", "value": "666" }
+newMerchantBountyTarget => { "name": "Manticore", "value": "700" }
+newMerchantBountyTarget => { "name": "Baron", "value": "800" }
+newMerchantBountyTarget => { "name": "SatanRobo", "value": "2500" }
+newMerchantBountyTarget => { "name": "Spiderdemon", "value": "2500" }
+
+newMerchantBountyTarget => { "name": "CabalCultist", "value": "200" }
+newMerchantBountyTarget => { "name": "CabalFanatic", "value": "250" }
+newMerchantBountyTarget => { "name": "CabalAcolyte", "value": "350" }
+newMerchantBountyTarget => { "name": "CabalZealot", "value": "500" }
 
 
 // TODO: REFACTOR STORE ENTRIES INTO THEIR RESPECTIVE ADDONS, MOVE CVARS, LANGUAGE LUMPS, ETC.
