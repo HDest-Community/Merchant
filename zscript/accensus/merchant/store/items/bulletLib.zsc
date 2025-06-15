@@ -272,6 +272,7 @@ class HDThunderRocketStore : StoreItem
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_THUNDERROCKET"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableThunderRocketBox') ? 'ReusableThunderRocketBox' : 'Wan_ThuRKTAmmo'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "THRKB0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_THUNDERROCKET"); }
 	override int GetBasePrice() { return 10; }
@@ -285,6 +286,7 @@ class HDTortoiseRocketStore : StoreItem
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_TORTOISEROCKET"); }
 	override Name GetItem() { return HDCore.CheckClassExists('ReusableTortoiseRocketBox') ? 'ReusableTortoiseRocketBox' : 'Wan_TortRKTAmmo'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "TRTRB0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_TORTOISEROCKET"); }
 	override int GetBasePrice() { return 10; }

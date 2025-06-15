@@ -76,6 +76,7 @@ class HDAmmoBoxStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AMMOBOX"); }
 	override Name GetItem() { return 'HDAmBox'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "AMMOA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_AMMOBOX"); }
 	override int GetBasePrice() { return 100; }

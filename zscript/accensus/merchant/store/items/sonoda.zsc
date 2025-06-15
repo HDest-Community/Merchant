@@ -6,6 +6,7 @@ class HDAdhesiveStore : StoreItem
     override int GetType() { return SType_Item; }
     override string GetCategory() { return Stringtable.localize("$MERCH_CAT_ADHESIVE"); }
     override Name GetItem() { return 'HDReqKitBox'; }
+	override int GetAmount() { return 1; }
     override string GetIcon() { return "REQQA0"; }
     override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_ADHESIVE"); }
     override int GetBasePrice() { return 125; }
