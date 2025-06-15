@@ -43,10 +43,11 @@ class HDMerchant : Actor abstract
 		}
 		else
 		{
-			if (CheckProximity("PlayerPawn", HDCONST_ONEMETRE * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET))
-			{
-				A_Face(target, 15);
-			}
+			// Set class-level flag for a player being near
+			PlayerIsNear = CheckProximity("PlayerPawn", HDCONST_ONEMETRE * 4, 1, CPXF_ANCESTOR | CPXF_SETTARGET);
+
+			// If one is, face them.
+			if (PlayerIsNear) A_Face(target, 15);
 		}
 
 		Super.Tick();
