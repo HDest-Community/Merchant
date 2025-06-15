@@ -3,6 +3,8 @@ class MerchantHandler : EventHandler
 	private int MoneyMode;
 	private bool SpawnedTiberium;
 
+	Array<name> NonBountyBlacklist;
+
 	bool initialized;
 
 	// Populates the Merchant Store Lists.
@@ -11,6 +13,7 @@ class MerchantHandler : EventHandler
 		if (initialized) return;
 
 		BountyTargets.clear();
+		NonBountyBlacklist.clear();
 		SafeMapNames.clear();
 		StoreCurrencies.clear();
 		StoreItems.clear();
@@ -99,6 +102,18 @@ class MerchantHandler : EventHandler
 
 					if (name && NonBountyBlacklist.find(name) == NonBountyBlacklist.size()) NonBountyBlacklist.push(name);
 
+					break;
+				}
+				case 'removeMerchantNonBountyBlacklist': {
+
+					let name = cmd.getNameParam("name");
+
+					if (NonBountyBlacklist.find(name) < NonBountyBlacklist.size()) NonBountyBlacklist.delete(NonBountyBlacklist.find(name));
+
+					break;
+				}
+				case 'clearMerchantNonBountyBlacklist': {
+					NonBountyBlacklist.clear();
 					break;
 				}
 				case 'addMerchantSafeMap': {
@@ -581,23 +596,19 @@ class MerchantHandler : EventHandler
 		}
 	}
 
-	override void WorldThingDied(WorldEvent e)
-	{
-		if (e.thing
-			&& !(
-				e.thing is 'HDPlayerPawn'
-				|| e.thing is 'HDPlayerCorpse'
-				|| e.thing is 'HDBarrel'
-			)
-			&& hdm_nonbounty_dropratio > 0
-		)
-		{
-			let mob = HDMobBase(e.thing);
-			if (mob && !mob.bhasdropped)
-			{
-				DropCurrency(mob);
-			}
-		}
+	override void WorldThingDied(WorldEvent e) {
+
+		// If thing isn't some sort of HDMobBase, quit.
+		// TODO: Expand to whitelist
+		if (!(e.thing is 'HDMobBase')) return;
+
+		// If thing is blacklisted, quit.
+		forEach (bl : NonBountyBlacklist) if (e.thing is bl) return;
+
+		// If the Non-Bounty Drop Ratio is a positive value,
+		// and the thing hasn't died/dropped yet, drop currency.
+		let mob = HDMobBase(e.thing);
+		if (hdm_nonbounty_dropratio > 0 && !mob.bHASDROPPED) DropCurrency(mob);
 	}
 
 	private void DropCurrency(HDMobBase mob)
