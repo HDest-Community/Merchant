@@ -28,6 +28,11 @@ newMerchantBountyTarget => { "name": "CabalFanatic", "value": "250" }
 newMerchantBountyTarget => { "name": "CabalAcolyte", "value": "350" }
 newMerchantBountyTarget => { "name": "CabalZealot", "value": "500" }
 
+// Non-Bounty Class Blacklist
+addMerchantNonBountyBlacklist => { "name": "HDPlayerPawn" }
+addMerchantNonBountyBlacklist => { "name": "HDPlayerCorpse" }
+addMerchantNonBountyBlacklist => { "name": "HDBarrel" }
+
 
 // TODO: REFACTOR STORE ENTRIES INTO THEIR RESPECTIVE ADDONS, MOVE CVARS, LANGUAGE LUMPS, ETC.
 
