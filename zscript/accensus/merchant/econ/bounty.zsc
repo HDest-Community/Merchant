@@ -1,58 +1,61 @@
 extend class MerchantHandler
 {
-	Array<class<BountyThinker> > bountyThinkers;
+	Array<BountyTarget> BountyTargets;
 
-	private void InitBounty()
-	{
-		bountyThinkers.clear();
+	private void InitBounties() {
+		forEach (cls : AllClasses) {
+			if (cls is 'BountyThinker' && cls != 'BountyThinker') {
+				let thinker = BountyThinker(new(cls));
 
-		for (int i = 0; i < AllClasses.Size(); ++i)
-		{
-			if (AllClasses[i] is 'BountyThinker' && !AllClasses[i].IsAbstract())
-			{
-				bountyThinkers.Push((class<BountyThinker>)(AllClasses[i]));
+				let targetData = BountyTarget.Create(
+					thinker.GetTargetName(),
+					thinker.GetBounty(),
+					thinker.GetEffectName()
+				);
+
+				if (targetData) BountyTargets.push(targetData);
 			}
 		}
 	}
 
-	private void InitBountyTargets(int count)
-	{
+	private void InitBountyTargets(int count) {
+
 		Array<Actor> chosenActors;
+		chosenActors.clear();
 
 		ThinkerIterator it = ThinkerIterator.Create('Actor', Thinker.STAT_DEFAULT);
 		Actor a = null;
-		while ((a = Actor(it.Next())))
-		{
+		while ((a = Actor(it.Next()))) {
+
 			// Only consider non-friendly, alive, shootable monster actors as bounty targets
 			if (!a.bISMONSTER || !a.bSHOOTABLE || a.bFRIENDLY || a.health <= 0) continue;
 		
-			for (int i = 0; i < bountyThinkers.Size(); ++i)
-			{
-				// Find the appropriate BountyThinker,
+			forEach (target : BountyTargets) {
+
+				// Find the appropriate BountyTarget entry,
 				// and if the current actor hasn't been chosen and is an instance of the relevant actor class,
 				// add it to the list of chosen actors.
-				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
-				if (chosenActors.find(a) == chosenActors.size() && a is actorName)
-				{
-					chosenActors.Push(a);
-				}
+				if (chosenActors.find(a) == chosenActors.size() && a is target.targetCls) chosenActors.Push(a);
 			}
 		}
 
-		while (chosenActors.Size() > 0 && count > 0)
-		{
+		while (chosenActors.Size() > 0 && count > 0) {
+
 			// Pick a random actor out of those that were chosen,
-			// and if that chosen actor hasn't had a BountyThinker assigned,
+			// and if that chosen actor hasn't had a BountyTarget entry assigned,
 			// create a BountyThinker for that actor and remove it from further selection
 			int index = random(0, chosenActors.Size() - 1);
 			Actor randAct = chosenActors[index];
-			for (int i = 0; i < bountyThinkers.Size(); ++i)
-			{
-				Name actorName = String.Format(bountyThinkers[i].GetClassName()).Mid(14);
-				if (chosenActors.find(randAct) < chosenActors.size() && randAct is actorName)
-				{
-					if (hdm_debug) Console.Printf("--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.", randAct.GetTag(), randAct.pos.x, randAct.pos.y);
-					BountyThinker.Create("BountyThinker_"..actorName, randAct);
+			forEach (target : BountyTargets) {
+
+				if (chosenActors.find(randAct) < chosenActors.size() && randAct is target.targetCls) {
+
+					if (hdm_debug) Console.Printf(
+						"--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+						randAct.GetTag(), randAct.pos.x, randAct.pos.y
+					);
+
+					BountyThinker.Create(target, randAct);
 					chosenActors.Delete(index);
 					count--;
 				}
@@ -62,21 +65,9 @@ extend class MerchantHandler
 
 	int GetBounty(Actor actor) {
 		
-		foreach (bountyThinker : bountyThinkers)
-		{
-			// Find the appropriate BountyThinker,
-			// and if the current actor hasn't been chosen and is an instance of the relevant actor class,
-			// add it to the list of chosen actors.
-			Name actorName = String.Format(bountyThinker.GetClassName()).Mid(14);
-			if (actor is actorName)
-			{
-				let thinker = BountyThinker(new(bountyThinker));
-				let bounty = thinker.GetBounty();
-				thinker.destroy();
-
-				return bounty;
-			}
-		}
+		// Find the BountyTarget that is associated with the given actor,
+		// and return its configured bounty value.
+		forEach (target : BountyTargets) if (actor is target.targetCls) return target.value;
 
 		return -1;
 	}
@@ -216,94 +207,119 @@ class BountyBodyTrail : Actor
 // 
 // ----------------------------------------------------------------------
 
-class BountyThinker : Thinker abstract
-{
-	private Actor Target;
-	private BountyEffect Effect;
-	abstract int GetBounty();
+class BountyTarget {
+	name targetCls;
+	int value;
 
-	static BountyThinker Create(class<BountyThinker> cls, Actor other, class<BountyEffect> effect = null)
-	{
-		let thk = BountyThinker(new(cls));
-		thk.Target = other;
+	name effectCls;
 
-		if (effect)
-		{
-			thk.Effect = BountyEffect(new(effect));
+	static BountyTarget Create(name targetCls, int value, name effectCls = '') {
+		let bounty = BountyTarget(new('BountyTarget'));
+
+		if (bounty) {
+			bounty.targetCls = targetCls;
+			bounty.value = value;
+
+			bounty.effectCls = effectCls;
 		}
-		else
-		{
-			Array<class<BountyEffect> > effects;
-			for (int i = 0; i < AllClasses.Size(); ++i)
-			{
-				if (AllClasses[i] is 'BountyEffect' && !AllClasses[i].IsAbstract())
-				{
-					effects.Push((class<BountyEffect>)(AllClasses[i]));
-				}
-			}
-			thk.Effect = BountyEffect(new(effects[random(0, effects.Size() - 1)]));
-		}
-		thk.Effect.Target = other;
-		thk.Effect.Init();
-		return thk;
+
+		return bounty;
 	}
 
-	override void Tick()
-	{
-		if (!Target || !Effect)
-		{
-			Destroy();
-			return;
-		}
-
-		if (Target.Health <= 0)
-		{
-			Target.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.5);
-
-			int amt = AceCore.GiveToPlayers('MercenaryBucks', GetBounty());
-			string amtMsg = "\c[Green]$"..amt.."\c- have been deposited into your account.";
-			if (!random(0, 12))
-			{
-				amtMsg = "\c[Gold]"..amt.."\c- golds have been deposited into your Swiss bank account.";
-			}
-			Target.A_Log("\c[Red]!!! BOUNTY TARGET EXECUTED !!!\c-\n"..amtMsg);
-			Destroy();
-			return;
-		}
-		else
-		{
-			Effect.Tick();
-		}
-	}
-
-	override void OnDestroy()
-	{
-		if (Effect)
-		{
-			Effect.Destroy();
-		}
+	string toString() {
+		return String.format(
+			"{ targetCls=%s, effectCls=%s, value=%i }",
+			   targetCls,    effectCls,    value
+		);
 	}
 }
 
-// ----------------------------------------------------------------------
-// 
-// ----------------------------------------------------------------------
+class BountyThinker : Thinker {
 
-class BountyThinker_Babuin : BountyThinker { override int GetBounty() { return 200; } }
-class BountyThinker_HDHumanoid : BountyThinker { override int GetBounty() { return 250; } }
-class BountyThinker_FighterImp : BountyThinker { override int GetBounty() { return 300; } }
-class BountyThinker_NinjaPirate : BountyThinker { override int GetBounty() { return 350; } }
-class BountyThinker_Macubus : BountyThinker { override int GetBounty() { return 500; } }
-class BountyThinker_Boner : BountyThinker { override int GetBounty() { return 550; } }
-class BountyThinker_Cenobite : BountyThinker { override int GetBounty() { return 600; } }
-class BountyThinker_Knave : BountyThinker { override int GetBounty() { return 600; } }
-class BountyThinker_Necromancer : BountyThinker { override int GetBounty() { return 666; } }
-class BountyThinker_Manticore : BountyThinker { override int GetBounty() { return 700; } }
-class BountyThinker_Baron : BountyThinker { override int GetBounty() { return 800; } }
-class BountyThinker_SatanRobo : BountyThinker { override int GetBounty() { return 2500; } }
-class BountyThinker_Spiderdemon : BountyThinker { override int GetBounty() { return 2500; } }
+	private BountyTarget TargetData;
+	private Actor Target;
+	private BountyEffect Effect;
+	
+	static BountyThinker Create(BountyTarget data, Actor other) {
 
-class BountyThinker_CabalCultist : BountyThinker { override int GetBounty() { return 200; } }
-class BountyThinker_CabalFanatic : BountyThinker { override int GetBounty() { return 250; } }
-class BountyThinker_CabalAcolyte : BountyThinker { override int GetBounty() { return 350; } }
-class BountyThinker_CabalZealot : BountyThinker { override int GetBounty() { return 500; } }
+		let thk = BountyThinker(new("BountyThinker"));
+
+		if (thk) {
+
+			thk.TargetData = data;
+			thk.Target = other;
+	
+			if (data.effectCls && (Class<BountyEffect>)(data.effectCls)) {
+				thk.Effect = BountyEffect(new(data.effectCls));
+			} else {
+
+				// TODO: Refactor into Command Registry?
+				Array< class<BountyEffect> > effects;
+				effects.clear();
+
+				forEach (cls : AllClasses) if (HDCore.IsChildClass(cls, 'BountyEffect')) effects.Push((Class<BountyEffect>)(cls));
+
+				thk.Effect = BountyEffect(new(effects[random(0, effects.Size() - 1)]));
+			}
+
+			thk.Effect.Target = other;
+			thk.Effect.Init();
+		}
+
+		return thk;
+	}
+
+	virtual name GetTargetName() {
+		
+		if (TargetData) return TargetData.targetCls;
+		
+		string clsName = GetClassName();
+		if (clsName.left(14) ~== "BountyThinker_") return clsName.Mid(14);
+
+		return clsName;
+	}
+
+	virtual name GetEffectName() {
+		return Effect.getClassName();
+	}
+
+	virtual int GetBounty() {
+		return TargetData ? TargetData.value : 0;
+	}
+
+	override void Tick() {
+
+		// If the tracked target or the defined effect don't exist, quit.
+		if (!Target || !Effect) {
+			Destroy();
+			return;
+		}
+
+		// If the tracked target is dead, trigger bounty & clean-up.
+		if (Target.Health <= 0) {
+			Target.A_StartSound("Bounty/HelloILikeMoney", 10, CHANF_OVERLAP, attenuation: 0.5);
+
+			int amt = AceCore.GiveToPlayers('MercenaryBucks', GetBounty());
+
+			// TODO: Define random deposit string format registry?
+			string amtMsg = "\c[Green]$"..amt.."\c- have been deposited into your account.";
+			if (!random(0, 12)) {
+				amtMsg = "\c[Gold]"..amt.."\c- golds have been deposited into your Swiss bank account.";
+			}
+
+			Target.A_Log("\c[Red]!!! BOUNTY TARGET EXECUTED !!!\c-\n"..amtMsg);
+
+			Destroy();
+			return;
+		}
+
+		// Otherwise, just tick the Effect.
+		Effect.Tick();
+	}
+
+	override void OnDestroy() {
+		if (Effect) Effect.Destroy();
+
+		TargetData.Destroy();
+	}
+}
