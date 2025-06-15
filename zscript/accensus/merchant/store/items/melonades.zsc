@@ -6,6 +6,7 @@ class HDMG13Store : StoreItem
 	override int GetType() { return SType_Ammo; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_MG13GRENADE"); }
 	override Name GetItem() { return 'HDMG13GrenadeAmmo'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "MG13A0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_MG13GRENADE"); }
 	override int GetBasePrice() { return 70; }

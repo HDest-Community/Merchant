@@ -7,6 +7,7 @@ class HD10mmPistolMag_Store : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "RadTech Inc."; }
 	override Name GetItem() { return 'HD10mMag12'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "SC15A0"; }
 	override string GetDisplayName() { return "10mm Pistol Magazine"; }
 	override int GetBasePrice() { return 15; }
@@ -20,6 +21,7 @@ class HDSigCowMag_Store : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "RadTech Inc."; }
 	override Name GetItem() { return 'HD10mMag25'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "CM10A0"; }
 	override string GetDisplayName() { return "Sig-Cow Magazine"; }
 	override int GetBasePrice() { return 50; }
