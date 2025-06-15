@@ -6,6 +6,7 @@ class DDAugCanStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AUGCANISTER"); }
 	override Name GetItem() { return 'DD_AugmentationCanister'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "AGCNA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_AUGCANISTER"); }
 	override int GetBasePrice() { return 500; }
@@ -20,6 +21,7 @@ class DDAugUpCanStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_AUGUPGRADE"); }
 	override Name GetItem() { return 'DD_AugmentationUpgradeCanister'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "AUCNA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_AUGUPGRADE"); }
 	override int GetBasePrice() { return 250; }
@@ -33,6 +35,7 @@ class DDBioCellStore : StoreItem
 	override int GetType() { return SType_Item; }
 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_BIOELECTRICCELL"); }
 	override Name GetItem() { return 'DD_BioelectricCell'; }
+	override int GetAmount() { return 1; }
 	override string GetIcon() { return "BCELA0"; }
 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_BIOELECTRICCELL"); }
 	override int GetBasePrice() { return 40; }
