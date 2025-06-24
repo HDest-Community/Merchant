@@ -149,7 +149,9 @@ class MerchantHandler : EventHandler
 					// Look for existing currency definitions
 					StoreCurrency existingCurrency;
 					forEach (c : StoreCurrencies) {
-						if (c.cls == currency) {
+						let currName = c.getCurrencyClass();
+
+						if (currName != '' && currency != '' && currName == currency) {
 							existingCurrency = c;
 							break;
 						}
@@ -227,7 +229,9 @@ class MerchantHandler : EventHandler
 
 					StoreItem existingItem;
 					forEach (i : StoreItems) {
-						if (i.getItem() == item) {
+						let itemName = i.getItem();
+
+						if (itemName != '' && item != '' && itemName == item) {
 							existingItem = i;
 							break;
 						}
@@ -321,7 +325,7 @@ class MerchantHandler : EventHandler
 						StoreItem item;
 						forEach (storeItem : store.StoreItems) {
 
-							if (storeItem.GetClass() == ParsedName[1]) {
+							if (storeItem.GetItem() == ParsedName[1]) {
 								item = storeItem;
 								break;
 							}
@@ -356,7 +360,7 @@ class MerchantHandler : EventHandler
 
 								if (success && a is 'Inventory') Inventory(a).Amount = amount;
 							} else {
-								class<Inventory> InvClass = (class<Inventory>)(ItemClass);
+								class<Inventory> InvClass = ItemClass;
 								int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
 								int MaxActualGive = min(Amount, MaxGive);
 
