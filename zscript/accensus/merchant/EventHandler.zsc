@@ -360,7 +360,7 @@ class MerchantHandler : EventHandler
 
 								if (success && a is 'Inventory') Inventory(a).Amount = amount;
 							} else {
-								class<Inventory> InvClass = ItemClass;
+								class<Inventory> InvClass = (class<Inventory>)(ItemClass);
 								int MaxGive = GetDefaultByType(InvClass).MaxAmount - plr.CountInv(InvClass);
 								int MaxActualGive = min(Amount, MaxGive);
 
