@@ -67,7 +67,16 @@ extend class MerchantHandler
 		
 		// Find the BountyTarget that is associated with the given actor,
 		// and return its configured bounty value.
-		forEach (target : BountyTargets) if (actor is target.targetCls) return target.value;
+		forEach (target : BountyTargets) {
+			if (
+				actor
+				&& target
+				&& target.targetCls != ''
+				&& HDCore.IsChildClass(actor, target.targetCls)
+			) {
+				return target.value;
+			}
+		}
 
 		return -1;
 	}
