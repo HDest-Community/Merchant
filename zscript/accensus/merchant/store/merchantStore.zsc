@@ -60,7 +60,7 @@ extend class MerchantHandler
 	// Get & add all class-defined store items
 	private void InitStores() {
 		forEach (cls : AllClasses) {
-			if (HDCore.IsChildClass(cls, 'StoreItem') {
+			if (HDCore.IsChildClass(cls, 'StoreItem')) {
 				let item = StoreItem(new(cls));
 
 				if (HDCore.CheckClassExists(item.GetItem())) StoreItems.push(item);
@@ -72,7 +72,7 @@ extend class MerchantHandler
 	// Get & add all class-defined store currencies
 	private void InitCurrencies() {
 		forEach (cls : AllClasses) {
-			if (HDCore.IsChildClass(cls, 'StoreCurrency') {
+			if (HDCore.IsChildClass(cls, 'StoreCurrency')) {
 				let currency = StoreCurrency(new(cls));
 
 				if (HDCore.CheckClassExists(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
