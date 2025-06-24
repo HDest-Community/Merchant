@@ -7,7 +7,17 @@ class MerchantMenuHandler : HDZFHandler {
 
         switch (cmd) {
             case 'buyItem':
-                EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", MerchantItemBtn(btn).item.GetItem()), menu.SelCurrencyIndex);
+                let itemBtn = MerchantItemBtn(btn);
+
+                if (itemBtn && itemBtn.item && itemBtn.item.GetItem() != '') {
+                    EventHandler.SendNetworkEvent(
+                        String.Format(
+                            "HDM_BuyStuff:%s",
+                            itemBtn.item.GetItem()
+                        ),
+                        menu.SelCurrencyIndex
+                    );
+                }
                 break;
             default:
                 if (hdm_debug) console.printf("Unknown Command: "..cmd);
