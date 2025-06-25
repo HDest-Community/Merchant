@@ -50,9 +50,11 @@ extend class MerchantHandler
 
 				if (chosenActors.find(randAct) < chosenActors.size() && randAct is target.targetCls) {
 
-					if (hdm_debug) Console.Printf(
-						"--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-						randAct.GetTag(), randAct.pos.x, randAct.pos.y
+					if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+						'Merchant', LOGGING_DEBUG, String.format(
+							"--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+							randAct.GetTag(), randAct.pos.x, randAct.pos.y
+						)
 					);
 
 					BountyThinker.Create(target, randAct);
