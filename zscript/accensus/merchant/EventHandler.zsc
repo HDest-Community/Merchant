@@ -27,18 +27,32 @@ class MerchantHandler : EventHandler
 		initStores();
 		loadMerchantLists(cmdReader.commands);
 
-		if (hdm_debug) {
-			Console.printF("Merchant Bounty Targets:");
-			forEach (target : BountyTargets) Console.printF(" * "..target.toString());
+		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) {
+			let msg = "Merchant Bounty Targets:\n";
+			
+			forEach (target : BountyTargets) msg = msg.." * "..target.toString().."\n";
 
-			Console.printF("Merchant Safe Maps:");
-			forEach (mapName : SafeMapNames) Console.printF(" * "..mapName);
+            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 
-			Console.printF("Merchant Currencies:");
-			forEach (currency : StoreCurrencies) Console.printF(" * "..currency.toString());
 
-			Console.printF("Merchant Store Items:");
-			forEach (item : StoreItems) Console.printF(" * "..item.toString());
+			msg = "Merchant Safe Maps:\n";
+
+			forEach (mapName : SafeMapNames) msg = msg.." * "..mapName.."\n";
+
+            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+
+
+			msg = "Merchant Currencies:\n";
+			forEach (currency : StoreCurrencies) msg = msg.." * "..currency.toString().."\n";
+
+            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+
+
+			msg = "Merchant Store Items:\n";
+
+			forEach (item : StoreItems) msg = msg.." * "..item.toString().."\n";
+
+            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 		}
 
 		initialized = true;
@@ -417,18 +431,22 @@ class MerchantHandler : EventHandler
 		// Initialize the stores for this map
 		for (int i = 0; i < Stores.Size(); ++i) InitStore(i);
 		
-		if (hdm_debug) {
-			Console.printF("Merchant Stores:");
+		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) {
+			let msg = "Merchant Stores:\n";
+
 			forEach (store : Stores) {
 				forEach (category : store.Categories) {
-					Console.printF(" * "..category.." Items:");
+					msg = msg.." * "..category.." Items:\n";
+
 					forEach (item : store.StoreItems) {
 						if (item.GetCategory() == category) {
-							Console.printF("   * "..item.toString());
+							msg = msg.."   * "..item.toString().."\n";
 						}
 					}
 				}
 			}
+
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 		}
 
 		Array<class<HDMerchant> > AvailableMerchants;
@@ -495,13 +513,13 @@ class MerchantHandler : EventHandler
 		if (MoneyMode == 0 || MoneyMode == 2) {
 
 			for (int i = secretSectors.Size() - 1; i >= 0; --i) {
-				if (hdm_debug >= 2 || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
+				if (hdm_debug || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
 					SpawnedTiberium = true;
 
 					SpawnCrystals(secretSectors[i]);
 					secretSectors.Delete(i);
 
-					if (hdm_debug < 2) break;
+					if (hdm_debug) break;
 				}
 			}
 		}
@@ -520,9 +538,11 @@ class MerchantHandler : EventHandler
 			a.angle = sec.GetUDMFInt('user_merchantangle');
 			AvailableMerchants.Delete(spawnIndex);
 
-			if (hdm_debug) Console.Printf(
-				"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-				a.GetTag(), spawnPos.x, spawnPos.y
+			if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+				'Merchant', LOGGING_DEBUG, String.format(
+					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					a.GetTag(), spawnPos.x, spawnPos.y
+				)
 			);
 
 			if (--MerchantsLeft == 0) break;
@@ -540,9 +560,11 @@ class MerchantHandler : EventHandler
 				AvailableMerchants.Delete(spawnIndex);
 				secretSectors.Delete(i--);
 
-				if (hdm_debug) Console.Printf(
-					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-					a.GetTag(), spawnPos.x, spawnPos.y
+				if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+					'Merchant', LOGGING_DEBUG, String.format(
+						"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+						a.GetTag(), spawnPos.x, spawnPos.y
+					)
 				);
 
 				if (--MerchantsLeft == 0) break;
@@ -564,9 +586,11 @@ class MerchantHandler : EventHandler
 			a.angle = dedicatedSlotSectors[i].GetUDMFInt('user_slotmachineangle');
 			spawnedMachine = true;
 
-			if (hdm_debug ) Console.Printf(
-				"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-				a.GetTag(), spawnPos.x, spawnPos.y
+			if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+				'Merchant', LOGGING_DEBUG, String.format(
+					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					a.GetTag(), spawnPos.x, spawnPos.y
+				)
 			);
 		}
 
@@ -581,9 +605,11 @@ class MerchantHandler : EventHandler
 				a.angle = secretSectors[i].GetUDMFInt('user_slotmachineangle');
 				secretSectors.Delete(i--);
 
-				if (hdm_debug) Console.Printf(
-					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-					a.GetTag(), spawnPos.x, spawnPos.y
+				if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+					'Merchant', LOGGING_DEBUG, String.format(
+						"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+						a.GetTag(), spawnPos.x, spawnPos.y
+					)
 				);
 
 				break;
