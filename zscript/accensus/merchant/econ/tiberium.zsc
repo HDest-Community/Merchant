@@ -121,11 +121,12 @@ extend class MerchantHandler
 			average /= crystalCount;
 		}
 
-		if (hdm_debug > 0)
-		{
-			Console.Printf("--------------------\nSpawned "..(isBlue ? "\c[Blue]" : "\c[Green]").."%i\c- crystals. Remaining health: \c[Red]%i\c- out of \c[Red]%i\c- (x \c[Red]%.2f\c-). Low/avg/high: \c[Red]%i\c-/\c[Red]%i\c-/\c[Red]%i\c-.\nSector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c- size/avg is \c[Brick]%i\c-/\c[Brick]%i\c-. Took \c[Gold]%i\c- tries.",
-				crystalCount, totalCrystalHealth, originalTotal, scaleFac, lowest, average, highest, s.centerspot.x, s.centerspot.y, size, avgSize, tries);
-		}
+		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+			'Merchant', LOGGING_DEBUG, String.format(
+				"--------------------\nSpawned "..(isBlue ? "\c[Blue]" : "\c[Green]").."%i\c- crystals. Remaining health: \c[Red]%i\c- out of \c[Red]%i\c- (x \c[Red]%.2f\c-). Low/avg/high: \c[Red]%i\c-/\c[Red]%i\c-/\c[Red]%i\c-.\nSector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c- size/avg is \c[Brick]%i\c-/\c[Brick]%i\c-. Took \c[Gold]%i\c- tries.",
+				crystalCount, totalCrystalHealth, originalTotal, scaleFac, lowest, average, highest, s.centerspot.x, s.centerspot.y, size, avgSize, tries
+			)
+		);
 	}
 }
 

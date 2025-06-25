@@ -73,7 +73,8 @@ class MerchantCurrencyFrame : HDZFFrame {
                 currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
                 return true;
             default:
-                if (hdm_debug) console.printf("Unknown NavEvent Type: "..type);
+                HDCore.Log('Merchant', LOGGING_WARN, "Unknown NavEvent Type: "..type);
+
                 return super.onNavEvent(type, fromController);
         }
     }
