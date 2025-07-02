@@ -331,6 +331,6 @@ class BountyThinker : Thinker {
 	override void OnDestroy() {
 		if (Effect) Effect.Destroy();
 
-		TargetData.Destroy();
+		if (TargetData) TargetData.Destroy();
 	}
 }
