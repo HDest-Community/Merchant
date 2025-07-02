@@ -52,7 +52,7 @@ extend class MerchantHandler
 
 					if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
 						'Merchant', LOGGING_DEBUG, String.format(
-							"--------------------\nSelected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+							"Selected %s for bounty target, located @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 							randAct.GetTag(), randAct.pos.x, randAct.pos.y
 						)
 					);
