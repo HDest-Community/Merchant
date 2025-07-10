@@ -5,13 +5,13 @@ class MercenaryBucksPickup : BaseCurrencyPickup abstract
     {
         super.Tick();
 
-        A_ChangeFlag("SHOOTABLE", hdm_moneyshootable);
+        bSHOOTABLE = hdm_moneyshootable;
 
         let time = level.time - spawnTime;
         let velAdj = 1 - (0.5 / max(1, (TICRATE - time)));
 
         vel = (vel.x * velAdj, vel.y * velAdj, vel.z);
-        roll = velZ ? 30 * sin(time * 5) - 5 : 0;
+        roll = vel.z ? 30 * sin(time * 5) - 5 : 0;
     }
 
     default

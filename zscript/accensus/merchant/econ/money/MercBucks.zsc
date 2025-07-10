@@ -45,9 +45,9 @@ class MercenaryBucks : HDPickup {
     override void Tick() {
         Super.Tick();
 
-        A_ChangeFlag("HDPICKUP.FITSINBACKPACK", hdm_moneydroppable);
-        A_ChangeFlag("INVENTORY.UNDROPPABLE", !hdm_moneydroppable);
-        A_ChangeFlag("SHOOTABLE", hdm_moneyshootable);
+        bFITSINBACKPACK = hdm_moneydroppable;
+        bUNDROPPABLE = !hdm_moneydroppable;
+        bSHOOTABLE = hdm_moneyshootable;
     }
 
     override double getbulk() {
