@@ -1,15 +1,15 @@
-class HD50AEStore : StoreItem
-{
-	override bool IsEnabled() { return hdm_enable_50ae; }
-	override int GetType() { return SType_Ammo; }
-	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AE"); }
-	override Name GetItem() { return StoreItem.CheckClassExists('Reusable50AEBox') ? 'Reusable50AEBox' : 'HD50AEAmmo'; }
-	override int GetAmount() { return StoreItem.CheckClassExists('Reusable50AEBox') ? 1 : 50; }
-	override string GetIcon() { return "50AEX0"; }
-	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_50AE"); }
-	override int GetBasePrice() { return 60; }
-	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_50AE"); }
-}
+// class HD50AEStore : StoreItem
+// {
+// 	override bool IsEnabled() { return hdm_enable_50ae; }
+// 	override int GetType() { return SType_Ammo; }
+// 	override string GetCategory() { return Stringtable.localize("$MERCH_CAT_50AE"); }
+// 	override Name GetItem() { return StoreItem.CheckClassExists('Reusable50AEBox') ? 'Reusable50AEBox' : 'HD50AEAmmo'; }
+// 	override int GetAmount() { return StoreItem.CheckClassExists('Reusable50AEBox') ? 1 : 50; }
+// 	override string GetIcon() { return "50AEX0"; }
+// 	override string GetDisplayName() { return Stringtable.localize("$MERCH_TAG_50AE"); }
+// 	override int GetBasePrice() { return 60; }
+// 	override string GetFlavorText() { return Stringtable.localize("$MERCH_FLAVOR_50AE"); }
+// }
 
 class HD12gSlugsStore : StoreItem
 {
