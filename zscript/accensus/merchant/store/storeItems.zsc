@@ -22,6 +22,7 @@ class StoreItem {
     string flavorText;
     int baseAmount;
     int basePrice;
+    int baseStoreAmount;
 
     // The current amount in the store
     int StoreAmount;
@@ -41,21 +42,23 @@ class StoreItem {
         string displayName,
         string flavorText,
         int baseAmount,
-        int basePrice
+        int basePrice,
+        int baseStoreAmount
     ) {
         let item = StoreItem(new('StoreItem'));
 
         if (item) {
-            item.enabled     = enabled;
-            item.chance      = chance;
-            item.type        = type;
-            item.category    = category;
-            item.itemName    = itemName;
-            item.icon        = icon;
-            item.displayName = displayName;
-            item.flavorText  = flavorText;
-            item.baseAmount  = baseAmount;
-            item.basePrice   = basePrice;
+            item.enabled         = enabled;
+            item.chance          = chance;
+            item.type            = type;
+            item.category        = category;
+            item.itemName        = itemName;
+            item.icon            = icon;
+            item.displayName     = displayName;
+            item.flavorText      = flavorText;
+            item.baseAmount      = baseAmount;
+            item.basePrice       = basePrice;
+            item.baseStoreAmount = baseStoreAmount;
         }
 
         return item;
@@ -82,41 +85,41 @@ class StoreItem {
     virtual int GetBasePrice() { return basePrice; }
 
     // TODO: Refactor thresholds, types, amounts into commands?
-    virtual int GetStoreAmount()
-    {
-        switch (GetType())
-        {
-            case SType_Weapon:
-            {
+    virtual int GetStoreAmount() {
+
+        // If we explicitly have a base store amount set, simply return that.
+        if (baseStoreAmount) return baseStoreAmount;
+
+        // Otherwise, determine it based on type
+        switch (GetType()) {
+            case SType_Weapon: {
                 return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
             }
-            case SType_Ammo:
-            {
-                if (GetAmount() == 1)
-                {
+            case SType_Ammo: {
+                if (GetAmount() == 1) {
                     return random[merchrand](1, 5) * hdm_stock_ammo;
                 }
+
                 return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6)) * hdm_stock_ammo;
             }
-            case SType_Item:
-            {
-                if (GetBasePrice() <= 15)
-                {
+            case SType_Item: {
+                if (GetBasePrice() <= 15) {
                     return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7)) * hdm_stock_item;
                 }
-                if (GetBasePrice() <= 40)
-                {
+
+                if (GetBasePrice() <= 40) {
                     return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5) * hdm_stock_item;
                 }
-                if (GetBasePrice() <= 80)
-                {
+
+                if (GetBasePrice() <= 80) {
                     return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3) * hdm_stock_item;
                 }
+
                 return 1 * hdm_stock_item;
             }
+            default:
+                return 666;
         }
-
-        return 666;
     }
 
     string ToString() {
