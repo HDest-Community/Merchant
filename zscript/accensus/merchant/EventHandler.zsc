@@ -1,297 +1,285 @@
-class MerchantHandler : EventHandler
+class MerchantHandler : HDCoreEventHandler
 {
 	private int MoneyMode;
 	private bool SpawnedTiberium;
 
 	Array<name> NonBountyBlacklist;
 
-	bool initialized;
-
-	// Populates the Merchant Store Lists.
-	void init() {
-
-		if (initialized) return;
-
+	override void beforeProcessCommands() {
 		BountyTargets.clear();
 		NonBountyBlacklist.clear();
 		SafeMapNames.clear();
 		StoreCurrencies.clear();
 		StoreItems.clear();
-
-		let cmdReader = HDCoreInfoReader(StaticEventHandler.find('HDCoreInfoReader'));
 		
-		// Process all HDCore Commands,
-		// as well as all loaded Child Classes for Bounties, Store Items/Currencies, etc.
 		initBounties();
 		initCurrencies();
 		initStores();
-		loadMerchantLists(cmdReader.commands);
+	}
 
+	override void processCommand(HDCoreCommand cmd) {
+		switch (cmd.command) {
+			case 'newMerchantBountyTarget': {
+
+				// Get Target's ClassName and check if it's valid
+				let name = cmd.getNameParam("name");
+				Class<Actor> cls = name;
+
+				// If the target's class doesn't exist, quit.
+				if (!cls) break;
+
+				// get remaining params
+				let effect = cmd.getNameParam("effect");
+				let value = cmd.getIntParam("value");
+
+				// Look for existing bounty target definitions
+				BountyTarget existingTarget;
+				forEach (t : BountyTargets) {
+					if (t.targetCls == name) {
+						existingTarget = t;
+						break;
+					}
+				}
+
+				// If an existing target for this class already exists, quit.
+				if (existingTarget) break;
+
+				// Create the new Bounty Target and add it to the registry.
+				let newTarget = BountyTarget.create(name, value, effect);
+
+				if (newTarget) BountyTargets.push(newTarget);
+
+				break;
+			}
+			case 'removeMerchantBountyTarget': {
+
+				let name = cmd.getNameParam("name");
+
+				forEach (target : BountyTargets) {
+					if (target.targetCls == name) {
+						BountyTargets.delete(BountyTargets.find(target));
+						break;
+					}
+				}
+
+				break;
+			}
+			case 'clearMerchantBountyTargets': {
+				BountyTargets.clear();
+				break;
+			}
+			case 'addMerchantNonBountyBlacklist': {
+				
+				let name = cmd.getNameParam("name");
+
+				if (name && NonBountyBlacklist.find(name) == NonBountyBlacklist.size()) NonBountyBlacklist.push(name);
+
+				break;
+			}
+			case 'removeMerchantNonBountyBlacklist': {
+
+				let name = cmd.getNameParam("name");
+
+				if (NonBountyBlacklist.find(name) < NonBountyBlacklist.size()) NonBountyBlacklist.delete(NonBountyBlacklist.find(name));
+
+				break;
+			}
+			case 'clearMerchantNonBountyBlacklist': {
+				NonBountyBlacklist.clear();
+				break;
+			}
+			case 'addMerchantSafeMap': {
+				let name = cmd.getNameParam("name");
+
+				if (name && SafeMapNames.find(name) == SafeMapNames.size()) SafeMapNames.push(name);
+				break;
+			}
+			case 'removeMerchantSafeMap': {
+				let name = cmd.getNameParam("name");
+
+				if (SafeMapNames.find(name) < SafeMapNames.size()) SafeMapNames.delete(SafeMapNames.find(name));
+
+				break;
+			}
+			case 'clearMerchantSafeMaps': {
+				SafeMapNames.clear();
+				break;
+			}
+			case 'newMerchantStoreCurrency': {
+				
+				// Get Currency name and check if it's valid
+				let currency = cmd.getNameParam("name");
+				Class<Inventory> currencyCls = currency;
+
+				// If the currency's class doesn't exist, quit.
+				if (!currencyCls) break;
+
+				// get remaining params
+				let icon = cmd.getStringParam("icon");
+				let priceMult = cmd.getDoubleParam("priceMult", 1.0);
+
+				// Look for existing currency definitions
+				StoreCurrency existingCurrency;
+				forEach (c : StoreCurrencies) {
+					let currName = c.getCurrencyClass();
+
+					if (currName != '' && currency != '' && currName == currency) {
+						existingCurrency = c;
+						break;
+					}
+				}
+
+				// If an existing currency for this class already exists, quit.
+				if (existingCurrency) break;
+
+				// Create the new currency and add it to the registry.
+				let newCurrency = StoreCurrency.create(currency, icon, priceMult);
+
+				if (newCurrency) StoreCurrencies.push(newCurrency);
+
+				break;
+			}
+			case 'removeMerchantStoreCurrency': {
+				let currency = cmd.getNameParam("name");
+
+				forEach (storeCurrency : StoreCurrencies) {
+					if (storeCurrency.cls == currency) {
+						StoreCurrencies.delete(StoreCurrencies.find(storeCurrency));
+						break;
+					}
+				}
+
+				break;
+			}
+			case 'clearMerchantStoreCurrencies': {
+				StoreCurrencies.clear();
+				break;
+			}
+			case 'newMerchantStoreItem': {
+				
+				// Get Item name and check if it's valid
+				let item = cmd.getNameParam("item");
+				Class<Actor> itemCls = item;
+				
+				// If the item's class doesn't exist, quit.
+				if (!itemCls) break;
+				
+				// Get Item type and check if it's valid
+				let type = cmd.getNameParam("type");
+				int sType = -1;
+				switch (type) {
+					case 'ammo': {
+						sType = SType_Ammo;
+						break;
+					}
+					case 'item': {
+						sType = SType_Item;
+						break;
+					}
+					case 'weapon': {
+						sType = SType_Weapon;
+						break;
+					}
+					default: {
+						Console.printF("\c[Red][MerchantHandler] Unknown Merchant Store Type: "..cmd.getNameParam("type"));
+						break;
+					}
+				}
+				
+				// If the item type isn't valid, quit.
+				if (sType < 0) break;
+
+				// get remaining params
+				let enabled = cmd.getBoolParam("enabled", true);
+				let chance = cmd.getDoubleParam("chance", CVar.GetCVar(merchChances[sType]).GetFloat());
+				let category = cmd.getStringParam("category", type);
+				let icon = cmd.getStringParam("icon");
+				let displayName = cmd.getStringParam("displayName", item);
+				let flavorText = cmd.getStringParam("flavorText");
+				let baseAmount = cmd.getIntParam("amount", 1);
+				let basePrice = cmd.getIntParam("basePrice", 1);
+
+				StoreItem existingItem;
+				forEach (i : StoreItems) {
+					let itemName = i.getItem();
+
+					if (itemName != '' && item != '' && itemName == item) {
+						existingItem = i;
+						break;
+					}
+				}
+
+				// If an existing store item for this class already exists, quit.
+				if (existingItem) break;
+
+				// Create the new store item and add it to the registry.
+				let newItem = StoreItem.create(
+					enabled,
+					chance,
+					sType,
+					category,
+					item,
+					icon,
+					displayName,
+					flavorText,
+					baseAmount,
+					basePrice
+				);
+
+				if (newItem) StoreItems.push(newitem);
+
+				break;
+			}
+			case 'removeMerchantStoreItem': {
+				let item = cmd.getNameParam("name");
+
+				forEach (storeItem : StoreItems) {
+					if (storeItem.getItem() == item) {
+						StoreItems.delete(StoreItems.find(storeItem));
+						break;
+					}
+				}
+
+				break;
+			}
+			case 'clearMerchantStoreItems': {
+				StoreItems.clear();
+				break;
+			}
+			default: {
+				break;
+			}
+		}
+	}
+
+	override void afterProcessCommands() {
 		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) {
+
 			let msg = "Merchant Bounty Targets:\n";
 			
 			forEach (target : BountyTargets) msg = msg.." * "..target.toString().."\n";
 
-            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Safe Maps:\n";
 
 			forEach (mapName : SafeMapNames) msg = msg.." * "..mapName.."\n";
 
-            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Currencies:\n";
 			forEach (currency : StoreCurrencies) msg = msg.." * "..currency.toString().."\n";
 
-            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Store Items:\n";
 
 			forEach (item : StoreItems) msg = msg.." * "..item.toString().."\n";
 
-            HDCore.Log('Merchant', LOGGING_DEBUG, msg);
-		}
-
-		initialized = true;
-	}
-
-	void loadMerchantLists(Array<HDCoreCommand> cmds) {
-		forEach (cmd : cmds) {
-			switch (cmd.command) {
-				case 'newMerchantBountyTarget': {
-
-					// Get Target's ClassName and check if it's valid
-					let name = cmd.getNameParam("name");
-					Class<Actor> cls = name;
-
-					// If the target's class doesn't exist, quit.
-					if (!cls) break;
-
-					// get remaining params
-					let effect = cmd.getNameParam("effect");
-					let value = cmd.getIntParam("value");
-
-					// Look for existing bounty target definitions
-					BountyTarget existingTarget;
-					forEach (t : BountyTargets) {
-						if (t.targetCls == name) {
-							existingTarget = t;
-							break;
-						}
-					}
-
-					// If an existing target for this class already exists, quit.
-					if (existingTarget) break;
-
-					// Create the new Bounty Target and add it to the registry.
-					let newTarget = BountyTarget.create(name, value, effect);
-
-					if (newTarget) BountyTargets.push(newTarget);
-
-					break;
-				}
-				case 'removeMerchantBountyTarget': {
-
-					let name = cmd.getNameParam("name");
-
-					forEach (target : BountyTargets) {
-						if (target.targetCls == name) {
-							BountyTargets.delete(BountyTargets.find(target));
-							break;
-						}
-					}
-
-					break;
-				}
-				case 'clearMerchantBountyTargets': {
-					BountyTargets.clear();
-					break;
-				}
-				case 'addMerchantNonBountyBlacklist': {
-					
-					let name = cmd.getNameParam("name");
-
-					if (name && NonBountyBlacklist.find(name) == NonBountyBlacklist.size()) NonBountyBlacklist.push(name);
-
-					break;
-				}
-				case 'removeMerchantNonBountyBlacklist': {
-
-					let name = cmd.getNameParam("name");
-
-					if (NonBountyBlacklist.find(name) < NonBountyBlacklist.size()) NonBountyBlacklist.delete(NonBountyBlacklist.find(name));
-
-					break;
-				}
-				case 'clearMerchantNonBountyBlacklist': {
-					NonBountyBlacklist.clear();
-					break;
-				}
-				case 'addMerchantSafeMap': {
-					let name = cmd.getNameParam("name");
-
-					if (name && SafeMapNames.find(name) == SafeMapNames.size()) SafeMapNames.push(name);
-					break;
-				}
-				case 'removeMerchantSafeMap': {
-					let name = cmd.getNameParam("name");
-
-					if (SafeMapNames.find(name) < SafeMapNames.size()) SafeMapNames.delete(SafeMapNames.find(name));
-
-					break;
-				}
-				case 'clearMerchantSafeMaps': {
-					SafeMapNames.clear();
-					break;
-				}
-				case 'newMerchantStoreCurrency': {
-					
-					// Get Currency name and check if it's valid
-					let currency = cmd.getNameParam("name");
-					Class<Inventory> currencyCls = currency;
-
-					// If the currency's class doesn't exist, quit.
-					if (!currencyCls) break;
-
-					// get remaining params
-					let icon = cmd.getStringParam("icon");
-					let priceMult = cmd.getDoubleParam("priceMult", 1.0);
-
-					// Look for existing currency definitions
-					StoreCurrency existingCurrency;
-					forEach (c : StoreCurrencies) {
-						let currName = c.getCurrencyClass();
-
-						if (currName != '' && currency != '' && currName == currency) {
-							existingCurrency = c;
-							break;
-						}
-					}
-
-					// If an existing currency for this class already exists, quit.
-					if (existingCurrency) break;
-
-					// Create the new currency and add it to the registry.
-					let newCurrency = StoreCurrency.create(currency, icon, priceMult);
-
-					if (newCurrency) StoreCurrencies.push(newCurrency);
-
-					break;
-				}
-				case 'removeMerchantStoreCurrency': {
-					let currency = cmd.getNameParam("name");
-
-					forEach (storeCurrency : StoreCurrencies) {
-						if (storeCurrency.cls == currency) {
-							StoreCurrencies.delete(StoreCurrencies.find(storeCurrency));
-							break;
-						}
-					}
-
-					break;
-				}
-				case 'clearMerchantStoreCurrencies': {
-					StoreCurrencies.clear();
-					break;
-				}
-				case 'newMerchantStoreItem': {
-					
-					// Get Item name and check if it's valid
-					let item = cmd.getNameParam("item");
-					Class<Actor> itemCls = item;
-					
-					// If the item's class doesn't exist, quit.
-					if (!itemCls) break;
-					
-					// Get Item type and check if it's valid
-					let type = cmd.getNameParam("type");
-					int sType = -1;
-					switch (type) {
-						case 'ammo': {
-							sType = SType_Ammo;
-							break;
-						}
-						case 'item': {
-							sType = SType_Item;
-							break;
-						}
-						case 'weapon': {
-							sType = SType_Weapon;
-							break;
-						}
-						default: {
-							Console.printF("\c[Red][MerchantHandler] Unknown Merchant Store Type: "..cmd.getNameParam("type"));
-							break;
-						}
-					}
-					
-					// If the item type isn't valid, quit.
-					if (sType < 0) break;
-
-					// get remaining params
-					let enabled = cmd.getBoolParam("enabled", true);
-					let chance = cmd.getDoubleParam("chance", CVar.GetCVar(merchChances[sType]).GetFloat());
-					let category = cmd.getStringParam("category", type);
-					let icon = cmd.getStringParam("icon");
-					let displayName = cmd.getStringParam("displayName", item);
-					let flavorText = cmd.getStringParam("flavorText");
-					let baseAmount = cmd.getIntParam("amount", 1);
-					let basePrice = cmd.getIntParam("basePrice", 1);
-
-					StoreItem existingItem;
-					forEach (i : StoreItems) {
-						let itemName = i.getItem();
-
-						if (itemName != '' && item != '' && itemName == item) {
-							existingItem = i;
-							break;
-						}
-					}
-
-					// If an existing store item for this class already exists, quit.
-					if (existingItem) break;
-
-					// Create the new store item and add it to the registry.
-					let newItem = StoreItem.create(
-						enabled,
-						chance,
-						sType,
-						category,
-						item,
-						icon,
-						displayName,
-						flavorText,
-						baseAmount,
-						basePrice
-					);
-
-					if (newItem) StoreItems.push(newitem);
-
-					break;
-				}
-				case 'removeMerchantStoreItem': {
-					let item = cmd.getNameParam("name");
-
-					forEach (storeItem : StoreItems) {
-						if (storeItem.getItem() == item) {
-							StoreItems.delete(StoreItems.find(storeItem));
-							break;
-						}
-					}
-
-					break;
-				}
-				case 'clearMerchantStoreItems': {
-					StoreItems.clear();
-					break;
-				}
-				default: {
-					break;
-				}
-			}
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 		}
 	}
 
@@ -421,10 +409,9 @@ class MerchantHandler : EventHandler
 
 	override void WorldLoaded(WorldEvent e) {
 
-		if (e.IsReopen) return;
+		super.worldLoaded(e);
 
-        // Populates the main arrays if they haven't been already.
-        if (!initialized) init();
+		if (e.IsReopen) return;
 
 		MoneyMode = hdm_moneymode == 3 ? random(0, 1) : hdm_moneymode;
 		
