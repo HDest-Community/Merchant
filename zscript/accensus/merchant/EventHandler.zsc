@@ -198,6 +198,7 @@ class MerchantHandler : HDCoreEventHandler
 				let flavorText = cmd.getStringParam("flavorText");
 				let baseAmount = cmd.getIntParam("amount", 1);
 				let basePrice = cmd.getIntParam("basePrice", 1);
+				let baseStoreAmount = cmd.getIntParam("storeAmount");
 
 				StoreItem existingItem;
 				forEach (i : StoreItems) {
@@ -223,7 +224,8 @@ class MerchantHandler : HDCoreEventHandler
 					displayName,
 					flavorText,
 					baseAmount,
-					basePrice
+					basePrice,
+					baseStoreAmount
 				);
 
 				if (newItem) StoreItems.push(newitem);
