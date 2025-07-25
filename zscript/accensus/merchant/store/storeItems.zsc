@@ -1,5 +1,4 @@
-enum ItemType
-{
+enum ItemType {
     SType_Weapon,
     SType_Ammo,
     SType_Item
@@ -11,10 +10,8 @@ class StoreItem {
     // VARIABLES
     // --------------------------------------------------
 
-    bool enabled;
+    name type;
     double chance;
-    
-    int type;
     string category;
     name itemName;
     string icon;
@@ -33,9 +30,8 @@ class StoreItem {
     // --------------------------------------------------
 
     static StoreItem Create(
-        bool enabled,
+        name type,
         double chance,
-        int type,
         string category,
         name itemName,
         string icon,
@@ -48,9 +44,8 @@ class StoreItem {
         let item = StoreItem(new('StoreItem'));
 
         if (item) {
-            item.enabled         = enabled;
-            item.chance          = chance;
             item.type            = type;
+            item.chance          = chance;
             item.category        = category;
             item.itemName        = itemName;
             item.icon            = icon;
@@ -73,9 +68,8 @@ class StoreItem {
     // VIRTUALS
     // --------------------------------------------------
 
-    virtual bool IsEnabled() { return enabled; }
+    virtual name GetType() { return type; }
     virtual double GetChance() { return chance; }
-    virtual int GetType() { return type; }
     virtual string GetCategory() { return category; }
     virtual name GetItem() { return itemName; }
     virtual string GetIcon() { return icon; }
@@ -92,17 +86,17 @@ class StoreItem {
 
         // Otherwise, determine it based on type
         switch (GetType()) {
-            case SType_Weapon: {
-                return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
+            case 'weapon': {
+                return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2) * hdm_stock_weapon;
             }
-            case SType_Ammo: {
+            case 'ammo': {
                 if (GetAmount() == 1) {
                     return random[merchrand](1, 5) * hdm_stock_ammo;
                 }
 
                 return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6)) * hdm_stock_ammo;
             }
-            case SType_Item: {
+            case 'item': {
                 if (GetBasePrice() <= 15) {
                     return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7)) * hdm_stock_item;
                 }
@@ -117,22 +111,16 @@ class StoreItem {
 
                 return 1 * hdm_stock_item;
             }
-            default:
+            default: {
                 return 666;
+            }
         }
     }
 
     string ToString() {
-        return "{ enabled="..IsEnabled()
-        ..", type="..GetType()
-        ..", chance="..GetChance()
-        ..", category="..GetCategory()
-        ..", item="..GetItem()
-        ..", icon="..GetIcon()
-        ..", displayName="..GetDisplayName()
-        ..", flavorText="..GetFlavorText()
-        ..", baseAmount="..GetAmount()
-        ..", basePrice="..GetBasePrice()
-        .." }";
+        return String.format(
+            "{ \"type\": \"%s\", \"chance\": %.3f, \"category\": \"%s\", \"item\": \"%s\", \"icon\": \"%s\", \"displayName\": \"%s\", \"flavorText\": \"%s\", \"baseAmount\": %i, \"basePrice\": %i }",
+                 GetType(),        GetChance(),      GetCategory(),        GetItem(),        GetIcon(),        GetDisplayName(),        GetFlavorText(),        GetAmount(),        GetBasePrice()
+        );
     }
 }

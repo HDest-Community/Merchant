@@ -1,11 +1,26 @@
-class HDMerchant : Actor abstract
-{
+class HDMerchant : Actor {
+
+	MerchantHandler handler;
+
 	override void BeginPlay()
 	{
 		Super.BeginPlay();
 		
-		InitSkins();
+		// Give the merchant some starting cash
 		A_GiveInventory('MercenaryBucks', 250);
+		
+		// Grab a reference to the EventHandler
+		handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
+		
+		// If a store type hasn't been set, pick one at random
+		if (!StoreType) {
+			StoreType = handler.Stores[random(0, handler.Stores.Size() - 1)].type;
+
+			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Store type not set, automatically selecting "..StoreType);
+		}
+
+		// Initialize Merchant Skin once its store type is known
+		InitSkins();
 	}
 
 	override void Tick()
@@ -56,7 +71,6 @@ class HDMerchant : Actor abstract
 	override bool Used(Actor user)
 	{
 		let plr = HDPlayerPawn(user);
-		let handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 
 		if (!plr || PiggyBack == plr || Distance3D(plr) > 48 || handler.ActorIsInPokerGame(self))
 		{
@@ -82,72 +96,55 @@ class HDMerchant : Actor abstract
 		if (plr.PlayerNumber() == consoleplayer)
 		{
 			LastUser = plr;
-			handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
+			handler.OpenedStore[plr.PlayerNumber()] = StoreType;
 			Menu.SetMenu('MerchantShopMenu');
 		}
 
-		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop')))
-		{
-			TryPlaySpecialAnimation();
-		}
+		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop'))) SetStateLabel("OpenMenu");
 
 		return true;
 	}
 
-	override bool CanCollideWith(Actor other, bool passive)
-	{
-		if (other is "PlayerPawn")
-		{
-			return Super.CanCollideWith(other, passive);
-		}
-
-		return false;
+	override bool CanCollideWith(Actor other, bool passive) {
+		return other is "PlayerPawn" && Super.CanCollideWith(other, passive);
 	}
 
 	// [Ace] This is complete fucking overkill. It could have been done in like 5 lines of code but I wanted a more "generic" solution.
-	protected void CheckBreathing()
-	{
-		if (BreatheStepHold > 0)
-		{
+	protected void CheckBreathing() {
+		if (BreatheStepHold > 0) {
 			BreatheStepHold--;
 			return;
 		}
 
-		if (BreatheHold > 0)
-		{
+		if (BreatheHold > 0) {
 			BreatheHold--;
 			return;
 		}
 
-		if (BreatheIndex < BreatheStepsHalf)
-		{
+		if (BreatheIndex < BreatheStepsHalf) {
 			A_Setscale(scale.X, scale.Y + BreathescaleStep);
 			BreatheStepHold = BreatheStepDelay;
-			if (++BreatheIndex == BreatheStepsHalf)
-			{
+
+			if (++BreatheIndex == BreatheStepsHalf) {
 				BreatheHold = BreatheInOutDelay;
 			}
-		}
-		else if (BreatheIndex >= BreatheStepsHalf)
-		{
+		} else if (BreatheIndex >= BreatheStepsHalf) {
 			A_Setscale(scale.X, scale.Y - BreathescaleStep);
 			BreatheStepHold = BreatheStepDelay;
-			if (++BreatheIndex == BreatheSteps)
-			{
+
+			if (++BreatheIndex == BreatheSteps) {
 				BreatheIndex = 0;
 				BreatheHold = BreatheInOutDelay;
 			}
 		}
 	}
 
-	protected void BuyingIdle(StateLabel goAwayState, string snd)
-	{
+	protected void BuyingIdle(string goAwayState, string snd) {
+		HDCore.log('Merchant', LOGGING_TRACE, "Buying Idle => goAwayState="..goAwayState..", snd="..snd);
+
 		CheckBreathing();
-		if (!PlayerIsNear)
-		{
-			A_StartSound(snd, CHAN_VOICE);
-			SetStateLabel(goAwayState);
-		}
+
+		if (!PlayerIsNear) SetStateLabel('CloseMenu');
 	}
 
 	const BreatheInOutDelay = 30;
@@ -176,8 +173,8 @@ class HDMerchant : Actor abstract
 
 	private HDMerchantSkin SelectedSkin;
 
-	meta int ItemsType;
-	property ItemsType: ItemsType;
+	string StoreType;
+	property StoreType: StoreType;
 
 	Default
 	{
