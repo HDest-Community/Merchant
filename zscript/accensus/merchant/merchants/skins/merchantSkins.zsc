@@ -1,72 +1,70 @@
-class HDMerchantSkin
-{
-	Name SkinId;
-	vector2 Scale;
-	static HDMerchantSkin Create(Name id, vector2 scl)
-	{
-		HDMerchantSkin Skin = new('HDMerchantSkin');
-		Skin.SkinId = id;
-		Skin.Scale = scl;
-		return Skin;
+class HDMerchantSkin {
+	name skinId;
+	name sprite;
+
+	Vector2 scale;
+
+	string openState;
+	string closeState;
+	
+	string openSound;
+	string closeSound;
+
+	static HDMerchantSkin Create(name id, name sprite = 'HOBM', Vector2 scale = (1.0, 1.0), string openState = "OpenMenu.Default", string openSound = "", string closeState = "SpawnLoop", string closeSound = "") {
+		HDMerchantSkin skin = new('HDMerchantSkin');
+
+		if (skin) {
+			skin.skinId = id;
+			skin.sprite = sprite;
+			skin.scale = scale;
+			skin.openState = openState;
+			skin.openSound = openSound;
+			skin.closeState = closeState;
+			skin.closeSound = closeSound;
+		}
+
+		return skin;
+	}
+
+	string toString() {
+		return String.format(
+			"{ \"skinId\": \"%s\", \"sprite\": \"%s\", \"scale\": (%.2f, %.2f), \"openState\": \"%s\", \"openSound\": \"%s\", \"closeState\": \"%s\", \"closeSound\": \"%s\" }",
+			     skinId,             sprite,             scale.x, scale.y,        openState,             openSound,             closeState,             closeSound
+		);
 	}
 }
 
-extend class HDMerchant
-{
-	private void TryPlaySpecialAnimation()
-	{
-		if (!SelectedSkin)
-		{
-			return;
-		}
+extend class HDMerchant {
 
-		StateLabel SpecAnimState;
-		string Snd;
-		switch (SelectedSkin.SkinId)
-		{
-			case 'RESM': SpecAnimState = 'Buying.ResidentEvil'; Snd = "ResidentEvil/Buying"; break;
-			case 'MSUC': SpecAnimState = 'OpenMenu.Succubus'; Snd = "Succubus/Buying"; break;
-			case 'MSHU': SpecAnimState = 'OpenMenu.Morshu'; Snd = "Morshu/Buying"; break;
-			case 'WTRD': SpecAnimState = 'Buying.WanderingTrader'; Snd = "WanderingTrader/Buying"; break;
-			case 'DAI1': SpecAnimState = 'OpenMenu.Daina.Default'; Snd = "Daina/Default/Buying"; break;
-			case 'DAI2': SpecAnimState = 'OpenMenu.Daina.Bunny'; Snd = "Daina/Bunny/Buying"; break;
-			case 'DAI3': SpecAnimState = 'OpenMenu.Daina.Maid'; Snd = "Daina/Maid/Buying"; break;
-			case 'DAI4': SpecAnimState = 'OpenMenu.Daina.Labcoat'; Snd = "Daina/Labcoat/Buying"; break;
-			case 'NAR1': SpecAnimState = 'OpenMenu.Nari.Succubus'; Snd = "Nari/Succubus/Buying"; break;
-		}
+	void InitSkins() {
 
-		if (SpecAnimState)
-		{
-			A_StartSound(Snd, CHAN_VOICE);
-			SetStateLabel(SpecAnimState);
-		}
-	}
+		// Grab a reference to the Skin Registry Event Handler
+		let handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 
-	void InitSkins()
-	{
-		static const Name CVarNames[] = { 'hdm_skin_weapon', 'hdm_skin_ammo', 'hdm_skin_item' };
+		// Create a list to store the intended skins
 		Array<HDMerchantSkin> AvailableSkins;
-		int SelectedSkins = CVar.GetCVar(CVarNames[ItemsType], players[consoleplayer]).GetInt();
+		AvailableSkins.clear();
 
-		if (SelectedSkins & 1 << 0) { AvailableSkins.Push(HDMerchantSkin.Create('RESM', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 1) { AvailableSkins.Push(HDMerchantSkin.Create('HOBM', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 2) { AvailableSkins.Push(HDMerchantSkin.Create('MSUC', (1.1, 1.0))); }
-		if (SelectedSkins & 1 << 3) { AvailableSkins.Push(HDMerchantSkin.Create('MSHU', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 4) { AvailableSkins.Push(HDMerchantSkin.Create('WTRD', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 5) { AvailableSkins.Push(HDMerchantSkin.Create('DAI1', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 6) { AvailableSkins.Push(HDMerchantSkin.Create('DAI2', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 7) { AvailableSkins.Push(HDMerchantSkin.Create('DAI3', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 8) { AvailableSkins.Push(HDMerchantSkin.Create('DAI4', (1.0, 1.0))); }
-		if (SelectedSkins & 1 << 9) { AvailableSkins.Push(HDMerchantSkin.Create('NAR1', (1.0, 1.0))); }
+		let store = handler.getStore(StoreType);
+		HDCore.log('Merchant', LOGGING_DEBUG, "Getting available skins from "..StoreType.." Store => "..store.toString());
 
-		if (AvailableSkins.Size() > 0)
-		{
+		forEach(skinName : store.skins) {
+			let skin = handler.getMerchantSkin(skinName);
+
+			HDCore.log('Merchant', LOGGING_TRACE, StoreType.." Merchant adding "..skinName.." skin => "..skin.toString());
+
+			if (AvailableSkins.find(skin) == AvailableSkins.size()) AvailableSkins.push(skin);
+		}
+
+		// If we have at least one skin available, pick one at random
+		if (AvailableSkins.Size() > 0) {
 			SelectedSkin = AvailableSkins[random[merchskinrand](0, AvailableSkins.Size() - 1)];
+
+			HDCore.log('Merchant', LOGGING_TRACE, "Selected "..SelectedSkin.skinId.." for "..storeType.." Merchant");
 		}
 	}
 	
-	States
-	{
+	States {
 		RegisterSprites:
 			RESM A 0; HOBM A 0;
 			MSUC A 0;
@@ -75,65 +73,91 @@ extend class HDMerchant
 			DAI1 A 0; DAI2 A 0; DAI3 A 0; DAI4 A 0;
 			NAR1 A 0;
 		Spawn:
-			HOBM A 0 NoDelay
-			{
-				if (SelectedSkin)
-				{
-					sprite = GetSpriteIndex(SelectedSkin.SkinId);
-					scale = SelectedSkin.Scale;
+			HOBM A 0 NoDelay {
+				if (SelectedSkin) {
+					sprite = GetSpriteIndex(SelectedSkin.sprite);
+					scale = SelectedSkin.scale;
 				}
 			}
 		SpawnLoop:
 			#### A 1 CheckBreathing();
 			Loop;
 
+		OpenMenu:
+			#### A 1 {
+				if (SelectedSkin && SelectedSkin.openState) {
+					A_StartSound(SelectedSkin.openSound, CHAN_VOICE);
+
+					return FindStateByString(SelectedSkin.openState);
+				}
+
+				return FindState('SpawnLoop');
+			}
+			Goto SpawnLoop;
+
+		CloseMenu:
+			#### A 1 {
+				if (SelectedSkin && SelectedSkin.closeState) {
+					A_StartSound(SelectedSkin.closeSound, CHAN_VOICE);
+
+					return FindStateByString(SelectedSkin.closeState);
+				}
+
+				return FindState('SpawnLoop');
+			}
+			Goto SpawnLoop;
+
+		OpenMenu.Default:
+			#### A 1;
+		Buying.Default:
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
+			Loop;
+		GoAway.Default:
+			#### A 1;
+			Goto SpawnLoop;
+
 		Buying.ResidentEvil:
-			#### A 1 BuyingIdle('SpawnLoop', "ResidentEvil/GoAway");
+			#### A 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 
 		OpenMenu.Morshu:
 			#### BCDEF 5;
 		Buying.Morshu:
-			#### # 1 BuyingIdle('GoAway.Morshu', "Morshu/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Morshu:
 			#### FEDCBA 5;
 			Goto SpawnLoop;
 
 		Buying.WanderingTrader:
-			#### A 1 BuyingIdle('SpawnLoop', "WanderingTrader/GoAway");
+			#### A 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 
 		OpenMenu.Succubus:
 			#### EE 1 { scale.y -= 0.04; }
 			#### FF 1 { scale.y -= 0.04; SOffsetY -= 2; } // [Ace] It's so that the take off frame doesn't clip into the ground.
 			#### GG 1 { scale.y -= 0.04; SOffsetY -= 2; }
-			#### G 0
-			{
+			#### G 0 {
 				scale.y += 0.04 * 6;
 				A_StartSound("Succubus/Wings");
 			}
-			#### BBBCCCDDDEEEFFFGGG 1
-			{
+			#### BBBCCCDDDEEEFFFGGG 1 {
 				double OffAmt = (30 + SOffsetY) * 0.15;
 				SOffsetY -= OffAmt;
 			}
 		Buying.Succubus:
 			#### B 0 A_StartSound("Succubus/Wings");
-			#### BCDEFG 3 BuyingIdle('GoAway.Succubus', "Succubus/GoAway");
+			#### BCDEFG 3 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Succubus:
-			#### BBBBCCCCDDDDEEEEFFFFGGGGBBBBCCCCDDDDEEEE 1
-			{
-				SOffsetY *= 0.94;
-			}
+			#### BBBBCCCCDDDDEEEEFFFFGGGGBBBBCCCCDDDDEEEE 1 { SOffsetY *= 0.94; }
 			#### A 1 { SOffsetY = 0; }
 			Goto SpawnLoop;
 
 		OpenMenu.Daina.Default:
 			#### BCDEFGH 4;
 		Buying.Daina.Default:
-			#### # 1 BuyingIdle('GoAway.Daina.Default', "Daina/Default/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Daina.Default:
 			#### GFEDDCCBBA 2;
@@ -142,7 +166,7 @@ extend class HDMerchant
 		OpenMenu.Daina.Bunny:
 			#### BCDEFGHIG 4;
 		Buying.Daina.Bunny:
-			#### # 1 BuyingIdle('GoAway.Daina.Bunny', "Daina/Bunny/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Daina.Bunny:
 			#### GFEDCBA 4;
@@ -151,7 +175,7 @@ extend class HDMerchant
 		OpenMenu.Daina.Maid:
 			#### BCDEFGHIJKLMN 2;
 		Buying.Daina.Maid:
-			#### # 1 BuyingIdle('GoAway.Daina.Maid', "Daina/Maid/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Daina.Maid:
 			#### NMLKJA 2;
@@ -160,7 +184,7 @@ extend class HDMerchant
 		OpenMenu.Daina.Succubus:
 			#### BCDEFGHIJE 4;
 		Buying.Daina.Succubus:
-			#### # 1 BuyingIdle('GoAway.Daina.Succubus', "Daina/Succubus/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Daina.Succubus:
 			#### EDCBA 4;
@@ -171,7 +195,7 @@ extend class HDMerchant
 			#### L 2 A_StartSound("weapons/pistol");
 			#### MNOPQR 2;
 		Buying.Daina.Cowgirl:
-			#### # 1 BuyingIdle('GoAway.Daina.Cowgirl', "Daina/Cowgirl/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Daina.Cowgirl:
 			#### RKJIHGFDCBA 2;
@@ -180,7 +204,7 @@ extend class HDMerchant
 		OpenMenu.Daina.Labcoat:
 			#### BCDEFGHIJKKLMMNNOO 4;
 		Buying.Daina.Labcoat:
-			#### # 1 BuyingIdle('GoAway.Daina.Labcoat', "Daina/Labcoat/GoAway");
+			#### # 1 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Daina.Labcoat:
 			#### LKJIHGFEDCBA 4;
@@ -189,7 +213,7 @@ extend class HDMerchant
 		OpenMenu.Nari.Succubus:
 			#### BCDEFGHII 4;
 		Buying.Nari.Succubus:
-			#### JKLMI 8 BuyingIdle('GoAway.Nari.Succubus', "Nari/Succubus/GoAway");
+			#### JKLMI 8 BuyingIdle(SelectedSkin.closeState, SelectedSkin.closeSound);
 			Loop;
 		GoAway.Nari.Succubus:
 			#### IHGFEDCB 4;

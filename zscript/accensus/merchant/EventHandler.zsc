@@ -1,14 +1,16 @@
-class MerchantHandler : HDCoreEventHandler
-{
+class MerchantHandler : HDCoreEventHandler {
+
 	private int MoneyMode;
 	private bool SpawnedTiberium;
 
+	Array<HDMerchantSkin> Skins;
 	Array<name> NonBountyBlacklist;
 
 	override void beforeProcessCommands() {
 		BountyTargets.clear();
 		NonBountyBlacklist.clear();
 		SafeMapNames.clear();
+		Skins.clear();
 		StoreCurrencies.clear();
 		StoreItems.clear();
 		
@@ -105,6 +107,149 @@ class MerchantHandler : HDCoreEventHandler
 				SafeMapNames.clear();
 				break;
 			}
+			case 'newMerchantSkin': {
+
+				// Get Skin ID
+				let id = cmd.getNameParam("name");
+
+				// Get remaining params
+				let sprite = cmd.getNameParam("sprite", 'HOBM');
+				let scaleX = cmd.getDoubleParam("scaleX", 1.0);
+				let scaleY = cmd.getDoubleParam("scaleY", 1.0);
+				let openState = cmd.getNameParam("openState", 'OpenMenu.Default');
+				let closeState = cmd.getNameParam("closeState", 'SpawnLoop');
+				let openSound = cmd.getNameParam("openSound");
+				let closeSound = cmd.getNameParam("closeSound");
+
+				vector2 scale = (scaleX, scaleY);
+
+				HDMerchantSkin existingSkin;
+				forEach (skin : Skins) {
+					let currId = skin.skinId;
+
+					if (currId != '' && id != '' && currId == id) {
+						existingSkin = skin;
+						break;
+					}
+				}
+
+				if (existingSkin) break;
+
+				let newskin = HDMerchantSkin.create(id, sprite, scale, openState, openSound, closeState, closeSound);
+
+				if (newSkin) skins.push(newSkin);
+
+				break;
+			}
+			case 'removeMerchantSkin': {
+
+				let name = cmd.getNameParam("name");
+
+				forEach (skin : Skins) {
+					if (skin.skinId == name) {
+						Skins.delete(Skins.find(skin));
+						break;
+					}
+				}
+
+				break;
+			}
+			case 'clearMerchantSkins': {
+				Skins.clear();
+				break;
+			}
+			case 'newMerchantStore': {
+				
+				// Get Store Type
+				let type = cmd.getNameParam("type");
+
+				// get remaining params
+				let chance = cmd.getDoubleParam("chance", 1.0);
+				let skinsParam = cmd.getStringParam("skins", "");
+				let stockMult = cmd.getDoubleParam("stockMult", 1.0);
+				let priceMult = cmd.getDoubleParam("priceMult", 1.0);
+
+				// Look for existing store definitions
+				MerchantStore existingStore;
+				forEach (store : Stores) {
+					let currType = store.type;
+
+					if (currType != '' && type != '' && currType == type) {
+						existingStore = store;
+						break;
+					}
+				}
+
+				// If an existing store for this type already exists, quit.
+				if (existingStore) break;
+
+				// Create the new store and add it to the registry.
+				let newStore = MerchantStore.create(
+					type,
+					chance,
+					stockMult,
+					priceMult
+				);
+
+				console.printf(type.." => "..skinsParam);
+
+				// Parse out Skins Param
+				if (skinsParam != "") {
+
+					Array<string> skinsArr;
+					skinsArr.clear();
+
+					let skinsFlags = skinsParam.toInt(10);
+					if (skinsFlags > 0) {
+
+						// Store the default Skin IDs
+						name defaultSkins[10] = {
+							'Resident Evil',
+							'Hobo',
+							'Succubus',
+							'Morshu',
+							'Wandering Trader',
+							'Daina1',
+							'Daina2',
+							'Daina3',
+							'Daina4',
+							'Nari1'
+						};
+
+						// If we've selected any skins for this store type, add them.
+						for (let i = 0; i < defaultSkins.size(); i++) if (skinsFlags & 1 << i) skinsArr.push(defaultSkins[i]);
+
+					} else {
+						skinsParam.split(skinsArr, ",", TOK_SKIPEMPTY);
+					}
+
+					forEach(skin : skinsArr) {
+						skin.stripLeftRight();
+						newStore.addSkin(skin);
+					}
+				}
+
+				if (newStore) stores.push(newStore);
+
+				break;
+			}
+			case 'removeMerchantStore': {
+
+				let type = cmd.getNameParam("type");
+
+				forEach (store : Stores) {
+					if (store.type == type) {
+						Stores.delete(Stores.find(store));
+						break;
+					}
+				}
+
+				break;
+			}
+			case 'clearMerchantStores': {
+				Stores.clear();
+				break;
+			}
 			case 'newMerchantStoreCurrency': {
 				
 				// Get Currency name and check if it's valid
@@ -166,32 +311,11 @@ class MerchantHandler : HDCoreEventHandler
 				
 				// Get Item type and check if it's valid
 				let type = cmd.getNameParam("type");
-				int sType = -1;
-				switch (type) {
-					case 'ammo': {
-						sType = SType_Ammo;
-						break;
-					}
-					case 'item': {
-						sType = SType_Item;
-						break;
-					}
-					case 'weapon': {
-						sType = SType_Weapon;
-						break;
-					}
-					default: {
-						Console.printF("\c[Red][MerchantHandler] Unknown Merchant Store Type: "..cmd.getNameParam("type"));
-						break;
-					}
-				}
-				
-				// If the item type isn't valid, quit.
-				if (sType < 0) break;
+
+				let chanceCVar = CVar.GetCVar("hdm_chance_"..type);
 
 				// get remaining params
-				let enabled = cmd.getBoolParam("enabled", true);
-				let chance = cmd.getDoubleParam("chance", CVar.GetCVar(merchChances[sType]).GetFloat());
+				let chance = cmd.getDoubleParam("chance", chanceCVar ? chanceCVar.GetFloat() : 1.0);
 				let category = cmd.getStringParam("category", type);
 				let icon = cmd.getStringParam("icon");
 				let displayName = cmd.getStringParam("displayName", item);
@@ -215,9 +339,8 @@ class MerchantHandler : HDCoreEventHandler
 
 				// Create the new store item and add it to the registry.
 				let newItem = StoreItem.create(
-					enabled,
+					type,
 					chance,
-					sType,
 					category,
 					item,
 					icon,
@@ -271,8 +394,22 @@ class MerchantHandler : HDCoreEventHandler
 			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 
 
+			msg = "Merchant Skins:\n";
+
+			forEach (skin : Skins) msg = msg.." * "..skin.toString().."\n";
+
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+
+
 			msg = "Merchant Currencies:\n";
 			forEach (currency : StoreCurrencies) msg = msg.." * "..currency.toString().."\n";
+
+			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+
+
+			msg = "Merchant Stores:\n";
+
+			forEach (store : Stores) msg = msg.." * "..store.toString().."\n";
 
 			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 
@@ -283,6 +420,12 @@ class MerchantHandler : HDCoreEventHandler
 
 			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 		}
+	}
+
+	HDMerchantSkin getMerchantSkin(name skinId) {
+		forEach(skin : Skins) if (skin.skinId == skinId) return skin;
+
+		return null;
 	}
 
 	override void NetworkProcess(ConsoleEvent e) {
@@ -418,7 +561,7 @@ class MerchantHandler : HDCoreEventHandler
 		MoneyMode = hdm_moneymode == 3 ? random(0, 1) : hdm_moneymode;
 		
 		// Initialize the stores for this map
-		for (int i = 0; i < Stores.Size(); ++i) InitStore(i);
+		for (int i = 0; i < Stores.Size(); ++i) InitStore(Stores[i].type);
 		
 		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) {
 			let msg = "Merchant Stores:\n";
@@ -438,12 +581,10 @@ class MerchantHandler : HDCoreEventHandler
 			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
 		}
 
-		Array<class<HDMerchant> > AvailableMerchants;
-		AvailableMerchants.Push('AmmoMerchant');
-		AvailableMerchants.Push('ItemMerchant');
-		AvailableMerchants.Push('WeaponMerchant');
+		Array<MerchantStore> AvailableStores;
+		AvailableStores.copy(Stores);
 
-		int mCount = AvailableMerchants.Size();
+		int mCount = Stores.Size();
 		int MerchantsLeft = min(mCount, level.MapName ~== "LOTSAGUN" ? mCount : CVar.GetCVar('hdm_maxmerchants').GetInt());
 
 		Array<Sector> dedicatedMerchantSectors;
@@ -522,41 +663,48 @@ class MerchantHandler : HDCoreEventHandler
 		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
 		foreach (sec : dedicatedMerchantSectors) {
 			Vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
-			int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
-			Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
-			a.angle = sec.GetUDMFInt('user_merchantangle');
-			AvailableMerchants.Delete(spawnIndex);
+			int storeIndex = random(0, AvailableStores.Size() - 1);
+			let a = HDMerchant(Actor.Spawn('HDMerchant', spawnPos));
 
-			if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
-				'Merchant', LOGGING_DEBUG, String.format(
-					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-					a.GetTag(), spawnPos.x, spawnPos.y
-				)
-			);
-
-			if (--MerchantsLeft == 0) break;
-		}
-
-		if (MerchantsLeft) {
-			for (int i = 0; i < secretSectors.Size(); ++i) {
-				Vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30) continue;
-				int spawnIndex = min(randompick(0, 0, 0, 1, 1, 2), AvailableMerchants.Size() - 1);
-				
-				Actor a = Actor.Spawn(AvailableMerchants[spawnIndex], spawnPos);
-				a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
-				AvailableMerchants.Delete(spawnIndex);
-				secretSectors.Delete(i--);
-
+			if (a) {
+				a.storetype = Stores[storeIndex].type;
+				a.angle = sec.GetUDMFInt('user_merchantangle');
+				AvailableStores.Delete(storeIndex);
+	
 				if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
 					'Merchant', LOGGING_DEBUG, String.format(
 						"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 						a.GetTag(), spawnPos.x, spawnPos.y
 					)
 				);
-
+	
 				if (--MerchantsLeft == 0) break;
+			}
+		}
+
+		if (MerchantsLeft && AvailableStores.Size()) {
+			for (int i = 0; i < secretSectors.Size(); ++i) {
+				Vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
+				
+				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30) continue;
+				int storeIndex = random(0, AvailableStores.Size() - 1);
+				let a = HDMerchant(Actor.Spawn('HDMerchant', spawnPos));
+
+				if (a) {
+					a.StoreType = Stores[storeIndex].type;
+					a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
+					AvailableStores.Delete(storeIndex);
+					secretSectors.Delete(i--);
+
+					if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+						'Merchant', LOGGING_DEBUG, String.format(
+							"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+							a.GetTag(), spawnPos.x, spawnPos.y
+						)
+					);
+	
+					if (--MerchantsLeft == 0) break;
+				}
 			}
 		}
 
