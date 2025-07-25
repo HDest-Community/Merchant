@@ -1,7 +1,75 @@
-class MerchantStore play
-{
-	Array<StoreItem> StoreItems;
-	Array<string> Categories;
+class MerchantStore play {
+
+	name type;
+
+	Array<name> skins;
+
+	float baseChance;
+	float stockMult;
+	float priceMult;
+
+	Array<StoreItem> storeItems;
+	Array<string> categories;
+
+	static MerchantStore create(name type, float baseChance = 1, float stockMult = 1.0, float priceMult = 1.0) {
+		let store = MerchantStore(new('MerchantStore'));
+
+		if (store) {
+			store.type = type;
+			store.baseChance = baseChance;
+			store.stockMult = stockMult;
+			store.priceMult = priceMult;
+
+			store.skins.clear();
+			store.storeItems.clear();
+			store.categories.clear();
+		}
+
+		return store;
+	}
+
+	void addSkin(name skinId) {
+		if (skins.find(skinId) == skins.size()) skins.push(skinId);
+	}
+
+	void addSkins(Array<name> skinIds) {
+		forEach(skinId : skinIds) addSkin(skinId);
+	}
+
+	void addCategory(string category) {
+		if (categories.find(category) == categories.size()) categories.push(category);
+	}
+
+	void addItem(StoreItem item) {
+		forEach(item : storeItems) if (item.itemName == item.itemName) return;
+
+		storeItems.push(item);
+
+		addCategory(item.category);
+	}
+
+	void addItems(Array<StoreItem> items) {
+		forEach(item : items) addItem(item);
+	}
+
+	string toString() {
+		let skinsStr = "[";
+		forEach(skin : skins) skinsStr = skinsStr..", "..skin;
+		skinsStr = skinsStr.."]";
+
+		let categoriesStr = "[";
+		forEach (category : categories) categoriesStr = categoriesStr..", "..category;
+		categoriesStr = categoriesStr.."]";
+
+		let storeItemsStr = "[";
+		forEach(item : storeItems) storeItemsStr = storeItemsStr..", "..item;
+		storeItemsStr = storeItemsStr.."]";
+
+		return String.format(
+			"{ \"type\": \"%s\", \"baseChance\": %.2f, \"stockMult\": %.2f, \"priceMult\": %.2f, \"skins\": %s, \"categories\": %s, \"storeItems\": %s }",
+			     type,             baseChance,           stockMult,           priceMult,           skinsStr,      categoriesStr,      storeItemsStr
+		);
+	}
 }
 
 extend class MerchantHandler
@@ -10,29 +78,47 @@ extend class MerchantHandler
 	Array<StoreCurrency> StoreCurrencies;
 	Array<StoreItem> StoreItems;
 
-	MerchantStore Stores[3];
-	int OpenedStoreIndex[MAXPLAYERS];
+	Array<MerchantStore> Stores;
 
-	static const name merchChances[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-	
+	name OpenedStore[MAXPLAYERS];
+
+	MerchantStore GetStore(name type) {
+		forEach(store : Stores) if (store.type == type) return store;
+
+		return null;
+	}
+
 	// Initialize Store of given type for the current map
-	private void InitStore(int type) {
-		// Ensure Store Exists
-		if (!Stores[type]) Stores[type] = new('MerchantStore');
+	private void InitStore(name type) {
+		HDCore.log('Merchant', LOGGING_TRACE, "Initializing "..type.." Store...");
+
+		// Check existing stores for one of the given type
+		MerchantStore store = GetStore(type);
+
+		// If it doesn't exist, create a new one
+		if (!store) {
+			HDCore.log('Merchant', LOGGING_TRACE, type.." Store doesn't exist, creating...");
+
+			store = MerchantStore.create(type);
+
+			Stores.push(store);
+		}
 		
 		// Clean current categories & items
-		Stores[type].Categories.Clear();
-		Stores[type].StoreItems.Clear();
+		store.Categories.Clear();
+		store.StoreItems.Clear();
 
 		forEach (item : StoreItems) {
+			HDCore.log('Merchant', LOGGING_TRACE, "Attempting to add "..item.itemName.." to store...");
 
 			// If the store item isn't valid, skip.
 			if (
 				!HDCore.CheckClassExists(item.GetItem())
-				|| !item.IsEnabled()
+				// || !item.IsEnabled()
 				|| item.GetType() != type
 			) continue;
 
+			
 			bool inSafeMap = false;
 			forEach (mapName : SafeMapNames) {
 				if (level.mapName == mapName) {
@@ -40,21 +126,25 @@ extend class MerchantHandler
 					break;
 				}
 			}
-
+			
 			let chance = item.GetChance();
 			if (inSafeMap || frandom[merchrand](0.0, 1.0) < chance) {
 				item.StoreAmount = ceil(item.GetStoreAmount() * (inSafeMap ? random[merchrand](25, 150) : max(chance, 1.0)));
+				
+				store.StoreItems.Push(item);
 
-				Stores[type].StoreItems.Push(item);
+				HDCore.log('Merchant', LOGGING_TRACE, "Added "..item.itemName.." to "..type.." Store...");
 			}
 		}
 
 		// [Ace] Don't duplicate categories.
-		forEach (currItem : Stores[type].StoreItems) {
-			if (Stores[type].Categories.Find(currItem.GetCategory()) == Stores[type].Categories.Size()) {
-				Stores[type].Categories.Push(currItem.GetCategory());
+		forEach (currItem : store.StoreItems) {
+			if (store.Categories.Find(currItem.GetCategory()) == store.Categories.Size()) {
+				store.Categories.Push(currItem.GetCategory());
 			}
 		}
+
+		if (!store.StoreItems.Size()) HDCore.log('Merchant', LOGGING_WARN, "Merchant Store "..type.." contains no items!");
 	}
 
 	// Get & add all class-defined store items

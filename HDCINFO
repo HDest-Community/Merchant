@@ -33,6 +33,22 @@ addMerchantNonBountyBlacklist => { "name": "HDPlayerPawn" }
 addMerchantNonBountyBlacklist => { "name": "HDPlayerCorpse" }
 addMerchantNonBountyBlacklist => { "name": "HDBarrel" }
 
+// Merchant Skins
+newMerchantSkin => { "name": "Hobo", "sprite": "HOBM" }
+newMerchantSkin => { "name": "Resident Evil", "sprite": "RESM", "openState": "Buying.ResidentEvil", "openSound": "ResidentEvil/Buying", "closeState": "SpawnLoop", "closeSound": "ResidentEvil/GoAway" }
+newMerchantSkin => { "name": "Succubus", "sprite": "MSUC", "openState": "OpenMenu.Succubus", "openSound": "Succubus/Buying", "closeState": "GoAway.Succubus", "closeSound": "Succubus/GoAway" }
+newMerchantSkin => { "name": "Morshu", "sprite": "MSHU", "openState": "OpenMenu.Morshu", "openSound": "Morshu/Buying", "closeState": "GoAway.Morshu", "closeSound": "Morshu/GoAway" }
+newMerchantSkin => { "name": "Wandering Trader", "sprite": "WTRD", "openState": "Buying.WanderingTrader", "openSound": "WanderingTrader/Buying", "closeState": "SpawnLoop", "closeSound": "WanderingTrader/GoAway" }
+newMerchantSkin => { "name": "Daina1", "sprite": "DAI1", "openState": "OpenMenu.Daina.Default", "openSound": "Daina/Default/Buying", "closeState": "GoAway.Daina.Default", "closeSound": "Daina/Default/GoAway" }
+newMerchantSkin => { "name": "Daina2", "sprite": "DAI2", "openState": "OpenMenu.Daina.Bunny", "openSound": "Daina/Bunny/Buying", "closeState": "GoAway.Daina.Bunny", "closeSound": "Daina/Bunny/GoAway" }
+newMerchantSkin => { "name": "Daina3", "sprite": "DAI3", "openState": "OpenMenu.Daina.Maid", "openSound": "Daina/Maid/Buying", "closeState": "GoAway.Daina.Maid", "closeSound": "Daina/Maid/GoAway" }
+newMerchantSkin => { "name": "Daina4", "sprite": "DAI4", "openState": "OpenMenu.Daina.Labcoat", "openSound": "Daina/Labcoat/Buying", "closeState": "GoAway.Daina.Succubus", "closeSound": "Daina/Labcoat/GoAway" }
+newMerchantSkin => { "name": "Nari1", "sprite": "NAR1", "openState": "OpenMenu.Nari.Succubus", "openSound": "Nari/Succubus/Buying", "closeState": "GoAway.Nari.Succubus", "closeSound": "Nari/Succubus/GoAway" }
+
+// Merchant Store Types
+newMerchantStore => { "type": "ammo", "chance": "#hdm_chance_ammo", "skins": "#hdm_skin_ammo", "stockMult": "#hdm_stock_ammo" }
+newMerchantStore => { "type": "item", "chance": "#hdm_chance_item", "skins": "#hdm_skin_item", "stockMult": "#hdm_stock_item" }
+newMerchantStore => { "type": "weapon", "chance": "#hdm_chance_weapon", "skins": "#hdm_skin_weapon", "stockMult": "#hdm_stock_weapon" }
 
 // TODO: REFACTOR STORE ENTRIES INTO THEIR RESPECTIVE ADDONS, MOVE CVARS, LANGUAGE LUMPS, ETC.
 

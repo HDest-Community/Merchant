@@ -1,20 +1,28 @@
 server int   hdm_debug                      = 0;
 server int   hdm_moneymode                  = 0;
 server bool  hdm_enableslots                = true;
+
 server bool  hdm_moneydroppable             = false;
 server bool  hdm_moneyshootable             = false;
 server float hdm_moneybulk                  = 0.1;
+
 server int   hdm_maxmerchants               = 1;
-server float hdm_chance_weapon              = 0.6;
+
 server float hdm_chance_ammo                = 0.8;
 server float hdm_chance_item                = 0.7;
+server float hdm_chance_weapon              = 0.6;
+
 server int   hdm_stock_ammo                 = 1;
 server int   hdm_stock_item                 = 1;
-user   int   hdm_skin_weapon                = 1;
-user   int   hdm_skin_ammo                  = 2;
-user   int   hdm_skin_item                  = 4064;
+server int   hdm_stock_weapon               = 1;
+
+server int   hdm_skin_ammo                  = 2;
+server int   hdm_skin_item                  = 4064;
+server int   hdm_skin_weapon                = 1;
+
 user   int   hdm_slots_bet                  = 10;
 user   int   hdm_cardback                   = 0;
+
 server float hdm_nonbounty_dropratio        = 0.1;
 server bool  hdm_nonbounty_directdeposit    = false;
 

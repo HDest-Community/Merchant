@@ -29,23 +29,31 @@ class MerchantShopMenu : HDZFGenericMenu {
     }
 
     ui MerchantStore GetOpenedStore() {
-        return Handler.Stores[Handler.OpenedStoreIndex[consoleplayer]];
+        forEach(store : Handler.Stores) if (store.type == Handler.OpenedStore[consoleplayer]) return store;
+        
+        return null;
     }
 
     ui string GetSelectedCategory() {
         let openedStore = GetOpenedStore();
-        return SelCategoryIndex < openedStore.Categories.Size() ? openedStore.Categories[SelCategoryIndex] : "Unknown Category";
+        return openedStore && (SelCategoryIndex < openedStore.Categories.Size())
+            ? openedStore.Categories[SelCategoryIndex]
+            : "Unknown Category";
     }
 
     ui void GetItemsInCategory(out Array<StoreItem> items, string category) {
         items.Clear();
 
+        let store = GetOpenedStore();
+
         // Add all items in the current category that aren't the current currency.
-        foreach (storeItem : GetOpenedStore().storeItems) {
-            if (
-                storeItem.GetCategory() == category
-                && storeItem.GetItem() != Handler.StoreCurrencies[SelCurrencyIndex].GetCurrencyClass()
-            ) items.Push(storeItem);
+        if (store) {
+            forEach (storeItem : store.storeItems) {
+                if (
+                    storeItem.GetCategory() == category
+                    && storeItem.GetItem() != Handler.StoreCurrencies[SelCurrencyIndex].GetCurrencyClass()
+                ) items.Push(storeItem);
+            }
         }
     }
 
@@ -53,22 +61,26 @@ class MerchantShopMenu : HDZFGenericMenu {
 
         shopContent = HDZFListFrame.create((0,0), (size.x, 0), Spacing * 2.0);
 
-        foreach (category : GetOpenedStore().Categories) {
+        let store = GetOpenedStore();
 
-            Array<StoreItem> items;
-            GetItemsInCategory(items, category);
-            
-            let catFrame = MerchantCategoryFrame.create(
-                (0, 0),
-                size - (8, 0),
-                Spacing,
-                self,
-                players[consoleplayer].mo,
-                category,
-                items
-            );
-            catFrames.push(catFrame);
-            catFrame.pack(shopContent);
+        if (store) {
+            forEach (category : store.Categories) {
+    
+                Array<StoreItem> items;
+                GetItemsInCategory(items, category);
+                
+                let catFrame = MerchantCategoryFrame.create(
+                    (0, 0),
+                    size - (8, 0),
+                    Spacing,
+                    self,
+                    players[consoleplayer].mo,
+                    category,
+                    items
+                );
+                catFrames.push(catFrame);
+                catFrame.pack(shopContent);
+            }
         }
 
         setScrollHeight();

@@ -3,6 +3,6 @@ class ItemMerchant : HDMerchant
 	Default
 	{
 		Tag "Item Merchant";
-		HDMerchant.ItemsType SType_Item;
+		HDMerchant.StoreType "item";
 	}
 }

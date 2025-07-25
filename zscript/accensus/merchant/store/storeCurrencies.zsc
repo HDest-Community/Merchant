@@ -29,8 +29,8 @@ class StoreCurrency {
 
     string ToString() {
         return String.format(
-            "{ cls=%s, icon=%s, priceMult=%.2f }",
-            cls,    icon,    priceMult
+            "{ \"cls\": \"%s\", \"icon\": \"%s\", \"priceMult\": %.2f }",
+                 cls,             icon,             priceMult
         );
     }
 }
