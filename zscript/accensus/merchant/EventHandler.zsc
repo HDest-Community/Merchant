@@ -113,6 +113,7 @@ class MerchantHandler : HDCoreEventHandler {
 				let id = cmd.getNameParam("name");
 
 				// Get remaining params
+				let tag = cmd.getStringParam("tag", "$TAG_MERCHANT");
 				let sprite = cmd.getNameParam("sprite", 'HOBM');
 				let scaleX = cmd.getDoubleParam("scaleX", 1.0);
 				let scaleY = cmd.getDoubleParam("scaleY", 1.0);
@@ -135,7 +136,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 				if (existingSkin) break;
 
-				let newskin = HDMerchantSkin.create(id, sprite, scale, openState, openSound, closeState, closeSound);
+				let newskin = HDMerchantSkin.create(id, tag, sprite, scale, openState, openSound, closeState, closeSound);
 
 				if (newSkin) skins.push(newSkin);
 
@@ -164,7 +165,7 @@ class MerchantHandler : HDCoreEventHandler {
 				let type = cmd.getNameParam("type");
 
 				// get remaining params
-				let chance = cmd.getDoubleParam("chance", 1.0);
+				let chance = cmd.getDoubleParam("chance", -1.0);
 				let skinsParam = cmd.getStringParam("skins", "");
 				let stockMult = cmd.getDoubleParam("stockMult", 1.0);
 				let priceMult = cmd.getDoubleParam("priceMult", 1.0);
@@ -204,11 +205,11 @@ class MerchantHandler : HDCoreEventHandler {
 
 						// Store the default Skin IDs
 						name defaultSkins[10] = {
-							'Resident Evil',
+							'ResidentEvil',
 							'Hobo',
 							'Succubus',
 							'Morshu',
-							'Wandering Trader',
+							'WanderingTrader',
 							'Daina1',
 							'Daina2',
 							'Daina3',
@@ -280,7 +281,13 @@ class MerchantHandler : HDCoreEventHandler {
 				// Create the new currency and add it to the registry.
 				let newCurrency = StoreCurrency.create(currency, icon, priceMult);
 
-				if (newCurrency) StoreCurrencies.push(newCurrency);
+				if (newCurrency) {
+					if (cmd.getBoolParam("default")) {
+						StoreCurrencies.insert(0, newCurrency);
+					} else {
+						StoreCurrencies.push(newCurrency);
+					}
+				}
 
 				break;
 			}
@@ -312,10 +319,8 @@ class MerchantHandler : HDCoreEventHandler {
 				// Get Item type and check if it's valid
 				let type = cmd.getNameParam("type");
 
-				let chanceCVar = CVar.GetCVar("hdm_chance_"..type);
-
 				// get remaining params
-				let chance = cmd.getDoubleParam("chance", chanceCVar ? chanceCVar.GetFloat() : 1.0);
+				let chance = cmd.getDoubleParam("chance", -1.0);
 				let category = cmd.getStringParam("category", type);
 				let icon = cmd.getStringParam("icon");
 				let displayName = cmd.getStringParam("displayName", item);

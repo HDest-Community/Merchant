@@ -41,10 +41,12 @@ class MerchantStore play {
 	}
 
 	void addItem(StoreItem item) {
-		forEach(item : storeItems) if (item.itemName == item.itemName) return;
+		forEach(i : storeItems) if (i.itemName == item.itemName) return;
+		
+		HDCore.log('Merchant', LOGGING_TRACE, "Added "..item.itemName.." to "..type.." Store...");
 
 		storeItems.push(item);
-
+		
 		addCategory(item.category);
 	}
 
@@ -108,39 +110,43 @@ extend class MerchantHandler
 		store.Categories.Clear();
 		store.StoreItems.Clear();
 
+		// Determine if currently in a "safe" map
+		bool inSafeMap = false;
+		forEach (mapName : SafeMapNames) {
+			if (level.mapName == mapName) {
+				inSafeMap = true;
+				break;
+			}
+		}
+
+		// Grab all valid items, add a copy to store inventory
 		forEach (item : StoreItems) {
 			HDCore.log('Merchant', LOGGING_TRACE, "Attempting to add "..item.itemName.." to store...");
 
 			// If the store item isn't valid, skip.
-			if (
-				!HDCore.CheckClassExists(item.GetItem())
-				// || !item.IsEnabled()
-				|| item.GetType() != type
-			) continue;
-
+			if (!HDCore.CheckClassExists(item.GetItem()) || item.GetType() != type) continue;
 			
-			bool inSafeMap = false;
-			forEach (mapName : SafeMapNames) {
-				if (level.mapName == mapName) {
-					inSafeMap = true;
-					break;
-				}
-			}
 			
-			let chance = item.GetChance();
+			let itemChance = item.GetChance();
+			let chance = itemChance >= 0.0 ? itemChance : store.baseChance;
+			
 			if (inSafeMap || frandom[merchrand](0.0, 1.0) < chance) {
-				item.StoreAmount = ceil(item.GetStoreAmount() * (inSafeMap ? random[merchrand](25, 150) : max(chance, 1.0)));
+
+				item.chance = chance;
+
+				item.basePrice *= store.priceMult;
+
+				item.storeAmount = (
+					item.baseStoreAmount > 0
+						? item.baseStoreAmount
+						: DetermineStoreAmount(store.type, item)
+				);
 				
-				store.StoreItems.Push(item);
+				if (item.storeAmount < 0) item.storeAmount = ceil(max(1, item.GetStoreAmount()) * (inSafeMap ? random[merchrand](25, 150) : max(chance, 1.0)));
+				
+				item.storeAmount *= store.stockMult;
 
-				HDCore.log('Merchant', LOGGING_TRACE, "Added "..item.itemName.." to "..type.." Store...");
-			}
-		}
-
-		// [Ace] Don't duplicate categories.
-		forEach (currItem : store.StoreItems) {
-			if (store.Categories.Find(currItem.GetCategory()) == store.Categories.Size()) {
-				store.Categories.Push(currItem.GetCategory());
+				store.addItem(item);
 			}
 		}
 
@@ -167,6 +173,42 @@ extend class MerchantHandler
 
 				if (HDCore.CheckClassExists(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
 				else currency.Destroy();
+			}
+		}
+	}
+
+	// Calculate default store amount based on store type
+	// TODO: Refactor into command, etc.?
+	private int DetermineStoreAmount(name storeType, StoreItem item) {
+		switch (storeType) {
+			case 'ammo': {
+				if (item.GetAmount() == 1) {
+					return random[merchrand](1, 5);
+				}
+
+				return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6));
+			}
+			case 'item':
+			case 'mag' : {
+				if (item.GetBasePrice() <= 15) {
+					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7));
+				}
+
+				if (item.GetBasePrice() <= 40) {
+					return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5);
+				}
+				
+				if (item.GetBasePrice() <= 80) {
+					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3);
+				}
+
+				return 1;
+			}
+			case 'weapon': {
+				return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
+			}
+			default: {
+				return -1;
 			}
 		}
 	}

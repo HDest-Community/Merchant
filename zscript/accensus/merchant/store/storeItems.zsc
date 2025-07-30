@@ -64,10 +64,6 @@ class StoreItem {
         return int(max(ceil(item.GetBasePrice() * currency.GetPriceMult()), 1));
     }
 
-    // --------------------------------------------------
-    // VIRTUALS
-    // --------------------------------------------------
-
     virtual name GetType() { return type; }
     virtual double GetChance() { return chance; }
     virtual string GetCategory() { return category; }
@@ -77,45 +73,7 @@ class StoreItem {
     virtual string GetFlavorText() { return flavorText; }
     virtual int GetAmount() { return baseAmount; }
     virtual int GetBasePrice() { return basePrice; }
-
-    // TODO: Refactor thresholds, types, amounts into commands?
-    virtual int GetStoreAmount() {
-
-        // If we explicitly have a base store amount set, simply return that.
-        if (baseStoreAmount) return baseStoreAmount;
-
-        // Otherwise, determine it based on type
-        switch (GetType()) {
-            case 'weapon': {
-                return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2) * hdm_stock_weapon;
-            }
-            case 'ammo': {
-                if (GetAmount() == 1) {
-                    return random[merchrand](1, 5) * hdm_stock_ammo;
-                }
-
-                return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6)) * hdm_stock_ammo;
-            }
-            case 'item': {
-                if (GetBasePrice() <= 15) {
-                    return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7)) * hdm_stock_item;
-                }
-
-                if (GetBasePrice() <= 40) {
-                    return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5) * hdm_stock_item;
-                }
-
-                if (GetBasePrice() <= 80) {
-                    return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3) * hdm_stock_item;
-                }
-
-                return 1 * hdm_stock_item;
-            }
-            default: {
-                return 666;
-            }
-        }
-    }
+    virtual int GetStoreAmount() { return storeAmount ? storeAmount : baseStoreAmount; }
 
     string ToString() {
         return String.format(

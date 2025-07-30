@@ -10,14 +10,17 @@ server int   hdm_maxmerchants               = 1;
 
 server float hdm_chance_ammo                = 0.8;
 server float hdm_chance_item                = 0.7;
+server float hdm_chance_mag                 = 0.7;
 server float hdm_chance_weapon              = 0.6;
 
 server int   hdm_stock_ammo                 = 1;
 server int   hdm_stock_item                 = 1;
+server int   hdm_stock_mag                  = 1;
 server int   hdm_stock_weapon               = 1;
 
 server int   hdm_skin_ammo                  = 2;
 server int   hdm_skin_item                  = 4064;
+server int   hdm_skin_mag                   = 4064;
 server int   hdm_skin_weapon                = 1;
 
 user   int   hdm_slots_bet                  = 10;
@@ -31,58 +34,9 @@ server bool  hdm_nonbounty_directdeposit    = false;
 // -------------------
 
 // AceCorp
-server bool hdm_enable_soulcube             = true;
 server bool hdm_enable_arcanum              = true;
-server bool hdm_enable_viper                = true;
-server bool hdm_enable_jackdaw              = true;
-server bool hdm_enable_redline              = true;
-server bool hdm_enable_scorpion             = true;
-server bool hdm_enable_gungnir              = true;
-server bool hdm_enable_blackjack            = true;
-server bool hdm_enable_wyvern               = true;
-server bool hdm_enable_majestic             = true;
 server bool hdm_enable_executioner          = true;
-server bool hdm_enable_blackhawk            = true;
-server bool hdm_enable_hammerhead           = true;
-server bool hdm_enable_superstim            = true;
-server bool hdm_enable_boosterjets          = true;
-server bool hdm_enable_ladderlauncher       = true;
-server bool hdm_enable_armourpatchkit       = true;
-server bool hdm_enable_hacked7mmreloader    = true;
-server bool hdm_enable_url                  = true;
-server bool hdm_enable_gunsmithpouch        = true;
-server bool hdm_enable_mrl                  = true;
-server bool hdm_enable_supplybeacon         = true;
-server bool hdm_enable_weaponcrate          = true;
-server bool hdm_enable_portableteleporter   = true;
-server bool hdm_enable_fak                  = true;
-server bool hdm_enable_dsd                  = true;
-server bool hdm_enable_barricade            = true;
-server bool hdm_enable_personalshieldgen    = true;
 server bool hdm_enable_zradar               = true;
-server bool hdm_enable_secretfinder         = true;
-server bool hdm_enable_gasmask              = true;
-server bool hdm_enable_rearviewmirror       = true;
-server bool hdm_enable_roomba               = true;
-server bool hdm_enable_ddzflashlight        = true;
-server bool hdm_enable_suicidevest          = true;
-server bool hdm_enable_despfilter           = true;
-server bool hdm_enable_assemblycore         = true;
-server bool hdm_enable_blackhawkboltreg     = true;
-server bool hdm_enable_blackhawkboltincen   = true;
-server bool hdm_enable_blackhawkboltelec    = true;
-server bool hdm_enable_blackhawkboltnuclear = true;
-server bool hdm_enable_garrisonarmourpatch  = true;
-server bool hdm_enable_battlearmourpatch    = true;
-server bool hdm_enable_rawbrass             = true;
-server bool hdm_enable_rawfuel              = true;
-server bool hdm_enable_rawlead              = true;
-server bool hdm_enable_rawplastic           = true;
-server bool hdm_enable_rawpowder            = true;
-server bool hdm_enable_rawsteel             = true;
-
-// BeatCrazed
-server bool hdm_enable_xpulsekit            = true;
 
 // Benitez
 server bool hdm_enable_bluepack             = true;
@@ -102,48 +56,6 @@ server bool hdm_enable_m249reloader         = true;
 // Cannibal Hunter
 server bool hdm_enable_fannypack            = true;
 
-// Cozi's Offworld Wares
-server bool hdm_enable_flintlock            = true;
-server bool hdm_enable_musket               = true;
-server bool hdm_enable_olerum               = true;
-server bool hdm_enable_portablecleanser     = true;
-
-// FDA Approved
-server bool hdm_enable_altis                = true;
-server bool hdm_enable_gearbox              = true;
-
-// HDBulletLib
-server bool hdm_enable_50ae                 = true;
-server bool hdm_enable_12gslug              = true;
-server bool hdm_enable_500swl               = true;
-server bool hdm_enable_500swh               = true;
-server bool hdm_enable_50omg                = true;
-server bool hdm_enable_45acp                = true;
-server bool hdm_enable_10mm                 = true;
-server bool hdm_enable_45lc                 = true;
-server bool hdm_enable_llshell              = true;
-server bool hdm_enable_xshell               = true;
-server bool hdm_enable_g45lc                = true;
-server bool hdm_enable_12gflare             = true;
-server bool hdm_enable_leadball             = true;
-server bool hdm_enable_4gslug               = true;
-server bool hdm_enable_5mmbr                = true;
-server bool hdm_enable_6mmflechette         = true;
-server bool hdm_enable_50am                 = true;
-server bool hdm_enable_420frei              = true;
-server bool hdm_enable_069bore              = true;
-server bool hdm_enable_thunderrocket        = true;
-server bool hdm_enable_tortoiserocket       = true;
-server bool hdm_enable_20mmgrenade          = true;
-server bool hdm_enable_3006                 = true;
-server bool hdm_enable_4gshell              = true;
-server bool hdm_enable_birdshot             = true;
-server bool hdm_enable_300savage            = true;
-server bool hdm_enable_762tokarev           = true;
-
-// UAC Corporate Armour
-server bool hdm_enable_corporatearmour      = true;
-
 // Dastrukar
 server bool hdm_enable_hhelmet              = true;
 
@@ -152,44 +64,8 @@ server bool hdm_enable_augcanister          = true;
 server bool hdm_enable_augupgrade           = true;
 server bool hdm_enable_bioelectriccell      = true;
 
-// Hexadoken
-server bool hdm_enable_nsb                  = true;
-server bool hdm_enable_9mmboss              = true;
-server bool hdm_enable_4mmboss              = true;
-server bool hdm_enable_5mmboss              = true;
-server bool hdm_enable_12gboss              = true;
-server bool hdm_enable_omgboss              = true;
-server bool hdm_enable_worstboss            = true;
-server bool hdm_enable_m1garand             = true;
-server bool hdm_enable_medicalscanner       = true;
-
 // HoagieTech
 server bool hdm_enable_zm69                 = true;
-
-// Icarus Innovations
-server bool hdm_enable_gfb9                 = true;
-server bool hdm_enable_nyx                  = true;
-server bool hdm_enable_usp45                = true;
-server bool hdm_enable_six12                = true;
-server bool hdm_enable_barracuda            = true;
-server bool hdm_enable_frontiersman         = true;
-server bool hdm_enable_nct                  = true;
-server bool hdm_enable_pd42                 = true;
-server bool hdm_enable_ump45                = true;
-server bool hdm_enable_bitch                = true;
-server bool hdm_enable_fenris               = true;
-server bool hdm_enable_mbr                  = true;
-server bool hdm_enable_flamenwerfer         = true;
-server bool hdm_enable_fog                  = true;
-server bool hdm_enable_gastank              = true;
-server bool hdm_enable_wallet               = true;
-server bool hdm_enable_repairspray          = true;
-server bool hdm_enable_hevarmour            = true;
-
-// Melonades
-server bool hdm_enable_impactgrenade        = true;
-server bool hdm_enable_thundergrenade       = true;
-server bool hdm_enable_mg13grenade          = true;
 
 // Mickromash
 server bool hdm_enable_carcanoscope         = true;
@@ -209,130 +85,6 @@ server bool hdm_enable_mongoosecore         = true;
 server bool hdm_enable_mongoosearms         = true;
 server bool hdm_enable_mongooselegs         = true;
 
-// Potetobloke
-server bool hdm_enable_gasgrenade           = true;
-server bool hdm_enable_wpgrenade            = true;
-server bool hdm_enable_napalmtank           = true;
-server bool hdm_enable_8mmec                = true;
-server bool hdm_enable_fireextinguisher     = true;
-server bool hdm_enable_automag              = true;
-server bool hdm_enable_uragan               = true;
-server bool hdm_enable_mk23socom            = true;
-server bool hdm_enable_mac10                = true;
-server bool hdm_enable_ps20                 = true;
-server bool hdm_enable_atcm35               = true;
-server bool hdm_enable_at4                  = true;
-server bool hdm_enable_ruger1022            = true;
-server bool hdm_enable_m5165                = true;
-server bool hdm_enable_streetsweeper        = true;
-server bool hdm_enable_355smg               = true;
-server bool hdm_enable_levergun             = true;
-server bool hdm_enable_g11                  = true;
-server bool hdm_enable_g11scoped            = true;
-server bool hdm_enable_cawsgun              = true;
-server bool hdm_enable_steyr                = true;
-server bool hdm_enable_psg1                 = true;
-server bool hdm_enable_fnfal                = true;
-server bool hdm_enable_m60                  = true;
-server bool hdm_enable_devincenzia          = true;
-server bool hdm_enable_microgun             = true;
-server bool hdm_enable_m2hb                 = true;
-server bool hdm_enable_kelenken             = true;
-server bool hdm_enable_manccannon           = true;
-server bool hdm_enable_railgun              = true;
-server bool hdm_enable_railgundynamo        = true;
-server bool hdm_enable_knife                = true;
-server bool hdm_enable_fireaxe              = true;
-server bool hdm_enable_sledgehammer         = true;
-server bool hdm_enable_kharon               = true;
-server bool hdm_enable_armorplate           = true;
-server bool hdm_enable_riotshield           = true;
-
-// Peppergrinder
-server bool hdm_enable_otis5                = true;
-server bool hdm_enable_boxcannon            = true;
-server bool hdm_enable_scopedrevolver       = true;
-server bool hdm_enable_guillotine           = true;
-server bool hdm_enable_oddball              = true;
-server bool hdm_enable_aurochs              = true;
-server bool hdm_enable_helzing              = true;
-server bool hdm_enable_greely               = true;
-server bool hdm_enable_sawedoffslayer       = true;
-server bool hdm_enable_scopedslayer         = true;
-server bool hdm_enable_auto5                = true;
-server bool hdm_enable_bpx                  = true;
-server bool hdm_enable_dmr                  = true;
-server bool hdm_enable_hlar                 = true;
-server bool hdm_enable_p90                  = true;
-server bool hdm_enable_p90princess          = true;
-server bool hdm_enable_trog                 = true;
-server bool hdm_enable_bastardrifle         = true;
-server bool hdm_enable_vera                 = true;
-server bool hdm_enable_yurei                = true;
-server bool hdm_enable_ilib                 = true;
-server bool hdm_enable_lotus                = true;
-server bool hdm_enable_yeyuze               = true;
-server bool hdm_enable_zm94                 = true;
-server bool hdm_enable_plasmapistol         = true;
-server bool hdm_enable_wiseau               = true;
-server bool hdm_enable_lisa                 = true;
-server bool hdm_enable_rubymaser            = true;
-server bool hdm_enable_fulgur               = true;
-server bool hdm_enable_mauler               = true;
-server bool hdm_enable_zorcher              = true;
-server bool hdm_enable_ndm                  = true;
-server bool hdm_enable_binoculars           = true;
-
-// RadTech
-server bool hdm_enable_10mmpistol           = true;
-server bool hdm_enable_sigcow               = true;
-server bool hdm_enable_colt1911             = true;
-server bool hdm_enable_combatshotgun        = true;
-server bool hdm_enable_snubnose             = true;
-server bool hdm_enable_d93                  = true;
-server bool hdm_enable_flaregun             = true;
-server bool hdm_enable_flaregunmetal        = true;
-server bool hdm_enable_fp45                 = true;
-server bool hdm_enable_fragcannon           = true;
-server bool hdm_enable_hzm                  = true;
-server bool hdm_enable_hushpuppy            = true;
-server bool hdm_enable_juan                 = true;
-server bool hdm_enable_minerva              = true;
-server bool hdm_enable_doomhunter           = true;
-server bool hdm_enable_duckhunter           = true;
-server bool hdm_enable_llhunter             = true;
-server bool hdm_enable_xhunter              = true;
-server bool hdm_enable_goldensarevolver     = true;
-server bool hdm_enable_sarevolver           = true;
-server bool hdm_enable_obrozz               = true;
-server bool hdm_enable_phazer               = true;
-server bool hdm_enable_ppsh41               = true;
-server bool hdm_enable_savage99             = true;
-server bool hdm_enable_stenmk2              = true;
-server bool hdm_enable_stungun              = true;
-server bool hdm_enable_tt33                 = true;
-server bool hdm_enable_dynamite             = true;
-server bool hdm_enable_microcell            = true;
-server bool hdm_enable_10mmreloader         = true;
-server bool hdm_enable_300savagereloader    = true;
-server bool hdm_enable_762tokarevreloader   = true;
-server bool hdm_enable_cacoplush            = true;
-server bool hdm_enable_radicola             = true;
-server bool hdm_enable_antigravboots        = true;
-server bool hdm_enable_antiradboots         = true;
-server bool hdm_enable_fieldmedickit        = true;
-server bool hdm_enable_firstaidspray        = true;
-server bool hdm_enable_halfpack             = true;
-server bool hdm_enable_radiradio            = true;
-server bool hdm_enable_pocketlamp           = true;
-server bool hdm_enable_leatherarmour        = true;
-
-// RightInfinity
-server bool hdm_enable_reaper               = true;
-server bool hdm_enable_brontobuddy          = true;
-server bool hdm_enable_thompson             = true;
-server bool hdm_enable_khleb                = false;
-
 // Sirus
 server bool hdm_enable_requisitionkit       = true;
 
@@ -344,17 +96,6 @@ server bool hdm_enable_spraycan             = true;
 
 // Sonoda
 server bool hdm_enable_adhesive             = true;
-server bool hdm_enable_handcharger          = true;
-
-// Ugly as Sin
-server bool hdm_enable_ammopouch            = true;
-server bool hdm_enable_assaultpack          = true;
-server bool hdm_enable_gyrostabilizer       = true;
-server bool hdm_enable_respirator           = true;
-server bool hdm_enable_messkit              = true;
-server bool hdm_enable_foodration           = true;
-server bool hdm_enable_waterration          = true;
-server bool hdm_enable_weaponsling          = true;
 
 // Vanilla
 server bool hdm_enable_chainsaw             = true;
@@ -374,6 +115,10 @@ server bool hdm_enable_boss                 = true;
 server bool hdm_enable_9mm                  = true;
 server bool hdm_enable_12gshell             = true;
 server bool hdm_enable_4mmmag               = true;
+server bool hdm_enable_pistolmag            = true;
+server bool hdm_enable_smgmag               = true;
+server bool hdm_enable_7mmmag               = true;
+server bool hdm_enable_7mmclip              = true;
 server bool hdm_enable_355                  = true;
 server bool hdm_enable_rocketgrenade        = true;
 server bool hdm_enable_heatrocket           = true;
@@ -410,23 +155,14 @@ server bool hdm_enable_blueskull            = true;
 server bool hdm_enable_redskull             = true;
 server bool hdm_enable_yellowskull          = true;
 
-// WAN Industries
-server bool hdm_enable_ma75b                = true;
-server bool hdm_enable_ma76c                = true;
-server bool hdm_enable_spnkr                = true;
-server bool hdm_enable_wstem5               = true;
-server bool hdm_enable_sneakingsuit         = true;
-
 // ZikShadow
-server bool hdm_enable_umsautomag           = true;
-
-// ZikShadow
+server bool hdm_enable_5mms                	= true;
+server bool hdm_enable_lightjetpack    		= true;
+server bool hdm_enable_omorviolin    		= true;
+server bool hdm_enable_orangejoe    		= true;
+server bool hdm_enable_persiapotionbig    	= true;
+server bool hdm_enable_persiapotionsmall    = true;
 server bool hdm_enable_pwms2             	= true;
 server bool hdm_enable_stie              	= true;
-server bool hdm_enable_5mms                	= true;
 server bool hdm_enable_tnjgren              = true;
-server bool hdm_enable_persiapotionsmall    = true;
-server bool hdm_enable_persiapotionbig    	= true;
-server bool hdm_enable_orangejoe    		= true;
-server bool hdm_enable_omorviolin    		= true;
-server bool hdm_enable_lightjetpack    		= true;
+server bool hdm_enable_umsautomag           = true;

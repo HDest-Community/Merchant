@@ -2,10 +2,7 @@ version "4.10"
 
 #include "zscript/accensus/merchant/EventHandler.zsc"
 
-#include "zscript/accensus/merchant/merchants/BaseMerchant.zsc"
-#include "zscript/accensus/merchant/merchants/AmmoMerchant.zsc"
-#include "zscript/accensus/merchant/merchants/ItemMerchant.zsc"
-#include "zscript/accensus/merchant/merchants/WeaponMerchant.zsc"
+#include "zscript/accensus/merchant/merchants/merchant.zsc"
 
 #include "zscript/accensus/merchant/merchants/skins/merchantSkins.zsc"
 
