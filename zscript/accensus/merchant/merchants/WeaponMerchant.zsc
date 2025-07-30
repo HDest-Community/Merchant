@@ -1,8 +1,0 @@
-class WeaponMerchant : HDMerchant
-{
-	Default
-	{
-		Tag "Weapon Merchant";
-		HDMerchant.StoreType "weapon";
-	}
-}

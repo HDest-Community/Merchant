@@ -23,8 +23,7 @@ class HDMerchant : Actor {
 		InitSkins();
 	}
 
-	override void Tick()
-	{
+	override void Tick() {
 		A_SpriteOffset(0, SOffsetY);
 
 		if (PiggyBack)
@@ -176,24 +175,25 @@ class HDMerchant : Actor {
 	string StoreType;
 	property StoreType: StoreType;
 
-	Default
-	{
+	Default {
+		+SOLID
+		+NOBLOCKMONST
+
 		Mass 400;
 		Height 58;
 		Radius 8;
 		scale 1.0;
-		+SOLID
-		+NOBLOCKMONST
+
+		tag "$TAG_MERCHANT";
 	}
 }
 
-class HDMerchantBody : HDPickup
-{
-	Default
-	{
+class HDMerchantBody : HDPickup {
+	Default {
 		-INVENTORY.INVBAR
 		+INVENTORY.UNDROPPABLE
 		+HDPICKUP.NOTINPOCKETS
+
 		HDPickup.Bulk 500;
 		Inventory.MaxAmount 1;
 	}
