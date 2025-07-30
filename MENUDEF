@@ -46,6 +46,22 @@ OptionMenu "MerchantMenu"
 	FlagOption "Daina (Labcoat)", "hdm_skin_ammo", "OnOff", 8
 	FlagOption "Nari (Succubus)", "hdm_skin_ammo", "OnOff", 9
 	StaticText ""
+	StaticText "---------- MAG MERCHANTS ----------", "Teal"
+	Option "Mag Amounts", "hdm_stock_mag", "StockMult"
+	Slider "Mag Chance", "hdm_chance_mag", 0.05, 1.0, 0.05, 2
+	StaticText "Chance an mag type will be sold by the merchant.", "White"
+	StaticText ""
+	FlagOption "Resident Evil", "hdm_skin_mag", "OnOff", 0
+	FlagOption "Hobo", "hdm_skin_mag", "OnOff", 1
+	FlagOption "Succubus", "hdm_skin_mag", "OnOff", 2
+	FlagOption "Morshu", "hdm_skin_mag", "OnOff", 3
+	FlagOption "Wandering Trader", "hdm_skin_mag", "OnOff", 4
+	FlagOption "Daina (Default)", "hdm_skin_mag", "OnOff", 5
+	FlagOption "Daina (Bunny)", "hdm_skin_mag", "OnOff", 6
+	FlagOption "Daina (Maid)", "hdm_skin_mag", "OnOff", 7
+	FlagOption "Daina (Labcoat)", "hdm_skin_mag", "OnOff", 8
+	FlagOption "Nari (Succubus)", "hdm_skin_mag", "OnOff", 9
+	StaticText ""
 	StaticText "---------- ITEM MERCHANTS ----------", "Teal"
 	Option "Item Amounts", "hdm_stock_item", "StockMult"
 	Slider "Item Chance", "hdm_chance_item", 0.05, 1.0, 0.05, 2

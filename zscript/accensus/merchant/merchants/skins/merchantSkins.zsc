@@ -1,5 +1,7 @@
 class HDMerchantSkin {
 	name skinId;
+
+	string tag;
 	name sprite;
 
 	Vector2 scale;
@@ -10,11 +12,12 @@ class HDMerchantSkin {
 	string openSound;
 	string closeSound;
 
-	static HDMerchantSkin Create(name id, name sprite = 'HOBM', Vector2 scale = (1.0, 1.0), string openState = "OpenMenu.Default", string openSound = "", string closeState = "SpawnLoop", string closeSound = "") {
+	static HDMerchantSkin Create(name id, string tag = "$TAG_MERCHANT", name sprite = 'HOBM', Vector2 scale = (1.0, 1.0), string openState = "OpenMenu.Default", string openSound = "", string closeState = "SpawnLoop", string closeSound = "") {
 		HDMerchantSkin skin = new('HDMerchantSkin');
 
 		if (skin) {
 			skin.skinId = id;
+			skin.tag = tag;
 			skin.sprite = sprite;
 			skin.scale = scale;
 			skin.openState = openState;
@@ -28,8 +31,8 @@ class HDMerchantSkin {
 
 	string toString() {
 		return String.format(
-			"{ \"skinId\": \"%s\", \"sprite\": \"%s\", \"scale\": (%.2f, %.2f), \"openState\": \"%s\", \"openSound\": \"%s\", \"closeState\": \"%s\", \"closeSound\": \"%s\" }",
-			     skinId,             sprite,             scale.x, scale.y,        openState,             openSound,             closeState,             closeSound
+			"{ \"skinId\": \"%s\", \"tag\": \"%s\", \"sprite\": \"%s\", \"scale\": (%.2f, %.2f), \"openState\": \"%s\", \"openSound\": \"%s\", \"closeState\": \"%s\", \"closeSound\": \"%s\" }",
+			     skinId,             tag,             sprite,             scale.x, scale.y,        openState,             openSound,             closeState,             closeSound
 		);
 	}
 }
@@ -51,9 +54,11 @@ extend class HDMerchant {
 		forEach(skinName : store.skins) {
 			let skin = handler.getMerchantSkin(skinName);
 
-			HDCore.log('Merchant', LOGGING_TRACE, StoreType.." Merchant adding "..skinName.." skin => "..skin.toString());
-
-			if (AvailableSkins.find(skin) == AvailableSkins.size()) AvailableSkins.push(skin);
+			if (skin) {
+				HDCore.log('Merchant', LOGGING_TRACE, StoreType.." Merchant adding "..skinName.." skin => "..skin.toString());
+	
+				if (AvailableSkins.find(skin) == AvailableSkins.size()) AvailableSkins.push(skin);
+			}
 		}
 
 		// If we have at least one skin available, pick one at random
@@ -75,6 +80,7 @@ extend class HDMerchant {
 		Spawn:
 			HOBM A 0 NoDelay {
 				if (SelectedSkin) {
+					SetTag(StringTable.Localize(SelectedSkin.tag));
 					sprite = GetSpriteIndex(SelectedSkin.sprite);
 					scale = SelectedSkin.scale;
 				}
