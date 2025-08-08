@@ -287,6 +287,11 @@ MERCH_CAT_HHELMET                 = "Dastrukar";
 MERCH_TAG_HHELMET                 = "Helmet";
 MERCH_FLAVOR_HHELMET              = "Does not protect from bicycle falls.";
 
+// IED Kits
+MERCH_CAT_IEDKIT                  = "Vanilla";
+MERCH_TAG_IEDKIT                  = "IED Kit";
+MERCH_FLAVOR_IEDKIT               = "You think I'd carry a live one?!";
+
 // Invulnerability Sphere
 MERCH_CAT_INVULNSPHERE            = "Vanilla";
 MERCH_TAG_INVULNSPHERE            = "Invulnerability sphere";
@@ -431,6 +436,11 @@ MERCH_FLAVOR_YELLOWSKULL          = "Yellow, the way of the gold that has lured 
 MERCH_CAT_355                     = "Vanilla";
 MERCH_TAG_355                     = ".355 Rounds";
 MERCH_FLAVOR_355                  = "Rarer than diamonds.";
+
+// 4mm
+MERCH_CAT_4MM                     = "Vanilla";
+MERCH_TAG_4MM                     = "4mm Rounds";
+MERCH_FLAVOR_4MM                  = "It's like candy, pops in your mouth!";
 
 // 12ga Shell
 MERCH_CAT_12GSHELL                = "Vanilla";
