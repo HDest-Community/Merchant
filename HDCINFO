@@ -117,8 +117,7 @@ newMerchantStoreItem => { "enabled": "#hdm_enable_7mmclip", "type": "mag", "cate
 // Addon Store Entries
 // TODO: REFACTOR STORE ENTRIES INTO THEIR RESPECTIVE ADDONS, MOVE CVARS, LANGUAGE LUMPS, ETC.
 
-// AceCorp Store Entries
-newMerchantStoreItem => { "enabled": "#hdm_enable_arcanum", "type": "weapon", "category": "$MERCH_CAT_ARCANUM", "item": "HDArcanumTome", "icon": "ARCTZ0", "displayName": "$MERCH_TAG_ARCANUM", "basePrice": "700", "flavorText": "$MERCH_FLAVOR_ARCANUM" }
+// Accensus Store Entries
 newMerchantStoreItem => { "enabled": "#hdm_enable_executioner", "type": "weapon", "category": "$MERCH_CAT_EXECUTIONER", "item": "HDExecutioner", "icon": "EXECZ0", "displayName": "$MERCH_TAG_EXECUTIONER", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_EXECUTIONER" }
 
 newMerchantStoreItem => { "enabled": "#hdm_enable_ddzflashlight", "type": "item", "category": "$MERCH_CAT_DDZFLASHLIGHT", "item": "DarkDoomZ_Flashlight", "icon": "DDFLA0", "displayName": "$MERCH_TAG_DDZFLASHLIGHT", "basePrice": "50", "flavorText": "$MERCH_FLAVOR_DDZFLASHLIGHT" }

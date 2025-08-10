@@ -34,7 +34,6 @@ server bool  hdm_nonbounty_directdeposit    = false;
 // -------------------
 
 // AceCorp
-server bool hdm_enable_arcanum              = true;
 server bool hdm_enable_executioner          = true;
 server bool hdm_enable_zradar               = true;
 
