@@ -696,7 +696,7 @@ class MerchantHandler : HDCoreEventHandler {
 				let a = HDMerchant(Actor.Spawn('HDMerchant', spawnPos));
 
 				if (a) {
-					a.StoreType = Stores[storeIndex].type;
+					a.StoreType = AvailableStores[storeIndex].type;
 					a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
 					AvailableStores.Delete(storeIndex);
 					secretSectors.Delete(i--);
