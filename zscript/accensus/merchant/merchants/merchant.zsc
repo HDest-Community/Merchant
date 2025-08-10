@@ -2,18 +2,22 @@ class HDMerchant : Actor {
 
 	MerchantHandler handler;
 
-	override void BeginPlay()
-	{
-		Super.BeginPlay();
+	override void BeginPlay() {
+		super.BeginPlay();
 		
 		// Give the merchant some starting cash
 		A_GiveInventory('MercenaryBucks', 250);
 		
 		// Grab a reference to the EventHandler
 		handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
-		
+	}
+
+	override void PostBeginPlay() {
+		super.PostBeginPlay();
+
 		// If a store type hasn't been set, pick one at random
 		if (!StoreType) {
+			
 			StoreType = handler.Stores[random(0, handler.Stores.Size() - 1)].type;
 
 			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Store type not set, automatically selecting "..StoreType);
