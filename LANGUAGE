@@ -27,11 +27,6 @@ MERCH_CAT_5MMS                    = "ZikShadow";
 MERCH_TAG_5MMS                    = "5mm Suppressed";
 MERCH_FLAVOR_5MMS                 = "On the bright side, it doesn't set off metal detectors?";
 
-// Arcanum
-MERCH_CAT_ARCANUM                 = "AceCorp";
-MERCH_TAG_ARCANUM                 = "Arcanum Tome";
-MERCH_FLAVOR_ARCANUM              = "I don't understand a damn thing that's written in it.";
-
 // BFG 9000
 MERCH_CAT_BFG                     = "Vanilla";
 MERCH_TAG_BFG                     = "BFG 9000";
