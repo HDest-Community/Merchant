@@ -192,7 +192,7 @@ class MerchantHandler : HDCoreEventHandler {
 					priceMult
 				);
 
-				console.printf(type.." => "..skinsParam);
+				HDCore.log('Merchant', LOGGING_DEBUG, type.." => "..skinsParam);
 
 				// Parse out Skins Param
 				if (skinsParam != "") {
