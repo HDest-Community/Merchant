@@ -630,7 +630,7 @@ class MerchantHandler : HDCoreEventHandler {
 		// [Ace] Sort sectors by size in ascending order. Spawn merchants in smaller sectors first. Tiberium is the opposite - it prioritizes bigger sectors first.
 		for (int i = 0; i < secretSectors.Size() - 1; ++i) {
 			for (int j = i + 1; j < secretSectors.Size(); ++j) {
-				if (AceCore.GetSectorSize(secretSectors[i]) > AceCore.GetSectorSize(secretSectors[j])) {
+				if (HDCore.GetSectorSize(secretSectors[i]) > HDCore.GetSectorSize(secretSectors[j])) {
 					let swap = secretSectors[i];
 					secretSectors[i] = secretSectors[j];
 					secretSectors[j] = swap;
@@ -648,7 +648,7 @@ class MerchantHandler : HDCoreEventHandler {
 		if (MoneyMode == 0 || MoneyMode == 2) {
 
 			for (int i = secretSectors.Size() - 1; i >= 0; --i) {
-				if (hdm_debug || random[merchrand](1, 100) <= AceCore.GetscaledChance(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
+				if (hdm_debug || random[merchrand](1, 100) <= HDCore.GetscaledChanceInt(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
 					SpawnedTiberium = true;
 
 					SpawnCrystals(secretSectors[i]);
@@ -776,7 +776,7 @@ class MerchantHandler : HDCoreEventHandler {
 			int count = 1;
 			for (int i = 0; i < 2; ++i) {
 
-				if (random() <= AceCore.GetscaledChance(0, 64, 5, 15 + (5 * i))) {
+				if (random() <= HDCore.GetscaledChanceInt(0, 64, 5, 15 + (5 * i))) {
 					count++;
 				} else {
 					break;
