@@ -72,7 +72,12 @@ class MerchantCurrencyFrame : HDZFFrame {
                 if (menu.SelCurrencyIndex > menu.Handler.StoreCurrencies.Size() - 1) menu.SelCurrencyIndex = 0;
                 currency = menu.Handler.StoreCurrencies[menu.SelCurrencyIndex];
                 return true;
+            case HDZFNavEventType_Deny:
+                // Simply let the base frame handle closing
+                return super.onNavEvent(type, fromController);
             default:
+
+                // If we don't handle this Navigation Event Type, log it and just let the base handle it.
                 HDCore.Log('Merchant', LOGGING_WARN, "Unknown NavEvent Type: "..type);
 
                 return super.onNavEvent(type, fromController);
