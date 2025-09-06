@@ -1,6 +1,7 @@
 // Merchant "Safe House" Map Names
 addMerchantSafeMap => { "name": "LOTSAGUN" }
 addMerchantSafeMap => { "name": "RANGE" }
+addMerchantSafeMap => { "name": "RANGE2" }
 addMerchantSafeMap => { "name": "TEST" }
 
 // Store Currencies
