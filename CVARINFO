@@ -142,6 +142,7 @@ server bool hdm_enable_7mmreloader          = true;
 server bool hdm_enable_backpack             = true;
 server bool hdm_enable_garrisonarmour       = true;
 server bool hdm_enable_battlearmour         = true;
+server bool hdm_enable_shieldcore           = true;
 server bool hdm_enable_soulsphere           = true;
 server bool hdm_enable_megasphere           = true;
 server bool hdm_enable_invulnsphere         = true;

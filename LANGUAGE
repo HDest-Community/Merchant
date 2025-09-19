@@ -392,6 +392,11 @@ MERCH_CAT_ROCKETASSEMBLER         = "Bryan's Armory";
 MERCH_TAG_ROCKETASSEMBLER         = "Rocket Assembler";
 MERCH_FLAVOR_ROCKETASSEMBLER      = "Warning: Do not try at home.";
 
+// Shield Core
+MERCH_CAT_SHIELDCORE              = "Vanilla";
+MERCH_TAG_SHIELDCORE              = "Shield Core";
+MERCH_FLAVOR_SHIELDCORE           = "Found this ancient relic, absolutely BURSTING with gretchenfrage...";
+
 // Spray Can
 MERCH_CAT_SPRAYCAN                = "SnekTech";
 MERCH_TAG_SPRAYCAN                = "Spraypaint Can";
