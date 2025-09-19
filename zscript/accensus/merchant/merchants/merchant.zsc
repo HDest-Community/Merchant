@@ -23,8 +23,12 @@ class HDMerchant : Actor {
 			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Store type not set, automatically selecting "..StoreType);
 		}
 
-		// Initialize Merchant Skin once its store type is known
-		InitSkins();
+		// If a skin hasn't been set, pick one based on the store type
+		if (!SelectedSkin) {
+			InitSkins();
+
+			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Skin not set, automatically selecting "..SelectedSkin.skinId);
+		}
 	}
 
 	override void Tick() {
@@ -174,7 +178,8 @@ class HDMerchant : Actor {
 
 	private int DropHoldTimer;
 
-	private HDMerchantSkin SelectedSkin;
+	HDMerchantSkin SelectedSkin;
+	property SelectedSkin: SelectedSkin;
 
 	string StoreType;
 	property StoreType: StoreType;

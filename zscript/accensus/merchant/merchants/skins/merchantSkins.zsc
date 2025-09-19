@@ -1,6 +1,8 @@
 class HDMerchantSkin {
 	name skinId;
 
+	name className;
+
 	string tag;
 	name sprite;
 
@@ -12,11 +14,12 @@ class HDMerchantSkin {
 	string openSound;
 	string closeSound;
 
-	static HDMerchantSkin Create(name id, string tag = "$TAG_MERCHANT", name sprite = 'HOBM', Vector2 scale = (1.0, 1.0), string openState = "OpenMenu.Default", string openSound = "", string closeState = "SpawnLoop", string closeSound = "") {
+	static HDMerchantSkin Create(name id, name cls = 'HDMerchant', string tag = "$TAG_MERCHANT", name sprite = 'HOBM', Vector2 scale = (1.0, 1.0), string openState = "OpenMenu.Default", string openSound = "", string closeState = "SpawnLoop", string closeSound = "") {
 		HDMerchantSkin skin = new('HDMerchantSkin');
 
 		if (skin) {
 			skin.skinId = id;
+			skin.className = cls;
 			skin.tag = tag;
 			skin.sprite = sprite;
 			skin.scale = scale;
@@ -64,6 +67,23 @@ extend class HDMerchant {
 		// If we have at least one skin available, pick one at random
 		if (AvailableSkins.Size() > 0) {
 			SelectedSkin = AvailableSkins[random[merchskinrand](0, AvailableSkins.Size() - 1)];
+
+			// If the skin defines a custom child class of a merchant, replace the current merchant with that.
+			if (
+				HDCore.CheckClassExists(SelectedSkin.className)
+				&& HDCore.IsChildClass(SelectedSkin.className, 'HDMerchant', allowSameCls: false)
+			) {
+				let newMerchant = HDMerchant(Spawn(SelectedSkin.className));
+
+				// If the new merchant spawned successfully, set the relevant information and destroy the current one.
+				if (newMerchant) {
+					newMerchant.StoreType = StoreType;
+					newMerchant.SelectedSkin = SelectedSkin;
+
+					destroy();
+					return;
+				}
+			}
 
 			HDCore.log('Merchant', LOGGING_TRACE, "Selected "..SelectedSkin.skinId.." for "..storeType.." Merchant");
 		}
