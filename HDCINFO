@@ -164,18 +164,6 @@ newMerchantStoreItem => { "enabled": "#hdm_enable_carcanoscope", "type": "item",
 // Mohl Store Entries
 newMerchantStoreItem => { "enabled": "#hdm_enable_purse", "type": "item", "category": "$MERCH_CAT_PURSE", "item": "Purse", "icon": "purse", "displayName": "$MERCH_TAG_PURSE", "basePrice": "40", "flavorText": "$MERCH_FLAVOR_PURSE" }
 
-// Mongoose Powersuit Store Entries
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosepowersuit", "type": "weapon", "category": "$MERCH_CAT_POWERSUIT", "item": "hdpowersuitspawnerpickup", "icon": "hcapa0", "displayName": "$MERCH_TAG_POWERSUIT", "basePrice": "1500", "flavorText": "$MERCH_FLAVOR_POWERSUIT" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosebrontoarm", "type": "weapon", "category": "$MERCH_CAT_ATHENALIGHTCANNON", "item": "hdpowersuitbrontoarmpickup", "icon": "ATENA3", "displayName": "$MERCH_TAG_ATHENALIGHTCANNON", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_ATHENALIGHTCANNON" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongooserocketarm", "type": "weapon", "category": "$MERCH_CAT_CALINICUSAUTOLAUNCHER", "item": "hdpowersuitrocketarmpickup", "icon": "CLNCA3", "displayName": "$MERCH_TAG_CALINICUSAUTOLAUNCHER", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_CALINICUSAUTOLAUNCHER" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosesmgarm", "type": "weapon", "category": "$MERCH_CAT_JACKRIPPERHYBRIDMG", "item": "hdpowersuitsmgarmpickup", "icon": "JKRPA3", "displayName": "$MERCH_TAG_JACKRIPPERHYBRIDMG", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_JACKRIPPERHYBRIDMG" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosevulcarm", "type": "weapon", "category": "$MERCH_CAT_LEONIDASLIGHTMG", "item": "hdpowersuitvulcarmpickup", "icon": "LEONA3", "displayName": "$MERCH_TAG_LEONIDASLIGHTMG", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_LEONIDASLIGHTMG" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongooselibarm", "type": "weapon", "category": "$MERCH_CAT_ZMG33", "item": "hdpowersuitlibarmpickup", "icon": "ZMG3A3", "displayName": "$MERCH_TAG_ZMG33", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_ZMG33" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosebrowningarm", "type": "weapon", "category": "$MERCH_CAT_M2BROWNING", "item": "hdpowersuitM2armpickup", "icon": "MMG2A3", "displayName": "$MERCH_TAG_M2BROWNING", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_M2BROWNING" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosecore", "type": "weapon", "category": "$MERCH_CAT_POWERSUITCORE", "item": "hdpowersuitcorepickup", "icon": "PSTOB1", "displayName": "$MERCH_TAG_POWERSUITCORE", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_POWERSUITCORE" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongoosearms", "type": "weapon", "category": "$MERCH_CAT_POWERSUITARMS", "item": "hdpowersuitbotharmspickup", "icon": "PARMZ0", "displayName": "$MERCH_TAG_POWERSUITARMS", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_POWERSUITARMS" }
-newMerchantStoreItem => { "enabled": "#hdm_enable_mongooselegs", "type": "weapon", "category": "$MERCH_CAT_POWERSUITLEGS", "item": "hdpowersuitlegspickup", "icon": "powleg1", "displayName": "$MERCH_TAG_POWERSUITLEGS", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_POWERSUITLEGS" }
-
 // Sirus Store Entries
 newMerchantStoreItem => { "enabled": "#hdm_enable_requisitionkit", "type": "item", "category": "$MERCH_CAT_REQUISITIONKIT", "item": "VelvetAdhesive", "icon": "VADHA0", "displayName": "$MERCH_TAG_REQUISITIONKIT", "basePrice": "450", "flavorText": "$MERCH_FLAVOR_REQUISITIONKIT" }
 
