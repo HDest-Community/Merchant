@@ -73,7 +73,7 @@ extend class HDMerchant {
 				HDCore.CheckClassExists(SelectedSkin.className)
 				&& HDCore.IsChildClass(SelectedSkin.className, 'HDMerchant', allowSameCls: false)
 			) {
-				let newMerchant = HDMerchant(Spawn(SelectedSkin.className));
+				let newMerchant = HDMerchant(Spawn(SelectedSkin.className, pos));
 
 				// If the new merchant spawned successfully, set the relevant information and destroy the current one.
 				if (newMerchant) {
