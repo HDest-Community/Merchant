@@ -113,6 +113,7 @@ class MerchantHandler : HDCoreEventHandler {
 				let id = cmd.getNameParam("name");
 
 				// Get remaining params
+				let className = cmd.getNameParam("className", 'HDMerchant');
 				let tag = cmd.getStringParam("tag", "$TAG_MERCHANT");
 				let sprite = cmd.getNameParam("sprite", 'HOBM');
 				let scaleX = cmd.getDoubleParam("scaleX", 1.0);
@@ -136,7 +137,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 				if (existingSkin) break;
 
-				let newskin = HDMerchantSkin.create(id, tag, sprite, scale, openState, openSound, closeState, closeSound);
+				let newskin = HDMerchantSkin.create(id, className, tag, sprite, scale, openState, openSound, closeState, closeSound);
 
 				if (newSkin) skins.push(newSkin);
 
@@ -192,7 +193,7 @@ class MerchantHandler : HDCoreEventHandler {
 					priceMult
 				);
 
-				HDCore.log('Merchant', LOGGING_DEBUG, type.." => "..skinsParam);
+				HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, type.." => "..skinsParam);
 
 				// Parse out Skins Param
 				if (skinsParam != "") {
@@ -423,47 +424,47 @@ class MerchantHandler : HDCoreEventHandler {
 	}
 
 	override void afterProcessCommands() {
-		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) {
+		if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) {
 
 			let msg = "Merchant Bounty Targets:\n";
 			
 			forEach (target : BountyTargets) msg = msg.." * "..target.toString().."\n";
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Safe Maps:\n";
 
 			forEach (mapName : SafeMapNames) msg = msg.." * "..mapName.."\n";
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Skins:\n";
 
 			forEach (skin : Skins) msg = msg.." * "..skin.toString().."\n";
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Currencies:\n";
 			forEach (currency : StoreCurrencies) msg = msg.." * "..currency.toString().."\n";
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Stores:\n";
 
 			forEach (store : Stores) msg = msg.." * "..store.toString().."\n";
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 
 
 			msg = "Merchant Store Items:\n";
 
 			forEach (item : StoreItems) msg = msg.." * "..item.toString().."\n";
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 		}
 	}
 
@@ -608,7 +609,7 @@ class MerchantHandler : HDCoreEventHandler {
 		// Initialize the stores for this map
 		for (int i = 0; i < Stores.Size(); ++i) InitStore(Stores[i].type);
 		
-		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) {
+		if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) {
 			let msg = "Merchant Stores:\n";
 
 			forEach (store : Stores) {
@@ -623,7 +624,7 @@ class MerchantHandler : HDCoreEventHandler {
 				}
 			}
 
-			HDCore.Log('Merchant', LOGGING_DEBUG, msg);
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, msg);
 		}
 
 		Array<MerchantStore> AvailableStores;
@@ -688,7 +689,7 @@ class MerchantHandler : HDCoreEventHandler {
 		if (MoneyMode == 0 || MoneyMode == 2) {
 
 			for (int i = secretSectors.Size() - 1; i >= 0; --i) {
-				if (hdm_debug || random[merchrand](1, 100) <= HDCore.GetscaledChanceInt(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
+				if (hdm_debug || HDCore.GetRandomInt(1, 100) <= HDCore.GetscaledChanceInt(5, 40, acl_spawnscale_min, acl_spawnscale_max)) {
 					SpawnedTiberium = true;
 
 					SpawnCrystals(secretSectors[i]);
@@ -707,48 +708,25 @@ class MerchantHandler : HDCoreEventHandler {
 
 		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
 		foreach (sec : dedicatedMerchantSectors) {
-			Vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
-			int storeIndex = random(0, AvailableStores.Size() - 1);
-			let a = HDMerchant(Actor.Spawn('HDMerchant', spawnPos));
 
-			if (a) {
-				a.storetype = Stores[storeIndex].type;
-				a.angle = sec.GetUDMFInt('user_merchantangle');
+			let storeIndex = HDCore.getRandomInt(0, AvailableStores.Size() - 1);
+			if (TrySpawnMerchant(sec, storeIndex)) {
 				AvailableStores.Delete(storeIndex);
 	
-				if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
-					'Merchant', LOGGING_DEBUG, String.format(
-						"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-						a.GetTag(), spawnPos.x, spawnPos.y
-					)
-				);
-	
-				if (--MerchantsLeft == 0) break;
+				if (--MerchantsLeft <= 0) break;
 			}
 		}
 
 		if (MerchantsLeft && AvailableStores.Size()) {
-			for (int i = 0; i < secretSectors.Size(); ++i) {
-				Vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 30) continue;
-				int storeIndex = random(0, AvailableStores.Size() - 1);
-				let a = HDMerchant(Actor.Spawn('HDMerchant', spawnPos));
+			foreach (sec : secretSectors) {
+				if (HDCore.getRandomInt(1, 100) < 70) {
 
-				if (a) {
-					a.StoreType = AvailableStores[storeIndex].type;
-					a.angle = secretSectors[i].GetUDMFInt('user_merchantangle');
-					AvailableStores.Delete(storeIndex);
-					secretSectors.Delete(i--);
+					let storeIndex = HDCore.getRandomInt(0, AvailableStores.Size() - 1);
+					if (TrySpawnMerchant(sec, storeIndex)) {
+						AvailableStores.Delete(storeIndex);
 
-					if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
-						'Merchant', LOGGING_DEBUG, String.format(
-							"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
-							a.GetTag(), spawnPos.x, spawnPos.y
-						)
-					);
-	
-					if (--MerchantsLeft == 0) break;
+						if (--MerchantsLeft <= 0) break;
+					}
 				}
 			}
 		}
@@ -768,8 +746,8 @@ class MerchantHandler : HDCoreEventHandler {
 			a.angle = dedicatedSlotSectors[i].GetUDMFInt('user_slotmachineangle');
 			spawnedMachine = true;
 
-			if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
-				'Merchant', LOGGING_DEBUG, String.format(
+			if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
+				'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(
 					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 					a.GetTag(), spawnPos.x, spawnPos.y
 				)
@@ -781,14 +759,14 @@ class MerchantHandler : HDCoreEventHandler {
 			for (int i = 0; i < secretSectors.Size(); i++) {
 
 				Vector3 spawnPos = (secretSectors[i].centerspot, secretSectors[i].floorplane.ZAtPoint(secretSectors[i].centerspot));
-				if (!level.IsPointInLevel(spawnPos) || random[merchrand](1, 100) <= 20) continue;
+				if (!level.IsPointInLevel(spawnPos) || HDCore.GetRandomInt(1, 100) <= 20) continue;
 
 				Actor a = Actor.Spawn('MerchantSlotMachine', spawnPos);
 				a.angle = secretSectors[i].GetUDMFInt('user_slotmachineangle');
 				secretSectors.Delete(i--);
 
-				if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
-					'Merchant', LOGGING_DEBUG, String.format(
+				if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
+					'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(
 						"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 						a.GetTag(), spawnPos.x, spawnPos.y
 					)
@@ -840,6 +818,66 @@ class MerchantHandler : HDCoreEventHandler {
 		// and the thing hasn't died/dropped yet, drop currency.
 		let mob = HDMobBase(e.thing);
 		if (hdm_nonbounty_dropratio > 0 && !mob.bHASDROPPED) DropCurrency(mob);
+	}
+
+	private bool TrySpawnMerchant(Sector sec, int storeIndex) {
+		Vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
+
+		if (!Level.IsPointInLevel(spawnPos)) return false;
+
+		// Get the selected Store Type
+		let selectedStore = Stores[storeIndex];
+		let storeType     = selectedStore.type;
+		
+		// Create a list to store the intended skins
+		Array<HDMerchantSkin> AvailableSkins;
+		AvailableSkins.clear();
+
+		HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, "Getting available skins from "..storeType.." Store => "..selectedStore.toString());
+
+		forEach(skinName : selectedStore.skins) {
+			let skin = getMerchantSkin(skinName);
+
+			if (skin) {
+				HDCore.Log('Merchant.MerchantHandler', LOGGING_TRACE, storeType.." Merchant adding "..skinName.." skin => "..skin.toString());
+	
+				if (AvailableSkins.find(skin) == AvailableSkins.size()) AvailableSkins.push(skin);
+			}
+		}
+
+		let selectedSkin   = AvailableSkins[HDCore.getRandomInt(0, AvailableSkins.Size() - 1)];
+		name merchantClass = 'HDMerchant';
+
+		// If the skin defines a custom child class of a merchant, replace the intended actor class with that.
+		if (
+			HDCore.CheckClassExists(selectedSkin.className)
+			&& HDCore.IsChildClass((Class<Object>)(selectedSkin.className), 'HDMerchant', allowSameCls: false)
+		) {
+			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, storeType.." Merchant has custom class '"..selectedSkin.className.."'");
+			merchantClass = selectedSkin.className;
+		}
+
+
+		// Attempt to spawn the Merchant
+		let a = HDMerchant(Actor.Spawn(merchantClass, spawnPos));
+
+		// If it spawned successfully, set the relevant information
+		if (a) {
+			a.storetype = selectedStore.type;
+			a.selectedSkin = selectedSkin;
+			a.angle = sec.GetUDMFInt('user_merchantangle');
+
+			if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
+				'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(
+					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					a.GetTag(), spawnPos.x, spawnPos.y
+				)
+			);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private void DropCurrency(HDMobBase mob) {
