@@ -188,6 +188,7 @@ OptionMenu "MerchStoreFilterVanilla"
 	StaticText "Armor"
 	Option "$MERCH_TAG_GARRISONARMOUR", "hdm_enable_garrisonarmour", "OnOff"
 	Option "$MERCH_TAG_BATTLEARMOUR", "hdm_enable_battlearmour", "OnOff"
+	Option "$MERCH_TAG_SHIELDCORE", "hdm_enable_shieldcore", "OnOff"
 }
 
 OptionMenu "MerchStoreFilterHDBulletLib"
