@@ -251,6 +251,46 @@ class MerchantHandler : HDCoreEventHandler {
 				Stores.clear();
 				break;
 			}
+			case 'addMerchantStoreSkin': {
+				
+				// Get Store Type
+				let type = cmd.getNameParam("type");
+
+				// Get Skin ID
+				let skinId = cmd.getNameParam("skin");
+
+				// Look for existing store definition
+				MerchantStore existingStore;
+				forEach (store : Stores) {
+					let currType = store.type;
+
+					if (currType != '' && type != '' && currType == type) {
+						existingStore = store;
+						break;
+					}
+				}
+
+				// If an existing store for this type doesn't exist, quit.
+				if (!existingStore) break;
+
+				// Look for existing skin definition
+				HDMerchantSkin existingSkin;
+				forEach (skin : Skins) {
+					let currId = skin.skinId;
+
+					if (currId != '' && skinId != '' && currId == skinId) {
+						existingSkin = skin;
+						break;
+					}
+				}
+
+				// If an existing skin for this ID doesn't exist, quit.
+				if (!existingSkin) break;
+
+				// Add the skin to the store if it isn't already.
+				if (existingStore.skins.find(skinId) >= existingStore.skins.size()) existingStore.skins.push(skinId);
+
+			}
 			case 'newMerchantStoreCurrency': {
 				
 				// Get Currency name and check if it's valid
