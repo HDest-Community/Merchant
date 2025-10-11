@@ -1,3 +1,7 @@
+// Blacklist Bounty Effects from being tracked/replaced/etc.
+addSpawnHandlerThingBlacklist => { "name": "BountyBodyTrail" }
+addSpawnHandlerThingBlacklist => { "name": "BountyThinker" }
+
 // Merchant "Safe House" Map Names
 addMerchantSafeMap => { "name": "LOTSAGUN" }
 addMerchantSafeMap => { "name": "RANGE" }
