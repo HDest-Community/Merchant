@@ -402,7 +402,7 @@ class MerchantHandler : HDCoreEventHandler {
 				break;
 			}
 			case 'removeMerchantStoreItem': {
-				let item = cmd.getNameParam("name");
+				let item = cmd.getNameParam("item");
 
 				forEach (storeItem : StoreItems) {
 					if (storeItem.getItem() == item) {
