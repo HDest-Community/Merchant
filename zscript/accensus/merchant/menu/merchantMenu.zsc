@@ -89,10 +89,10 @@ class MerchantShopMenu : HDZFGenericMenu {
         HDZFScrollContainer.create(
             pos, size,
             24.0, shopContent.getHeight(), 15.0,
-            HDZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundNormal.png', (7,7), (14,14), true, true),
-            HDZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundHover.png', (7,7), (14,14), true, true),
-            HDZFBoxTextures.createTexturePixels('Graphics/CommonBackgroundClick.png', (7,7), (14,14), true, true),
-            HDZFBoxTextures.createTexturePixels('Graphics/CommonBackground.png', (7,7), (14,14), true, true),
+            HDZFBoxTextures.createTexturePixels('graphics/menus/CommonBackgroundNormal.png', (7,7), (14,14), true, true),
+            HDZFBoxTextures.createTexturePixels('graphics/menus/CommonBackgroundHover.png', (7,7), (14,14), true, true),
+            HDZFBoxTextures.createTexturePixels('graphics/menus/CommonBackgroundClick.png', (7,7), (14,14), true, true),
+            HDZFBoxTextures.createTexturePixels('graphics/menus/CommonBackground.png', (7,7), (14,14), true, true),
             shopContent,
             Spacing
         ).pack(MainFrame);
@@ -150,7 +150,7 @@ class MerchantShopMenu : HDZFGenericMenu {
     override void setupFocusIndicator() {
         setFocusIndicator(HDZFBoxImage.create(
             (0, 0), (0, 0),
-            HDZFBoxTextures.CreateTexturePixels('Graphics/FocusIndicator.png', (7, 7), (14, 14), true, true)
+            HDZFBoxTextures.CreateTexturePixels('graphics/menus/FocusIndicator.png', (7, 7), (14, 14), true, true)
         ));
         setFocusPriority(HDZFFocusPriority_JustAboveFocused);
     }
