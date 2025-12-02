@@ -274,7 +274,7 @@ class TiberiumChunk : HDUPK
 	// [Ace] Not being able to backpack crystals directly is completely intentional.
 	override void A_HDUPKGive()
 	{
-		AceCore.GiveToPlayers('MercenaryBucks', Amount);
+		HDCore.GiveToPlayers('MercenaryBucks', Amount);
 
 		picktarget.A_StartSound(pickupsound, 5);
 		HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth "..(IsBlue ? "\c[Blue]" : "\c[Green]").."$"..Amount.."\c-.");
