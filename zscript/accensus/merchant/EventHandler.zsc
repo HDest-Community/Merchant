@@ -888,6 +888,8 @@ class MerchantHandler : HDCoreEventHandler {
 
 	private void DropCurrency(HDMobBase mob) {
 
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, mob.getClassName().." Dropping Non-Bounty Cash...");
+
 		// Get the raw amount of currency to drop
 		let bounty = GetBounty(mob);
 		let healthamt = mob.getspawnhealth() + (mob.maxshields / 2);
@@ -896,9 +898,12 @@ class MerchantHandler : HDCoreEventHandler {
 
 		if (hdm_nonbounty_directdeposit) {
 
+			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Depositing "..amount.."x MercenaryBucks into Players' Inventories...");
+
 			// Genericfiredemon: Code taken from line 263 of Bounty.zsc and modified for basic cash.
 			HDCore.GiveToPlayers('MercenaryBucks', amount);
 		} else {
+			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Dropping "..amount.."x MercenaryBucks onto ground...");
 
 			while (amount > 0) {
 
