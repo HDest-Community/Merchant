@@ -558,7 +558,7 @@ class MerchantHandler : HDCoreEventHandler {
 								int MaxActualGive = min(Amount, MaxGive);
 
 								// [Ace] Give what you can directly and drop the rest on the ground.
-								plr.A_GiveInventory(InvClass, MaxActualGive);
+								HDF.give(plr, InvClass, MaxActualGive);
 								Amount -= MaxActualGive;
 
 								if (Amount > 0) {
