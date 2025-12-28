@@ -1,0 +1,85 @@
+class MerchantStoreTable : HDCoreWeightedRandomTable play {
+
+    /**
+     * Creates a Merchant Store table for a given type by name
+     * whether the entries are considered after initial map spawn, and whether the table replaces the original thing.
+     * @returns {MerchantStoreTable} The newly created table.
+     */
+    static MerchantStoreTable create() {
+        MerchantStoreTable table = MerchantStoreTable(new('MerchantStoreTable'));
+
+        table._tableName = HDCoreDataProvider.create('HDCoreStaticProvider', "MerchantStoreTable");
+
+        table.clearEntries();
+
+        return table;
+    }
+}
+
+class MerchantStoreTableEntry : HDCoreWeightedRandomTableEntry play {
+
+    /**
+     * Creates an entry for a given thing by name and its chances of spawning within the table.
+     * @param {name} name The storeType of the entry to be selected
+     * @param {bool} [enabled=true] if true, the new entry will be included in the table
+     * @param {double} [weight=1.0] The relative weight/bias of the storeType in the table.
+     * @returns {MerchantStoreTableEntry} The newly created table entry.
+     */
+    static MerchantStoreTableEntry create(
+        HDCoreDataProvider name,
+        HDCoreDataProvider enabled  = null,
+        HDCoreDataProvider weight   = null
+    ) {
+        MerchantStoreTableEntry entry = MerchantStoreTableEntry(new('MerchantStoreTableEntry'));
+
+        entry._name       = name;
+        entry._enabled    = enabled ? enabled : HDCoreDataProvider.create('HDCoreStaticProvider', "true");
+        entry._weight     = weight ? weight : HDCoreDataProvider.create('HDCoreStaticProvider', "1.0");
+
+        return entry;
+    }
+
+    clearscope static bool shouldGetEntry(HDCoreWeightedRandomTableEntry entry, Dictionary params) {
+
+        MerchantStoreTableEntry storeEntry = MerchantStoreTableEntry(entry);
+
+        // If the entry isn't a SpawnTable Entry, or it isn't enabled, skip.
+        if (!storeEntry || !storeEntry.isEnabled()) {
+            HDCore.Log('Merchant.StoreTableEntry', LOGGING_DEBUG, "Store Table Entry '"..entry.getName().."' is not enabled, skipping.");
+
+            return false;
+        }
+
+        // If we're given a serialized list of available store types,
+		// filter out what's not given
+		if (params) {
+			let availStoreParam = params.at("availableStores");
+
+			Array<string> availableStores;
+			availStoreParam.split(availableStores, ",", TOK_SKIPEMPTY);
+
+			if (availableStores.size() && availableStores.find(entry.getName()) >= availableStores.size()) {
+				HDCore.Log('Merchant.StoreTableEntry', LOGGING_DEBUG, "Store Table Entry '"..entry.getName().."' is not currently available, skipping.");
+
+				return false;
+			}
+		}
+
+        return true;
+    }
+
+    override name getValue() {
+		return getName();
+    }
+
+    override void getEntries(out Array<HDCoreWeightedRandomTableEntry> entries) {
+        // no-op
+    }
+
+    override string toString() {
+        return String.format(
+            "{ \"name\": \"%s\", \"weight\": %.3f }",
+                 getName(),        getWeight()
+        );
+    }
+}

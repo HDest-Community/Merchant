@@ -1,3 +1,4 @@
+// TODO: refactor into WeightedRandomTableEntry
 class MerchantStore play {
 
 	name type;
@@ -74,13 +75,14 @@ class MerchantStore play {
 	}
 }
 
-extend class MerchantHandler
-{
+extend class MerchantHandler {
+
 	Array<name> SafeMapNames;
 	Array<StoreCurrency> StoreCurrencies;
 	Array<StoreItem> StoreItems;
 
 	Array<MerchantStore> Stores;
+	MerchantStoreTable StoreTypes;
 
 	name OpenedStore[MAXPLAYERS];
 

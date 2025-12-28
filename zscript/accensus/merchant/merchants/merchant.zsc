@@ -17,8 +17,8 @@ class HDMerchant : Actor {
 
 		// If a store type hasn't been set, pick one at random
 		if (!StoreType) {
-			
-			StoreType = handler.Stores[random(0, handler.Stores.Size() - 1)].type;
+
+			StoreType = handler.StoreTypes.getRandomEntry().getName();
 
 			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Store type not set, automatically selecting "..StoreType);
 		}

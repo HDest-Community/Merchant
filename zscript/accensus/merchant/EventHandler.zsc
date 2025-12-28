@@ -13,7 +13,9 @@ class MerchantHandler : HDCoreEventHandler {
 		Skins.clear();
 		StoreCurrencies.clear();
 		StoreItems.clear();
-		
+
+		StoreTypes = MerchantStoreTable.create();
+
 		initBounties();
 		initCurrencies();
 		initStores();
@@ -162,12 +164,17 @@ class MerchantHandler : HDCoreEventHandler {
 			}
 			case 'newMerchantStore': {
 				
+				// Get Data Providers
+				let typeParam = cmd.getParamValue("type");
+				let enabledParam = cmd.getParamValue("enabled");
+				let weightParam = cmd.getParamValue("weight");
+				let skinsParam = cmd.getParamValue("skins");
+
 				// Get Store Type
-				let type = cmd.getNameParam("type");
+				let type = typeParam.getNameValue();
 
 				// get remaining params
 				let chance = cmd.getDoubleParam("chance", -1.0);
-				let skinsParam = cmd.getStringParam("skins", "");
 				let stockMult = cmd.getDoubleParam("stockMult", 1.0);
 				let priceMult = cmd.getDoubleParam("priceMult", 1.0);
 
@@ -196,12 +203,12 @@ class MerchantHandler : HDCoreEventHandler {
 				HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, type.." => "..skinsParam);
 
 				// Parse out Skins Param
-				if (skinsParam != "") {
+				if (skinsParam != null && skinsParam.getStringValue() != "") {
 
 					Array<string> skinsArr;
 					skinsArr.clear();
 
-					let skinsFlags = skinsParam.toInt(10);
+					let skinsFlags = skinsParam.getIntValue();
 					if (skinsFlags > 0) {
 
 						// Store the default Skin IDs
@@ -222,7 +229,7 @@ class MerchantHandler : HDCoreEventHandler {
 						for (let i = 0; i < defaultSkins.size(); i++) if (skinsFlags & 1 << i) skinsArr.push(defaultSkins[i]);
 
 					} else {
-						skinsParam.split(skinsArr, ",", TOK_SKIPEMPTY);
+						skinsParam.getStringValue().split(skinsArr, ",", TOK_SKIPEMPTY);
 					}
 
 					forEach(skin : skinsArr) {
@@ -231,8 +238,11 @@ class MerchantHandler : HDCoreEventHandler {
 					}
 				}
 
-				if (newStore) stores.push(newStore);
+				if (newStore) {
+					StoreTypes.addEntry(MerchantStoreTableEntry.create(typeParam, enabledParam, weightParam));
 
+					stores.push(newStore);
+				}
 				break;
 			}
 			case 'removeMerchantStore': {
@@ -249,6 +259,7 @@ class MerchantHandler : HDCoreEventHandler {
 				break;
 			}
 			case 'clearMerchantStores': {
+				StoreTypes.clearEntries();
 				Stores.clear();
 				break;
 			}
@@ -709,7 +720,19 @@ class MerchantHandler : HDCoreEventHandler {
 		// [Ace] Some boilerplate because I can't make local functions and the workaround is ironically worse.
 		foreach (sec : dedicatedMerchantSectors) {
 
-			let store = AvailableStores[HDCore.getRandomInt(0, AvailableStores.Size() - 1, hdc_random_mode)];
+			let param = "";
+			foreach (store : AvailableStores) param = param..","..store.type;
+        
+			Dictionary params = Dictionary.create();
+			params.insert("availableStores", param);
+
+			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Dedicated Sector - AvailableStores: "..param);
+
+			let predicateFn = MerchantStoreTableEntry.shouldGetEntry;
+			let weightedRandomEntry = StoreTypes.getRandomEntry(predicateFn, params);
+			let entry = MerchantStoreTableEntry(weightedRandomEntry);
+
+			let store = GetStore(entry.getName());
 			if (TrySpawnMerchant(sec, store)) {
 				AvailableStores.Delete(AvailableStores.Find(store));
 	
@@ -721,7 +744,19 @@ class MerchantHandler : HDCoreEventHandler {
 			foreach (sec : secretSectors) {
 				if (HDCore.getRandomInt(1, 100, hdc_random_mode) < 70) {
 
-					let store = AvailableStores[HDCore.getRandomInt(0, AvailableStores.Size() - 1, hdc_random_mode)];
+					let param = "";
+					foreach (store : AvailableStores) param = param..","..store.type;
+        
+					Dictionary params = Dictionary.create();
+					params.insert("availableStores", param);
+
+					HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Secret Sector - AvailableStores: "..param);
+
+					let predicateFn = MerchantStoreTableEntry.shouldGetEntry;
+					let weightedRandomEntry = StoreTypes.getRandomEntry(predicateFn, params);
+					let entry = MerchantStoreTableEntry(weightedRandomEntry);
+
+					let store = GetStore(entry.getName());
 					if (TrySpawnMerchant(sec, store)) {
 						AvailableStores.Delete(AvailableStores.Find(store));
 
