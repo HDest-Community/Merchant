@@ -865,9 +865,11 @@ class MerchantHandler : HDCoreEventHandler {
 	}
 
 	private bool TrySpawnMerchant(Sector sec, MerchantStore store) {
-		Vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
 
-		if (!Level.IsPointInLevel(spawnPos)) return false;
+		// If the center of the sector isn't the same sector, quit.
+		if (Level.pointInSector(sec.centerspot) != sec) return false;
+
+		Vector3 spawnPos = (sec.centerspot, sec.floorplane.ZAtPoint(sec.centerspot));
 
 		// Create a list to store the intended skins
 		Array<HDMerchantSkin> AvailableSkins;
