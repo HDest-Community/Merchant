@@ -783,7 +783,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 			if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
 				'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(
-					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					"Spawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 					a.GetTag(), spawnPos.x, spawnPos.y
 				)
 			);
@@ -802,7 +802,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 				if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
 					'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(
-						"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+						"Spawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 						a.GetTag(), spawnPos.x, spawnPos.y
 					)
 				);
@@ -910,7 +910,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 			if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
 				'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(
-					"--------------------\nSpawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
+					"Spawned %s. Sector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c-.",
 					a.GetTag(), spawnPos.x, spawnPos.y
 				)
 			);
