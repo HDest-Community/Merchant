@@ -825,7 +825,7 @@ class MerchantHandler : HDCoreEventHandler {
 		if (GameInProgress) PokerTick();
 
 		// Initialize Bounty Target(s) Selection
-		if (level.time == 35 && (MoneyMode == 1 || (MoneyMode == 2 && !SpawnedTiberium))) {
+		if (level.mapTime == hdc_prespawn_threshold && (MoneyMode == 1 || (MoneyMode == 2 && !SpawnedTiberium))) {
 			int count = 1;
 			for (int i = 0; i < 2; ++i) {
 
