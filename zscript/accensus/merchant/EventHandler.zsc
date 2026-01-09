@@ -844,7 +844,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 		// If we're still initializing the level,
 		// don't "pre-drop" money from already dead mobs.
-		if (Level.time < 35) return;
+		if (HDCore.isPreSpawn()) return;
 
 		// If thing is an item (?) and is owned (?) quit.
 		if (e.thing is 'Inventory' && Inventory(e.thing).owner && e.thing.pos == (0, 0, 0)) return;
