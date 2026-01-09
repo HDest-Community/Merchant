@@ -814,8 +814,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 	override void WorldUnloaded(WorldEvent e) {
 
-		let plr = players[Net_Arbitrator].mo;
-		if (!plr) return;
+		if (!players[Net_Arbitrator].mo) return;
 
 		forEach (p : PLAYERS) if (p.mo) p.mo.A_TakeInventory("HDMerchantBody");
 	}
