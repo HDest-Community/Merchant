@@ -52,11 +52,6 @@ MERCH_CAT_CHAINSAW                = "Vanilla";
 MERCH_TAG_CHAINSAW                = "Lumberjack";
 MERCH_FLAVOR_CHAINSAW             = "VRRRRRRRRRRRRRR!";
 
-// Executioner
-MERCH_CAT_EXECUTIONER             = "AceCorp";
-MERCH_TAG_EXECUTIONER             = "Executioner";
-MERCH_FLAVOR_EXECUTIONER          = "Just get it the fuck away from me. This thing is fucking cursed.";
-
 // Hunter
 MERCH_CAT_HUNTER                  = "Vanilla";
 MERCH_TAG_HUNTER                  = "Hunter";
@@ -251,11 +246,6 @@ MERCH_FLAVOR_FACTORYRELOADER      = "Please don't tell anyone that I sold you th
 MERCH_CAT_FANNYPACK               = "Cannibal Hunter";
 MERCH_TAG_FANNYPACK               = "Fanny Pack";
 MERCH_FLAVOR_FANNYPACK            = "An extended version of your pockets.";
-
-// Flashlight
-MERCH_CAT_DDZFLASHLIGHT           = "AceCorp";
-MERCH_TAG_DDZFLASHLIGHT           = "Flashlight";
-MERCH_FLAVOR_DDZFLASHLIGHT        = "The clicking mechanism is really satisfying.";
 
 // Grenade Launcher Attachment
 MERCH_CAT_GLATTACHMENT            = "General Goods";
