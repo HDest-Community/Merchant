@@ -134,7 +134,7 @@ class MerchantSlotMachine : Actor
 			if (bucksToWin > 0)
 			{
 				A_StartSound(winSound);
-				LastUser.A_GiveInventory('MercenaryBucks', bucksToWin);
+				HDF.give(LastUser, 'MercenaryBucks', bucksToWin);
 			}
 			else
 			{

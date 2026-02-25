@@ -121,11 +121,12 @@ extend class MerchantHandler
 			average /= crystalCount;
 		}
 
-		if (hdm_debug > 0)
-		{
-			Console.Printf("--------------------\nSpawned "..(isBlue ? "\c[Blue]" : "\c[Green]").."%i\c- crystals. Remaining health: \c[Red]%i\c- out of \c[Red]%i\c- (x \c[Red]%.2f\c-). Low/avg/high: \c[Red]%i\c-/\c[Red]%i\c-/\c[Red]%i\c-.\nSector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c- size/avg is \c[Brick]%i\c-/\c[Brick]%i\c-. Took \c[Gold]%i\c- tries.",
-				crystalCount, totalCrystalHealth, originalTotal, scaleFac, lowest, average, highest, s.centerspot.x, s.centerspot.y, size, avgSize, tries);
-		}
+		if (HDCore.ShouldLog('Merchant', LOGGING_DEBUG)) HDCore.Log(
+			'Merchant', LOGGING_DEBUG, String.format(
+				"--------------------\nSpawned "..(isBlue ? "\c[Blue]" : "\c[Green]").."%i\c- crystals. Remaining health: \c[Red]%i\c- out of \c[Red]%i\c- (x \c[Red]%.2f\c-). Low/avg/high: \c[Red]%i\c-/\c[Red]%i\c-/\c[Red]%i\c-.\nSector @\c[DarkGray]%i\c-, \c[DarkGray]%i\c- size/avg is \c[Brick]%i\c-/\c[Brick]%i\c-. Took \c[Gold]%i\c- tries.",
+				crystalCount, totalCrystalHealth, originalTotal, scaleFac, lowest, average, highest, s.centerspot.x, s.centerspot.y, size, avgSize, tries
+			)
+		);
 	}
 }
 
@@ -273,7 +274,7 @@ class TiberiumChunk : HDUPK
 	// [Ace] Not being able to backpack crystals directly is completely intentional.
 	override void A_HDUPKGive()
 	{
-		AceCore.GiveToPlayers('MercenaryBucks', Amount);
+		HDCore.GiveToPlayers('MercenaryBucks', Amount);
 
 		picktarget.A_StartSound(pickupsound, 5);
 		HDPickup.LogPickupMessage(picktarget, "Picked up a chunk of Tiberium worth "..(IsBlue ? "\c[Blue]" : "\c[Green]").."$"..Amount.."\c-.");

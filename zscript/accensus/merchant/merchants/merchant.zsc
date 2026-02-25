@@ -1,15 +1,37 @@
-class HDMerchant : Actor abstract
-{
-	override void BeginPlay()
-	{
-		Super.BeginPlay();
+class HDMerchant : Actor {
+
+	MerchantHandler handler;
+
+	override void BeginPlay() {
+		super.BeginPlay();
 		
-		InitSkins();
+		// Give the merchant some starting cash
 		A_GiveInventory('MercenaryBucks', 250);
+		
+		// Grab a reference to the EventHandler
+		handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 	}
 
-	override void Tick()
-	{
+	override void PostBeginPlay() {
+		super.PostBeginPlay();
+
+		// If a store type hasn't been set, pick one at random
+		if (!StoreType) {
+
+			StoreType = handler.StoreTypes.getRandomEntry().getName();
+
+			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Store type not set, automatically selecting "..StoreType);
+		}
+
+		// If a skin hasn't been set, pick one based on the store type
+		if (!SelectedSkin) {
+			InitSkins();
+
+			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Skin not set, automatically selecting "..SelectedSkin.skinId);
+		}
+	}
+
+	override void Tick() {
 		A_SpriteOffset(0, SOffsetY);
 
 		if (PiggyBack)
@@ -56,7 +78,6 @@ class HDMerchant : Actor abstract
 	override bool Used(Actor user)
 	{
 		let plr = HDPlayerPawn(user);
-		let handler = MerchantHandler(EventHandler.Find("MerchantHandler"));
 
 		if (!plr || PiggyBack == plr || Distance3D(plr) > 48 || handler.ActorIsInPokerGame(self))
 		{
@@ -82,72 +103,55 @@ class HDMerchant : Actor abstract
 		if (plr.PlayerNumber() == consoleplayer)
 		{
 			LastUser = plr;
-			handler.OpenedStoreIndex[plr.PlayerNumber()] = ItemsType;
+			handler.OpenedStore[plr.PlayerNumber()] = StoreType;
 			Menu.SetMenu('MerchantShopMenu');
 		}
 
-		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop')))
-		{
-			TryPlaySpecialAnimation();
-		}
+		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop'))) SetStateLabel("OpenMenu");
 
 		return true;
 	}
 
-	override bool CanCollideWith(Actor other, bool passive)
-	{
-		if (other is "PlayerPawn")
-		{
-			return Super.CanCollideWith(other, passive);
-		}
-
-		return false;
+	override bool CanCollideWith(Actor other, bool passive) {
+		return other is "PlayerPawn" && Super.CanCollideWith(other, passive);
 	}
 
 	// [Ace] This is complete fucking overkill. It could have been done in like 5 lines of code but I wanted a more "generic" solution.
-	protected void CheckBreathing()
-	{
-		if (BreatheStepHold > 0)
-		{
+	protected void CheckBreathing() {
+		if (BreatheStepHold > 0) {
 			BreatheStepHold--;
 			return;
 		}
 
-		if (BreatheHold > 0)
-		{
+		if (BreatheHold > 0) {
 			BreatheHold--;
 			return;
 		}
 
-		if (BreatheIndex < BreatheStepsHalf)
-		{
+		if (BreatheIndex < BreatheStepsHalf) {
 			A_Setscale(scale.X, scale.Y + BreathescaleStep);
 			BreatheStepHold = BreatheStepDelay;
-			if (++BreatheIndex == BreatheStepsHalf)
-			{
+
+			if (++BreatheIndex == BreatheStepsHalf) {
 				BreatheHold = BreatheInOutDelay;
 			}
-		}
-		else if (BreatheIndex >= BreatheStepsHalf)
-		{
+		} else if (BreatheIndex >= BreatheStepsHalf) {
 			A_Setscale(scale.X, scale.Y - BreathescaleStep);
 			BreatheStepHold = BreatheStepDelay;
-			if (++BreatheIndex == BreatheSteps)
-			{
+
+			if (++BreatheIndex == BreatheSteps) {
 				BreatheIndex = 0;
 				BreatheHold = BreatheInOutDelay;
 			}
 		}
 	}
 
-	protected void BuyingIdle(StateLabel goAwayState, string snd)
-	{
+	protected void BuyingIdle(string goAwayState, string snd) {
+		HDCore.log('Merchant', LOGGING_TRACE, "Buying Idle => goAwayState="..goAwayState..", snd="..snd);
+
 		CheckBreathing();
-		if (!PlayerIsNear)
-		{
-			A_StartSound(snd, CHAN_VOICE);
-			SetStateLabel(goAwayState);
-		}
+
+		if (!PlayerIsNear) SetStateLabel('CloseMenu');
 	}
 
 	const BreatheInOutDelay = 30;
@@ -174,29 +178,31 @@ class HDMerchant : Actor abstract
 
 	private int DropHoldTimer;
 
-	private HDMerchantSkin SelectedSkin;
+	HDMerchantSkin SelectedSkin;
+	property SelectedSkin: SelectedSkin;
 
-	meta int ItemsType;
-	property ItemsType: ItemsType;
+	string StoreType;
+	property StoreType: StoreType;
 
-	Default
-	{
+	Default {
+		+SOLID
+		+NOBLOCKMONST
+
 		Mass 400;
 		Height 58;
 		Radius 8;
 		scale 1.0;
-		+SOLID
-		+NOBLOCKMONST
+
+		tag "$TAG_MERCHANT";
 	}
 }
 
-class HDMerchantBody : HDPickup
-{
-	Default
-	{
+class HDMerchantBody : HDPickup {
+	Default {
 		-INVENTORY.INVBAR
 		+INVENTORY.UNDROPPABLE
 		+HDPICKUP.NOTINPOCKETS
+
 		HDPickup.Bulk 500;
 		Inventory.MaxAmount 1;
 	}

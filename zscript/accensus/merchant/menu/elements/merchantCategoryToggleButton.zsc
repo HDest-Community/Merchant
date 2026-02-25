@@ -1,20 +1,20 @@
-class MerchantCategoryToggleButton : MerchZFToggleButton {
+class MerchantCategoryToggleButton : HDZFToggleButton {
 
-    MerchZFElement targetEl;
+    HDZFElement targetEl;
 
     private void config(
         string text = "",
-        MerchZFBoxTextures inactive = NULL,
-        MerchZFBoxTextures hover = NULL,
-        MerchZFBoxTextures click = NULL,
-        MerchZFBoxTextures disabled = NULL,
+        HDZFBoxTextures inactive = NULL,
+        HDZFBoxTextures hover = NULL,
+        HDZFBoxTextures click = NULL,
+        HDZFBoxTextures disabled = NULL,
         Font fnt = NULL,
         double textScale = 1,
         int textColor = Font.CR_WHITE,
         AlignType alignment = AlignType_Center,
-        MerchZFHandler cmdHandler = NULL,
+        HDZFHandler cmdHandler = NULL,
         Name command = '',
-        MerchZFElement targetEl = NULL
+        HDZFElement targetEl = NULL
     ) {
         setFont(fnt);
         setText(text);
@@ -34,17 +34,17 @@ class MerchantCategoryToggleButton : MerchZFToggleButton {
         Vector2 pos,
         Vector2 size,
         string text = "",
-        MerchZFBoxTextures inactive = NULL,
-        MerchZFBoxTextures hover = NULL,
-        MerchZFBoxTextures click = NULL,
-        MerchZFBoxTextures disabled = NULL,
+        HDZFBoxTextures inactive = NULL,
+        HDZFBoxTextures hover = NULL,
+        HDZFBoxTextures click = NULL,
+        HDZFBoxTextures disabled = NULL,
         Font fnt = NULL,
         double textScale = 1,
         int textColor = Font.CR_WHITE,
         AlignType alignment = AlignType_Center,
-        MerchZFHandler cmdHandler = NULL,
+        HDZFHandler cmdHandler = NULL,
         Name command = '',
-        MerchZFElement targetEl = NULL
+        HDZFElement targetEl = NULL
     ) {
         let ret = new('MerchantCategoryToggleButton');
 

@@ -1,34 +1,46 @@
-class MerchantMenuHandler : MerchZFHandler {
+class MerchantMenuHandler : HDZFHandler {
 
     MerchantShopMenu menu;
 
-    override void buttonClickCommand(MerchZFButton btn, Name cmd) {
+    override void buttonClickCommand(HDZFButton btn, Name cmd) {
         let numCategories = menu.GetOpenedStore().Categories.Size();
 
         switch (cmd) {
             case 'buyItem':
-                EventHandler.SendNetworkEvent(String.Format("%s:%s", "HDM_BuyStuff", MerchantItemBtn(btn).item.GetClassName()), menu.SelCurrencyIndex);
+                let itemBtn = MerchantItemBtn(btn);
+
+                if (itemBtn && itemBtn.item && itemBtn.item.GetItem() != '') {
+                    EventHandler.SendNetworkEvent(
+                        String.Format(
+                            "HDM_BuyStuff:%s",
+                            itemBtn.item.GetItem()
+                        ),
+                        menu.SelCurrencyIndex
+                    );
+                }
                 break;
             default:
-                if (hdm_debug) console.printf("Unknown Command: "..cmd);
+                HDCore.Log('Merchant', LOGGING_WARN, "Unknown Command: "..cmd);
                 break;
         }
     }
 
-    override void toggleButtonChanged(MerchZFToggleButton btn, Name cmd, bool on) {
+    override void toggleButtonChanged(HDZFToggleButton btn, Name cmd, bool on) {
         switch (cmd) {
             case 'toggleCategoryCollapse':
-                if (hdm_debug) console.printf("Toggle Category Collapsed...");
+                HDCore.Log('Merchant', LOGGING_DEBUG, "Toggle Category Collapsed...");
+
                 let toggleBtn = MerchantCategoryToggleButton(btn);
                 if (toggleBtn) {
-                    if (hdm_debug) console.printf("Toggle Button Exists");
-                    let itemsFrame = toggleBtn.targetEl;
+                    HDCore.Log('Merchant', LOGGING_DEBUG, "Toggle Button Exists");
 
+                    let itemsFrame = toggleBtn.targetEl;
                     if (itemsFrame) {
-                        if (hdm_debug) console.printf("Target Element Exists");
+                        HDCore.Log('Merchant', LOGGING_DEBUG, "Target Element Exists");
+
                         itemsFrame.setHidden(on);
                         
-                        if (hdm_debug) console.printf("Target Element is now "..(itemsFrame.isHidden() ? "hidden" : "visible"));
+                        HDCore.Log('Merchant', LOGGING_DEBUG, "Target Element is now "..(itemsFrame.isHidden() ? "hidden" : "visible"));
 
                         menu.setScrollHeight();
                         menu.buildFocusableBtns();
@@ -36,7 +48,7 @@ class MerchantMenuHandler : MerchZFHandler {
                 }
                 break;
             default:
-                if (hdm_debug) console.printf("Unknown Command: "..cmd);
+                HDCore.Log('Merchant', LOGGING_WARN, "Unknown Command: "..cmd);
                 break;
         }
     }

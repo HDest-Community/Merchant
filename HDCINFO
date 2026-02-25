@@ -1,0 +1,199 @@
+// Blacklist Bounty Effects from being tracked/replaced/etc.
+addSpawnHandlerThingBlacklist => { "name": "BountyBodyTrail" }
+addSpawnHandlerThingBlacklist => { "name": "BountyThinker" }
+
+// Merchant "Safe House" Map Names
+addMerchantSafeMap => { "name": "LOTSAGUN" }
+addMerchantSafeMap => { "name": "RANGE" }
+addMerchantSafeMap => { "name": "RANGE2" }
+addMerchantSafeMap => { "name": "TEST" }
+
+// Store Currencies
+newMerchantStoreCurrency => { "name": "MercenaryBucks", "icon": "MBCKA0", "default": "true" }
+newMerchantStoreCurrency => { "name": "SevenMilAmmo", "icon": "TEN7A0" }
+
+// Bounty Targets
+newMerchantBountyTarget => { "name": "Babuin", "value": "200" }
+newMerchantBountyTarget => { "name": "HDHumanoid", "value": "250" }
+newMerchantBountyTarget => { "name": "FighterImp", "value": "300" }
+newMerchantBountyTarget => { "name": "NinjaPirate", "value": "350" }
+newMerchantBountyTarget => { "name": "Mancubus", "value": "500" }
+newMerchantBountyTarget => { "name": "Boner", "value": "550" }
+newMerchantBountyTarget => { "name": "FlyZapper", "value": "600" }
+newMerchantBountyTarget => { "name": "Knave", "value": "600" }
+newMerchantBountyTarget => { "name": "Necromancer", "value": "666" }
+newMerchantBountyTarget => { "name": "Balor", "value": "700" }
+newMerchantBountyTarget => { "name": "Baron", "value": "800" }
+newMerchantBountyTarget => { "name": "SatanRobo", "value": "2500" }
+newMerchantBountyTarget => { "name": "Spiderdemon", "value": "2500" }
+
+newMerchantBountyTarget => { "name": "CabalCultist", "value": "200" }
+newMerchantBountyTarget => { "name": "CabalFanatic", "value": "250" }
+newMerchantBountyTarget => { "name": "CabalAcolyte", "value": "350" }
+newMerchantBountyTarget => { "name": "CabalZealot", "value": "500" }
+
+// Non-Bounty Class Blacklist
+addMerchantNonBountyBlacklist => { "name": "HDPlayerPawn" }
+addMerchantNonBountyBlacklist => { "name": "HDPlayerCorpse" }
+addMerchantNonBountyBlacklist => { "name": "HDBarrel" }
+
+// Merchant Skins
+newMerchantSkin => { "name": "Hobo", "tag": "$TAG_HOBO_MERCHANT", "sprite": "HOBM" }
+newMerchantSkin => { "name": "ResidentEvil", "tag": "$TAG_RE4_MERCHANT", "sprite": "RESM", "openState": "Buying.ResidentEvil", "openSound": "ResidentEvil/Buying", "closeState": "SpawnLoop", "closeSound": "ResidentEvil/GoAway" }
+newMerchantSkin => { "name": "Succubus", "tag": "$TAG_SUCCUBUS_MERCHANT", "sprite": "MSUC", "openState": "OpenMenu.Succubus", "openSound": "Succubus/Buying", "closeState": "GoAway.Succubus", "closeSound": "Succubus/GoAway" }
+newMerchantSkin => { "name": "Morshu", "tag": "$TAG_MORSHU_MERCHANT", "sprite": "MSHU", "openState": "OpenMenu.Morshu", "openSound": "Morshu/Buying", "closeState": "GoAway.Morshu", "closeSound": "Morshu/GoAway" }
+newMerchantSkin => { "name": "WanderingTrader", "tag": "$TAG_WANDERING_TRADER", "sprite": "WTRD", "openState": "Buying.WanderingTrader", "openSound": "WanderingTrader/Buying", "closeState": "SpawnLoop", "closeSound": "WanderingTrader/GoAway" }
+newMerchantSkin => { "name": "Daina1", "tag": "$TAG_DAINA_MERCHANT", "sprite": "DAI1", "openState": "OpenMenu.Daina.Default", "openSound": "Daina/Default/Buying", "closeState": "GoAway.Daina.Default", "closeSound": "Daina/Default/GoAway" }
+newMerchantSkin => { "name": "Daina2", "tag": "$TAG_DAINA_MERCHANT", "sprite": "DAI2", "openState": "OpenMenu.Daina.Bunny", "openSound": "Daina/Bunny/Buying", "closeState": "GoAway.Daina.Bunny", "closeSound": "Daina/Bunny/GoAway" }
+newMerchantSkin => { "name": "Daina3", "tag": "$TAG_DAINA_MERCHANT", "sprite": "DAI3", "openState": "OpenMenu.Daina.Maid", "openSound": "Daina/Maid/Buying", "closeState": "GoAway.Daina.Maid", "closeSound": "Daina/Maid/GoAway" }
+newMerchantSkin => { "name": "Daina4", "tag": "$TAG_DAINA_MERCHANT", "sprite": "DAI4", "openState": "OpenMenu.Daina.Labcoat", "openSound": "Daina/Labcoat/Buying", "closeState": "GoAway.Daina.Succubus", "closeSound": "Daina/Labcoat/GoAway" }
+newMerchantSkin => { "name": "Nari1", "tag": "$TAG_NARI_MERCHANT", "sprite": "NAR1", "openState": "OpenMenu.Nari.Succubus", "openSound": "Nari/Succubus/Buying", "closeState": "GoAway.Nari.Succubus", "closeSound": "Nari/Succubus/GoAway" }
+
+// Merchant Store Types
+newMerchantStore => { "type": "ammo", "chance": "#hdm_chance_ammo", "skins": "#hdm_skin_ammo", "stockMult": "#hdm_stock_ammo" }
+newMerchantStore => { "type": "item", "chance": "#hdm_chance_item", "skins": "#hdm_skin_item", "stockMult": "#hdm_stock_item" }
+newMerchantStore => { "type": "mag", "chance": "#hdm_chance_mag", "skins": "#hdm_skin_mag", "stockMult": "#hdm_stock_mag" }
+newMerchantStore => { "type": "weapon", "chance": "#hdm_chance_weapon", "skins": "#hdm_skin_weapon", "stockMult": "#hdm_stock_weapon" }
+
+// HDest Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_chainsaw", "type": "weapon", "category": "$MERCH_CAT_CHAINSAW", "item": "Lumberjack", "icon": "CSAWA0", "displayName": "$MERCH_TAG_CHAINSAW", "basePrice": "140", "flavorText": "$MERCH_FLAVOR_CHAINSAW" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_pistol", "type": "weapon", "category": "$MERCH_CAT_PISTOL", "item": "HDPistol", "icon": "PISTA0", "displayName": "$MERCH_TAG_PISTOL", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_PISTOL" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_revolver", "type": "weapon", "category": "$MERCH_CAT_REVOLVER", "item": "HDRevolver", "icon": "REVLA0", "displayName": "$MERCH_TAG_REVOLVER", "basePrice": "120", "flavorText": "$MERCH_FLAVOR_REVOLVER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_smg", "type": "weapon", "category": "$MERCH_CAT_SMG", "item": "HDSMG", "icon": "SMGNA0", "displayName": "$MERCH_TAG_SMG", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_SMG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_hunter", "type": "weapon", "category": "$MERCH_CAT_HUNTER", "item": "Hunter", "icon": "HUNTA0", "displayName": "$MERCH_TAG_HUNTER", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_HUNTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_slayer", "type": "weapon", "category": "$MERCH_CAT_SLAYER", "item": "Slayer", "icon": "SLAYA0", "displayName": "$MERCH_TAG_SLAYER", "basePrice": "150", "flavorText": "$MERCH_FLAVOR_SLAYER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_vulcanette", "type": "weapon", "category": "$MERCH_CAT_VULCANETTE", "item": "Vulcanette", "icon": "VULCA0", "displayName": "$MERCH_TAG_VULCANETTE", "basePrice": "420", "flavorText": "$MERCH_FLAVOR_VULCANETTE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_blooper", "type": "weapon", "category": "$MERCH_CAT_BLOOPER", "item": "Blooper", "icon": "BLOPA0", "displayName": "$MERCH_TAG_BLOOPER", "basePrice": "240", "flavorText": "$MERCH_FLAVOR_BLOOPER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rocketlauncher", "type": "weapon", "category": "$MERCH_CAT_ROCKETLAUNCHER", "item": "HDRL", "icon": "LAUNA0", "displayName": "$MERCH_TAG_ROCKETLAUNCHER", "basePrice": "430", "flavorText": "$MERCH_FLAVOR_ROCKETLAUNCHER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_liberator", "type": "weapon", "category": "$MERCH_CAT_LIBERATOR", "item": "LiberatorRifle", "icon": "BRFLB0", "displayName": "$MERCH_TAG_LIBERATOR", "basePrice": "480", "flavorText": "$MERCH_FLAVOR_LIBERATOR" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_thunderbuster", "type": "weapon", "category": "$MERCH_CAT_THUNDERBUSTER", "item": "ThunderBuster", "icon": "PLASA0", "displayName": "$MERCH_TAG_THUNDERBUSTER", "basePrice": "530", "flavorText": "$MERCH_FLAVOR_THUNDERBUSTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bronto", "type": "weapon", "category": "$MERCH_CAT_BRONTO", "item": "Brontornis", "icon": "BLSTA0", "displayName": "$MERCH_TAG_BRONTO", "basePrice": "670", "flavorText": "$MERCH_FLAVOR_BRONTO" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bfg", "type": "weapon", "category": "$MERCH_CAT_BFG", "item": "BFG9K", "icon": "BFUGA0", "displayName": "$MERCH_TAG_BFG", "basePrice": "1400", "flavorText": "$MERCH_FLAVOR_BFG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_boss", "type": "weapon", "category": "$MERCH_CAT_BOSS", "item": "BossRifle", "icon": "BORFA0", "displayName": "$MERCH_TAG_BOSS", "basePrice": "360", "flavorText": "$MERCH_FLAVOR_BOSS" }
+
+newMerchantStoreItem => { "enabled": "#hdm_enable_stimpack", "type": "item", "category": "$MERCH_CAT_STIMPACK", "item": "PortableStimpack", "icon": "STIMA0", "displayName": "$MERCH_TAG_STIMPACK", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_STIMPACK" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bloodbag", "type": "item", "category": "$MERCH_CAT_BLOODBAG", "item": "SecondBlood", "icon": "PBLDA0", "displayName": "$MERCH_TAG_BLOODBAG", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_BLOODBAG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_medikit", "type": "item", "category": "$MERCH_CAT_MEDIKIT", "item": "PortableMedikit", "icon": "MEDIA0", "displayName": "$MERCH_TAG_MEDIKIT", "basePrice": "20", "flavorText": "$MERCH_FLAVOR_MEDIKIT" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bluepotion", "type": "item", "category": "$MERCH_CAT_BLUEPOTION", "item": "HDHealingPotion", "icon": "BON1A0", "displayName": "$MERCH_TAG_BLUEPOTION", "basePrice": "70", "flavorText": "$MERCH_FLAVOR_BLUEPOTION" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_berserk", "type": "item", "category": "$MERCH_CAT_BERSERK", "item": "PortableBerserkPack", "icon": "PSTRA0", "displayName": "$MERCH_TAG_BERSERK", "basePrice": "70", "flavorText": "$MERCH_FLAVOR_BERSERK" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_doorbuster", "type": "item", "category": "$MERCH_CAT_DOORBUSTER", "item": "DoorBuster", "icon": "BGRNA3A7", "displayName": "$MERCH_TAG_DOORBUSTER", "basePrice": "25", "flavorText": "$MERCH_FLAVOR_DOORBUSTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_ladder", "type": "item", "category": "$MERCH_CAT_LADDER", "item": "PortableLadder", "icon": "LADDD0", "displayName": "$MERCH_TAG_LADDER", "basePrice": "90", "flavorText": "$MERCH_FLAVOR_LADDER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_radsuit", "type": "item", "category": "$MERCH_CAT_RADSUIT", "item": "PortableRadsuit", "icon": "SUITA0", "displayName": "$MERCH_TAG_RADSUIT", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_RADSUIT" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_jetpack", "type": "item", "category": "$MERCH_CAT_JETPACK", "item": "HDJetPack", "icon": "JPAKA0", "displayName": "$MERCH_TAG_JETPACK", "basePrice": "120", "flavorText": "$MERCH_FLAVOR_JETPACK" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_summoningtalisman", "type": "item", "category": "$MERCH_CAT_SUMMONINGTALISMAN", "item": "SquadSummoner", "icon": "PLHELMA0", "displayName": "$MERCH_TAG_SUMMONINGTALISMAN", "basePrice": "180", "flavorText": "$MERCH_FLAVOR_SUMMONINGTALISMAN" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_7mmreloader", "type": "item", "category": "$MERCH_CAT_7MMRELOADER", "item": "AutoReloader", "icon": "RLDRA0", "displayName": "$MERCH_TAG_7MMRELOADER", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_7MMRELOADER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_backpack", "type": "item", "category": "$MERCH_CAT_BACKPACK", "item": "WildBackpack", "icon": "BPAKA0", "displayName": "$MERCH_TAG_BACKPACK", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_BACKPACK" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_garrisonarmour", "type": "item", "category": "$MERCH_CAT_GARRISONARMOUR", "item": "GarrisonArmour", "icon": "ARMSB0", "displayName": "$MERCH_TAG_GARRISONARMOUR", "basePrice": "180", "flavorText": "$MERCH_FLAVOR_GARRISONARMOUR" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_battlearmour", "type": "item", "category": "$MERCH_CAT_BATTLEARMOUR", "item": "BattleArmour", "icon": "ARMCB0", "displayName": "$MERCH_TAG_BATTLEARMOUR", "basePrice": "280", "flavorText": "$MERCH_FLAVOR_BATTLEARMOUR" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_soulsphere", "type": "item", "category": "$MERCH_CAT_BLUESPHERE", "item": "soulsphere", "icon": "SOULA0", "displayName": "$MERCH_TAG_BLUESPHERE", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_BLUESPHERE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_megasphere", "type": "item", "category": "$MERCH_CAT_MEGASPHERE", "item": "megasphere", "icon": "MEGAA0", "displayName": "$MERCH_TAG_MEGASPHERE", "basePrice": "700", "flavorText": "$MERCH_FLAVOR_MEGASPHERE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_invulnsphere", "type": "item", "category": "$MERCH_CAT_INVULNSPHERE", "item": "invulnerabilitysphere", "icon": "PINVA0", "displayName": "$MERCH_TAG_INVULNSPHERE", "basePrice": "1000", "flavorText": "$MERCH_FLAVOR_INVULNSPHERE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_herp", "type": "item", "category": "$MERCH_CAT_HERP", "item": "herpusable", "icon": "HERPA7A3", "displayName": "$MERCH_TAG_HERP", "basePrice": "400", "flavorText": "$MERCH_FLAVOR_HERP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_derp", "type": "item", "category": "$MERCH_CAT_DERP", "item": "derpusable", "icon": "DERPA7A3", "displayName": "$MERCH_TAG_DERP", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_DERP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_automap", "type": "item", "category": "$MERCH_CAT_ALLMAP", "item": "allmap", "icon": "PMAPA0", "displayName": "$MERCH_TAG_ALLMAP", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_ALLMAP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_liteamp", "type": "item", "category": "$MERCH_CAT_LIGHTAMPGOGGLES", "item": "infrared", "icon": "PVISB0", "displayName": "$MERCH_TAG_LIGHTAMPGOGGLES", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_LIGHTAMPGOGGLES" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bluecard", "type": "item", "category": "$MERCH_CAT_BLUEKEYCARD", "item": "BlueCard", "icon": "BKEYB0", "displayName": "$MERCH_TAG_BLUEKEYCARD", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_BLUEKEYCARD" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_redcard", "type": "item", "category": "$MERCH_CAT_REDKEYCARD", "item": "RedCard", "icon": "RKEYB0", "displayName": "$MERCH_TAG_REDKEYCARD", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_REDKEYCARD" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_yellowcard", "type": "item", "category": "$MERCH_CAT_YELLOWKEYCARD", "item": "YellowCard", "icon": "YKEYB0", "displayName": "$MERCH_TAG_YELLOWKEYCARD", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_YELLOWKEYCARD" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_blueskull", "type": "item", "category": "$MERCH_CAT_BLUESKULL", "item": "blueskull", "icon": "BSKUA0", "displayName": "$MERCH_TAG_BLUESKULL", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_BLUESKULL" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_redskull", "type": "item", "category": "$MERCH_CAT_REDSKULL", "item": "redskull", "icon": "RSKUA0", "displayName": "$MERCH_TAG_REDSKULL", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_REDSKULL" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_yellowskull", "type": "item", "category": "$MERCH_CAT_YELLOWSKULL", "item": "yellowskull", "icon": "YSKUA0", "displayName": "$MERCH_TAG_YELLOWSKULL", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_YELLOWSKULL" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_iedkit", "type": "item", "category": "$MERCH_CAT_IEDKIT", "item": "HDIEDKit", "icon": "IEDKA0", "displayName": "$MERCH_TAG_IEDKIT", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_IEDKIT" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_shieldcore", "type": "item", "category": "$MERCH_CAT_SHIELDCORE", "item": "ShieldCore", "icon": "BON2A0", "displayName": "$MERCH_TAG_SHIELDCORE", "basePrice": "1024", "flavorText": "$MERCH_FLAVOR_SHIELDCORE" }
+
+newMerchantStoreItem => { "enabled": "#hdm_enable_4mm", "type": "ammo", "category": "$MERCH_CAT_4MM", "item": "FourMilAmmo", "amount": "50", "icon": "RCLSA3A7", "displayName": "$MERCH_TAG_4MM", "basePrice": "8", "flavorText": "$MERCH_FLAVOR_4MM" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_9mm", "type": "ammo", "category": "$MERCH_CAT_9MM", "item": "HDPistolAmmo", "amount": "100", "icon": "9BOXA0", "displayName": "$MERCH_TAG_9MM", "basePrice": "30", "flavorText": "$MERCH_FLAVOR_9MM" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_12gshell", "type": "ammo", "category": "$MERCH_CAT_12GSHELL", "item": "HDShellAmmo", "amount": "20", "icon": "SBOXA0", "displayName": "$MERCH_TAG_12GSHELL", "basePrice": "15", "flavorText": "$MERCH_FLAVOR_12GSHELL" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_355", "type": "ammo", "category": "$MERCH_CAT_355", "item": "HDRevolverAmmo", "amount": "72", "icon": "3BOXA0", "displayName": "$MERCH_TAG_355", "basePrice": "30", "flavorText": "$MERCH_FLAVOR_355" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rocketgrenade", "type": "ammo", "category": "$MERCH_CAT_ROCKETGRENADE", "item": "HDRocketAmmo", "amount": "5", "icon": "BROKA0", "displayName": "$MERCH_TAG_ROCKETGRENADE", "basePrice": "45", "flavorText": "$MERCH_FLAVOR_ROCKETGRENADE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_heatrocket", "type": "ammo", "category": "$MERCH_CAT_HEATROCKET", "item": "HEATAmmo", "icon": "ROCKA0", "displayName": "$MERCH_TAG_HEATROCKET", "basePrice": "25", "flavorText": "$MERCH_FLAVOR_HEATROCKET" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_7mm", "type": "ammo", "category": "$MERCH_CAT_7MM", "item": "SevenMilAmmo", "amount": "50", "icon": "7BOXA0", "displayName": "$MERCH_TAG_7MM", "basePrice": "50", "flavorText": "$MERCH_FLAVOR_7MM" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_battery", "type": "ammo", "category": "$MERCH_CAT_BATTERY", "item": "HDBattery", "icon": "CELLA0", "displayName": "$MERCH_TAG_BATTERY", "basePrice": "20", "flavorText": "$MERCH_FLAVOR_BATTERY" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_brontoround", "type": "ammo", "category": "$MERCH_CAT_BRONTOROUND", "item": "BrontornisRound", "icon": "BROCA0", "displayName": "$MERCH_TAG_BRONTOROUND", "basePrice": "35", "flavorText": "$MERCH_FLAVOR_BRONTOROUND" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_fraggrenade", "type": "ammo", "category": "$MERCH_CAT_FRAGGRENADE", "item": "HDFragGrenadeAmmo", "icon": "FRAGA0", "displayName": "$MERCH_TAG_FRAGGRENADE", "basePrice": "20", "flavorText": "$MERCH_FLAVOR_FRAGGRENADE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_ammobox", "type": "ammo", "category": "$MERCH_CAT_AMMOBOX", "item": "HDAmBox", "storeAmount": "@Multiply", "storeAmount.valueA": "@Random", "storeAmount.valueA.min": "1", "storeAmount.valueA.max": "3", "storeAmount.valueB": "#hdm_stock_item", "icon": "AMMOA0", "displayName": "$MERCH_TAG_AMMOBOX", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_AMMOBOX" }
+
+newMerchantStoreItem => { "enabled": "#hdm_enable_4mmmag", "type": "mag", "category": "$MERCH_CAT_4MMMAG", "item": "HD4mMag", "icon": "ZMAGA0", "displayName": "$MERCH_TAG_4MMMAG", "basePrice": "8", "flavorText": "$MERCH_FLAVOR_4MMMAG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_pistolmag", "type": "mag", "category": "$MERCH_CAT_PISTOLMAG", "item": "HD9mMag15", "icon": "CLP2A0", "displayName": "$MERCH_TAG_PISTOLMAG", "basePrice": "9", "flavorText": "$MERCH_FLAVOR_PISTOLMAG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_smgmag", "type": "mag", "category": "$MERCH_CAT_SMGMAG", "item": "HD9mMag30", "icon": "CLP3A0", "displayName": "$MERCH_TAG_SMGMAG", "basePrice": "18", "flavorText": "$MERCH_FLAVOR_SMGMAG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_7mmmag", "type": "mag", "category": "$MERCH_CAT_7MMMAG", "item": "HD7mMag", "icon": "RMAGA0", "displayName": "$MERCH_TAG_7MMMAG", "basePrice": "30", "flavorText": "$MERCH_FLAVOR_7MMMAG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_7mmclip", "type": "mag", "category": "$MERCH_CAT_7MMCLIP", "item": "HD7mClip", "icon": "RCLPA0", "displayName": "$MERCH_TAG_7MMCLIP", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_7MMCLIP" }
+
+
+
+// Addon Store Entries
+// TODO: REFACTOR STORE ENTRIES INTO THEIR RESPECTIVE ADDONS, MOVE CVARS, LANGUAGE LUMPS, ETC.
+
+// Accensus Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_zradar", "type": "item", "category": "$MERCH_CAT_ZRADAR", "item": "PortableZRadar", "icon": "ZRDRA0", "displayName": "$MERCH_TAG_ZRADAR", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_ZRADAR" }
+
+// BNTZ Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_bluepack", "type": "item", "category": "$MERCH_CAT_BLUEPACK", "item": "PortableBluepack", "icon": "PBLUA0", "displayName": "$MERCH_TAG_BLUEPACK", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_BLUEPACK" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_dork", "type": "item", "category": "$MERCH_CAT_DORK", "item": "DORKUsable", "icon": "DORKA1", "displayName": "$MERCH_TAG_DORK", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_DORK" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_ectdevice", "type": "item", "category": "$MERCH_CAT_ECTD", "item": "ECTDevice", "icon": "ECTDB0", "displayName": "$MERCH_TAG_ECTD", "basePrice": "300", "flavorText": "$MERCH_FLAVOR_ECTD" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rifcontroller", "type": "item", "category": "$MERCH_CAT_RIFC", "item": "RIFController", "icon": "RIFCB0", "displayName": "$MERCH_TAG_RIFC", "basePrice": "600", "flavorText": "$MERCH_FLAVOR_RIFC" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_magemedallion", "type": "item", "category": "$MERCH_CAT_MAGEMEDALLION", "item": "hdmagemedallion", "icon": "MMDAA0", "displayName": "$MERCH_TAG_MAGEMEDALLION", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_MAGEMEDALLION" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_greenpotion", "type": "item", "category": "$MERCH_CAT_GREENPOTION", "item": "hdgreenpotion", "icon": "BN3AA0", "displayName": "$MERCH_TAG_GREENPOTION", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_GREENPOTION" }
+
+// Bryan's Modern Weapons Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_ballcrafter", "type": "item", "category": "$MERCH_CAT_BALLCRAFTER", "item": "B_BallCrafter", "icon": "CFBNC0", "displayName": "$MERCH_TAG_BALLCRAFTER", "basePrice": "125", "flavorText": "$MERCH_FLAVOR_BALLCRAFTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_casecrafter", "type": "item", "category": "$MERCH_CAT_CASECRAFTER", "item": "B_CaseCrafter", "icon": "CFBNB0", "displayName": "$MERCH_TAG_CASECRAFTER", "basePrice": "125", "flavorText": "$MERCH_FLAVOR_CASECRAFTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bulletassembler", "type": "item", "category": "$MERCH_CAT_BULLETASSEMBLER", "item": "B_BulletAssembler", "icon": "CFBND0", "displayName": "$MERCH_TAG_BULLETASSEMBLER", "basePrice": "125", "flavorText": "$MERCH_FLAVOR_BULLETASSEMBLER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rocketassembler", "type": "item", "category": "$MERCH_CAT_ROCKETASSEMBLER", "item": "B_RocketAssembler", "icon": "CFBNA0", "displayName": "$MERCH_TAG_ROCKETASSEMBLER", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_ROCKETASSEMBLER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_m249reloader", "type": "item", "category": "$MERCH_CAT_M249RELOADER", "item": "B_M249_Reloader", "icon": "BRLAA0", "displayName": "$MERCH_TAG_M249RELOADER", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_M249RELOADER" }
+
+// Cannibal Hunter Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_fannypack", "type": "item", "category": "$MERCH_CAT_FANNYPACK", "item": "CH_FannyPack", "icon": "CHFPA0", "displayName": "$MERCH_TAG_FANNYPACK", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_FANNYPACK" }
+
+// Customer Goodies Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_glattachment", "type": "item", "category": "$MERCH_CAT_GLATTACHMENT", "item": "GLAttachAmmo", "icon": "rifglat", "displayName": "$MERCH_TAG_GLATTACHMENT", "basePrice": "30", "flavorText": "$MERCH_FLAVOR_GLATTACHMENT" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_reflexattachment", "type": "item", "category": "$MERCH_CAT_REFLEXATTACHMENT", "item": "ReflexAttachAmmo", "icon": "RFATA0", "displayName": "$MERCH_TAG_REFLEXATTACHMENT", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_REFLEXATTACHMENT" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_factoryreloader", "type": "item", "category": "$MERCH_CAT_FACTORYRELOADER", "item": "FactoryAutoReloader", "icon": "FTRLA0", "displayName": "$MERCH_TAG_FACTORYRELOADER", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_FACTORYRELOADER" }
+
+// Dastrukar Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_hhelmet", "type": "item", "category": "$MERCH_CAT_HHELMET", "item": "HudHelmet", "icon": "HELMA0", "displayName": "$MERCH_TAG_HHELMET", "basePrice": "80", "flavorText": "$MERCH_FLAVOR_HHELMET" }
+
+// Deus-Doom Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_augcanister", "type": "item", "category": "$MERCH_CAT_AUGCANISTER", "item": "DD_AugmentationCanister", "icon": "AGCNA0", "displayName": "$MERCH_TAG_AUGCANISTER", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_AUGCANISTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_augupgrade", "type": "item", "category": "$MERCH_CAT_AUGUPGRADE", "item": "DD_AugmentationUpgradeCanister", "icon": "AUCNA0", "displayName": "$MERCH_TAG_AUGUPGRADE", "basePrice": "250", "flavorText": "$MERCH_FLAVOR_AUGUPGRADE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_bioelectriccell", "type": "item", "category": "$MERCH_CAT_BIOELECTRICCELL", "item": "DD_BioelectricCell", "storeAmount": "@Multiply", "storeAmount.valueA": "@Random", "storeAmount.valueA.min": "1", "storeAmount.valueA.max": "3", "storeAmount.valueB": "#hdm_stock_item", "icon": "BCELA0", "displayName": "$MERCH_TAG_BIOELECTRICCELL", "basePrice": "40", "flavorText": "$MERCH_FLAVOR_BIOELECTRICCELL" }
+
+// HoagieTech Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_zm69", "type": "weapon", "category": "$MERCH_CAT_ZM69", "item": "ZM69Rifle", "icon": "ZM69A0", "displayName": "$MERCH_TAG_ZM69", "basePrice": "690", "flavorText": "$MERCH_FLAVOR_ZM69" }
+
+// Mickromash Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_carcanoscope", "type": "item", "category": "$MERCH_CAT_CARCANOSCOPE", "item": "HDCarcanoScope", "icon": "m38scpp", "displayName": "$MERCH_TAG_CARCANOSCOPE", "basePrice": "70", "flavorText": "$MERCH_FLAVOR_CARCANOSCOPE" }
+
+// Mohl Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_purse", "type": "item", "category": "$MERCH_CAT_PURSE", "item": "Purse", "icon": "purse", "displayName": "$MERCH_TAG_PURSE", "basePrice": "40", "flavorText": "$MERCH_FLAVOR_PURSE" }
+
+// Sirus Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_requisitionkit", "type": "item", "category": "$MERCH_CAT_REQUISITIONKIT", "item": "VelvetAdhesive", "icon": "VADHA0", "displayName": "$MERCH_TAG_REQUISITIONKIT", "basePrice": "450", "flavorText": "$MERCH_FLAVOR_REQUISITIONKIT" }
+
+// SnekTech Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_cacoplushie", "type": "item", "category": "$MERCH_CAT_CACODEMONPLUSHIE", "item": "KiriCacodemonPlushie", "icon": "CCPLA0", "displayName": "$MERCH_TAG_CACODEMONPLUSHIE", "basePrice": "1000", "flavorText": "$MERCH_FLAVOR_CACODEMONPLUSHIE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_gretchencounter", "type": "item", "category": "$MERCH_CAT_GRETCHENCOUNTER", "item": "gretchencounter", "icon": "KGCPA0", "displayName": "$MERCH_TAG_GRETCHENCOUNTER", "basePrice": "200", "flavorText": "$MERCH_FLAVOR_GRETCHENCOUNTER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_jumpercables", "type": "item", "category": "$MERCH_CAT_JUMPERCABLES", "item": "JumperCablesUsable", "icon": "JMPKA0", "displayName": "$MERCH_TAG_JUMPERCABLES", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_JUMPERCABLES" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_spraycan", "type": "item", "category": "$MERCH_CAT_SPRAYCAN", "item": "SnekTechSprayer", "icon": "KSPRB0", "displayName": "$MERCH_TAG_SPRAYCAN", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_SPRAYCAN" }
+
+// Sonoda Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_adhesive", "type": "item", "category": "$MERCH_CAT_ADHESIVE", "item": "HDReqKitBox", "storeAmount": "@Multiply", "storeAmount.valueA": "@Random", "storeAmount.valueA.min": "2", "storeAmount.valueA.max": "5", "storeAmount.valueB": "#hdm_stock_item", "icon": "REQQA0", "displayName": "$MERCH_TAG_ADHESIVE", "basePrice": "125", "flavorText": "$MERCH_FLAVOR_ADHESIVE" }
+
+// ZikShadow Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_umsautomag", "type": "weapon", "category": "$MERCH_CAT_UMSAUTOMAG", "item": "ZS_UMS_AUTOMAG", "icon": "UMSWA0", "displayName": "$MERCH_TAG_UMSAUTOMAG", "basePrice": "180", "flavorText": "$MERCH_FLAVOR_UMSAUTOMAG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_stie", "type": "weapon", "category": "$MERCH_CAT_STIE", "item": "ZS_STI_EAGLE_60", "icon": "ST6WA0", "displayName": "$MERCH_TAG_STIE", "basePrice": "110", "flavorText": "$MERCH_FLAVOR_STIE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_5mms", "type": "weapon", "category": "$MERCH_CAT_5MMS", "item": "HD22Suppressed", "icon": "R2SWA0", "displayName": "$MERCH_TAG_5MMS", "basePrice": "50", "flavorText": "$MERCH_FLAVOR_5MMS" }
+
+newMerchantStoreItem => { "enabled": "#hdm_enable_pwms2", "type": "ammo", "category": "$MERCH_CAT_PWMS2", "item": "HD_ZS_PWM1_Ammo", "icon": "PWM1A0", "displayName": "$MERCH_TAG_PWMS2", "basePrice": "50", "flavorText": "$MERCH_FLAVOR_PWMS2" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_tnjgren", "type": "ammo", "category": "$MERCH_CAT_TNJGREN", "item": "HD_ZS_Roll_Ammo", "icon": "RGRTA0", "displayName": "$MERCH_TAG_TNJGREN", "basePrice": "30", "flavorText": "$MERCH_FLAVOR_TNJGREN" }
+
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionsmall", "type": "item", "category": "$MERCH_CAT_POP", "item": "ZSPOPFlatHealPotion", "icon": "POPHA0", "displayName": "$MERCH_TAG_POP", "basePrice": "80", "flavorText": "$MERCH_FLAVOR_POP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionbig", "type": "item", "category": "$MERCH_CAT_POPBIG", "item": "ZSPOPFeatherfallPotion", "icon": "POPFA0", "displayName": "$MERCH_TAG_POPBIG", "basePrice": "90", "flavorText": "$MERCH_FLAVOR_POPBIG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionsmall", "type": "item", "category": "$MERCH_CAT_POP", "item": "ZSPOPPoisonPotion", "icon": "POPPA0", "displayName": "$MERCH_TAG_POP", "basePrice": "80", "flavorText": "$MERCH_FLAVOR_POP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionbig", "type": "item", "category": "$MERCH_CAT_POPBIG", "item": "ZSPOPLifeEnhancePotion", "icon": "POPLA0", "displayName": "$MERCH_TAG_POPBIG", "basePrice": "90", "flavorText": "$MERCH_FLAVOR_POPBIG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionbig", "type": "item", "category": "$MERCH_CAT_POPBIG", "item": "ZSPOPVisionflipPotion", "icon": "POPVA0", "displayName": "$MERCH_TAG_POPBIG", "basePrice": "90", "flavorText": "$MERCH_FLAVOR_POPBIG" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionsmall", "type": "item", "category": "$MERCH_CAT_POP", "item": "ZSPOPDoubleSpeedPotion", "icon": "POPHA0", "displayName": "$MERCH_TAG_POP", "basePrice": "80", "flavorText": "$MERCH_FLAVOR_POP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_persiapotionsmall", "type": "item", "category": "$MERCH_CAT_POP", "item": "ZSPOPDoubleMeleePotion", "icon": "POPMA0", "displayName": "$MERCH_TAG_POP", "basePrice": "80", "flavorText": "$MERCH_FLAVOR_POP" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_orangejoe", "type": "item", "category": "$MERCH_CAT_OMORJOE", "item": "UaS_OrangeJoeMRE", "icon": "ORJEA0", "displayName": "$MERCH_TAG_OMORJOE", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_OMORJOE" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_omorviolin", "type": "item", "category": "$MERCH_CAT_OMORLIN", "item": "UaS_ViolinMRE", "icon": "VIOLA0", "displayName": "$MERCH_TAG_OMORLIN", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_OMORLIN" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_lightjetpack", "type": "item", "category": "$MERCH_CAT_JETLIGHT", "item": "HDLightJetPack", "icon": "LJPKA0", "displayName": "$MERCH_TAG_JETLIGHT", "basePrice": "60", "flavorText": "$MERCH_FLAVOR_JETLIGHT" }

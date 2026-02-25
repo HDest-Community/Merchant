@@ -1,59 +1,216 @@
-class MerchantStore play
-{
-	Array<StoreItem> StoreItems;
-	Array<string> Categories;
+// TODO: refactor into WeightedRandomTableEntry
+class MerchantStore play {
+
+	name type;
+
+	Array<name> skins;
+
+	float baseChance;
+	float stockMult;
+	float priceMult;
+
+	Array<StoreItem> storeItems;
+	Array<string> categories;
+
+	static MerchantStore create(name type, float baseChance = 1, float stockMult = 1.0, float priceMult = 1.0) {
+		let store = MerchantStore(new('MerchantStore'));
+
+		if (store) {
+			store.type = type;
+			store.baseChance = baseChance;
+			store.stockMult = stockMult;
+			store.priceMult = priceMult;
+
+			store.skins.clear();
+			store.storeItems.clear();
+			store.categories.clear();
+		}
+
+		return store;
+	}
+
+	void addSkin(name skinId) {
+		if (skins.find(skinId) == skins.size()) skins.push(skinId);
+	}
+
+	void addSkins(Array<name> skinIds) {
+		forEach(skinId : skinIds) addSkin(skinId);
+	}
+
+	void addCategory(string category) {
+		if (categories.find(category) == categories.size()) categories.push(category);
+	}
+
+	void addItem(StoreItem item) {
+		forEach(i : storeItems) if (i.itemName == item.itemName) return;
+		
+		HDCore.log('Merchant', LOGGING_TRACE, "Added "..item.itemName.." to "..type.." Store...");
+
+		storeItems.push(item);
+		
+		addCategory(item.category);
+	}
+
+	void addItems(Array<StoreItem> items) {
+		forEach(item : items) addItem(item);
+	}
+
+	string toString() {
+		let skinsStr = "[";
+		forEach(skin : skins) skinsStr = skinsStr..", "..skin;
+		skinsStr = skinsStr.."]";
+
+		let categoriesStr = "[";
+		forEach (category : categories) categoriesStr = categoriesStr..", "..category;
+		categoriesStr = categoriesStr.."]";
+
+		let storeItemsStr = "[";
+		forEach(item : storeItems) storeItemsStr = storeItemsStr..", "..item;
+		storeItemsStr = storeItemsStr.."]";
+
+		return String.format(
+			"{ \"type\": \"%s\", \"baseChance\": %.2f, \"stockMult\": %.2f, \"priceMult\": %.2f, \"skins\": %s, \"categories\": %s, \"storeItems\": %s }",
+			     type,             baseChance,           stockMult,           priceMult,           skinsStr,      categoriesStr,      storeItemsStr
+		);
+	}
 }
 
-extend class MerchantHandler
-{
+extend class MerchantHandler {
+
+	Array<name> SafeMapNames;
 	Array<StoreCurrency> StoreCurrencies;
-	MerchantStore Stores[3];
-	int OpenedStoreIndex[MAXPLAYERS];
-	
-	private void InitStore(int type) {
-		// Ensure Store Exists
-		if (!Stores[type]) Stores[type] = new('MerchantStore');
+	Array<StoreItem> StoreItems;
+
+	Array<MerchantStore> Stores;
+	MerchantStoreTable StoreTypes;
+
+	name OpenedStore[MAXPLAYERS];
+
+	MerchantStore GetStore(name type) {
+		forEach(store : Stores) if (store.type == type) return store;
+
+		return null;
+	}
+
+	// Initialize Store of given type for the current map
+	private void InitStore(name type) {
+		HDCore.log('Merchant', LOGGING_TRACE, "Initializing "..type.." Store...");
+
+		// Check existing stores for one of the given type
+		MerchantStore store = GetStore(type);
+
+		// If it doesn't exist, create a new one
+		if (!store) {
+			HDCore.log('Merchant', LOGGING_TRACE, type.." Store doesn't exist, creating...");
+
+			store = MerchantStore.create(type);
+
+			Stores.push(store);
+		}
 		
 		// Clean current categories & items
-		Stores[type].Categories.Clear();
-		Stores[type].StoreItems.Clear();
-		
-		foreach (cls : AllClasses) {
-			if (cls is "StoreItem" && cls != 'StoreItem') {
-				let item = StoreItem(new(cls));
+		store.Categories.Clear();
+		store.StoreItems.Clear();
 
-				bool inReloadingRoom = level.MapName ~== "LOTSAGUN";
-				bool inRange = level.MapName ~== "RANGE";
-
-				static const name merchChances[] = { 'hdm_chance_weapon', 'hdm_chance_ammo', 'hdm_chance_item' };
-				if (
-					(Class<Actor>)(item.GetItem())
-					&& item.GetType() == type
-					&& item.IsEnabled()
-					&& (inReloadingRoom || inRange || frandom[merchrand](0.01, 1.00) <= CVar.GetCVar(merchChances[type]).GetFloat())
-				) {
-					item.StoreAmount = item.GetStoreAmount();
-
-					if (inReloadingRoom || inRange) item.StoreAmount *= random[merchrand](25, 150);
-
-					Stores[type].StoreItems.Push(item);
-				}
+		// Determine if currently in a "safe" map
+		bool inSafeMap = false;
+		forEach (mapName : SafeMapNames) {
+			if (level.mapName == mapName) {
+				inSafeMap = true;
+				break;
 			}
 		}
 
-		// [Ace] Don't duplicate categories.
-		foreach (currItem : Stores[type].StoreItems) {
-			if (Stores[type].Categories.Find(currItem.GetCategory()) == Stores[type].Categories.Size()) {
-				Stores[type].Categories.Push(currItem.GetCategory());
+		// Grab all valid items, add a copy to store inventory
+		forEach (item : StoreItems) {
+			HDCore.log('Merchant', LOGGING_TRACE, "Attempting to add "..item.itemName.." to store...");
+
+			// If the store item isn't valid, skip.
+			if (!HDCore.CheckClassExists(item.GetItem()) || item.GetType() != type) continue;
+			
+			
+			let itemChance = item.GetChance();
+			let chance = itemChance >= 0.0 ? itemChance : store.baseChance;
+			
+			if (inSafeMap || frandom[merchrand](0.0, 1.0) < chance) {
+
+				item.chance = chance;
+
+				item.basePrice *= store.priceMult;
+
+				item.storeAmount = (
+					item.baseStoreAmount > 0
+						? item.baseStoreAmount
+						: DetermineStoreAmount(store.type, item)
+				);
+				
+				if (item.storeAmount < 0) item.storeAmount = ceil(max(1, item.GetStoreAmount()) * (inSafeMap ? random[merchrand](25, 150) : max(chance, 1.0)));
+				
+				item.storeAmount *= store.stockMult;
+
+				store.addItem(item);
+			}
+		}
+
+		if (!store.StoreItems.Size()) HDCore.log('Merchant', LOGGING_WARN, "Merchant Store "..type.." contains no items!");
+	}
+
+	// Get & add all class-defined store items
+	private void InitStores() {
+		forEach (cls : AllClasses) {
+			if (HDCore.IsChildClass(cls, 'StoreItem')) {
+				let item = StoreItem(new(cls));
+
+				if (HDCore.CheckClassExists(item.GetItem())) StoreItems.push(item);
+				else item.Destroy();
 			}
 		}
 	}
 
+	// Get & add all class-defined store currencies
 	private void InitCurrencies() {
-		foreach (cls : AllClasses) {
-			if (cls is "StoreCurrency" && cls != 'StoreCurrency') {
+		forEach (cls : AllClasses) {
+			if (HDCore.IsChildClass(cls, 'StoreCurrency')) {
 				let currency = StoreCurrency(new(cls));
-				if ((Class<Actor>)(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
+
+				if (HDCore.CheckClassExists(currency.GetCurrencyClass())) StoreCurrencies.Push(currency);
+				else currency.Destroy();
+			}
+		}
+	}
+
+	// Calculate default store amount based on store type
+	// TODO: Refactor into command, etc.?
+	private int DetermineStoreAmount(name storeType, StoreItem item) {
+		switch (storeType) {
+			case 'ammo': {
+				if (item.GetAmount() == 1) {
+					return random[merchrand](1, 5);
+				}
+
+				return randompick[merchrand](1, 2, 3, 3, random[merchrand](2, 6));
+			}
+			case 'item':
+			case 'mag' : {
+				if (item.GetBasePrice() <= 15) {
+					return randompick[merchrand](1, 2, 2, 3, 3, 3, random[merchrand](4, 7));
+				}
+
+				if (item.GetBasePrice() <= 40) {
+					return randompick[merchrand](1, 1, 2, 2, 2, 3, 3, 4, 4, 5);
+				}
+				
+				if (item.GetBasePrice() <= 80) {
+					return randompick[merchrand](1, 1, 1, 2, 2, 2, 3, 3);
+				}
+
+				return 1;
+			}
+			case 'weapon': {
+				return randompick[merchrand](1, 1, 1, 1, 1, 1, 1, 2);
+			}
+			default: {
+				return -1;
 			}
 		}
 	}
