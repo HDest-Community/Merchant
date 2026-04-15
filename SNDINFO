@@ -11,7 +11,7 @@ SlotMachine/Stop SLOTSTOP
 Merchant/BuyFailure BUYFAIL
 Merchant/BuySuccess BUYSUCC
 
-$alias Bounty/HelloILikeMoney Merchant/BuySuccess
+Bounty/HelloILikeMoney BNTYCLM
 
 ResidentEvil/Buying1 "Sounds/ResidentEvil/Start1.ogg"
 ResidentEvil/Buying2 "Sounds/ResidentEvil/Start2.ogg"
