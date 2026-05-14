@@ -1,5 +1,11 @@
 class MercenaryBucks : HDPickup {
 
+    private transient CVar _bulkCvar;
+    private transient double _bulk;
+
+    private transient CVar _droppableCvar;
+    private transient bool _droppable;
+
     Default {
         Tag "$TAG_BUX";
         Inventory.Icon "MBCKA0";
@@ -8,10 +14,7 @@ class MercenaryBucks : HDPickup {
         +HDPICKUP.CHEATNOGIVE
         -HDPICKUP.FITSINBACKPACK
         -HDPICKUP.DROPTRANSLATION
-        +INVENTORY.UNDROPPABLE
-        -INVENTORY.INVBAR
         +HDPICKUP.MULTIPICKUP
-        +SHOOTABLE
         +NOBLOOD
 
         damagefactor "balefire", 10.0;
@@ -36,22 +39,43 @@ class MercenaryBucks : HDPickup {
 
         health 20;
 
-        HDPickup.Bulk 0;
         HDPickup.RefID "bux";
         Inventory.MaxAmount 100000;
         scale 0.4;
     }
 
     override void Tick() {
-        Super.Tick();
+        super.Tick();
 
-        bFITSINBACKPACK = hdm_moneydroppable;
-        bUNDROPPABLE = !hdm_moneydroppable;
-        bSHOOTABLE = hdm_moneyshootable;
+        bool droppableChanged = false, bulkChanged = false;
+
+        if (!_bulkCvar)      { _bulkCvar      = CVar.getCVar('hdm_moneybulk');      bulkChanged      = true; }
+        if (!_droppableCvar) { _droppableCvar = CVar.getCVar('hdm_moneydroppable'); droppableChanged = true; }
+
+        if (_bulk != _bulkCvar.getFloat()) {
+            _bulk = _bulkCvar.getFloat();
+            bulkChanged = true;
+        }
+
+        if (_droppable != _droppableCvar.getBool()) {
+            _droppable = _droppableCvar.getBool();
+            droppableChanged = true;
+        }
+
+        if (droppableChanged) {
+            bINVBAR = _droppable;
+            bFITSINBACKPACK = _droppable;
+            bUNDROPPABLE = !_droppable;
+            bSHOOTABLE = _droppable;
+        }
+
+        if (bulkChanged || droppableChanged) {
+            bulk = _droppable ? _bulk : 0;
+        }
     }
 
     override double getbulk() {
-        return hdm_moneydroppable ? amount * hdm_moneybulk : 0;
+        return _droppable ? amount * _bulk : 0;
     }
 
     override void SplitPickup() {
