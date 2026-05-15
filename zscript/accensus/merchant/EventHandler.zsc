@@ -887,16 +887,20 @@ class MerchantHandler : HDCoreEventHandler {
 			}
 		}
 
-		let selectedSkin   = AvailableSkins[HDCore.getRandomInt(0, AvailableSkins.Size() - 1, hdc_random_mode)];
 		name merchantClass = 'HDMerchant';
+		HDMerchantSkin selectedSkin = null;
 
-		// If the skin defines a custom child class of a merchant, replace the intended actor class with that.
-		if (
-			HDCore.CheckClassExists(selectedSkin.className)
-			&& HDCore.IsChildClass((Class<Object>)(selectedSkin.className), 'HDMerchant', allowSameCls: false)
-		) {
-			HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, store.type.." Merchant has custom class '"..selectedSkin.className.."'");
-			merchantClass = selectedSkin.className;
+		if (AvailableSkins.size()) {
+			selectedSkin = AvailableSkins[HDCore.getRandomInt(0, AvailableSkins.Size() - 1, hdc_random_mode)];
+
+			// If the skin defines a custom child class of a merchant, replace the intended actor class with that.
+			if (
+				HDCore.CheckClassExists(selectedSkin.className)
+				&& HDCore.IsChildClass((Class<Object>)(selectedSkin.className), 'HDMerchant', allowSameCls: false)
+			) {
+				HDCore.Log('Merchant.MerchantHandler', LOGGING_DEBUG, store.type.." Merchant has custom class '"..selectedSkin.className.."'");
+				merchantClass = selectedSkin.className;
+			}
 		}
 
 
@@ -905,9 +909,10 @@ class MerchantHandler : HDCoreEventHandler {
 
 		// If it spawned successfully, set the relevant information
 		if (a) {
-			a.storeType = store.type;
-			a.selectedSkin = selectedSkin;
 			a.angle = sec.GetUDMFInt('user_merchantangle');
+			a.storeType = store.type;
+			
+			if (selectedSkin) a.selectedSkin = selectedSkin;
 
 			if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) HDCore.Log(
 				'Merchant.MerchantHandler', LOGGING_DEBUG, String.format(

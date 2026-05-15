@@ -27,7 +27,7 @@ class HDMerchant : Actor {
 		if (!SelectedSkin) {
 			InitSkins();
 
-			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Skin not set, automatically selecting "..SelectedSkin.skinId);
+			HDCore.log('Merchant', LOGGING_DEBUG, "Merchant Skin not set, automatically selecting "..(SelectedSkin ? (SelectedSkin.skinId.."") : "nothing"));
 		}
 	}
 
