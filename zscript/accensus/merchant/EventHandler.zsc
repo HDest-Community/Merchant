@@ -23,415 +23,650 @@ class MerchantHandler : HDCoreEventHandler {
 
 	override void processCommand(HDCoreCommand cmd) {
 		switch (cmd.command) {
-			case 'newMerchantBountyTarget': {
+			case 'configureMerchants':
+				processConfigureMerchantsCmd(cmd);
+				break;
+			case 'newMerchantBountyTarget':
+				processNewMerchantBountyTargetCmd(cmd);
+				break;
+			case 'removeMerchantBountyTarget':
+				processRemoveMerchantBountyTargetCmd(cmd);
+				break;
+			case 'clearMerchantBountyTargets':
+				processClearMerchantBountyTargetsCmd(cmd);
+				break;
+			case 'addMerchantNonBountyBlacklist':
+				processAddMerchantNonBountyBlacklistCmd(cmd);
+				break;
+			case 'removeMerchantNonBountyBlacklist':
+				processRemoveMerchantNonBountyBlacklistCmd(cmd);
+				break;
+			case 'clearMerchantNonBountyBlacklist':
+				processClearMerchantNonBountyBlacklistCmd(cmd);
+				break;
+			case 'addMerchantSafeMap':
+				processAddMerchantSafeMapCmd(cmd);
+				break;
+			case 'removeMerchantSafeMap':
+				processRemoveMerchantSafeMapCmd(cmd);
+				break;
+			case 'clearMerchantSafeMaps':
+				processClearMerchantSafeMapsCmd(cmd);
+				break;
+			case 'newMerchantSkin':
+				processNewMerchantSkinCmd(cmd);
+				break;
+			case 'removeMerchantSkin':
+				processRemoveMerchantSkinCmd(cmd);
+				break;
+			case 'clearMerchantSkins':
+				processClearMerchantSkinsCmd(cmd);
+				break;
+			case 'newMerchantStore':
+				processNewMerchantStoreCmd(cmd);
+				break;
+			case 'removeMerchantStore':
+				processRemoveMerchantStoreCmd(cmd);
+				break;
+			case 'clearMerchantStores':
+				processClearMerchantStoresCmd(cmd);
+				break;
+			case 'addMerchantStoreSkin':
+				processAddMerchantStoreSkinCmd(cmd);
+				break;
+			case 'newMerchantStoreCurrency':
+				processNewMerchantStoreCurrencyCmd(cmd);
+				break;
+			case 'removeMerchantStoreCurrency':
+				processRemoveMerchantStoreCurrencyCmd(cmd);
+				break;
+			case 'clearMerchantStoreCurrencies':
+				processClearMerchantStoreCurrenciesCmd(cmd);
+				break;
+			case 'newMerchantStoreItem':
+				processNewMerchantStoreItemCmd(cmd);
+				break;
+			case 'removeMerchantStoreItem':
+				processRemoveMerchantStoreItemCmd(cmd);
+				break;
+			case 'clearMerchantStoreItems':
+				processClearMerchantStoreItemsCmd(cmd);
+				break;
+			default:
+				break;
+		}
+	}
 
-				// Get Target's ClassName and check if it's valid
-				let name = cmd.getNameParam("name");
-				Class<Actor> cls = name;
+	void processConfigureMerchantsCmd(HDCoreCommand cmd) {
 
-				// If the target's class doesn't exist, quit.
-				if (!cls) break;
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing Configure Merchants Command: "..cmd.toString());
 
-				// get remaining params
-				let effect = cmd.getNameParam("effect");
-				let value = cmd.getIntParam("value");
+		if (cmd.getBoolParam("clean")) {
+			processClearMerchantBountyTargetsCmd(cmd);
+			processClearMerchantNonBountyBlacklistCmd(cmd);
+			processClearMerchantSafeMapsCmd(cmd);
+			processClearMerchantSkinsCmd(cmd);
+			processClearMerchantStoresCmd(cmd);
+			processClearMerchantStoreCurrenciesCmd(cmd);
+			processClearMerchantStoreItemsCmd(cmd);
+		}
 
-				// Look for existing bounty target definitions
-				BountyTarget existingTarget;
-				forEach (t : BountyTargets) {
-					if (t.targetCls == name) {
-						existingTarget = t;
-						break;
-					}
+		Array<name> namesArr;
+
+		// Add all configured Map Blacklist Entries
+		cmd.getArrayNameParam("nonBountyBlacklist", namesArr);
+		forEach (name : namesArr) addNonBountyBlacklist(name);
+
+		// Add all configured Thing Blacklist Entries
+		cmd.getArrayNameParam("safeMaps", namesArr);
+		forEach (name : namesArr) addSafeMapName(name);
+
+		Array<string> jsonArr;
+		
+		// Add all configured Bounty Targets
+		cmd.getArrayStringParam("bountyTargets", jsonArr);
+		forEach (str : jsonArr) {
+
+			let json = HDZJSON.parse(str);
+
+			if (!(json is 'HDZJsonObject')) {
+				if (json is 'HDZJsonError') {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, HDZJsonError(json).what);
+				} else {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, "Invalid Bounty Target Config: "..HDZJsonElement(json).serialize());
 				}
 
-				// If an existing target for this class already exists, quit.
-				if (existingTarget) break;
-
-				// Create the new Bounty Target and add it to the registry.
-				let newTarget = BountyTarget.create(name, value, effect);
-
-				if (newTarget) BountyTargets.push(newTarget);
-
-				break;
+				continue;
 			}
-			case 'removeMerchantBountyTarget': {
 
-				let name = cmd.getNameParam("name");
+			// Create Bounty Target itself
+			processNewMerchantBountyTargetCmd(HDCoreCommand.create('newMerchantBountyTarget', HDZJsonObject(json).serialize()));
+		}
+		
+		// Add all configured Merchant Currencies
+		cmd.getArrayStringParam("currencies", jsonArr);
+		forEach (str : jsonArr) {
 
-				forEach (target : BountyTargets) {
-					if (target.targetCls == name) {
-						BountyTargets.delete(BountyTargets.find(target));
-						break;
-					}
+			let json = HDZJSON.parse(str);
+
+			if (!(json is 'HDZJsonObject')) {
+				if (json is 'HDZJsonError') {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, HDZJsonError(json).what);
+				} else {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, "Invalid Currency Config: "..HDZJsonElement(json).serialize());
 				}
 
-				break;
+				continue;
 			}
-			case 'clearMerchantBountyTargets': {
-				BountyTargets.clear();
-				break;
-			}
-			case 'addMerchantNonBountyBlacklist': {
-				
-				let name = cmd.getNameParam("name");
 
-				if (name && NonBountyBlacklist.find(name) == NonBountyBlacklist.size()) NonBountyBlacklist.push(name);
+			// Create Currency itself
+			processNewMerchantStoreCurrencyCmd(HDCoreCommand.create('newMerchantStoreCurrency', HDZJsonObject(json).serialize()));
+		}
 
-				break;
-			}
-			case 'removeMerchantNonBountyBlacklist': {
+		// Add all configured Merchant Skins
+		cmd.getArrayStringParam("skins", jsonArr);
+		forEach (str : jsonArr) {
 
-				let name = cmd.getNameParam("name");
+			let json = HDZJSON.parse(str);
 
-				if (NonBountyBlacklist.find(name) < NonBountyBlacklist.size()) NonBountyBlacklist.delete(NonBountyBlacklist.find(name));
-
-				break;
-			}
-			case 'clearMerchantNonBountyBlacklist': {
-				NonBountyBlacklist.clear();
-				break;
-			}
-			case 'addMerchantSafeMap': {
-				let name = cmd.getNameParam("name");
-
-				if (name && SafeMapNames.find(name) == SafeMapNames.size()) SafeMapNames.push(name);
-				break;
-			}
-			case 'removeMerchantSafeMap': {
-				let name = cmd.getNameParam("name");
-
-				if (SafeMapNames.find(name) < SafeMapNames.size()) SafeMapNames.delete(SafeMapNames.find(name));
-
-				break;
-			}
-			case 'clearMerchantSafeMaps': {
-				SafeMapNames.clear();
-				break;
-			}
-			case 'newMerchantSkin': {
-
-				// Get Skin ID
-				let id = cmd.getNameParam("name");
-
-				// Get remaining params
-				let className = cmd.getNameParam("className", 'HDMerchant');
-				let tag = cmd.getStringParam("tag", "$TAG_MERCHANT");
-				let sprite = cmd.getNameParam("sprite", 'HOBM');
-				let scaleX = cmd.getDoubleParam("scaleX", 1.0);
-				let scaleY = cmd.getDoubleParam("scaleY", 1.0);
-				let openState = cmd.getNameParam("openState", 'OpenMenu.Default');
-				let closeState = cmd.getNameParam("closeState", 'SpawnLoop');
-				let openSound = cmd.getNameParam("openSound");
-				let closeSound = cmd.getNameParam("closeSound");
-
-				vector2 scale = (scaleX, scaleY);
-
-				HDMerchantSkin existingSkin;
-				forEach (skin : Skins) {
-					let currId = skin.skinId;
-
-					if (currId != '' && id != '' && currId == id) {
-						existingSkin = skin;
-						break;
-					}
+			if (!(json is 'HDZJsonObject')){
+				if (json is 'HDZJsonError') {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, HDZJsonError(json).what);
+				} else {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, "Invalid Merchant Skin Config: "..HDZJsonElement(json).serialize());
 				}
 
-				if (existingSkin) break;
-
-				let newskin = HDMerchantSkin.create(id, className, tag, sprite, scale, openState, openSound, closeState, closeSound);
-
-				if (newSkin) skins.push(newSkin);
-
-				break;
+				continue;
 			}
-			case 'removeMerchantSkin': {
 
-				let name = cmd.getNameParam("name");
+			// Create Merchant Skin itself
+			processNewMerchantSkinCmd(HDCoreCommand.create('newMerchantSkin', HDZJsonObject(json).serialize()));
+		}
 
-				forEach (skin : Skins) {
-					if (skin.skinId == name) {
-						Skins.delete(Skins.find(skin));
-						break;
-					}
+		// Add all configured Merchant Store Entries
+		cmd.getArrayStringParam("stores", jsonArr);
+		forEach (str : jsonArr) {
+
+			let json = HDZJSON.parse(str);
+
+			if (!(json is 'HDZJsonObject')){
+				if (json is 'HDZJsonError') {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, HDZJsonError(json).what);
+				} else {
+					HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, "Invalid Merchant Store Config: "..HDZJsonElement(json).serialize());
 				}
 
-				break;
+				continue;
 			}
-			case 'clearMerchantSkins': {
-				Skins.clear();
-				break;
-			}
-			case 'newMerchantStore': {
-				
-				// Get Data Providers
-				let typeParam = cmd.getParamValue("type");
-				let enabledParam = cmd.getParamValue("enabled");
-				let weightParam = cmd.getParamValue("weight");
-				let skinsParam = cmd.getParamValue("skins");
 
-				// Get Store Type
-				let type = typeParam.getNameValue();
+			let obj = HDZJsonObject(json);
 
-				// get remaining params
-				let chance = cmd.getDoubleParam("chance", -1.0);
-				let stockMult = cmd.getDoubleParam("stockMult", 1.0);
-				let priceMult = cmd.getDoubleParam("priceMult", 1.0);
+			// If type isn't a valid string, skip.
+			if (!(obj.get("type") is 'HDZJsonString')) continue;
 
-				// Look for existing store definitions
-				MerchantStore existingStore;
-				forEach (store : Stores) {
-					let currType = store.type;
+			// Create Spawn Table itself
+			processNewMerchantStoreCmd(HDCoreCommand.create('newMerchantStore', obj.serialize()));
 
-					if (currType != '' && type != '' && currType == type) {
-						existingStore = store;
-						break;
-					}
-				}
+			let storeType = obj.get("type");
 
-				// If an existing store for this type already exists, quit.
-				if (existingStore) break;
+			if (obj.get("categories") is 'HDZJsonArray') {
+				forEach (category : HDZJsonArray(obj.get("categories")).arr) {
 
-				// Create the new store and add it to the registry.
-				let newStore = MerchantStore.create(
-					type,
-					chance,
-					stockMult,
-					priceMult
-				);
+					if (!(category is 'HDZJsonObject')){
+						if (category is 'HDZJsonError') {
+							HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, HDZJsonError(category).what);
+						} else {
+							HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, "Invalid Spawn Table Config: "..HDZJsonElement(category).serialize());
+						}
 
-				HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, type.." => "..skinsParam);
-
-				// Parse out Skins Param
-				if (skinsParam != null && skinsParam.getStringValue() != "") {
-
-					Array<string> skinsArr;
-					skinsArr.clear();
-
-					let skinsFlags = skinsParam.getIntValue();
-					if (skinsFlags > 0) {
-
-						// Store the default Skin IDs
-						name defaultSkins[10] = {
-							'ResidentEvil',
-							'Hobo',
-							'Succubus',
-							'Morshu',
-							'WanderingTrader',
-							'Daina1',
-							'Daina2',
-							'Daina3',
-							'Daina4',
-							'Nari1'
-						};
-
-						// If we've selected any skins for this store type, add them.
-						for (let i = 0; i < defaultSkins.size(); i++) if (skinsFlags & 1 << i) skinsArr.push(defaultSkins[i]);
-
-					} else {
-						skinsParam.getStringValue().split(skinsArr, ",", TOK_SKIPEMPTY);
+						continue;
 					}
 
-					forEach(skin : skinsArr) {
-						skin.stripLeftRight();
-						newStore.addSkin(skin);
+					let catObj = HDZJsonObject(category);
+
+					// If category name isn't a valid string, skip.
+					if (!(catObj.get("name") is 'HDZJsonString')) continue;
+
+					let storeCat = catObj.get("name");
+
+					if (catObj.get("items") is 'HDZJsonArray') {
+
+						forEach(entry : HDZJsonArray(catObj.get("items")).arr) {
+
+							if (!(entry is 'HDZJsonObject')){
+								if (entry is 'HDZJsonError') {
+									HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, HDZJsonError(entry).what);
+								} else {
+									HDCore.log('Merchant.MerchantHandler', LOGGING_ERROR, "Invalid Spawn Table Config: "..HDZJsonElement(entry).serialize());
+								}
+
+								continue;
+							}
+
+							let entryObj = HDZJsonObject(entry);
+							
+							entryObj.set("type", storeType);
+							entryObj.set("category", storeCat);
+
+							processNewMerchantStoreItemCmd(HDCoreCommand.create('newMerchantStoreItem', entryObj.serialize()));
+						}
 					}
 				}
-
-				if (newStore) {
-					StoreTypes.addEntry(MerchantStoreTableEntry.create(typeParam, enabledParam, weightParam));
-
-					stores.push(newStore);
-				}
-				break;
 			}
-			case 'removeMerchantStore': {
+		}
+	}
 
-				let type = cmd.getNameParam("type");
+	void processNewMerchantBountyTargetCmd(HDCoreCommand cmd) {
 
-				forEach (store : Stores) {
-					if (store.type == type) {
-						Stores.delete(Stores.find(store));
-						break;
-					}
-				}
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing New Merchant Bounty Target Command: "..cmd.toString());
 
-				break;
-			}
-			case 'clearMerchantStores': {
-				StoreTypes.clearEntries();
-				Stores.clear();
-				break;
-			}
-			case 'addMerchantStoreSkin': {
-				
-				// Get Store Type
-				let type = cmd.getNameParam("type");
+		// Get Target's ClassName and check if it's valid
+		let name = cmd.getNameParam("name");
+		Class<Actor> cls = name;
 
-				// Get Skin ID
-				let skinId = cmd.getNameParam("skin");
+		// If the target's class doesn't exist, quit.
+		if (!cls) return;
 
-				// Look for existing store definition
-				MerchantStore existingStore;
-				forEach (store : Stores) {
-					let currType = store.type;
+		// get remaining params
+		let effect = cmd.getNameParam("effect");
+		let value = cmd.getIntParam("value");
 
-					if (currType != '' && type != '' && currType == type) {
-						existingStore = store;
-						break;
-					}
-				}
-
-				// If an existing store for this type doesn't exist, quit.
-				if (!existingStore) break;
-
-				// Look for existing skin definition
-				HDMerchantSkin existingSkin;
-				forEach (skin : Skins) {
-					let currId = skin.skinId;
-
-					if (currId != '' && skinId != '' && currId == skinId) {
-						existingSkin = skin;
-						break;
-					}
-				}
-
-				// If an existing skin for this ID doesn't exist, quit.
-				if (!existingSkin) break;
-
-				// Add the skin to the store if it isn't already.
-				if (existingStore.skins.find(skinId) >= existingStore.skins.size()) existingStore.skins.push(skinId);
-
-			}
-			case 'newMerchantStoreCurrency': {
-				
-				// Get Currency name and check if it's valid
-				let currency = cmd.getNameParam("name");
-				Class<Inventory> currencyCls = currency;
-
-				// If the currency's class doesn't exist, quit.
-				if (!currencyCls) break;
-
-				// get remaining params
-				let icon = cmd.getStringParam("icon");
-				let priceMult = cmd.getDoubleParam("priceMult", 1.0);
-
-				// Look for existing currency definitions
-				StoreCurrency existingCurrency;
-				forEach (c : StoreCurrencies) {
-					let currName = c.getCurrencyClass();
-
-					if (currName != '' && currency != '' && currName == currency) {
-						existingCurrency = c;
-						break;
-					}
-				}
-
-				// If an existing currency for this class already exists, quit.
-				if (existingCurrency) break;
-
-				// Create the new currency and add it to the registry.
-				let newCurrency = StoreCurrency.create(currency, icon, priceMult);
-
-				if (newCurrency) {
-					if (cmd.getBoolParam("default")) {
-						StoreCurrencies.insert(0, newCurrency);
-					} else {
-						StoreCurrencies.push(newCurrency);
-					}
-				}
-
-				break;
-			}
-			case 'removeMerchantStoreCurrency': {
-				let currency = cmd.getNameParam("name");
-
-				forEach (storeCurrency : StoreCurrencies) {
-					if (storeCurrency.cls == currency) {
-						StoreCurrencies.delete(StoreCurrencies.find(storeCurrency));
-						break;
-					}
-				}
-
-				break;
-			}
-			case 'clearMerchantStoreCurrencies': {
-				StoreCurrencies.clear();
-				break;
-			}
-			case 'newMerchantStoreItem': {
-				
-				// Get Item name and check if it's valid
-				let item = cmd.getNameParam("item");
-				Class<Actor> itemCls = item;
-				
-				// If the item's class doesn't exist, quit.
-				if (!itemCls) break;
-				
-				// Get Item type and check if it's valid
-				let type = cmd.getNameParam("type");
-
-				// get remaining params
-				let chance = cmd.getDoubleParam("chance", -1.0);
-				let category = cmd.getStringParam("category", type);
-				let icon = cmd.getStringParam("icon");
-				let displayName = cmd.getStringParam("displayName", item);
-				let flavorText = cmd.getStringParam("flavorText");
-				let baseAmount = cmd.getIntParam("amount", 1);
-				let basePrice = cmd.getIntParam("basePrice", 1);
-				let baseStoreAmount = cmd.getIntParam("storeAmount");
-
-				StoreItem existingItem;
-				forEach (i : StoreItems) {
-					let itemName = i.getItem();
-
-					if (itemName != '' && item != '' && itemName == item) {
-						existingItem = i;
-						break;
-					}
-				}
-
-				// If an existing store item for this class already exists, quit.
-				if (existingItem) break;
-
-				// Create the new store item and add it to the registry.
-				let newItem = StoreItem.create(
-					type,
-					chance,
-					category,
-					item,
-					icon,
-					displayName,
-					flavorText,
-					baseAmount,
-					basePrice,
-					baseStoreAmount
-				);
-
-				if (newItem) StoreItems.push(newitem);
-
-				break;
-			}
-			case 'removeMerchantStoreItem': {
-				let item = cmd.getNameParam("item");
-
-				forEach (storeItem : StoreItems) {
-					if (storeItem.getItem() == item) {
-						StoreItems.delete(StoreItems.find(storeItem));
-						break;
-					}
-				}
-
-				break;
-			}
-			case 'clearMerchantStoreItems': {
-				StoreItems.clear();
-				break;
-			}
-			default: {
+		// Look for existing bounty target definitions
+		BountyTarget existingTarget;
+		forEach (t : BountyTargets) {
+			if (t.targetCls == name) {
+				existingTarget = t;
 				break;
 			}
 		}
+
+		// If an existing target for this class already exists, quit.
+		if (existingTarget) return;
+
+		// Create the new Bounty Target and add it to the registry.
+		let newTarget = BountyTarget.create(name, value, effect);
+
+		if (newTarget) BountyTargets.push(newTarget);
+	}
+
+	void processRemoveMerchantBountyTargetCmd(HDCoreCommand cmd) {
+
+		let name = cmd.getNameParam("name");
+
+		forEach (target : BountyTargets) {
+			if (target.targetCls == name) {
+				BountyTargets.delete(BountyTargets.find(target));
+				break;
+			}
+		}
+	}
+
+	void processClearMerchantBountyTargetsCmd(HDCoreCommand cmd) {
+		BountyTargets.clear();
+	}
+
+	void processAddMerchantNonBountyBlacklistCmd(HDCoreCommand cmd) {
+		addNonBountyBlacklist(cmd.getNameParam("name"));
+	}
+
+	void processRemoveMerchantNonBountyBlacklistCmd(HDCoreCommand cmd) {
+		removeNonBountyBlacklist(cmd.getNameParam("name"));
+	}
+
+	void processClearMerchantNonBountyBlacklistCmd(HDCoreCommand cmd) {
+		NonBountyBlacklist.clear();
+	}
+
+	void processAddMerchantSafeMapCmd(HDCoreCommand cmd) {
+		addSafeMapName(cmd.getNameParam("name"));
+	}
+
+	void processRemoveMerchantSafeMapCmd(HDCoreCommand cmd) {
+		removeSafeMapName(cmd.getNameParam("name"));
+	}
+
+	void processClearMerchantSafeMapsCmd(HDCoreCommand cmd) {
+		SafeMapNames.clear();
+	}
+
+	void processNewMerchantSkinCmd(HDCoreCommand cmd) {
+
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing New Merchant Skin Command: "..cmd.toString());
+
+		// Get Skin ID
+		let id = cmd.getNameParam("name");
+
+		// Get remaining params
+		let className = cmd.getNameParam("className", 'HDMerchant');
+		let tag = cmd.getStringParam("tag", "$TAG_MERCHANT");
+		let sprite = cmd.getNameParam("sprite", 'HOBM');
+		let scaleX = cmd.getDoubleParam("scaleX", 1.0);
+		let scaleY = cmd.getDoubleParam("scaleY", 1.0);
+		let openState = cmd.getNameParam("openState", 'OpenMenu.Default');
+		let closeState = cmd.getNameParam("closeState", 'SpawnLoop');
+		let openSound = cmd.getNameParam("openSound");
+		let closeSound = cmd.getNameParam("closeSound");
+
+		vector2 scale = (scaleX, scaleY);
+
+		HDMerchantSkin existingSkin;
+		forEach (skin : Skins) {
+			let currId = skin.skinId;
+
+			if (currId != '' && id != '' && currId == id) {
+				existingSkin = skin;
+				break;
+			}
+		}
+
+		if (existingSkin) return;
+
+		let newskin = HDMerchantSkin.create(id, className, tag, sprite, scale, openState, openSound, closeState, closeSound);
+
+		if (newSkin) skins.push(newSkin);
+	}
+
+	void processRemoveMerchantSkinCmd(HDCoreCommand cmd) {
+
+		let name = cmd.getNameParam("name");
+
+		forEach (skin : Skins) {
+			if (skin.skinId == name) {
+				Skins.delete(Skins.find(skin));
+				break;
+			}
+		}
+	}
+
+	void processClearMerchantSkinsCmd(HDCoreCommand cmd) {
+		Skins.clear();
+	}
+
+	void processNewMerchantStoreCmd(HDCoreCommand cmd) {
+
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing New Merchant Store Command: "..cmd.toString());
+
+		// Get Data Providers
+		let typeParam = cmd.getParamValue("type");
+		let enabledParam = cmd.getParamValue("enabled");
+		let weightParam = cmd.getParamValue("weight");
+		let skinsParam = cmd.getParamValue("skins");
+
+		// Get Store Type
+		let type = typeParam.getNameValue();
+
+		// get remaining params
+		let chance = cmd.getDoubleParam("chance", -1.0);
+		let stockMult = cmd.getDoubleParam("stockMult", 1.0);
+		let priceMult = cmd.getDoubleParam("priceMult", 1.0);
+
+		// Look for existing store definitions
+		MerchantStore existingStore;
+		forEach (store : Stores) {
+			let currType = store.type;
+
+			if (currType != '' && type != '' && currType == type) {
+				existingStore = store;
+				break;
+			}
+		}
+
+		// If an existing store for this type already exists, quit.
+		if (existingStore) return;
+
+		// Create the new store and add it to the registry.
+		let newStore = MerchantStore.create(
+			type,
+			chance,
+			stockMult,
+			priceMult
+		);
+
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, type.." => "..skinsParam);
+
+		// Parse out Skins Param
+		if (skinsParam != null && skinsParam.getStringValue() != "") {
+
+			Array<string> skinsArr;
+			skinsArr.clear();
+
+			let skinsFlags = skinsParam.getIntValue();
+			if (skinsFlags > 0) {
+
+				// Store the default Skin IDs
+				name defaultSkins[10] = {
+					'ResidentEvil',
+					'Hobo',
+					'Succubus',
+					'Morshu',
+					'WanderingTrader',
+					'Daina1',
+					'Daina2',
+					'Daina3',
+					'Daina4',
+					'Nari1'
+				};
+
+				// If we've selected any skins for this store type, add them.
+				for (let i = 0; i < defaultSkins.size(); i++) if (skinsFlags & 1 << i) skinsArr.push(defaultSkins[i]);
+
+			} else {
+				skinsParam.getStringValue().split(skinsArr, ",", TOK_SKIPEMPTY);
+			}
+
+			forEach(skin : skinsArr) {
+				skin.stripLeftRight();
+				newStore.addSkin(skin);
+			}
+		}
+
+		if (newStore) {
+			StoreTypes.addEntry(MerchantStoreTableEntry.create(typeParam, enabledParam, weightParam));
+
+			stores.push(newStore);
+		}
+	}
+
+	void processRemoveMerchantStoreCmd(HDCoreCommand cmd) {
+
+		let type = cmd.getNameParam("type");
+
+		forEach (store : Stores) {
+			if (store.type == type) {
+				Stores.delete(Stores.find(store));
+				break;
+			}
+		}
+	}
+
+	void processClearMerchantStoresCmd(HDCoreCommand cmd) {
+		StoreTypes.clearEntries();
+		Stores.clear();
+	}
+
+	void processAddMerchantStoreSkinCmd(HDCoreCommand cmd) {
+
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing Add Merchant Store Skin Command: "..cmd.toString());
+				
+		// Get Store Type
+		let type = cmd.getNameParam("type");
+
+		// Get Skin ID
+		let skinId = cmd.getNameParam("skin");
+
+		// Look for existing store definition
+		MerchantStore existingStore;
+		forEach (store : Stores) {
+			let currType = store.type;
+
+			if (currType != '' && type != '' && currType == type) {
+				existingStore = store;
+				break;
+			}
+		}
+
+		// If an existing store for this type doesn't exist, quit.
+		if (!existingStore) return;
+
+		// Look for existing skin definition
+		HDMerchantSkin existingSkin;
+		forEach (skin : Skins) {
+			let currId = skin.skinId;
+
+			if (currId != '' && skinId != '' && currId == skinId) {
+				existingSkin = skin;
+				break;
+			}
+		}
+
+		// If an existing skin for this ID doesn't exist, quit.
+		if (!existingSkin) return;
+
+		// Add the skin to the store if it isn't already.
+		if (existingStore.skins.find(skinId) >= existingStore.skins.size()) existingStore.skins.push(skinId);
+	}
+
+	void processNewMerchantStoreCurrencyCmd(HDCoreCommand cmd) {
+
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing New Merchant Store Currency Command: "..cmd.toString());
+
+		// Get Currency name and check if it's valid
+		let currency = cmd.getNameParam("name");
+		Class<Inventory> currencyCls = currency;
+
+		// If the currency's class doesn't exist, quit.
+		if (!currencyCls) return;
+
+		// get remaining params
+		let icon = cmd.getStringParam("icon");
+		let priceMult = cmd.getDoubleParam("priceMult", 1.0);
+
+		// Look for existing currency definitions
+		StoreCurrency existingCurrency;
+		forEach (c : StoreCurrencies) {
+			let currName = c.getCurrencyClass();
+
+			if (currName != '' && currency != '' && currName == currency) {
+				existingCurrency = c;
+				break;
+			}
+		}
+
+		// If an existing currency for this class already exists, quit.
+		if (existingCurrency) return;
+
+		// Create the new currency and add it to the registry.
+		let newCurrency = StoreCurrency.create(currency, icon, priceMult);
+
+		if (newCurrency) {
+			if (cmd.getBoolParam("default")) {
+				StoreCurrencies.insert(0, newCurrency);
+			} else {
+				StoreCurrencies.push(newCurrency);
+			}
+		}
+	}
+
+	void processRemoveMerchantStoreCurrencyCmd(HDCoreCommand cmd) {
+
+		let currency = cmd.getNameParam("name");
+
+		forEach (storeCurrency : StoreCurrencies) {
+			if (storeCurrency.cls == currency) {
+				StoreCurrencies.delete(StoreCurrencies.find(storeCurrency));
+				break;
+			}
+		}
+	}
+
+	void processClearMerchantStoreCurrenciesCmd(HDCoreCommand cmd) {
+		StoreCurrencies.clear();
+	}
+
+	void processNewMerchantStoreItemCmd(HDCoreCommand cmd) {
+
+		HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Processing New Merchant Store Item Command: "..cmd.toString());
+
+		// Get Item name and check if it's valid
+		let item = cmd.getNameParam("item");
+		Class<Actor> itemCls = item;
+		
+		// If the item's class doesn't exist, quit.
+		if (!itemCls) return;
+		
+		// Get Item type and check if it's valid
+		let type = cmd.getNameParam("type");
+
+		// get remaining params
+		let chance = cmd.getDoubleParam("chance", -1.0);
+		let category = cmd.getStringParam("category", type);
+		let icon = cmd.getStringParam("icon");
+		let displayName = cmd.getStringParam("displayName", item);
+		let flavorText = cmd.getStringParam("flavorText");
+		let baseAmount = cmd.getIntParam("amount", 1);
+		let basePrice = cmd.getIntParam("basePrice", 1);
+		let baseStoreAmount = cmd.getIntParam("storeAmount");
+
+		StoreItem existingItem;
+		forEach (i : StoreItems) {
+			let itemName = i.getItem();
+
+			if (itemName != '' && item != '' && itemName == item) {
+				existingItem = i;
+				break;
+			}
+		}
+
+		// If an existing store item for this class already exists, quit.
+		if (existingItem) return;
+
+		// Create the new store item and add it to the registry.
+		let newItem = StoreItem.create(
+			type,
+			chance,
+			category,
+			item,
+			icon,
+			displayName,
+			flavorText,
+			baseAmount,
+			basePrice,
+			baseStoreAmount
+		);
+
+		if (newItem) StoreItems.push(newitem);
+	}
+
+	void processRemoveMerchantStoreItemCmd(HDCoreCommand cmd) {
+
+		let item = cmd.getNameParam("item");
+
+		forEach (storeItem : StoreItems) {
+			if (storeItem.getItem() == item) {
+				StoreItems.delete(StoreItems.find(storeItem));
+				break;
+			}
+		}
+	}
+
+	void processClearMerchantStoreItemsCmd(HDCoreCommand cmd) {
+		StoreItems.clear();
+	}
+
+	void addNonBountyBlacklist(name bl) {
+		if (bl && NonBountyBlacklist.find(bl) == NonBountyBlacklist.size()) NonBountyBlacklist.push(bl);
+	}
+
+	void removeNonBountyBlacklist(name bl) {
+		if (NonBountyBlacklist.find(bl) < NonBountyBlacklist.size()) NonBountyBlacklist.delete(NonBountyBlacklist.find(bl));
+	}
+
+	void addSafeMapName(name mapName) {
+		if (mapName && SafeMapNames.find(mapName) == SafeMapNames.size()) SafeMapNames.push(mapName);
+	}
+
+	void removeSafeMapName(name mapName) {
+		if (SafeMapNames.find(mapName) < SafeMapNames.size()) SafeMapNames.delete(SafeMapNames.find(mapName));
 	}
 
 	override void afterProcessCommands() {
