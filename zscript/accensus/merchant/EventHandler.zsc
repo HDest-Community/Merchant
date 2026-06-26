@@ -942,7 +942,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 			// Genericfiredemon: Code taken from line 263 of Bounty.zsc and modified for basic cash.
 			HDCore.GiveToPlayers('MercenaryBucks', amount);
-		} else if (amount > 0 && amount <= 100) {
+		} else if (amount > 0 && amount < 250) {
 			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Dropping Wallet with "..amount.."x MercenaryBucks onto ground...");
 
 			let wallet = HDWallet(mob.DropNewItem('HDWallet'));
