@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   Added Wallet.
+
 ### Changed
 
 -   Refined bounty target selection logic.
 -   Reduced generic `HDHumanoid` bounty value.
 -   Updated build scripts.
+-   Non-Bounty targets dropping "human levels" of cash drop wallets.
 
 ## [v2.0.1] - 2023-12-19
 

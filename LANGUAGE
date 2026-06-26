@@ -18,6 +18,10 @@ PICKUP_COIN                       = "You got some demonic currency.";
 TAG_GEM                           = "Demon Gem";
 PICKUP_GEM                        = "You got a demonic gemstone.";
 
+TAG_WALLET                        = "Wallet";
+PICKUP_WALLET                     = "Picked up a wallet!  Don't spend it all in one place!";
+
+
 // ----------------
 // WEAPONS
 // ----------------

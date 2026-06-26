@@ -938,11 +938,16 @@ class MerchantHandler : HDCoreEventHandler {
 		let amount = random(0, maxAmount);
 
 		if (hdm_nonbounty_directdeposit) {
-
 			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Depositing "..amount.."x MercenaryBucks into Players' Inventories...");
 
 			// Genericfiredemon: Code taken from line 263 of Bounty.zsc and modified for basic cash.
 			HDCore.GiveToPlayers('MercenaryBucks', amount);
+		} else if (amount > 0 && amount <= 100) {
+			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Dropping Wallet with "..amount.."x MercenaryBucks onto ground...");
+
+			let wallet = HDWallet(mob.DropNewItem('HDWallet'));
+
+			if (wallet) wallet.add("MercenaryBucks,"..amount);
 		} else {
 			HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Dropping "..amount.."x MercenaryBucks onto ground...");
 
@@ -963,15 +968,15 @@ class MerchantHandler : HDCoreEventHandler {
 				} else if (amount >= 250) {
 					mob.DropNewItem('SmallCoin');
 					amount -= 250;
-				} else if (amount >= 100) {
-					mob.DropNewItem('MercenaryBucks100');
-					amount -= 100;
-				} else if (amount >= 25) {
-					mob.DropNewItem('MercenaryBucks25');
-					amount -= 25;
-				} else {
-					mob.DropNewItem('MercenaryBucks1');
-					amount -= 1;
+				// } else if (amount >= 100) {
+				// 	mob.DropNewItem('MercenaryBucks100');
+				// 	amount -= 100;
+				// } else if (amount >= 25) {
+				// 	mob.DropNewItem('MercenaryBucks25');
+				// 	amount -= 25;
+				// } else {
+				// 	mob.DropNewItem('MercenaryBucks1');
+				// 	amount -= 1;
 				}
 			}
 		}
