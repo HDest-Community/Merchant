@@ -43,6 +43,8 @@ class HDWallet : HDStorageItem {
 
             itemBulk = _droppable ? count('MercenaryBucks') * _bulk : 0;
         }
+
+        if (_droppable && !owner && vel.length() > 1 && !random(0, TICRATE)) extract(0, 1);
     }
 
     override double WeaponBulk() {
