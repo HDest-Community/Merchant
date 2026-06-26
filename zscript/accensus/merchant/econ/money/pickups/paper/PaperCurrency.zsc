@@ -7,20 +7,24 @@ class MercenaryBucksPickup : BaseCurrencyPickup abstract
 
         bSHOOTABLE = hdm_moneyshootable;
 
-        let time = level.time - spawnTime;
-        let velAdj = 1 - (0.5 / max(1, (TICRATE - time)));
+        let velAdj = 1 - (0.5 / max(1, (TICRATE - getAge())));
 
-        vel = (vel.x * velAdj, vel.y * velAdj, vel.z);
-        roll = vel.z ? 30 * sin(time * 5) - 5 : 0;
+        vel.xy *= velAdj;
+        vel.z = min(vel.z, vel.z * velAdj);
+        roll = vel.z ? 30 * sin(getAge() * 5) - 5 : 0;
+        if (!vel.z) {
+            frame = 0;
+            bFLATSPRITE = true;
+        }
     }
 
     default
     {
         Tag "$TAG_BUX";
 
+        +NOBLOOD
         +ROLLSPRITE
         +SHOOTABLE
-        +NOBLOOD
         
         hdupk.amount 1;
         hdupk.pickupmessage "$PICKUP_BUX";
@@ -56,7 +60,7 @@ class MercenaryBucks1 : MercenaryBucksPickup
     Default {
         hdupk.amount 1;
 
-        gravity 0.01;
+        gravity HDCONST_GRAVITY * 0.01;
 
         health 20;
     }
