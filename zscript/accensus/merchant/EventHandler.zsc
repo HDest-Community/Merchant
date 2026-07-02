@@ -19,6 +19,30 @@ class MerchantHandler : HDCoreEventHandler {
 		initBounties();
 		initCurrencies();
 		initStores();
+
+		cmdWhitelist.push('configureMerchants');
+		cmdWhitelist.push('newMerchantBountyTarget');
+		cmdWhitelist.push('removeMerchantBountyTarget');
+		cmdWhitelist.push('clearMerchantBountyTargets');
+		cmdWhitelist.push('addMerchantNonBountyBlacklist');
+		cmdWhitelist.push('removeMerchantNonBountyBlacklist');
+		cmdWhitelist.push('clearMerchantNonBountyBlacklist');
+		cmdWhitelist.push('addMerchantSafeMap');
+		cmdWhitelist.push('removeMerchantSafeMap');
+		cmdWhitelist.push('clearMerchantSafeMaps');
+		cmdWhitelist.push('newMerchantSkin');
+		cmdWhitelist.push('removeMerchantSkin');
+		cmdWhitelist.push('clearMerchantSkins');
+		cmdWhitelist.push('newMerchantStore');
+		cmdWhitelist.push('removeMerchantStore');
+		cmdWhitelist.push('clearMerchantStores');
+		cmdWhitelist.push('addMerchantStoreSkin');
+		cmdWhitelist.push('newMerchantStoreCurrency');
+		cmdWhitelist.push('removeMerchantStoreCurrency');
+		cmdWhitelist.push('clearMerchantStoreCurrencies');
+		cmdWhitelist.push('newMerchantStoreItem');
+		cmdWhitelist.push('removeMerchantStoreItem');
+		cmdWhitelist.push('clearMerchantStoreItems');
 	}
 
 	override void processCommand(HDCoreCommand cmd) {
