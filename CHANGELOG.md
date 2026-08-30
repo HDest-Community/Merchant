@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.0.0] - 2026-08-30
+
 ### Added
 
 -   Added Wallet.
@@ -64,7 +66,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Initial Release.  Originally made by Accensus, now maintained by the community
 
-[Unreleased]: https://github.com/HDest-Community/merchant/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/HDest-Community/Merchant/compare/v3.0.0...HEAD
+
+[v3.0.0]: https://github.com/HDest-Community/Merchant/compare/v2.0.1...v3.0.0
 
 [v2.0.1]: https://github.com/HDest-Community/merchant/compare/v2.0.0..v2.0.1
 
