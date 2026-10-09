@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v3.0.0] - 2026-08-30
+## [v3.0.0] - 2026-10-09
 
 ### Added
 
 -   Added Wallet.
+-   Added support for various other addons.
+-   Added more ways to earn currency (#8, #9).
+-   Added CVAR to allow MercBucks to be flagged as `SHOOTABLE` primarily to allow bills to be burned.
+-   Added CVAR so dropped currency can instead be instantly deposited into players' inventories (#10).
+-   Implement HDCoreLib, extracting Store Entries into commands for addons to define and provide support for (#11).
 
 ### Changed
 
@@ -19,6 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Reduced generic `HDHumanoid` bounty value.
 -   Updated build scripts.
 -   Non-Bounty targets dropping "human levels" of cash drop wallets.
+-   Fixed Tiberium Crystals dropping absurd amounts of chunks when telefragged.
+-   Merchant Menu Scrollbar widened to hopefully help with mobile users.
+-   Refined SNDINFO definitions (#12).
+
+### Removed
+
+-   Removed store entries for now-deprecated .50 AE rounds.
 
 ## [v2.0.1] - 2023-12-19
 
