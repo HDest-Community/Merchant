@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v3.0.1] - 2026-10-09
 
+### Changed
+
+-   Updated Build Scripts to include HDCINFO file.
+
 ## [v3.0.0] - 2026-10-09
 
 ### Added
