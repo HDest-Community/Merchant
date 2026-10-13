@@ -49,6 +49,13 @@ class MerchantStoreTableEntry : HDCoreWeightedRandomTableEntry play {
 
             return false;
         }
+        
+        // If the entry is for the "Everything" store, skip.
+        if (storeEntry.getName() == 'all') {
+            HDCore.Log('Merchant.StoreTableEntry', LOGGING_DEBUG, "Store Table Entry refers to 'all' store, skipping.");
+
+            return false;
+        }
 
         // If we're given a serialized list of available store types,
 		// filter out what's not given

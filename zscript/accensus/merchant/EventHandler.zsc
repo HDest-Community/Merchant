@@ -435,6 +435,8 @@ class MerchantHandler : HDCoreEventHandler {
 	}
 
 	override void afterProcessCommands() {
+		createMasterStore();
+
 		if (HDCore.ShouldLog('Merchant.MerchantHandler', LOGGING_DEBUG)) {
 
 			let msg = "Merchant Bounty Targets:\n";
@@ -621,7 +623,7 @@ class MerchantHandler : HDCoreEventHandler {
 						break;
 					}
 					case 'HDM_OpenMenu': {
-						name storeType = splitNames[1];
+						name storeType = splitNames.size() > 1 ? splitNames[1] : "all";
 
 						if (e.Player == consoleplayer) {
 							MerchantStore store;
@@ -797,7 +799,20 @@ class MerchantHandler : HDCoreEventHandler {
 
 					let predicateFn = MerchantStoreTableEntry.shouldGetEntry;
 					let weightedRandomEntry = StoreTypes.getRandomEntry(predicateFn, params);
+
+					// If the entry was somehow invalid, log & skip.
+					if (!weightedRandomEntry) {
+						HDCore.log('Merchant.MerchantHandler', LOGGING_WARN, "Secret Sector - Invalid WeightedRandomEntry found from params: "..params);
+						continue;
+					}
+
 					let entry = MerchantStoreTableEntry(weightedRandomEntry);
+
+					// If the entry was somehow invalid, log & skip.
+					if (!entry) {
+						HDCore.log('Merchant.MerchantHandler', LOGGING_WARN, "Secret Sector - Invalid StoreType RandomEntry found: "..weightedRandomEntry.toString());
+						continue;
+					}
 
 					let store = GetStore(entry.getName());
 					if (TrySpawnMerchant(sec, store)) {
@@ -905,6 +920,36 @@ class MerchantHandler : HDCoreEventHandler {
 		// and the thing hasn't died/dropped yet, drop currency.
 		let mob = HDMobBase(e.thing);
 		if (hdm_nonbounty_dropratio > 0 && !mob.bHASDROPPED) DropCurrency(mob);
+	}
+
+	private void CreateMasterStore() {
+		MerchantStore allStore = MerchantStore.create('all');
+
+		// allStore.addItems(StoreItems);
+
+		forEach (store : Stores) {
+			forEach (storeItem : store.storeItems) {
+				allStore.addItem(StoreItem.create(
+					'all',
+					storeItem.chance,
+					storeItem.category,
+					storeItem.itemName,
+					storeItem.icon,
+					storeItem.displayName,
+					storeItem.flavorText,
+					storeItem.baseAmount,
+					storeItem.basePrice,
+					storeItem.baseStoreAmount
+				));
+			}
+		}
+
+		StoreTypes.addEntry(MerchantStoreTableEntry.create(
+			HDCoreDataProvider.create('HDCoreStaticProvider', "all"),
+			HDCoreDataProvider.create('HDCoreStaticProvider', "true"),
+			HDCoreDataProvider.create('HDCoreStaticProvider', "0")
+		));
+		Stores.push(allStore);
 	}
 
 	private bool TrySpawnMerchant(Sector sec, MerchantStore store) {

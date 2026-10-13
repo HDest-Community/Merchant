@@ -126,7 +126,7 @@ extend class MerchantHandler {
 			HDCore.log('Merchant', LOGGING_TRACE, "Attempting to add "..item.itemName.." to store...");
 
 			// If the store item isn't valid, skip.
-			if (!HDCore.CheckClassExists(item.GetItem()) || item.GetType() != type) continue;
+			if (!HDCore.CheckClassExists(item.GetItem()) || (type != 'all' && item.GetType() != type)) continue;
 			
 			
 			let itemChance = item.GetChance();
