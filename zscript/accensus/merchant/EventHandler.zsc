@@ -45,6 +45,7 @@ class MerchantHandler : HDCoreEventHandler {
 		cmdWhitelist.push('clearMerchantStoreItems');
 	}
 
+	// TODO: Add ZJSON Batch Commands
 	override void processCommand(HDCoreCommand cmd) {
 		switch (cmd.command) {
 			case 'configureMerchants':
