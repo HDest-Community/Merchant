@@ -114,6 +114,9 @@ class MerchantHandler : HDCoreEventHandler {
 				// Get Skin ID
 				let id = cmd.getNameParam("name");
 
+				// If the Skin ID is invalid, quit.
+				if (id == '') return;
+
 				// Get remaining params
 				let className = cmd.getNameParam("className", 'HDMerchant');
 				let tag = cmd.getStringParam("tag", "$TAG_MERCHANT");
@@ -131,7 +134,7 @@ class MerchantHandler : HDCoreEventHandler {
 				forEach (skin : Skins) {
 					let currId = skin.skinId;
 
-					if (currId != '' && id != '' && currId == id) {
+					if (currId == id) {
 						existingSkin = skin;
 						break;
 					}
@@ -173,6 +176,9 @@ class MerchantHandler : HDCoreEventHandler {
 				// Get Store Type
 				let type = typeParam.getNameValue();
 
+				// If Store Type is invalid, quit.
+				if (type == '') return;
+
 				// get remaining params
 				let chance = cmd.getDoubleParam("chance", -1.0);
 				let stockMult = cmd.getDoubleParam("stockMult", 1.0);
@@ -183,7 +189,7 @@ class MerchantHandler : HDCoreEventHandler {
 				forEach (store : Stores) {
 					let currType = store.type;
 
-					if (currType != '' && type != '' && currType == type) {
+					if (currType == type) {
 						existingStore = store;
 						break;
 					}
@@ -268,15 +274,21 @@ class MerchantHandler : HDCoreEventHandler {
 				// Get Store Type
 				let type = cmd.getNameParam("type");
 
+				// If Store Type invalid, quit.
+				if (type == '') return;
+
 				// Get Skin ID
 				let skinId = cmd.getNameParam("skin");
+
+				// If Skin ID Invalid, quit.
+				if (skinId == '') return;
 
 				// Look for existing store definition
 				MerchantStore existingStore;
 				forEach (store : Stores) {
 					let currType = store.type;
 
-					if (currType != '' && type != '' && currType == type) {
+					if (currType == type) {
 						existingStore = store;
 						break;
 					}
@@ -290,7 +302,7 @@ class MerchantHandler : HDCoreEventHandler {
 				forEach (skin : Skins) {
 					let currId = skin.skinId;
 
-					if (currId != '' && skinId != '' && currId == skinId) {
+					if (currId == skinId) {
 						existingSkin = skin;
 						break;
 					}
@@ -371,6 +383,9 @@ class MerchantHandler : HDCoreEventHandler {
 				// Get Item type and check if it's valid
 				let type = cmd.getNameParam("type");
 
+				// If the item's Store Type doesn't exist, quit.
+				if (type == '') return;
+
 				// get remaining params
 				let chance = cmd.getDoubleParam("chance", -1.0);
 				let category = cmd.getStringParam("category", type);
@@ -381,11 +396,13 @@ class MerchantHandler : HDCoreEventHandler {
 				let basePrice = cmd.getIntParam("basePrice", 1);
 				let baseStoreAmount = cmd.getIntParam("storeAmount");
 
+				// Find any existing item entry for the same Store Type
 				StoreItem existingItem;
 				forEach (i : StoreItems) {
 					let itemName = i.getItem();
+					let itemStoreType = i.getType();
 
-					if (itemName != '' && item != '' && itemName == item) {
+					if (itemName == item && itemStoreType == type) {
 						existingItem = i;
 						break;
 					}
