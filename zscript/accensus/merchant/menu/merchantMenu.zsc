@@ -29,9 +29,7 @@ class MerchantShopMenu : HDZFGenericMenu {
     }
 
     ui MerchantStore GetOpenedStore() {
-        forEach(store : Handler.Stores) if (store.type == Handler.OpenedStore[consoleplayer]) return store;
-        
-        return null;
+        return Handler.GetStore(Handler.OpenedStore[consoleplayer]);
     }
 
     ui string GetSelectedCategory() {

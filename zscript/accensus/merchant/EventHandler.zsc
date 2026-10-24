@@ -639,25 +639,19 @@ class MerchantHandler : HDCoreEventHandler {
 					}
 					case 'HDM_OpenMenu': {
 						name storeType = splitNames[1];
+						MerchantStore store = getStore(storeType);
 
-						if (e.Player == consoleplayer) {
-							MerchantStore store;
-
-							forEach (s : Stores) if (s.type == storeType) {
-								store = s;
-								break;
-							}
-
-							// If no matching store was found by the given type, report the message to the player & quit.
-							if (!store) {
-								HDCore.Log('Merchant.MerchantHandler', LOGGING_INFO, "Unknown Store Type: '"..storeType.."'");
-								break;
-							}
-
-							// Set the current Store Type, & open the menu.
-							OpenedStore[e.Player] = store.type;
-							Menu.SetMenu('MerchantShopMenu');
+						// If no matching store was found by the given type, report the message to the player & quit.
+						if (!store) {
+							HDCore.Log('Merchant.MerchantHandler', LOGGING_INFO, "Unknown Store Type: '"..storeType.."'");
+							break;
 						}
+
+						// Set the current Store Type
+						OpenedStore[e.Player] = store.type;
+
+						// If it's the current player who sent the event, open the store.
+						if (e.Player == consoleplayer) Menu.SetMenu('MerchantShopMenu');
 						break;
 					}
 					default:
