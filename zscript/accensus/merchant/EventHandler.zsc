@@ -564,9 +564,6 @@ class MerchantHandler : HDCoreEventHandler {
 							HDCore.log('Merchant.MerchantHandler', LOGGING_WARN, "Store Item '"..itemName.."' not found in Store Type: '"..store.type.."'!");
 							break;
 						}
-
-						Class<Actor> itemCls = item.GetItem();
-						int amount = item.GetAmount();
 	
 						let currency = StoreCurrencies[e.Args[0]];
 						int price = StoreItem.GetAdjustedPrice(item, currency);
@@ -578,6 +575,10 @@ class MerchantHandler : HDCoreEventHandler {
 							HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Not Enough '"..currency.GetCurrencyClass().."' currency to buy '"..itemName.."' from '"..store.type.."' merchant.");
 							return;
 						}
+
+						// Get the class & amount of the thing bought.
+						Class<Actor> itemCls = item.GetItem();
+						int amount = item.GetAmount();
 
 						// If the thing bought is a pickup or pickup giver, give to the player & dump the overflow
 						// otherwise just dump the thing on the ground.
