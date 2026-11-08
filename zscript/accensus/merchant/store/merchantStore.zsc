@@ -92,6 +92,14 @@ extend class MerchantHandler {
 		return null;
 	}
 
+	clearscope StoreItem GetStoreItem(name type, name itemName) {
+		let store = GetStore(type);
+
+		forEach(item : store.storeItems) if (item.GetItem() == itemName) return item;
+
+		return null;
+	}
+
 	// Initialize Store of given type for the current map
 	private void InitStore(name type) {
 		HDCore.log('Merchant', LOGGING_TRACE, "Initializing "..type.." Store...");

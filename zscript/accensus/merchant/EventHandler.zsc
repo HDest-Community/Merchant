@@ -548,28 +548,20 @@ class MerchantHandler : HDCoreEventHandler {
 						name itemName = splitNames[1];
 
 						// Get the Store by type opened by the given player
-						MerchantStore store;
-						forEach (s : Stores) if (s.type == OpenedStore[e.Player]) {
-							store = s;
-							break;
-						}
+						MerchantStore store = getStore(OpenedStore[e.Player]);
 
 						// If no valid store was found, log & quit.
 						if (!store) {
-							HDCore.Log('Merchant.MerchantHandler', LOGGING_INFO, "Unknown Store Type: '"..OpenedStore[e.Player].."'!");
+							HDCore.log('Merchant.MerchantHandler', LOGGING_WARN, "Unknown Store Type: '"..OpenedStore[e.Player].."'!");
 							break;
 						}
 
 						// Get the item from the current Store
-						StoreItem item;
-						forEach (storeItem : store.StoreItems) if (storeItem.GetItem() == itemName) {
-							item = storeItem;
-							break;
-						}
+						StoreItem item = getStoreItem(store.type, itemName);
 		
 						// If no valid item was found, log & quit.
 						if (!item) {
-							HDCore.Log('Merchant.MerchantHandler', LOGGING_WARN, "Store Item '"..itemName.."' not found in Store Type: '"..store.type.."'!");
+							HDCore.log('Merchant.MerchantHandler', LOGGING_WARN, "Store Item '"..itemName.."' not found in Store Type: '"..store.type.."'!");
 							break;
 						}
 
@@ -582,6 +574,8 @@ class MerchantHandler : HDCoreEventHandler {
 						// If the price is too high, play failure sound and quit.
 						if (price > plr.CountInv(currency.GetCurrencyClass())) {
 							plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
+
+							HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Not Enough '"..currency.GetCurrencyClass().."' currency to buy '"..itemName.."' from '"..store.type.."' merchant.");
 							return;
 						}
 
@@ -634,6 +628,8 @@ class MerchantHandler : HDCoreEventHandler {
 							store.StoreItems.Delete(store.StoreItems.Find(item));
 							item.Destroy();
 						}
+
+						HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Successfully bought '"..itemName.."' from '"..store.type.."' Merchant!");
 
 						break;
 					}
