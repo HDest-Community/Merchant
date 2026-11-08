@@ -548,7 +548,7 @@ class MerchantHandler : HDCoreEventHandler {
 						name itemName = splitNames[1];
 
 						// Get the Store by type opened by the given player
-						MerchantStore store = getStore(OpenedStore[e.Player]);
+						MerchantStore store = getOpenedStore(e.Player);
 
 						// If no valid store was found, log & quit.
 						if (!store) {

@@ -29,7 +29,7 @@ class MerchantShopMenu : HDZFGenericMenu {
     }
 
     ui MerchantStore GetOpenedStore() {
-        return Handler.GetStore(Handler.OpenedStore[consoleplayer]);
+        return Handler.GetOpenedStore(consoleplayer);
     }
 
     ui string GetSelectedCategory() {

@@ -106,6 +106,10 @@ extend class MerchantHandler {
 		return null;
 	}
 
+	clearscope MerchantStore GetOpenedStore(int pNum) {
+		return GetStore(OpenedStore[pNum]);
+	}
+
 	// Initialize Store of given type for the current map
 	private void InitStore(name type) {
 		HDCore.log('Merchant', LOGGING_TRACE, "Initializing "..type.." Store...");
