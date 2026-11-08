@@ -573,7 +573,7 @@ class MerchantHandler : HDCoreEventHandler {
 							plr.A_StartSound("Merchant/BuyFailure", 15, CHANF_LOCAL | CHANF_UI);
 
 							HDCore.log('Merchant.MerchantHandler', LOGGING_DEBUG, "Not Enough '"..currency.GetCurrencyClass().."' currency to buy '"..itemName.."' from '"..store.type.."' merchant.");
-							return;
+							break;
 						}
 
 						// Get the class & amount of the thing bought.
