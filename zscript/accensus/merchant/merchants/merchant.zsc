@@ -79,17 +79,25 @@ class HDMerchant : Actor {
 	{
 		let plr = HDPlayerPawn(user);
 
-		if (!plr || PiggyBack == plr || Distance3D(plr) > 48 || handler.ActorIsInPokerGame(self))
-		{
-			return false;
-		}
+		// If there is no HDest Playerpawn, quit.
+		if (!plr) return false;
+		
+		// If the playerpawn using the merchant is the one carrying it, quit.
+		if (PiggyBack == plr) return false;
+		
+		// If the player is too far away, quit.
+		if (Distance3D(plr) > 48) return false;
+		
+		// If the merchant is currently engaged in gambling, quit.
+		if (handler.ActorIsInPokerGame(self)) return false;
 
-		if (Pissed)
-		{
+		// If the merchant is currently pissed off, quit.
+		if (Pissed) {
 			plr.A_Print("\c[Red]Fuck off! Store's closed, cheater!");
 			return false;
 		}
 
+		// If the player is holding sprint, pick up the merchant and quit.
 		if (plr.player.cmd.buttons & BT_SPEED && !plr.CheckInventory("HDMerchantBody", 1))
 		{
 			DropHoldTimer = 0;
@@ -100,13 +108,11 @@ class HDMerchant : Actor {
 			return false;
 		}
 
-		if (plr.PlayerNumber() == consoleplayer)
-		{
-			LastUser = plr;
-			handler.OpenedStore[plr.PlayerNumber()] = StoreType;
-			Menu.SetMenu('MerchantShopMenu');
-		}
+		// Mark the last player to use this merchant, then tell every player they opened a merchant.
+		LastUser = plr;
+		EventHandler.sendNetworkEvent('HDM_OpenMenu:'..StoreType);
 
+		// Set the merchant's state if able.
 		if (!PiggyBack && InStateSequence(CurState, FindState('SpawnLoop'))) SetStateLabel("OpenMenu");
 
 		return true;
