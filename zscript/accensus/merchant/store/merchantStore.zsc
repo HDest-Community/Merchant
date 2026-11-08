@@ -86,7 +86,7 @@ extend class MerchantHandler {
 
 	name OpenedStore[MAXPLAYERS];
 
-	MerchantStore GetStore(name type) {
+	clearscope MerchantStore GetStore(name type) {
 		forEach(store : Stores) if (store.type == type) return store;
 
 		return null;
