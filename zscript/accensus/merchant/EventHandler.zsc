@@ -581,10 +581,8 @@ class MerchantHandler : HDCoreEventHandler {
 
 						// If the thing bought is a pickup or pickup giver, give to the player & dump the overflow
 						// otherwise just dump the thing on the ground.
-						if (!(itemCls is 'HDPickup') || itemCls is 'HDPickupGiver') {
-							Actor a; bool success;
-
-							[success, a] = plr.A_SpawnItemEx(
+						if (!(itemCls is 'HDPickup') || (itemCls is 'HDPickupGiver')) {
+							let [success, a] = plr.A_SpawnItemEx(
 								itemCls,
 								6, 0, plr.height - 8,
 								frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0),
@@ -592,7 +590,7 @@ class MerchantHandler : HDCoreEventHandler {
 								SXF_NOCHECKPOSITION
 							);
 
-							if (success && a is 'Inventory') Inventory(a).amount = amount;
+							if (success && (a is 'Inventory')) Inventory(a).amount = amount;
 						} else {
 							Class<Inventory> invCls = (Class<Inventory>)(itemCls);
 							int maxGive = min(amount, GetDefaultByType(invCls).maxAmount - plr.CountInv(invCls));
@@ -603,9 +601,7 @@ class MerchantHandler : HDCoreEventHandler {
 
 							// If there's any left over, drop it on the ground
 							if (amount > 0) {
-								Actor a; bool success;
-
-								[success, a] = plr.A_SpawnItemEx(
+								let [success, a] = plr.A_SpawnItemEx(
 									invCls,
 									6, 0, plr.height - 8,
 									frandom(-1.0, 1.0), frandom(-1.0, 1.0), frandom(2.0, 5.0),
