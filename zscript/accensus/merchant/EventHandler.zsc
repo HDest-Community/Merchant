@@ -557,7 +557,7 @@ class MerchantHandler : HDCoreEventHandler {
 						}
 
 						// Get the item from the current Store
-						StoreItem item = getStoreItem(store.type, itemName);
+						StoreItem item = store.getItem(itemName);
 		
 						// If no valid item was found, log & quit.
 						if (!item) {

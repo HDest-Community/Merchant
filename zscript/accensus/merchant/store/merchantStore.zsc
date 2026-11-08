@@ -55,6 +55,12 @@ class MerchantStore play {
 		forEach(item : items) addItem(item);
 	}
 
+	clearscope StoreItem GetItem(name itemName) {
+		forEach(item : storeItems) if (item.GetItem() == itemName) return item;
+
+		return null;
+	}
+
 	string toString() {
 		let skinsStr = "[";
 		forEach(skin : skins) skinsStr = skinsStr..", "..skin;
